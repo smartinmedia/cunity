@@ -11,16 +11,16 @@
     <link rel="stylesheet" type="text/css" href="{-"core.siteurl"|setting}lib/modules/Start/styles/css/style-mobile.css"
           media="screen and (max-width: 1023px)">
     <link href="{-"core.siteurl"|setting}lib/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-        <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css" rel="stylesheet">
+    <link href="{-"core.siteurl"|setting}lib/plugins/fontawesome/css/font-awesome.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css"
           href="{-"core.siteurl"|setting}lib/modules/Core/styles/css/cunity.min.css.php?files={-$css_head}">
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+    <script src="{-"core.siteurl"|setting}lib/plugins/js/jquery.min.js" type="text/javascript"></script>
     <script src="{-"core.siteurl"|setting}lib/modules/Core/styles/javascript/cunity-core.js" type="text/javascript"></script>                
     <script src="{-"core.siteurl"|setting}lib/modules/Register/styles/javascript/registration.js"
             type="text/javascript"></script>
     <script type="text/javascript">var modrewrite = {-$modrewrite}, siteurl = "{-"core.siteurl"|setting}", design = "CunityRefreshed", login = {-if empty($user)}false{-else}true{-/if};</script>
 
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js" type="text/javascript"></script>            
+    <script src="{-"core.siteurl"|setting}lib/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
         <script src="{-"core.siteurl"|setting}lib/plugins/js/html5shiv.min.js"></script>
         <script src="{-"core.siteurl"|setting}lib/plugins/js/respond.min.js"></script>
     {-$script_head}
@@ -125,6 +125,6 @@
     <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<script src="{-"core.siteurl"|setting}lib/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 </body>
 </html>
