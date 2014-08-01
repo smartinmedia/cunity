@@ -8,7 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <title>{-$meta.title|translate}&nbsp;|&nbsp;{-"core.sitename"|setting}</title>
         <link href="{-"core.siteurl"|setting}lib/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-        <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css" rel="stylesheet">
+        <link href="{-"core.siteurl"|setting}lib/plugins/fontawesome/css/font-awesome.css" rel="stylesheet">
         <link type="text/css" href="{-"core.siteurl"|setting}style/CunityRefreshed/css/style.css" rel="stylesheet" media="screen and (min-width:1024px)">
         <link type="text/css" href="{-"core.siteurl"|setting}style/CunityRefreshed/css/mobile.css" rel="stylesheet" media="screen and (max-width: 1023px)">
         <link href="{-"core.siteurl"|setting}style/CunityRefreshed/img/favicon-default.gif" rel="icon" type="image/x-icon">
