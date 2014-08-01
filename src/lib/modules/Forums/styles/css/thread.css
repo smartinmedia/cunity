@@ -1,0 +1,75 @@
+.page-buttonbar .breadcrumb {
+    clear: both;
+    background-color: #efefef;
+    margin-bottom: 0;
+}
+
+.thread-new {
+    border-bottom: 1px solid #ddd;
+    margin: 0 -9px;
+    padding: 10px;
+    display: none;
+}
+
+.thread-new h4 {
+    margin-top: 0;
+}
+
+.thread-new form {
+    clear: both;
+}
+
+#posts .thread-post {
+    border-bottom: 1px solid #eee;
+    margin: 0 -9px;
+    padding: 10px;
+    position: relative;
+}
+
+#posts .media-body > a {
+    font-size: 0.95em;
+    font-weight: bold;
+}
+
+#posts .media-body-time {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: #666;
+    font-size: 0.95em;
+    margin: 10px;
+}
+
+#posts .media > .fa-2x {
+    color: #b80718;
+    padding-top: 5px;
+    padding-right: 10px;
+}
+
+#posts .deletepost {
+    margin-left: 10px;
+}
+
+#posts .quotation {
+    width: 80%;
+    margin: 5px 0 10px 0;
+}
+
+#posts .quotation-user {
+    font-size: 12px;
+    display: block;
+}
+
+#thread-pagination {
+    text-align: center;
+    padding: 10px;
+}
+
+.emoticon-select {
+    cursor: pointer;
+    margin: 5px;
+}
+
+.post-smiley {
+    margin: 0 2px;
+}

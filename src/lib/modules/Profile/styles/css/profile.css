@@ -1,0 +1,176 @@
+.main .content {
+    width: 771px;
+    max-width: 100% !important;
+    padding: 0 !important;
+    border-right: 0;
+}
+
+.main .sidebar {
+    margin-top: 200px;
+}
+
+.right-sidebar {
+    display: none
+}
+
+.profile-banner {
+    width: 970px;
+    height: 200px;
+    padding: 10px 20px;
+    position: absolute;
+    left: 50%;
+    margin-left: -485px;
+    border-bottom: 1px solid #ccc;
+    z-index: 3;
+}
+
+.profile-banner-empty {
+    box-shadow: inset 0 100px 100px #ddd;
+}
+
+.profile-banner-image {
+    border: 1px solid #d9d9d9;
+    width: 150px;
+    height: 150px;
+    float: left;
+}
+
+.profile-banner-image > img {
+    width: 100%;
+    height: 100%;
+}
+
+.profile-banner-namebox {
+    float: left;
+    width: auto;
+    height: 150px;
+}
+
+.profile-banner-name {
+    margin: 0 10px;
+    padding: 0;
+    color: #FFF;
+    text-shadow: 0 0 3px rgba(0, 0, 0, 0.8);
+    margin-top: 98px;
+    font-size: 30px;
+    vertical-align: bottom;
+}
+
+.profile-banner-username {
+    font-size: 14px;
+    line-height: 16px;
+    margin: 0 10px;
+    padding: 0;
+    color: #FFF;
+    text-shadow: 0 0 3px rgba(0, 0, 0, 0.8);
+}
+
+.profile-banner .friend-buttons {
+    position: absolute;
+    right: 20px;
+    top: 126px;
+}
+
+.profile-menu {
+    padding: 10px 5px;
+    margin: 200px 0 0 0;
+}
+
+.profile-menu li {
+    margin: 0 5px;
+}
+
+.profile-pins {
+    padding: 10px;
+    max-width: 100%;
+}
+
+.profile-pins-column {
+    width: 49%;
+    min-height: 100px;
+    padding: 0;
+}
+
+.profile-pins .panel-body {
+    overflow: hidden;
+}
+
+.tab-pane h1.page-header {
+    display: none;
+}
+
+#friendslist {
+    margin: 10px !important;
+    padding: 0 !important;
+    width: auto !important;
+}
+
+#Photos {
+    padding: 10px 5px;
+}
+
+.profile-newsfeed-sidebar {
+    margin-top: 0 !important;
+}
+
+.newsfeed-container {
+    width: 569px;
+    padding: 10px;
+}
+
+.newsfeed-postbox {
+    border: 0 !important;
+    margin-left: -9px !important;
+}
+
+@media screen and (max-width: 1023px) {
+    #profile-menu > li > a {
+        padding: 10px;
+    }
+
+    .profile-banner {
+        padding: 0;
+        position: static;
+        left: auto;
+        margin-left: 0;
+        max-width: 100%;
+        background-size: 100%;
+        background-position: center;
+    }
+
+    .profile-banner-image {
+        width: 25%;
+        height: auto;
+        max-width: 165px;
+        margin: 10px 0 0 10px;
+    }
+
+    .profile-menu {
+        margin: 0;
+    }
+
+    .friend-buttons {
+        display: none;
+    }
+
+    .newsfeed-container {
+        width: calc(100% - 210px);
+        padding: 0;
+        border-right: 1px solid #ccc;
+    }
+
+    .profile-newsfeed-sidebar {
+        padding: 0 10px;
+        width: 200px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .profile-pins-column {
+        width: 100%;
+    }
+
+    .newsfeed-container {
+        width: 100%;
+    }
+}

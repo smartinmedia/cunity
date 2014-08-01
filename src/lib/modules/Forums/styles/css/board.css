@@ -1,0 +1,55 @@
+.page-buttonbar .breadcrumb {
+    clear: both;
+    background-color: #efefef;
+    margin-bottom: 0;
+}
+
+#threads .topic-post {
+    border-bottom: 1px solid #eee;
+    margin: 0 -9px;
+    padding: 15px 20px 30px 20px;
+    position: relative;
+}
+
+#threads .media-body > a {
+    font-size: 0.95em;
+    font-weight: bold;
+}
+
+#threads .media-body-time {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: #666;
+    font-size: 0.95em;
+    margin: 15px 10px;
+}
+
+#threads .media > .fa-2x {
+    color: #b80718;
+    line-height: 30px;
+    padding-right: 10px;
+    vertical-align: middle;
+}
+
+#threads .media-body {
+    line-height: 25px;
+    vertical-align: middle;
+}
+
+#threads .thread-buttons {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    margin: 0 0 5px 20px;
+    font-size: 12px;
+}
+
+#threads .thread-buttons i.fa {
+    padding-right: 5px;
+    display: inline-block;
+}
+
+#threads .thread-buttons .label {
+    vertical-align: baseline !important;
+}

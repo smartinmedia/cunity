@@ -1,0 +1,23 @@
+#userstatistics {
+    height: 300px;
+}
+
+.modules-overview .col-sm-2 {
+    text-align: center;
+    padding: 10px 0;
+}
+
+@media (max-width: 768px) {
+    .modules-overview .col-sm-2 {
+        width: 50%;
+        float: left;
+    }
+}
+
+.modules-overview a {
+    display: block;
+}
+
+.modules-overview .fa:not(.text-muted) {
+    color: #b80718;
+}

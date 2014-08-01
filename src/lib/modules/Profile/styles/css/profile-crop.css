@@ -1,0 +1,21 @@
+.profile-banner {
+    overflow: hidden;
+}
+
+.profile-banner-preview-image {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -1;
+}
+
+.profile-banner-image {
+    overflow: hidden;
+    position: relative;
+}
+
+.profile-banner-image > img {
+    position: relative;
+    left: 0;
+    top: 0;
+}

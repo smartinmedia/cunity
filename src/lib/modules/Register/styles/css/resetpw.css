@@ -1,0 +1,11 @@
+form.reset-form {
+    margin: 10px;
+}
+
+form.reset-form .form-group .form-control-feedback, .form-group .help-block {
+    display: none;
+}
+
+form.reset-form .form-group.has-feedback .form-control-feedback, .form-group.has-feedback .help-block {
+    display: block;
+}

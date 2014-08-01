@@ -1,0 +1,55 @@
+<?php
+
+namespace Core\Models\Validation;
+
+use Core\Models\Db\Table\Users;
+use Register\Models\Login;
+
+/**
+ * Class Email
+ * @package Core\Models\Validation
+ */
+class Email extends \Zend_Validate_EmailAddress {
+
+    /**
+     *
+     */
+    const USED = 'used';
+    /**
+     *
+     */
+    const EMPTYSTRING = 'empty';
+
+    /**
+     * @var array
+     */
+    protected $_messageTemplates = [
+        self::USED => "This E-Mail address is already in use",
+        self::EMPTYSTRING => "Please enter an email!"
+    ];
+
+    /**
+     * @param string $value
+     * @return bool
+     */
+    public function isValid($value) {
+        $returnValue = false;
+
+        $this->_setValue($value);
+        $users = new Users();
+        if (empty($value))
+            $this->_error(self::EMPTYSTRING);
+        else {
+            $user = $users->search("email", $value);
+            if (($user !== NULL && !Login::loggedIn()) ||
+                (Login::loggedIn() && $user->userid !== $_SESSION['user']->userid)) {
+                $this->_error(self::USED);
+                $returnValue = false;
+            } else
+                $returnValue = parent::isValid($value);
+        }
+
+        return $returnValue;
+    }
+
+}

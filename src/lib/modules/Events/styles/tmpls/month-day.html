@@ -1,0 +1,29 @@
+<div class="cal-month-day <%= cls %> <% if (events.length > 0) { %> cal-month-day-has-event <% } %>">
+    <span class="pull-right" data-cal-date="<%= data_day %>" data-toggle="tooltip" title="<%= tooltip %>"
+          data-events="<%= events.length %>"><%= day %></span>
+    <% if (events.length > 0) { %>
+    <div class="events-list clearfix" data-cal-start="<%= start %>" data-cal-end="<%= end %>">
+        <% _.each(events, function(event) { %>
+        <% if (event.type == 'event') { %>
+        <a href="<%= convertUrl({module:'events',action:event.id+'-'+event.title.replace(new RegExp(' ','g'),'_')}) %>"
+           data-event-id="<%= event.id %>"
+           class="pull-left tooltip-trigger" title="<%= event.time.format('LLLL') %>&nbsp;:&nbsp;<%= event.title %>"><%=
+            event.time.format("LT") %>&nbsp;<%= event.title %></a>
+        <% } %>
+        <% }); %>
+    </div>
+    <% } %>
+    <% if (events.length > 0) { %>
+    <div class="birthday-list" data-cal-start="<%= start %>" data-cal-end="<%= end %>">
+        <% _.each(events, function(event) { %>
+        <% if (event.type == 'birthday') { %>
+        <a href="<%= convertUrl({module:'profile',action:event.username}) %>" data-event-id="<%= event.id %>"
+           data-event-class="<%= event['class'] %>"
+           class="pull-left event tooltip-trigger"
+           title="Birthday of <%= event.name %>"><img src="<%= checkImage(event.pimg,'user','cr_') %>"></a>
+        <% } %>
+        <% }); %>
+    </div>
+    <% } %>
+</div>
+

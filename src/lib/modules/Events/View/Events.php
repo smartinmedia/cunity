@@ -1,0 +1,61 @@
+<?php
+
+namespace Events\View;
+
+use Core\View\View;
+
+/**
+ * Class Events
+ * @package Events\View
+ */
+class Events extends View
+{
+
+    /**
+     * @var string
+     */
+    protected $_templateDir = "events";
+    /**
+     * @var string
+     */
+    protected $_templateFile = "events.tpl";
+    /**
+     * @var array
+     */
+    protected $_metadata = ["title" => "Events"];
+
+    /**
+     * @throws \Core\Exception
+     * @throws \Exception
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->registerCss("events", "events");
+        $this->registerScript("events", "events");
+        $this->registerCunityPlugin(
+            "bootstrap-datepicker",
+            [
+            "css/bootstrap-datepicker.css",
+            "js/bootstrap-datepicker.js"
+            ]
+        );
+        $this->registerCunityPlugin(
+            "bootstrap-timepicker",
+            [
+            "css/bootstrap-timepicker.css",
+            "js/bootstrap-timepicker.min.js"
+            ]
+        );
+        $this->registerCunityPlugin(
+            "calendar",
+            [
+            "css/calendar.css",
+            "js/calendar.min.js"
+            ]
+        );
+        $this->registerCunityPlugin("js", ["underscore-min.js"]);
+        $this->show();
+    }
+
+}

@@ -1,0 +1,68 @@
+.inbox-list {
+    padding-top: 10px;
+}
+
+.inbox-item {
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.inbox-item > .thumbnail {
+    width: 15%;
+    height: auto;
+}
+
+.inbox-item-content {
+    padding: 0 10px;
+    width: 85%;
+}
+
+.inbox-item-content h2 {
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.inbox-item-preview {
+    color: #666;
+    font-size: 12px;
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+    display: block;
+}
+
+.inbox-item-time {
+    color: #666;
+    font-size: 11px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 5px;
+}
+
+@media screen and (max-width: 400px) {
+
+    .main > .content {
+        padding: 0;
+    }
+
+    .inbox-item {
+        padding: 10px;
+        margin-bottom: 20px;
+    }
+
+    .inbox-item:not(:first-child) {
+        border-top: 1px dashed #ddd;
+        padding-top: 10px;
+    }
+
+    .inbox-item-time {
+        bottom: -10px;
+        top: auto;
+    }
+}

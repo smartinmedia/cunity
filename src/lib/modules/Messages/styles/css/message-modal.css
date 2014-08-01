@@ -1,0 +1,54 @@
+
+.receiver-token > .label {
+    float: left;
+    padding: 4.5px 3px 4.5px 7px;
+    margin: 3px;
+}
+
+.receiver-token > .label > .close {
+    font-size: 18px;
+    line-height: 10.5px;
+    margin-left: 4px;
+}
+
+.receiver-content {
+    padding: 3px !important;
+    height: auto;
+    min-height: 35px;
+}
+
+.receiver-input {
+    border: 0;
+    float: left;
+    margin: 2px 0 2px 5px;
+    width: 10px;
+}
+
+.receiver-input:focus {
+    outline-color: #fff;
+}
+
+.receiver-suggestions {
+    margin-left: 15px;
+    min-width: 250px;
+}
+
+img.thumbnail:hover {
+    border-color: #B80718;
+}
+
+.modal:not(.bootbox) .modal-body {
+    padding: 20px 20px 0 20px !important;
+}
+
+.message-searchresult-item a {
+    padding: 5px !important;
+}
+
+.message-searchresult-item img {
+    width: 35px;
+}
+
+.message-searchresult-item {
+    border-bottom: 1px solid #efefef;
+}

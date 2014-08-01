@@ -1,0 +1,78 @@
+<?php
+
+namespace Register;
+
+use Core\ModuleController;
+
+/**
+ * Class Controller
+ * @package Register
+ */
+class Controller implements ModuleController
+{
+
+    /**
+     * @var array
+     */
+    private $_allowedActions = [
+        "sendRegistration",
+        "forgetPw",
+        "login",
+        "logout",
+        "verify",
+        "delete",
+        "reset",
+        "validate"
+    ];
+
+    /**
+     *
+     */
+    public function __construct()
+    {
+        $this->handleRequest();
+    }
+
+    /**
+     *
+     */
+    private function handleRequest()
+    {
+        if (!isset($_GET['action']) || empty($_GET['action'])) {
+            $view = new View\Registration();
+            $view->assign('success', false);
+            $view->render();
+        } else if (
+            isset(
+                $_GET['action']
+            ) && !empty(
+            $_GET['action']
+            ) &&
+            in_array(
+                $_GET['action'],
+                $this->_allowedActions
+            )
+        )
+            new Models\Process($_GET['action']);
+    }
+
+    /**
+     * @param $user
+     * @return mixed|void
+     */
+    public static function onRegister($user)
+    {
+
+    }
+
+    /**
+     * @param $user
+     * @return mixed|void
+     */
+    public static function onUnregister($user)
+    {
+
+    }
+
+}
+

@@ -1,0 +1,47 @@
+<?php
+
+namespace Newsfeed\View;
+
+use Core\View\View;
+
+/**
+ * Class Newsfeed
+ * @package Newsfeed\View
+ */
+class Newsfeed extends View
+{
+
+    /**
+     * @var string
+     */
+    protected $_templateDir = "newsfeed";
+    /**
+     * @var string
+     */
+    protected $_templateFile = "newsfeed.tpl";
+    /**
+     * @var string
+     */
+    protected $_languageFolder = "Newsfeed/languages";
+    /**
+     * @var array
+     */
+    protected $_metadata = ["title" => "Newsfeed"];
+
+    /**
+     * @throws \Core\Exception
+     * @throws \Exception
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->registerScript("newsfeed", "newsfeed");
+        $this->registerCss("newsfeed", "newsfeed");
+        $this->registerCss("gallery", "lightbox");
+        $this->registerScript("gallery", "jquery.blueimp-gallery");
+        $this->registerScript("gallery", "lightbox");
+        $this->show();
+    }
+
+}
+

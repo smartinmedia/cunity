@@ -1,0 +1,49 @@
+<?php
+
+namespace Admin\Models\Updater;
+
+/**
+ * Class DbUpdateVersion
+ * @package Admin\Models\Updater
+ * @abstract
+ */
+abstract class DbUpdateVersion {
+
+    /**
+     *
+     * @var \Zend_Db_Adapter_Mysqli
+     */
+    protected $_db = null;
+
+    /**
+     *
+     * @var long 
+     */
+    protected $_timestamp = 0;
+
+    /**
+     * 
+     * @param \Zend_Db_Adapter_Mysqli $database
+     */
+    public function __construct(\Zend_Db_Adapter_Mysqli $database) {
+        $this->_db = $database;
+    }
+
+    /**
+     * 
+     */
+    public function updateDatabaseTimestamp() {
+        $this->_db->insert($this->_db->get_dbprefix() . "versions", ["timestamp" => $this->_timestamp, "updated" => 1]);
+    }
+
+    /**
+     * 
+     * @return boolean
+     */
+    public function alreadyExecuted() {
+        $res = $this->_db->fetchOne("SELECT updated FROM " . $this->_db->get_dbprefix() . "versions WHERE timestamp = " . $this->_db->quote($this->_timestamp));
+        return ($res == 1);
+    }
+
+}
+

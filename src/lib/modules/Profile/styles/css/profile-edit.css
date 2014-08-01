@@ -1,0 +1,85 @@
+.section-content {
+    overflow-y: auto;
+}
+
+.friendslist {
+    margin: 0;
+    padding: 0;
+    width: 510px
+}
+
+.panel-heading {
+    padding-right: 10px
+}
+
+.panel-heading a {
+    text-decoration: none;
+    margin: 2px 1px;
+}
+
+.profile-pin-info-sort-list {
+    border: 1px solid #CCC;
+    border-radius: 5px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.profile-pin-info-sort-list li {
+    margin: 4px;
+    background: #EFEFEF;
+    border: 1px solid #CCC;
+    border-radius: 3px;
+    padding: 5px 7px;
+}
+
+.newpinbutton, .editpinbutton {
+    border-top-right-radius: 4px !important;
+    border-bottom-right-radius: 4px !important;
+}
+
+#Pins {
+    margin-top: 10px;
+}
+
+#select-icon-menu {
+    height: 250px;
+    overflow-y: scroll;
+}
+
+#newpinicon {
+    width: 180px;
+    display: inline-block;
+}
+
+.profile-pin-placeholder {
+    border: 2px dashed #DDD;
+    margin-bottom: 20px;
+    border: 1px solid rgba(0, 0, 0, 0);
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+    height: 91px;
+    background-color: #ccc;
+    background-size: 20px 20px;
+    background-image: linear-gradient(-45deg,
+    rgba(255, 255, 255, 0.3) 25%,
+    rgba(0, 0, 0, 0) 25%,
+    rgba(0, 0, 0, 0) 50%,
+    rgba(255, 255, 255, 0.3) 50%,
+    rgba(255, 255, 255, 0.3) 75%,
+    rgba(0, 0, 0, 0) 75%,
+    rgba(0, 0, 0, 0));
+}
+
+.list-group-item > .checkbox {
+    padding-top: 0;
+}
+
+.ajaxform .form-group .form-control-feedback, .ajaxform .form-group .help-block {
+    display: none;
+}
+
+.ajaxform .form-group.has-feedback .form-control-feedback, .ajaxform .form-group.has-feedback .help-block {
+    display: block;
+}

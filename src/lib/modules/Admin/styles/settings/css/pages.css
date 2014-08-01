@@ -1,0 +1,7 @@
+.pagescontent {
+    display: block;
+    height: 44px;
+    line-height: 22px;
+    overflow: hidden;
+    cursor: pointer;
+}

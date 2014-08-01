@@ -1,0 +1,143 @@
+.album-owner-box {
+    max-width: 60%;
+}
+
+.album-owner-box img {
+    height: 60px;
+    width: 60px;
+}
+
+.album-owner-box div {
+    margin-left: 5px;
+}
+
+.album-owner-box h1 {
+    padding-bottom: 2px;
+    margin: 0 0 5px 0 !important;
+    font-size: 20px;
+}
+
+.album-owner-box span {
+    display: block;
+}
+
+#imagelist {
+    margin: 10px -10px;
+    padding: 0 10px;
+}
+
+#imagelist .list {
+    margin: 0 -1.5px
+}
+
+.album-item .gallery-cover {
+    width: 100%;
+    height: 100%;
+}
+
+.album-item {
+    width: 33%;
+    max-width: 180px;
+    height: auto;
+    padding: 0;
+    text-align: center;
+    margin: 2px;
+    position: relative;
+    box-shadow: 1px 1px 2px #aaa;
+    -moz-box-shadow: 1px 1px 2px #aaa;
+    -webkit-box-shadow: 1px 1px 2px #aaa;
+}
+
+.album-item .buttonbar {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    padding: 7px 10px;
+    cursor: auto;
+}
+
+.buttonbar-section {
+    width: 33%;
+    cursor: pointer;
+}
+
+.buttonbar-section .count-badge {
+    font-size: 12px;
+    margin-left: 8px;
+}
+
+.buttonbar-section .fa {
+    font-size: 1.2em;
+}
+
+.upload-progress {
+    width: 400px;
+    display: inline-block;
+    float: right;
+    margin: 7px 10px;
+}
+
+.singleuploader_link, .multiuploader_link {
+    position: relative;
+    top: 8px;
+    font-size: 12px;
+    float: left;
+}
+
+#singleuploader .row {
+    margin: 10px;
+}
+
+#singleuploader .alert {
+    margin: 10px 20px;
+}
+
+.albumdelete-link {
+    float: left;
+    display: inline-block;
+    margin: 7px;
+}
+
+#filescontainer {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    margin: 10px 0;
+    max-height: 250px;
+    min-height: 94px;
+    overflow: auto;
+}
+
+#filescontainer .alert {
+    margin: 20px;
+}
+
+#files .queue_file td {
+    padding: 2px 10px;
+    font-size: 13px;
+    color: #333;
+}
+
+#files .queue_file .removefile {
+    font-size: 14px;
+}
+
+#files .queue_file .progress {
+    height: 10px;
+    margin: 8px 0;
+}
+
+#imagecontextmenu {
+    position: absolute;
+    z-index: 10;
+}
+
+.album-load-more {
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    box-shadow: inset 0 -20px 30px #EEE;
+}

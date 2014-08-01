@@ -1,0 +1,156 @@
+[class*="cal-cell"] {
+    float: left;
+    margin-left: 0;
+    min-height: 1px;
+}
+.cal-row-fluid {
+    width: 100%;
+    *zoom: 1;
+}
+.cal-row-fluid:before,
+.cal-row-fluid:after {
+    display: table;
+    content: "";
+    line-height: 0;
+}
+.cal-row-fluid:after {
+    clear: both;
+}
+.cal-row-fluid [class*="cal-cell"] {
+    display: block;
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    float: left;
+    margin-left: 0%;
+    *margin-left: -0.05213764337851929%;
+}
+.cal-row-fluid [class*="cal-cell"]:first-child {
+    margin-left: 0;
+}
+.cal-row-fluid .cal-cell1 {
+    width: 14.285714285714285%;
+    *width: 14.232409381663112%;
+}
+
+.cal-week-box .cal-offset1,
+.cal-row-fluid .cal-offset1,
+.cal-row-fluid .cal-offset1:first-child {
+    margin-left: 14.285714285714285%;
+    *margin-left: 14.17910447761194%;
+}
+.cal-row-fluid .cal-cell1 {
+    width: 14.285714285714285%;
+    *width: 14.233576642335766%;
+}
+[class*="cal-cell"].hide,
+.cal-row-fluid [class*="cal-cell"].hide {
+    display: none;
+}
+[class*="cal-cell"].pull-right,
+.cal-row-fluid [class*="cal-cell"].pull-right {
+    float: right;
+}
+.cal-row-head [class*="cal-cell"]:first-child,
+.cal-row-head [class*="cal-cell"] {
+    min-height: auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.cal-month-day {
+    position: relative;
+    display: block;
+    width: 100%;
+}
+.events-list {
+    padding: 23px 5px 5px;
+}
+.events-list a {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+}
+.birthday-list {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+}
+.event {
+    display: block;
+    background-color: #c3c3c3;
+    width: 25px;
+    height: 25px;
+    margin: 3px;   
+}
+
+.event > img {
+    width:100%;
+    height:100%;
+}
+.cal-row-head [class*="cal-cell"]:first-child,
+.cal-row-head [class*="cal-cell"] {
+    font-weight: bolder;
+    text-align: left;
+    border: 0px solid;
+    padding: 5px;    
+}
+.cal-row-head [class*="cal-cell"] small {
+    font-weight: normal;
+}
+.cal-month-day {
+    height: 100px;
+}
+[class*="cal-cell"]:hover {
+    background-color: #efefef;
+}
+.cal-month-box [class*="cal-cell"] {
+    min-height: 100px;
+    border-right: 1px solid #e1e1e1;
+    position: relative;
+}
+.cal-month-box .cal-row-fluid [class*="cal-cell"]:last-child {
+    border-right: 0px;
+}
+.cal-month-box .cal-row-fluid {
+    border-bottom: 1px solid #e1e1e1;
+    margin-left: 0px;
+    margin-right: 0px;
+}
+.cal-month-box .cal-row-fluid:last-child {
+    border-bottom: 0px;
+}
+.cal-month-box{
+    border-top: 1px solid #e1e1e1;
+    border-bottom: 1px solid #e1e1e1;
+    border-right: 1px solid #e1e1e1;
+    border-left: 1px solid #e1e1e1;
+    border-radius: 2px;
+}
+span[data-cal-date] {
+    font-size: 0.9em;
+    font-weight: normal;
+    transition: all 0.3s ease-in-out;
+    -webkit-transition: all 0.1s ease-in-out;
+    -moz-transition: all 0.1s ease-in-out;
+    -ms-transition: all 0.1s ease-in-out;
+    -o-transition: all 0.1s ease-in-out;
+    margin-top: 5px;
+    margin-right: 5px;
+}
+.cal-month-day-has-event span[data-cal-date] {
+    font-weight:bold;
+}
+.cal-day-outmonth span[data-cal-date] {
+    opacity: 0.5;
+    cursor: default;
+}
+.cal-day-today {
+    background-color: #d1e8ff;
+}
+.cal-day-weekend span[data-cal-date] {
+    color: #b80718;
+}

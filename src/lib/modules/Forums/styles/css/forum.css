@@ -1,0 +1,32 @@
+.page-buttonbar .breadcrumb {
+    clear: both;
+    background-color: #efefef;
+    margin-bottom: 0;
+}
+
+#boards .topic-post {
+    border-bottom: 1px solid #eee;
+    margin: 0 -9px;
+    padding: 15px 20px;
+    position: relative;
+}
+
+#boards .media-body > a {
+    font-size: 0.95em;
+    font-weight: bold;
+}
+
+#boards .media-body-time {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: #666;
+    font-size: 0.95em;
+    margin: 15px 10px;
+}
+
+#boards .media > .fa-2x {
+    color: #b80718;
+    padding-top: 5px;
+    padding-right: 10px;
+}

@@ -1,0 +1,97 @@
+<?php
+
+namespace Notifications\Models;
+use Notifications\View\NotificationMail;
+
+/**
+ * Class Notifier
+ * @package Notifications\Models
+ */
+class Notifier {
+
+    /**
+     * @var null
+     */
+    static private $instance = null;
+    /**
+     * @var Db\Table\Notifications|null
+     */
+    private $db = null;
+    /**
+     * @var Db\Table\Notification_Settings|null
+     */
+    private $settings = null;
+    /**
+     * @var mixed|null
+     */
+    private $types = null;
+    /**
+     * @var null
+     */
+    private $mailView = null;
+
+    /**
+     * @return null
+     */
+    static public function getInstance() {
+        if (self::$instance === null)
+            self::$instance = new self;
+        return self::$instance;
+    }
+
+    /**
+     * @param $receiver
+     * @param $sender
+     * @param $type
+     * @param $target
+     * @param array $ways
+     */
+    public static function notify($receiver, $sender, $type, $target, $ways = ["alert", "mail"]) {
+        if (is_array($receiver)) {
+            foreach ($receiver AS $user)
+                self::notify($user['userid'], $sender, $type, $target, $ways);
+        } else {
+            $obj = self::getInstance();
+            $st = $obj->settings->getSetting($type, $receiver);
+            if (($st == 1 || $st == 3) && in_array("alert", $ways)) {
+                $obj->db->insertNotification([
+                    "userid" => $receiver,
+                    "ref_userid" => $sender,
+                    "type" => $type,
+                    "target" => $target
+                ]);
+            }
+            if (($st == 2 || $st == 3) && in_array("mail", $ways)) {
+                $receiverData = $_SESSION['user']->getTable()->get($receiver);
+                $online = new \DateTime($receiverData['lastAction']);
+                $now = new \DateTime();
+                $diff = $now->diff($online, true);
+                if ($diff->i > 3) {
+                    $notificationData = self::getNotificationData($type);
+                    new NotificationMail(["email" => $receiverData->email, "name" => $receiverData->name], ["message" => \sprintf($notificationData, $_SESSION['user']->name), "target" => $target]);
+                }
+            }
+        }
+    }
+
+    /**
+     *
+     */
+    public function __construct() {
+        $this->db = new Db\Table\Notifications();
+        $this->settings = new Db\Table\Notification_Settings();
+        $data = new \Zend_Config_Xml("modules/Notifications/lang/types.xml");
+        $this->types = $data->types;
+    }
+
+    /**
+     * @param $type
+     * @return mixed
+     */
+    public static function getNotificationData($type) {
+        $obj = self::getInstance();
+        $temp = $obj->types->toArray();
+        return $temp[$type];
+    }
+
+}

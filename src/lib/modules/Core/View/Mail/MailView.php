@@ -1,0 +1,62 @@
+<?php
+
+namespace Core\View\Mail;
+
+use Core\Models\Mail\Mail;
+use Core\View\View;
+
+/**
+ * Class MailView
+ * @package Core\View\Mail
+ */
+class MailView extends View
+{
+
+    /**
+     * @var array
+     */
+    protected $_receiver = [];
+    /**
+     * @var array
+     */
+    protected $_cc = [];
+    /**
+     * @var
+     */
+    protected $_subject;
+    /**
+     * @var
+     */
+    protected $_body;
+
+    /**
+     * @throws \Exception
+     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
+    /**
+     * @throws \Exception
+     * @throws \SmartyException
+     */
+    public function show()
+    {
+        $this->assign(
+            'tpl_name',
+            $this->_templateDir . '/styles/' . $this->_templateFile
+        );
+        $_body = $this->fetch('Core/styles/out_mail.tpl');
+        $mailer = new Mail();
+        $mailer->sendMail(
+            $_body,
+            $this->translate(
+                $this->_subject
+            ),
+            $this->_receiver,
+            $this->_cc
+        );
+    }
+
+}

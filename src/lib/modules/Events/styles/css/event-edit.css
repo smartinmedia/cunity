@@ -1,0 +1,139 @@
+.right-sidebar {
+    display: none;
+}
+
+.main .content {
+    width: 771px;
+    max-width: 100%;
+    padding: 0;
+}
+
+.main .left-sidebar {
+    margin-top: 250px;
+}
+
+.event-banner {
+    width: 970px;
+    height: 250px;
+    margin-left: -199px;
+    position: relative;
+}
+
+.event-title-box {
+    max-width: 90%;
+    width: auto;
+    background-color: rgba(0, 0, 0, 0.75);
+    border-left: 4px solid #b80718;
+    color: #fff;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    position: absolute;
+    left: 0;
+    bottom: 30px;
+    padding-right: 50px;
+}
+
+.event-title-box-date {
+    border: 2px solid #fff;
+    border-radius: 5px;
+    padding: 0;
+    margin: 10px;
+    text-align: center;
+    width: 50px;
+    height: 50px;
+    color: #fff;
+}
+
+.event-title-box-date span.month {
+    display: block;
+    font-size: 11px;
+    margin-top: 2px;
+    text-transform: uppercase;
+}
+
+.event-title-box-date span.day {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.event-title-box h1 {
+    margin: 10px 0;
+    font-size: 25px;
+    line-height: 50px;
+    padding: 0;
+}
+
+.event-attending-buttons {
+    margin: 18px 20px 18px 0;
+}
+
+.event-menu {
+    padding: 10px 5px;
+    margin: 0;
+    border-bottom: 1px solid #ddd;
+    border-top: 1px solid #ddd;
+}
+
+.event-menu li {
+    margin: 0 5px;
+}
+
+/* Wall */
+
+.newsfeed-container {
+    width: 569px;
+    padding: 10px;
+}
+
+.newsfeed-postbox {
+    border: 0 !important;
+    margin-left: -9px !important;
+}
+
+/* Forum */
+
+#Forum h1.page-header, #Forum .breadcrumb {
+    display: none !important;
+}
+
+#Forum .page-buttonbar {
+    margin: 0;
+}
+
+#boards .topic-post {
+    margin: 0 !important;
+}
+
+/* Guests */
+#Guests {
+    padding-top: 10px;
+}
+
+#Info {
+    padding: 10px;
+}
+
+#Info .guest-horizontal-link {
+    font-size: 20px;
+    line-height: 35px;
+    vertical-align: middle;
+    width: 35px;
+    height: 35px;
+}
+
+#Info .guest-horizontal-list {
+    width: calc(100% - 35px);
+}
+
+#Info .guest-horizontal-list .label-danger {
+    margin: 7px 0;
+    display: inline-block;
+    padding: 5px 10px;
+}
+
+#Info .guest-horizontal-list img {
+    width: 35px;
+    height: 35px;
+    padding: 0;
+    border-radius: 3px;
+}

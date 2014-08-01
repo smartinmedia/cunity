@@ -1,0 +1,39 @@
+<?php
+
+namespace Admin\View;
+
+use Admin\Models\Login;
+use Admin\View\Abstractables\View;
+
+/**
+ * Class Dashboard
+ * @package Admin\View
+ */
+class Dashboard extends View
+{
+
+    /**
+     * @var string
+     */
+    protected $_templateDir = "Admin";
+    /**
+     * @var string
+     */
+    protected $_templateFile = "dashboard/dashboard.tpl";
+    /**
+     * @var bool
+     */
+    protected $_useWrapper = false;
+
+    /**
+     *
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        Login::loginRequired();
+        $this->registerCss("dashboard", "dashboard");
+    }
+
+}
+

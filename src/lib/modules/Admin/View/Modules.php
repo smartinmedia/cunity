@@ -1,0 +1,29 @@
+<?php
+
+namespace Admin\View;
+
+use Admin\View\Abstractables\View;
+
+/**
+ * Class Modules
+ * @package Admin\View
+ */
+class Modules extends View
+{
+
+    /**
+     * @var bool
+     */
+    protected $_useWrapper = false;
+
+    /**
+     *
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->_templateFile = "modules/" . $_GET['x'] . ".tpl";
+        $this->registerCss("modules", $_GET['x']);
+    }
+
+}

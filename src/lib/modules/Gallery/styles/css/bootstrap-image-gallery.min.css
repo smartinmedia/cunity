@@ -1,0 +1,147 @@
+@charset "UTF-8";
+.blueimp-gallery .modal-body {
+    position: relative;
+    text-align: left;
+    overflow: hidden;
+    padding: 0;
+    background-color: #000;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px
+}
+
+.blueimp-gallery .modal-body-content {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 350px;
+    height: 100%;
+    background-color: #fff;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px
+}
+
+.blueimp-gallery .modal-body-info .userinfo {
+    width: 350px;
+    height: 80px;
+    border-bottom: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+    overflow: hidden
+}
+
+.blueimp-gallery .modal-body-info {
+    position: relative
+}
+
+.blueimp-gallery .modal-body-info .breadcrumb {
+    margin: 10px 0 0 0
+}
+
+.blueimp-gallery .modal-body-info .userinfo img {
+    height: 60px;
+    width: 60px;
+    max-width: none;
+    max-height: none;
+    margin: 0;
+    float: left
+}
+
+.blueimp-gallery .userbox a {
+    font-size: 16px;
+    font-weight: bold
+}
+
+.blueimp-gallery .userbox {
+    float: left;
+    width: 270px;
+    height: 60px;
+    padding-left: 10px;
+    padding-top: 5px
+}
+
+.blueimp-gallery .imagetitle {
+    border-bottom: 1px solid #ccc;
+    padding: 10px
+}
+
+.blueimp-gallery .imagetitle h4 {
+    margin: 10px
+}
+
+.blueimp-gallery .socialbox {
+    padding: 10px;
+    border-bottom: 1px solid #ccc
+}
+
+.blueimp-gallery .info-overlay {
+    width: calc(100% - 350px);
+    padding: 10px 20px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.75)
+}
+
+.blueimp-gallery .info-overlay p {
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: bold;
+    margin: 0
+}
+
+.blueimp-gallery .info-overlay p:hover {
+    color: #fff;
+    cursor: pointer
+}
+
+.blueimp-gallery .time {
+    color: #666;
+    display: block;
+    font-size: 13px
+}
+
+.blueimp-gallery .close {
+    position: absolute;
+    right: 10px;
+    top: 6px;
+    font-size: 25px;
+    z-index: 10
+}
+
+.blueimp-gallery .modal-content {
+    background-color: transparent;
+    position: relative
+}
+
+.blueimp-gallery .modal-footer {
+    margin: 0;
+    width: 350px;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    padding: 10px
+}
+
+.blueimp-gallery-image {
+    max-width: calc(100% - 350px);
+    max-height: 100%;
+    margin: auto
+}
+
+@media screen and (min-width: 768px) {
+    .blueimp-gallery .modal-dialog {
+        right: auto;
+        left: auto;
+        width: 90%;
+        height: 90%;
+        padding: 0;
+        margin: 25px auto
+    }
+
+    .blueimp-gallery .modal-content {
+        height: 100%
+    }
+
+    .blueimp-gallery .modal-body {
+        height: 100%
+    }
+}

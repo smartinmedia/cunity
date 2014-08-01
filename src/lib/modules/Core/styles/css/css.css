@@ -1,0 +1,771 @@
+.newsfeed-postbox {
+    border: 1px solid #ccc;
+    border-width: 1px 1px 0 1px;
+    margin: 10px -10px 0 -10px
+}
+
+.newsfeed-post-link-caret {
+    margin: 0 5px
+}
+
+.newsfeed-newpost {
+    padding-top: 10px
+}
+
+.newsfeed-post-option {
+    width: 34px
+}
+
+.newsfeed-post-area {
+    position: relative;
+    width: 515px
+}
+
+.newsfeed-post-area > textarea {
+    margin-left: 10px;
+    width: 505px;
+    height: 34px;
+    resize: vertical
+}
+
+.newsfeed-newpost > .btn-group-vertical > .btn {
+    padding: 6px 8px !important;
+    width: 33px !important
+}
+
+.newsfeed-postbox-load-more {
+    text-align: center;
+    margin: 10px auto;
+    width: 90%
+}
+
+.newsfeed-post-file-input {
+    position: absolute;
+    left: 10px;
+    top: 67px;
+    padding-top: 10px
+}
+
+.newsfeed-post-file-input > .loader-small {
+    width: 34px;
+    height: 34px;
+    padding: 9px;
+    display: inline-block;
+    background: url('../img/loader-small.gif') center no-repeat
+}
+
+.newsfeed-post-buttons {
+    margin-top: 10px
+}
+
+.newsfeed-post-button {
+    border-top-right-radius: 4px !important;
+    border-bottom-right-radius: 4px !important
+}
+
+.newsfeed-post {
+    border-bottom: 1px solid #eee;
+    margin: 0;
+    padding: 10px;
+    position: relative
+}
+
+.newsfeed-post-new {
+    display: none
+}
+
+.newsfeed-post-close-detail:hover {
+    color: #000;
+    opacity: .5;
+    filter: alpha(opacity=50)
+}
+
+.newsfeed-post-close-detail {
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+    color: #ddd;
+    cursor: pointer;
+    text-shadow: 0 1px 0 #fff
+}
+
+.newsfeed-post-image {
+    margin: 10px 0;
+    display: block;
+    max-width: 95%
+}
+
+.newsfeed-post-image > img {
+    max-width: 100%
+}
+
+.playable {
+    position: relative;
+    width: 320px;
+    max-height: 180px;;
+    max-width: 100%;
+    height: auto
+}
+
+.playable > img {
+    width: 100%
+}
+
+.playable > .overlay {
+    position: absolute;
+    left: 4px;
+    top: 4px;
+    width: calc(100% - 8px);
+    height: calc(100% - 8px);
+    background: rgba(0, 0, 0, 0.2);
+    text-align: center
+}
+
+.playable > .overlay > i.fa {
+    font-size: 5em;
+    margin-top: -36.5px;
+    top: 50%;
+    position: relative;
+    color: rgba(255, 255, 255, 0.3)
+}
+
+.playable > .overlay > i.fa:hover {
+    color: rgba(184, 7, 24, 0.8)
+}
+
+.newsfeed-post-video-box {
+    width: 508px;
+    margin-left: 10px;
+    border: 1px solid #CCC;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    margin-top: -1px;
+    background: #f4f4f4;
+    padding: 10px
+}
+
+.newsfeed-post:hover:not(.newsfeed-post-opened) {
+    background-color: #f9f9f9;
+    cursor: pointer
+}
+
+.newsfeed-post-opened {
+    box-shadow: 0 -3px 5px #eee, 0 3px 5px #eee
+}
+
+.newsfeed-post:hover .newsfeed-post-info *:not(a) {
+    color: #666;
+    cursor: pointer
+}
+
+.newsfeed-post-user {
+    width: 65px;
+    height: 65px
+}
+
+.newsfeed-post-user img {
+    width: 60px;
+    height: 60px;
+    margin: 0;
+    margin-bottom: 10px
+}
+
+.newsfeed-post-content {
+    width: calc(100% - 65px);
+    padding: 0 5px;
+    font-size: 0.95em;
+    position: relative
+}
+
+.newsfeed-post-content > a {
+    font-size: 0.95em;
+    font-weight: bold
+}
+
+.fa-privacy-0:before {
+    content: "\f0ac"
+}
+
+.fa-privacy-1:before {
+    content: "\f0c0"
+}
+
+.fa-privacy-2:before {
+    content: "\f007"
+}
+
+.newsfeed-post-content-time {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: #666;
+    font-size: 0.95em
+}
+
+.newsfeed-post-info-buttons {
+    margin-bottom: 0 !important
+}
+
+.newsfeed-post-info {
+    margin-right: -10px
+}
+
+.newsfeed-post-info * {
+    color: #aaa
+}
+
+.newsfeed-post-info :hover > i.fa:not(.newsfeed-post-info-dropdown) {
+    color: #b80718
+}
+
+.newsfeed-post-info ul {
+    margin-bottom: 0 !important
+}
+
+.newsfeed-post-info li:hover {
+    color: #b80718 !important;
+    text-decoration: none
+}
+
+.newsfeed-post-detail {
+    padding-top: 5px;
+    clear: both
+}
+
+.newsfeed-post-detail .label {
+    margin: 7px;
+    display: inline-block;
+    padding: 5px 10px
+}
+
+.newsfeed-post-detail-likebox {
+    margin: 0 0 10px 70px;
+    border: 1px solid #ccc;
+    border-width: 1px 0
+}
+
+.newsfeed-post-detail-likes {
+    width: 50%;
+    padding: 5px 0;
+    border-right: 1px solid #ccc
+}
+
+.newsfeed-post-detail-dislikes {
+    width: 50%;
+    padding: 5px 0
+}
+
+.newsfeed-post-detail-likes .fa, .newsfeed-post-detail-dislikes .fa {
+    font-size: 1.5em;
+    margin: 7px 4px
+}
+
+.newsfeed-post-info-dropdown {
+    right: 0;
+    left: auto
+}
+
+.newsfeed-post-detail-dislikes a, .newsfeed-post-detail-likes a {
+    margin-left: 5px;
+    float: left;
+    display: inline-block
+}
+
+.newsfeed-post-detail-dislikes img, .newsfeed-post-detail-likes img {
+    width: 35px;
+    height: 35px;
+    padding: 2px
+}
+
+.newsfeed-post-detail-commentbox {
+    margin: 0 0 10px 70px
+}
+
+.newsfeed-post-video-description {
+    overflow: hidden;
+    width: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap
+}
+
+.post-comment {
+    width: 480px;
+    max-width: 100%;
+    padding-bottom: 10px;
+    font-size: 12px
+}
+
+.post-comment .close {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 0
+}
+
+.post-comment:hover .close {
+    display: block
+}
+
+.post-comment > .avatar {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    margin-right: 7px !important;
+    max-height: none !important;
+    max-width: none !important;
+    border-radius: 4px
+}
+
+.post-comment a {
+    font-weight: bold
+}
+
+.post-comment .content-box {
+    width: 440px;
+    max-width: 100%;
+    height: auto;
+    min-height: 30px;
+    padding-bottom: 17px;
+    display: inline-block;
+    position: relative
+}
+
+.post-comment .message {
+    padding: 10px 0
+}
+
+.post-comment .time {
+    font-weight: bold;
+    font-size: 11px !important;
+    position: absolute;
+    left: 0;
+    bottom: 0
+}
+
+.post-comment .content-box textarea {
+    height: 30px;
+    font-size: 12px;
+    padding: 3px;
+    resize: vertical
+}
+
+@media screen and (max-width: 1023px) {
+    .main > .content {
+        padding: 0 !important
+    }
+
+    .newsfeed-postbox {
+        width: 100%;
+        margin: 0;
+        padding-bottom: 1px
+    }
+
+    .newsfeed-post {
+        padding: 5px 10px
+    }
+
+    .newsfeed-newpost {
+        padding: 10px
+    }
+
+    .newsfeed-post-area {
+        float: none !important;
+        width: auto
+    }
+
+    .newsfeed-post-area textarea {
+        margin: 0 0 10px 0;
+        width: 100%
+    }
+
+    .newsfeed-post-content-time {
+        position: static;
+        right: auto;
+        top: auto;
+        padding-bottom: 5px
+    }
+
+    .unlike {
+        display: none
+    }
+
+    .newsfeed-post-video-frame {
+        height: auto;
+        max-width: 100%;
+        width: 480px;
+        max-height: 360px
+    }
+}
+
+.blueimp-gallery, .blueimp-gallery > .slides > .slide > .slide-content {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    -moz-backface-visibility: hidden
+}
+
+.blueimp-gallery > .slides > .slide > .slide-content {
+    margin: auto;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    opacity: 1;
+    overflow: hidden
+}
+
+.blueimp-gallery {
+    position: fixed;
+    z-index: 1030;
+    overflow: hidden;
+    background: #000;
+    background: rgba(0, 0, 0, 0.9);
+    opacity: 0;
+    display: none;
+    direction: ltr;
+    -ms-touch-action: none
+}
+
+.blueimp-gallery-display {
+    display: block;
+    opacity: 1
+}
+
+.blueimp-gallery > .slides {
+    position: relative;
+    height: 100%;
+    overflow: hidden
+}
+
+.blueimp-gallery-carousel > .slides {
+    position: absolute
+}
+
+.blueimp-gallery > .slides > .slide {
+    position: relative;
+    float: left;
+    height: 100%;
+    text-align: center;
+    -webkit-transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1.000);
+    -moz-transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1.000);
+    -ms-transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1.000);
+    -o-transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1.000);
+    transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1.000)
+}
+
+.blueimp-gallery, .blueimp-gallery > .slides > .slide > .slide-content {
+    -webkit-transition: opacity 0.5s linear;
+    -moz-transition: opacity 0.5s linear;
+    -ms-transition: opacity 0.5s linear;
+    -o-transition: opacity 0.5s linear;
+    transition: opacity 0.5s linear
+}
+
+.blueimp-gallery > .slides > .slide-loading {
+    background: url(../img/loading.gif) center no-repeat;
+    background-size: 64px 64px
+}
+
+.blueimp-gallery > .slides > .slide-loading > .slide-content {
+    opacity: 0
+}
+
+.blueimp-gallery > .slides > .slide-error {
+    background: url(../img/error.png) center no-repeat
+}
+
+.blueimp-gallery > .slides > .slide-error > .slide-content {
+    display: none
+}
+
+body:last-child .blueimp-gallery > .slides > .slide-error {
+    background-image: url(../img/error.svg)
+}
+
+* + html .blueimp-gallery > .slides > .slide {
+    min-height: 300px
+}
+
+* + html .blueimp-gallery > .slides > .slide > .slide-content {
+    position: relative
+}
+
+.blueimp-gallery .modal-body {
+    position: relative;
+    text-align: left;
+    overflow: hidden;
+    padding: 0;
+    background-color: #000;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px
+}
+
+.blueimp-gallery .modal-body-content {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 350px;
+    height: 100%;
+    background-color: #fff;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px
+}
+
+.blueimp-gallery .modal-body-info .userinfo {
+    width: 350px;
+    height: 80px;
+    border-bottom: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+    overflow: hidden
+}
+
+.blueimp-gallery .modal-body-info {
+    position: relative
+}
+
+.blueimp-gallery .modal-body-info .breadcrumb {
+    margin: 10px 0 0 0
+}
+
+.blueimp-gallery .modal-body-info .userinfo img {
+    height: 60px;
+    width: 60px;
+    max-width: none;
+    max-height: none;
+    margin: 0
+}
+
+.blueimp-gallery .userbox a {
+    font-size: 16px;
+    font-weight: bold
+}
+
+.blueimp-gallery .userbox {
+    width: 270px;
+    height: 60px;
+    padding-left: 10px;
+    padding-top: 5px
+}
+
+.blueimp-gallery .imagetitle {
+    border-bottom: 1px solid #ccc;
+    padding: 10px
+}
+
+.blueimp-gallery .imagetitle h4 {
+    margin: 10px
+}
+
+.blueimp-gallery .jspPane > .comments {
+    padding: 10px
+}
+
+.blueimp-gallery .socialbox {
+    padding: 10px;
+    border-bottom: 1px solid #ccc
+}
+
+.blueimp-gallery .info-overlay {
+    width: calc(100% - 350px);
+    padding: 10px 20px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.75)
+}
+
+.blueimp-gallery .info-overlay a {
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: bold;
+    margin: 0
+}
+
+.blueimp-gallery .info-overlay p:hover {
+    color: #fff;
+    cursor: pointer
+}
+
+.blueimp-gallery .time {
+    color: #666;
+    display: block;
+    font-size: 13px
+}
+
+.blueimp-gallery .close {
+    position: absolute;
+    right: 10px;
+    top: 6px;
+    font-size: 25px;
+    z-index: 10
+}
+
+.blueimp-gallery .modal-content {
+    background-color: transparent;
+    position: relative
+}
+
+.blueimp-gallery .modal-footer {
+    margin: 0;
+    width: 350px;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    padding: 10px
+}
+
+.blueimp-gallery-image {
+    max-width: calc(100% - 350px);
+    max-height: 100%;
+    margin: auto
+}
+
+.commentbox {
+    overflow: hidden;
+    padding-bottom: 0
+}
+
+.comments {
+    overflow: auto
+}
+
+.image-comment {
+    width: 330px;
+    padding-bottom: 10px;
+    font-size: 12px
+}
+
+.image-comment .close {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 0
+}
+
+.image-comment:hover .close {
+    display: block
+}
+
+.image-comment > .avatar {
+    width: 40px;
+    height: 40px;
+    margin-right: 7px !important;
+    max-height: none !important;
+    max-width: none !important;
+    border-radius: 4px
+}
+
+.image-comment a {
+    font-weight: bold
+}
+
+.image-comment .content-box {
+    width: 283px;
+    height: auto;
+    min-height: 40px;
+    padding-bottom: 17px;
+    position: relative
+}
+
+.image-comment .message {
+    padding: 10px 0
+}
+
+.image-comment .time {
+    font-weight: bold;
+    font-size: 11px !important;
+    position: absolute;
+    left: 0;
+    bottom: 0
+}
+
+.image-comment .content-box textarea {
+    height: 40px;
+    font-size: 12px;
+    padding: 3px;
+    resize: none
+}
+
+.newimagebox {
+    background-color: #efefef;
+    padding: 10px;
+    position: absolute;
+    left: 0;
+    bottom: 0
+}
+
+.newimagebox .image-comment, .newimagebox .content-box {
+    padding-bottom: 0
+}
+
+.image-loading {
+    width: 100%;
+    height: 50px;
+    display: block;
+    margin-top: 50px
+}
+
+.lightbox-likebox .label {
+    margin: 7px;
+    display: inline-block;
+    padding: 5px 10px
+}
+
+.lightbox-likebox {
+    border: 1px solid #ccc;
+    border-width: 1px 0;
+    border-bottom: 0;
+    margin: 10px -10px -10px -10px
+}
+
+.lightbox-likes {
+    width: 50%;
+    padding: 5px 0;
+    border-right: 1px solid #ccc
+}
+
+.lightbox-dislikes {
+    width: 50%;
+    padding: 5px 0
+}
+
+.lightbox-likes .fa, .lightbox-dislikes .fa {
+    font-size: 1.5em;
+    margin: 7px 4px
+}
+
+.lightbox-dislikes a, .lightbox-likes a {
+    margin-left: 5px;
+    float: left;
+    display: inline-block
+}
+
+.lightbox-dislikes img, .lightbox-likes img {
+    width: 35px;
+    height: 35px;
+    padding: 2px
+}
+
+@media screen and (min-width: 768px) {
+    .blueimp-gallery .modal-dialog {
+        right: auto;
+        left: auto;
+        width: 90%;
+        height: 90%;
+        padding: 0;
+        margin: 25px auto
+    }
+
+    .blueimp-gallery .modal-content {
+        height: 100%
+    }
+
+    .blueimp-gallery .modal-body {
+        height: 100%
+    }
+}

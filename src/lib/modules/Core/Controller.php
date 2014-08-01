@@ -1,0 +1,100 @@
+<?php
+
+namespace Core;
+
+use Core\Models\Request;
+use Core\View\Exception\View;
+use Core\View\PageNotFound;
+use Register\Models\Login;
+
+/**
+ * Class Controller
+ * @package Core
+ */
+class Controller
+{
+
+    /**
+     * @var null
+     */
+    private $_cunity = null;
+
+    /**
+     * @throws \Exception
+     */
+    public function __construct()
+    {        
+        array_walk_recursive($_GET, [$this, 'trimhtml']);
+        array_walk_recursive($_POST, [$this, 'trimhtml']);
+
+        Cunity::init();
+
+        //use the filesdir hash as unique session name
+        session_name(
+            "cunity-"
+            . Cunity::get("settings")->getSetting("core.filesdir")
+        );
+        session_start();
+        if (Models\Request::isAjaxRequest())
+            set_exception_handler([$this, 'handleAjaxException']);
+        else
+            set_exception_handler([$this, 'handleException']);
+        $this->handleQuery();
+    }
+
+    /**
+     *
+     */
+    protected function handleQuery()
+    {
+        if (!isset($_GET['m']) || empty($_GET['m'])) {
+            if (Login::loggedIn()) {
+                header(
+                    "Location:"
+                    . Models\Generator\Url::convertUrl(
+                        "index.php?m=profile"
+                    )
+                );
+                exit();
+            } else
+                $_GET['m'] = 'start';
+        }
+        $moduleController = new Module($_GET['m']);
+        if (!Request::isAjaxRequest() && !$moduleController->isActive())
+            new PageNotFound();
+        else if ($moduleController->isValid()) {
+            $classname = $moduleController->getClassName();
+            new $classname;
+        } else
+            new PageNotFound;
+    }
+
+    /**
+     * @param $e
+     */
+    static function handleException($e)
+    {
+        new View($e);
+    }
+
+    /**
+     * @param $exception
+     */
+    static function handleAjaxException($exception)
+    {
+        /** @noinspection PhpUnnecessaryFullyQualifiedNameInspection */
+        $view = new \Core\View\Ajax\View();
+        $view->setStatus(false);
+        $view->addData(["msg" => $exception->getMessage()]);
+        $view->sendResponse();
+    }
+
+    /**
+     * @param $value
+     */
+    private function trimhtml(&$value)
+    {
+        $value = trim(htmlspecialchars($value, ENT_QUOTES));
+    }
+
+}

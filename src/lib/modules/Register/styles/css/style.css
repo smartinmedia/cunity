@@ -1,0 +1,16 @@
+.register-results {
+    float: right;
+    margin-right: 35px;
+}
+
+.registration-form {
+    margin: 10px;
+}
+
+.registration-form .form-group .form-control-feedback, .registration-form .form-group .help-block {
+    display: none;
+}
+
+.registration-form .form-group.has-feedback .form-control-feedback, .registration-form .form-group.has-feedback .help-block {
+    display: block;
+}

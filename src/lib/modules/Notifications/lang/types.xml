@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<zend-config>
+    <types>
+        <wall_post>%s postet on your Wall!</wall_post>
+        <message>%s sent you a message on Cunity</message>
+        <addConversation>%s added you to a conversation</addConversation>
+        <addfriend>%s has added you as a friend</addfriend>
+        <confirmfriend>%s has confirmed your friend-request</confirmfriend>
+        <eventInvitation>%s has invited you to an event</eventInvitation>
+    </types>
+</zend-config>

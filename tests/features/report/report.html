@@ -1,0 +1,930 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns ="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <title>Behat Test Suite</title>
+    <style type="text/css">
+        body {
+            margin:0px;
+            padding:0px;
+            position:relative;
+            padding-top:75px;
+        }
+        #behat {
+            float:left;
+            font-family: Georgia, serif;
+            font-size:18px;
+            line-height:26px;
+            width:100%;
+        }
+        #behat .statistics {
+            float:left;
+            width:100%;
+            margin-bottom:15px;
+        }
+        #behat .statistics p {
+            text-align:right;
+            padding:5px 15px;
+            margin:0px;
+            border-right:10px solid #000;
+        }
+        #behat .statistics.failed p {
+            border-color:#C20000;
+        }
+        #behat .statistics.passed p {
+            border-color:#3D7700;
+        }
+        #behat .feature {
+            margin:15px;
+        }
+        #behat h2, #behat h3, #behat h4 {
+            margin:0px 0px 5px 0px;
+            padding:0px;
+            font-family:Georgia;
+        }
+        #behat h2 .title, #behat h3 .title, #behat h4 .title {
+            font-weight:normal;
+        }
+        #behat .path {
+            font-size:10px;
+            font-weight:normal;
+            font-family: 'Bitstream Vera Sans Mono', 'DejaVu Sans Mono', Monaco, Courier, monospace !important;
+            color:#999;
+            padding:0px 5px;
+            float:right;
+        }
+        #behat .path a:link,
+        #behat .path a:visited {
+            color:#999;
+        }
+        #behat .path a:hover,
+        #behat .path a:active {
+            background-color:#000;
+            color:#fff;
+        }
+        #behat h3 .path {
+            margin-right:4%;
+        }
+        #behat ul.tags {
+            font-size:14px;
+            font-weight:bold;
+            color:#246AC1;
+            list-style:none;
+            margin:0px;
+            padding:0px;
+        }
+        #behat ul.tags li {
+            display:inline;
+        }
+        #behat ul.tags li:after {
+            content:' ';
+        }
+        #behat ul.tags li:last-child:after {
+            content:'';
+        }
+        #behat .feature > p {
+            margin-top:0px;
+            margin-left:20px;
+        }
+        #behat .scenario {
+            margin-left:20px;
+            margin-bottom:20px;
+        }
+        #behat .scenario > ol,
+        #behat .scenario .examples > ol {
+            margin:0px;
+            list-style:none;
+            padding:0px;
+        }
+        #behat .scenario > ol {
+            margin-left:20px;
+        }
+        #behat .scenario > ol:after,
+        #behat .scenario .examples > ol:after {
+            content:'';
+            display:block;
+            clear:both;
+        }
+        #behat .scenario > ol li,
+        #behat .scenario .examples > ol li {
+            float:left;
+            width:95%;
+            padding-left:5px;
+            border-left:5px solid;
+            margin-bottom:4px;
+        }
+        #behat .scenario > ol li .argument,
+        #behat .scenario .examples > ol li .argument {
+            margin:10px 20px;
+            font-size:16px;
+            overflow:hidden;
+        }
+        #behat .scenario > ol li table.argument,
+        #behat .scenario .examples > ol li table.argument {
+            border:1px solid #d2d2d2;
+        }
+        #behat .scenario > ol li table.argument thead td,
+        #behat .scenario .examples > ol li table.argument thead td {
+            font-weight: bold;
+        }
+        #behat .scenario > ol li table.argument td,
+        #behat .scenario .examples > ol li table.argument td {
+            padding:5px 10px;
+            background:#f3f3f3;
+        }
+        #behat .scenario > ol li .keyword,
+        #behat .scenario .examples > ol li .keyword {
+            font-weight:bold;
+        }
+        #behat .scenario > ol li .path,
+        #behat .scenario .examples > ol li .path {
+            float:right;
+        }
+        #behat .scenario .examples {
+            margin-top:20px;
+            margin-left:40px;
+        }
+        #behat .scenario .examples h4 span {
+            font-weight:normal;
+            background:#f3f3f3;
+            color:#999;
+            padding:0 5px;
+            margin-left:10px;
+        }
+        #behat .scenario .examples table {
+            margin-left:20px;
+        }
+        #behat .scenario .examples table thead td {
+            font-weight:bold;
+            text-align:center;
+        }
+        #behat .scenario .examples table td {
+            padding:2px 10px;
+            font-size:16px;
+        }
+        #behat .scenario .examples table .failed.exception td {
+            border-left:5px solid #000;
+            border-color:#C20000 !important;
+            padding-left:0px;
+        }
+        pre {
+            font-family:monospace;
+        }
+        .snippet {
+            font-size:14px;
+            color:#000;
+            margin-left:20px;
+        }
+        .backtrace {
+            font-size:12px;
+            line-height:18px;
+            color:#000;
+            overflow:hidden;
+            margin-left:20px;
+            padding:15px;
+            border-left:2px solid #C20000;
+            background: #fff;
+            margin-right:15px;
+        }
+        #behat .passed {
+            background:#DBFFB4;
+            border-color:#65C400 !important;
+            color:#3D7700;
+        }
+        #behat .failed {
+            background:#FFFBD3;
+            border-color:#C20000 !important;
+            color:#C20000;
+        }
+        #behat .undefined, #behat .pending {
+            border-color:#FAF834 !important;
+            background:#FCFB98;
+            color:#000;
+        }
+        #behat .skipped {
+            background:lightCyan;
+            border-color:cyan !important;
+            color:#000;
+        }
+        #behat .summary {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width:100%;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            line-height: 18px;
+        }
+        #behat .summary .counters {
+            padding: 10px;
+            border-top: 0px;
+            border-bottom: 0px;
+            border-right: 0px;
+            border-left: 5px;
+            border-style: solid;
+            height: 52px;
+            overflow: hidden;
+        }
+        #behat .summary .switchers {
+            position: absolute;
+            right: 15px;
+            top: 25px;
+        }
+        #behat .summary .switcher {
+            text-decoration: underline;
+            cursor: pointer;
+        }
+        #behat .summary .switchers a {
+            margin-left: 10px;
+            color: #000;
+        }
+        #behat .summary .switchers a:hover {
+            text-decoration:none;
+        }
+        #behat .summary p {
+            margin:0px;
+        }
+        #behat .jq-toggle > .scenario,
+        #behat .jq-toggle > ol,
+        #behat .jq-toggle > .examples {
+            display:none;
+        }
+        #behat .jq-toggle-opened > .scenario,
+        #behat .jq-toggle-opened > ol,
+        #behat .jq-toggle-opened > .examples {
+            display:block;
+        }
+        #behat .jq-toggle > h2,
+        #behat .jq-toggle > h3 {
+            cursor:pointer;
+        }
+        #behat .jq-toggle > h2:after,
+        #behat .jq-toggle > h3:after {
+            content:' |+';
+            font-weight:bold;
+        }
+        #behat .jq-toggle-opened > h2:after,
+        #behat .jq-toggle-opened > h3:after {
+            content:' |-';
+            font-weight:bold;
+        }
+    </style>
+
+    <style type="text/css" media="print">
+        body {
+            padding:0px;
+        }
+
+        #behat {
+            font-size:11px;
+        }
+
+        #behat .jq-toggle > .scenario,
+        #behat .jq-toggle > .scenario .examples,
+        #behat .jq-toggle > ol {
+            display:block;
+        }
+
+        #behat .summary {
+            position:relative;
+        }
+
+        #behat .summary .counters {
+            border:none;
+        }
+
+        #behat .summary .switchers {
+            display:none;
+        }
+
+        #behat .step .path {
+            display:none;
+        }
+
+        #behat .jq-toggle > h2:after,
+        #behat .jq-toggle > h3:after {
+            content:'';
+            font-weight:bold;
+        }
+
+        #behat .jq-toggle-opened > h2:after,
+        #behat .jq-toggle-opened > h3:after {
+            content:'';
+            font-weight:bold;
+        }
+
+        #behat .scenario > ol li,
+        #behat .scenario .examples > ol li {
+            border-left:none;
+        }
+    </style>
+</head>
+<body>
+    <div id="behat">
+        
+<div class="feature">
+<ul class="tags">
+<li>@module</li>
+<li>@conversation</li>
+<li>@js</li>
+</ul>
+<h2>
+<span class="keyword">Feature: </span>
+<span class="title">Conversation with others</span>
+</h2>
+<p>
+In order communicate with others<br />
+As a cunity user<br />
+I need to be write messages<br />
+</p>
+
+<div class="scenario">
+<h3>
+<span class="keyword">Scenario: </span>
+<span class="title">See Conversations</span>
+<span class="path">features\tests\modules\conversation.feature:7</span>
+</h3>
+<ol>
+<li class="passed">
+<div class="step">
+<span class="keyword">Given </span>
+<span class="text">I am oliver</span>
+<span class="path">UserContext::iAmOliver()</span>
+</div>
+</li>
+<li class="failed">
+<div class="step">
+<span class="keyword">When </span>
+<span class="text">I follow "<strong class="failed_param">Messages</strong>"</span>
+<span class="path">Behat\MinkExtension\Context\MinkContext::clickLink()</span>
+</div>
+<pre class="backtrace">Link with id|title|alt|text &quot;Messages&quot; not found.</pre>
+</li>
+<li class="skipped">
+<div class="step">
+<span class="keyword">Then </span>
+<span class="text">I should see "<strong class="skipped_param">Conversations</strong>"</span>
+<span class="path">Behat\MinkExtension\Context\MinkContext::assertPageContainsText()</span>
+</div>
+</li>
+<li class="skipped">
+<div class="step">
+<span class="keyword">And </span>
+<span class="text">I should see "<strong class="skipped_param">Start Conversation</strong>"</span>
+<span class="path">Behat\MinkExtension\Context\MinkContext::assertPageContainsText()</span>
+</div>
+</li>
+</ol>
+</div>
+<div class="scenario">
+<ul class="tags">
+<li>@javascript</li>
+</ul>
+<h3>
+<span class="keyword">Scenario: </span>
+<span class="title">Start a conversation</span>
+<span class="path">features\tests\modules\conversation.feature:14</span>
+</h3>
+<ol>
+<li class="passed">
+<div class="step">
+<span class="keyword">Given </span>
+<span class="text">I am oliver</span>
+<span class="path">UserContext::iAmOliver()</span>
+</div>
+</li>
+<li class="failed">
+<div class="step">
+<span class="keyword">When </span>
+<span class="text">I follow "<strong class="failed_param">Messages</strong>"</span>
+<span class="path">Behat\MinkExtension\Context\MinkContext::clickLink()</span>
+</div>
+<pre class="backtrace">Link with id|title|alt|text &quot;Messages&quot; not found.</pre>
+</li>
+<li class="skipped">
+<div class="step">
+<span class="keyword">And </span>
+<span class="text">I follow "<strong class="skipped_param">Start conversation</strong>"</span>
+<span class="path">Behat\MinkExtension\Context\MinkContext::clickLink()</span>
+</div>
+</li>
+<li class="skipped">
+<div class="step">
+<span class="keyword">Then </span>
+<span class="text">I should see "<strong class="skipped_param">something</strong>"</span>
+<span class="path">Behat\MinkExtension\Context\MinkContext::assertPageContainsText()</span>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="feature">
+<ul class="tags">
+<li>@module</li>
+<li>@friendprofile</li>
+<li>@nojs</li>
+</ul>
+<h2>
+<span class="keyword">Feature: </span>
+<span class="title">Look at friend</span>
+</h2>
+<p>
+In order to see a friends profile<br />
+As a cunity user<br />
+I need to be able see him<br />
+</p>
+
+<div class="scenario">
+<h3>
+<span class="keyword">Scenario: </span>
+<span class="title">See profile</span>
+<span class="path">features\tests\modules\friendprofile.feature:7</span>
+</h3>
+<ol>
+</ol>
+</div>
+<div class="scenario">
+<h3>
+<span class="keyword">Scenario: </span>
+<span class="title">See pins of friend</span>
+<span class="path">features\tests\modules\friendprofile.feature:9</span>
+</h3>
+<ol>
+</ol>
+</div>
+<div class="scenario">
+<h3>
+<span class="keyword">Scenario: </span>
+<span class="title">See number of friends</span>
+<span class="path">features\tests\modules\friendprofile.feature:11</span>
+</h3>
+<ol>
+</ol>
+</div>
+</div>
+<div class="feature">
+<ul class="tags">
+<li>@module</li>
+<li>@friends</li>
+<li>@js</li>
+</ul>
+<h2>
+<span class="keyword">Feature: </span>
+<span class="title">Friends</span>
+</h2>
+<p>
+In order to interact with friends<br />
+As a usual user<br />
+I need to have friends<br />
+</p>
+
+<div class="scenario">
+<ul class="tags">
+<li>@javascript</li>
+</ul>
+<h3>
+<span class="keyword">Scenario: </span>
+<span class="title">See friends</span>
+<span class="path">features\tests\modules\friends.feature:8</span>
+</h3>
+<ol>
+<li class="passed">
+<div class="step">
+<span class="keyword">Given </span>
+<span class="text">I am oliver</span>
+<span class="path">UserContext::iAmOliver()</span>
+</div>
+</li>
+<li class="failed">
+<div class="step">
+<span class="keyword">When </span>
+<span class="text">I follow "<strong class="failed_param">Friends</strong>"</span>
+<span class="path">Behat\MinkExtension\Context\MinkContext::clickLink()</span>
+</div>
+<pre class="backtrace">Exception thrown by (//html/.//a[./@href][(((./@id = 'Friends' or contains(normalize-space(string(.)), 'Friends')) or contains(./@title, 'Friends') or contains(./@rel, 'Friends')) or .//img[contains(./@alt, 'Friends')])] | .//*[./@role = 'link'][((./@id = 'Friends' or contains(./@value, 'Friends')) or contains(./@title, 'Friends') or contains(normalize-space(string(.)), 'Friends'))])[1]
+element not visible
+  (Session info: chrome=35.0.1916.153)
+  (Driver info: chromedriver=2.9.248315,platform=Windows NT 6.3 x86_64) (WARNING: The server did not provide any stacktrace information)
+Command duration or timeout: 39 milliseconds
+Build info: version: '2.42.2', revision: '6a6995d', time: '2014-06-03 17:42:03'
+System info: host: 'Oliver-Taichi', ip: '192.168.178.22', os.name: 'Windows 8.1', os.arch: 'x86', os.version: '6.3', java.version: '1.7.0_60'
+Session ID: 06e6c06cd0a2969fefecf845f51b9f27
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities [{platform=WIN8_1, acceptSslCerts=true, javascriptEnabled=true, browserName=chrome, chrome={userDataDir=C:\Users\Oliver\AppData\Local\Temp\scoped_dir9092_8695}, rotatable=false, locationContextEnabled=true, version=35.0.1916.153, takesHeapSnapshot=true, cssSelectorsEnabled=true, databaseEnabled=false, handlesAlerts=true, browserConnectionEnabled=false, nativeEvents=true, webStorageEnabled=true, applicationCacheEnabled=false, takesScreenshot=true}]</pre>
+</li>
+<li class="skipped">
+<div class="step">
+<span class="keyword">Then </span>
+<span class="text">I should see "<strong class="skipped_param">Julian Seibert</strong>"</span>
+<span class="path">Behat\MinkExtension\Context\MinkContext::assertPageContainsText()</span>
+</div>
+</li>
+</ol>
+</div>
+<div class="scenario">
+<ul class="tags">
+<li>@javascript</li>
+</ul>
+<h3>
+<span class="keyword">Scenario: </span>
+<span class="title">View friend's profile</span>
+<span class="path">features\tests\modules\friends.feature:14</span>
+</h3>
+<ol>
+<li class="passed">
+<div class="step">
+<span class="keyword">Given </span>
+<span class="text">I am oliver</span>
+<span class="path">UserContext::iAmOliver()</span>
+</div>
+</li>
+<li class="failed">
+<div class="step">
+<span class="keyword">When </span>
+<span class="text">I follow "<strong class="failed_param">Friends</strong>"</span>
+<span class="path">Behat\MinkExtension\Context\MinkContext::clickLink()</span>
+</div>
+<pre class="backtrace">Exception thrown by (//html/.//a[./@href][(((./@id = 'Friends' or contains(normalize-space(string(.)), 'Friends')) or contains(./@title, 'Friends') or contains(./@rel, 'Friends')) or .//img[contains(./@alt, 'Friends')])] | .//*[./@role = 'link'][((./@id = 'Friends' or contains(./@value, 'Friends')) or contains(./@title, 'Friends') or contains(normalize-space(string(.)), 'Friends'))])[1]
+element not visible
+  (Session info: chrome=35.0.1916.153)
+  (Driver info: chromedriver=2.9.248315,platform=Windows NT 6.3 x86_64) (WARNING: The server did not provide any stacktrace information)
+Command duration or timeout: 31 milliseconds
+Build info: version: '2.42.2', revision: '6a6995d', time: '2014-06-03 17:42:03'
+System info: host: 'Oliver-Taichi', ip: '192.168.178.22', os.name: 'Windows 8.1', os.arch: 'x86', os.version: '6.3', java.version: '1.7.0_60'
+Session ID: 06e6c06cd0a2969fefecf845f51b9f27
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities [{platform=WIN8_1, acceptSslCerts=true, javascriptEnabled=true, browserName=chrome, chrome={userDataDir=C:\Users\Oliver\AppData\Local\Temp\scoped_dir9092_8695}, rotatable=false, locationContextEnabled=true, version=35.0.1916.153, takesHeapSnapshot=true, cssSelectorsEnabled=true, databaseEnabled=false, handlesAlerts=true, browserConnectionEnabled=false, nativeEvents=true, webStorageEnabled=true, applicationCacheEnabled=false, takesScreenshot=true}]</pre>
+</li>
+<li class="skipped">
+<div class="step">
+<span class="keyword">And </span>
+<span class="text">I follow "<strong class="skipped_param">Julian Seibert</strong>"</span>
+<span class="path">Behat\MinkExtension\Context\MinkContext::clickLink()</span>
+</div>
+</li>
+<li class="skipped">
+<div class="step">
+<span class="keyword">Then </span>
+<span class="text">I should see "<strong class="skipped_param">Julian Seibert</strong>"</span>
+<span class="path">Behat\MinkExtension\Context\MinkContext::assertPageContainsText()</span>
+</div>
+</li>
+<li class="skipped">
+<div class="step">
+<span class="keyword">And </span>
+<span class="text">I should see "<strong class="skipped_param">( julian )</strong>"</span>
+<span class="path">Behat\MinkExtension\Context\MinkContext::assertPageContainsText()</span>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="feature">
+<ul class="tags">
+<li>@module</li>
+<li>@gallery</li>
+<li>@js</li>
+</ul>
+<h2>
+<span class="keyword">Feature: </span>
+<span class="title">Gallery</span>
+</h2>
+<p>
+In order view fotos in the gallery<br />
+As a cunity user<br />
+I need to upload fotos into a gallery<br />
+</p>
+
+<div class="scenario">
+<ul class="tags">
+<li>@javascript</li>
+</ul>
+<h3>
+<span class="keyword">Scenario: </span>
+<span class="title">View galleries</span>
+<span class="path">features\tests\modules\gallery.feature:8</span>
+</h3>
+<ol>
+<li class="passed">
+<div class="step">
+<span class="keyword">When </span>
+<span class="text">I am oliver</span>
+<span class="path">UserContext::iAmOliver()</span>
+</div>
+</li>
+<li class="failed">
+<div class="step">
+<span class="keyword">And </span>
+<span class="text">I follow "<strong class="failed_param">gallery</strong>"</span>
+<span class="path">Behat\MinkExtension\Context\MinkContext::clickLink()</span>
+</div>
+<pre class="backtrace">Link with id|title|alt|text &quot;gallery&quot; not found.</pre>
+</li>
+<li class="skipped">
+<div class="step">
+<span class="keyword">Then </span>
+<span class="text">I should see "<strong class="skipped_param">New Album</strong>"</span>
+<span class="path">Behat\MinkExtension\Context\MinkContext::assertPageContainsText()</span>
+</div>
+</li>
+<li class="skipped">
+<div class="step">
+<span class="keyword">And </span>
+<span class="text">I should see "<strong class="skipped_param">sdf</strong>"</span>
+<span class="path">Behat\MinkExtension\Context\MinkContext::assertPageContainsText()</span>
+</div>
+</li>
+</ol>
+</div>
+<div class="scenario">
+<ul class="tags">
+<li>@javascript</li>
+</ul>
+<h3>
+<span class="keyword">Scenario: </span>
+<span class="title">View fotos in a gallery</span>
+<span class="path">features\tests\modules\gallery.feature:15</span>
+</h3>
+<ol>
+<li class="passed">
+<div class="step">
+<span class="keyword">When </span>
+<span class="text">I am oliver</span>
+<span class="path">UserContext::iAmOliver()</span>
+</div>
+</li>
+<li class="failed">
+<div class="step">
+<span class="keyword">And </span>
+<span class="text">I follow "<strong class="failed_param">gallery</strong>"</span>
+<span class="path">Behat\MinkExtension\Context\MinkContext::clickLink()</span>
+</div>
+<pre class="backtrace">Link with id|title|alt|text &quot;gallery&quot; not found.</pre>
+</li>
+<li class="skipped">
+<div class="step">
+<span class="keyword">And </span>
+<span class="text">I follow "<strong class="skipped_param">sdf</strong>"</span>
+<span class="path">Behat\MinkExtension\Context\MinkContext::clickLink()</span>
+</div>
+</li>
+<li class="skipped">
+<div class="step">
+<span class="keyword">Then </span>
+<span class="text">I should see "<strong class="skipped_param">sdf</strong>"</span>
+<span class="path">Behat\MinkExtension\Context\MinkContext::assertPageContainsText()</span>
+</div>
+</li>
+<li class="skipped">
+<div class="step">
+<span class="keyword">And </span>
+<span class="text">I should see "<strong class="skipped_param">fsdfdfdsfsd</strong>"</span>
+<span class="path">Behat\MinkExtension\Context\MinkContext::assertPageContainsText()</span>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="feature">
+<ul class="tags">
+<li>@module</li>
+<li>@login</li>
+<li>@nojs</li>
+</ul>
+<h2>
+<span class="keyword">Feature: </span>
+<span class="title">Login</span>
+</h2>
+<p>
+In order to use cunity<br />
+As a usual user<br />
+I need to be loggedin<br />
+</p>
+
+<div class="scenario">
+<h3>
+<span class="keyword">Scenario: </span>
+<span class="title">Login with wrong data</span>
+<span class="path">features\tests\modules\login.feature:7</span>
+</h3>
+<ol>
+<li class="passed">
+<div class="step">
+<span class="keyword">When </span>
+<span class="text">I am on "<strong class="passed_param">/</strong>"</span>
+<span class="path">Behat\MinkExtension\Context\MinkContext::visit()</span>
+</div>
+</li>
+<li class="passed">
+<div class="step">
+<span class="keyword">And </span>
+<span class="text">I fill in "<strong class="passed_param">email</strong>" with "<strong class="passed_param">asdf@asdf.com</strong>"</span>
+<span class="path">Behat\MinkExtension\Context\MinkContext::fillField()</span>
+</div>
+</li>
+<li class="passed">
+<div class="step">
+<span class="keyword">And </span>
+<span class="text">I fill in "<strong class="passed_param">password</strong>" with "<strong class="passed_param">asdfasdf</strong>"</span>
+<span class="path">Behat\MinkExtension\Context\MinkContext::fillField()</span>
+</div>
+</li>
+<li class="passed">
+<div class="step">
+<span class="keyword">And </span>
+<span class="text">I press "<strong class="passed_param">Log in</strong>"</span>
+<span class="path">Behat\MinkExtension\Context\MinkContext::pressButton()</span>
+</div>
+</li>
+<li class="passed">
+<div class="step">
+<span class="keyword">Then </span>
+<span class="text">I should see "<strong class="passed_param">Sorry</strong>"</span>
+<span class="path">Behat\MinkExtension\Context\MinkContext::assertPageContainsText()</span>
+</div>
+</li>
+<li class="passed">
+<div class="step">
+<span class="keyword">And </span>
+<span class="text">I should see "<strong class="passed_param">The entered data is not correct!</strong>"</span>
+<span class="path">Behat\MinkExtension\Context\MinkContext::assertPageContainsText()</span>
+</div>
+</li>
+<li class="passed">
+<div class="step">
+<span class="keyword">And </span>
+<span class="text">I should see "<strong class="passed_param">I forgot my password</strong>"</span>
+<span class="path">Behat\MinkExtension\Context\MinkContext::assertPageContainsText()</span>
+</div>
+</li>
+</ol>
+</div>
+<div class="scenario">
+<h3>
+<span class="keyword">Scenario: </span>
+<span class="title">Login with correct data</span>
+<span class="path">features\tests\modules\login.feature:16</span>
+</h3>
+<ol>
+<li class="passed">
+<div class="step">
+<span class="keyword">When </span>
+<span class="text">I am oliver</span>
+<span class="path">UserContext::iAmOliver()</span>
+</div>
+</li>
+<li class="passed">
+<div class="step">
+<span class="keyword">Then </span>
+<span class="text">I should see "<strong class="passed_param">Oliver Monneke</strong>"</span>
+<span class="path">Behat\MinkExtension\Context\MinkContext::assertPageContainsText()</span>
+</div>
+</li>
+<li class="passed">
+<div class="step">
+<span class="keyword">And </span>
+<span class="text">I should see "<strong class="passed_param">( oliver )</strong>"</span>
+<span class="path">Behat\MinkExtension\Context\MinkContext::assertPageContainsText()</span>
+</div>
+</li>
+<li class="passed">
+<div class="step">
+<span class="keyword">And </span>
+<span class="text">I should see "<strong class="passed_param">Edit profile</strong>"</span>
+<span class="path">Behat\MinkExtension\Context\MinkContext::assertPageContainsText()</span>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="feature">
+<ul class="tags">
+<li>@module</li>
+<li>@memberlist</li>
+<li>@js</li>
+</ul>
+<h2>
+<span class="keyword">Feature: </span>
+<span class="title">Interact with other members</span>
+</h2>
+<p>
+In order to interact with other members<br />
+As a cunity user<br />
+I need to be able to interact with them<br />
+</p>
+
+<div class="scenario">
+<h3>
+<span class="keyword">Scenario: </span>
+<span class="title">View member list</span>
+<span class="path">features\tests\modules\memberlist.feature:7</span>
+</h3>
+<ol>
+<li class="passed">
+<div class="step">
+<span class="keyword">Given </span>
+<span class="text">I am oliver</span>
+<span class="path">UserContext::iAmOliver()</span>
+</div>
+</li>
+<li class="passed">
+<div class="step">
+<span class="keyword">When </span>
+<span class="text">I follow "<strong class="passed_param">Memberlist</strong>"</span>
+<span class="path">Behat\MinkExtension\Context\MinkContext::clickLink()</span>
+</div>
+</li>
+<li class="passed">
+<div class="step">
+<span class="keyword">Then </span>
+<span class="text">I should see "<strong class="passed_param">Memberlist</strong>"</span>
+<span class="path">Behat\MinkExtension\Context\MinkContext::assertPageContainsText()</span>
+</div>
+</li>
+</ol>
+</div>
+<div class="scenario">
+<h3>
+<span class="keyword">Scenario: </span>
+<span class="title">See friend's iamges</span>
+<span class="path">features\tests\modules\memberlist.feature:12</span>
+</h3>
+<ol>
+</ol>
+</div>
+<div class="scenario">
+<h3>
+<span class="keyword">Scenario: </span>
+<span class="title">Select friend</span>
+<span class="path">features\tests\modules\memberlist.feature:14</span>
+</h3>
+<ol>
+</ol>
+</div>
+<div class="scenario">
+<h3>
+<span class="keyword">Scenario: </span>
+<span class="title">Send message</span>
+<span class="path">features\tests\modules\memberlist.feature:16</span>
+</h3>
+<ol>
+</ol>
+</div>
+<div class="scenario">
+<h3>
+<span class="keyword">Scenario: </span>
+<span class="title">Block person</span>
+<span class="path">features\tests\modules\memberlist.feature:18</span>
+</h3>
+<ol>
+</ol>
+</div>
+<div class="scenario">
+<h3>
+<span class="keyword">Scenario: </span>
+<span class="title">Remove pending request</span>
+<span class="path">features\tests\modules\memberlist.feature:20</span>
+</h3>
+<ol>
+</ol>
+</div>
+</div>
+<div class="feature">
+<ul class="tags">
+<li>@module</li>
+<li>@profile</li>
+<li>@js</li>
+</ul>
+<h2>
+<span class="keyword">Feature: </span>
+<span class="title">My profile</span>
+</h2>
+<p>
+In order edit my profile<br />
+As a usual user<br />
+I need to be loggedin<br />
+</p>
+
+<div class="scenario">
+<h3>
+<span class="keyword">Scenario: </span>
+<span class="title">See profile edit button</span>
+<span class="path">features\tests\modules\profile.feature:7</span>
+</h3>
+<ol>
+<li class="passed">
+<div class="step">
+<span class="keyword">Given </span>
+<span class="text">I am oliver</span>
+<span class="path">UserContext::iAmOliver()</span>
+</div>
+</li>
+<li class="passed">
+<div class="step">
+<span class="keyword">Then </span>
+<span class="text">I should see "<strong class="passed_param">Edit profile</strong>"</span>
+<span class="path">Behat\MinkExtension\Context\MinkContext::assertPageContainsText()</span>
+</div>
+</li>
+</ol>
+</div>

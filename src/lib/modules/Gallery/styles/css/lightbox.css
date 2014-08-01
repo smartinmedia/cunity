@@ -1,0 +1,387 @@
+/*
+ * blueimp Gallery CSS 2.11.0
+ * https://github.com/blueimp/Gallery
+ *
+ * Copyright 2013, Sebastian Tschan
+ * https://blueimp.net
+ *
+ * Licensed under the MIT license:
+ * http://www.opensource.org/licenses/MIT
+ */
+
+.blueimp-gallery,
+.blueimp-gallery > .slides > .slide > .slide-content {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    /* Prevent artifacts in Mozilla Firefox: */
+    -moz-backface-visibility: hidden;
+}
+
+.blueimp-gallery > .slides > .slide > .slide-content {
+    margin: auto;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    opacity: 1;
+    overflow: hidden;
+}
+
+.blueimp-gallery {
+    position: fixed;
+    z-index: 1030;
+    overflow: hidden;
+    background: #000;
+    background: rgba(0, 0, 0, 0.9);
+    opacity: 0;
+    display: none;
+    direction: ltr;
+    -ms-touch-action: none;
+}
+
+.blueimp-gallery-display {
+    display: block;
+    opacity: 1;
+}
+
+.blueimp-gallery > .slides {
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+}
+
+.blueimp-gallery-carousel > .slides {
+    position: absolute;
+}
+
+.blueimp-gallery > .slides > .slide {
+    position: relative;
+    float: left;
+    height: 100%;
+    text-align: center;
+    -webkit-transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1.000);
+    -moz-transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1.000);
+    -ms-transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1.000);
+    -o-transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1.000);
+    transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1.000);
+}
+
+.blueimp-gallery,
+.blueimp-gallery > .slides > .slide > .slide-content {
+    -webkit-transition: opacity 0.5s linear;
+    -moz-transition: opacity 0.5s linear;
+    -ms-transition: opacity 0.5s linear;
+    -o-transition: opacity 0.5s linear;
+    transition: opacity 0.5s linear;
+}
+
+.blueimp-gallery > .slides > .slide-loading {
+    background: url(../img/loading.gif) center no-repeat;
+    background-size: 64px 64px;
+}
+
+.blueimp-gallery > .slides > .slide-loading > .slide-content {
+    opacity: 0;
+}
+
+.blueimp-gallery > .slides > .slide-error {
+    background: url(../img/error.png) center no-repeat;
+}
+
+.blueimp-gallery > .slides > .slide-error > .slide-content {
+    display: none;
+}
+
+/* Replace PNGs with SVGs for capable browsers (excluding IE<9) */
+body:last-child .blueimp-gallery > .slides > .slide-error {
+    background-image: url(../img/error.svg);
+}
+
+/* IE7 fixes */
+* + html .blueimp-gallery > .slides > .slide {
+    min-height: 300px;
+}
+
+* + html .blueimp-gallery > .slides > .slide > .slide-content {
+    position: relative;
+}
+
+.blueimp-gallery .modal-body {
+    position: relative;
+    text-align: left;
+    overflow: hidden;
+    padding: 0;
+    background-color: #000;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+}
+
+.blueimp-gallery .modal-body-content {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 350px;
+    height: 100%;
+    background-color: #fff;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+
+.blueimp-gallery .modal-body-info .userinfo {
+    width: 350px;
+    height: 80px;
+    border-bottom: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+    overflow: hidden;
+}
+
+.blueimp-gallery .modal-body-info {
+    position: relative;
+}
+
+.blueimp-gallery .modal-body-info .breadcrumb {
+    margin: 10px 0 0 0;
+}
+
+.blueimp-gallery .modal-body-info .userinfo img {
+    height: 60px;
+    width: 60px;
+    max-width: none;
+    max-height: none;
+    margin: 0;
+}
+
+.blueimp-gallery .userbox a {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.blueimp-gallery .userbox {
+    width: 270px;
+    height: 60px;
+    padding-left: 10px;
+    padding-top: 5px;
+}
+
+.blueimp-gallery .imagetitle {
+    border-bottom: 1px solid #ccc;
+    padding: 10px;
+}
+
+.blueimp-gallery .imagetitle h4 {
+    margin: 10px;
+}
+
+.blueimp-gallery .jspPane > .comments {
+    padding: 10px;
+}
+
+.blueimp-gallery .socialbox {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.blueimp-gallery .info-overlay {
+    width: calc(100% - 350px);
+    padding: 10px 20px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.75);
+}
+
+.blueimp-gallery .info-overlay a:not(.deleteimg) {
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: bold;
+    margin: 0;
+}
+
+.blueimp-gallery .info-overlay a:not(.deleteimg):hover {
+    color: rgba(255,255,255,1);
+    cursor: pointer;
+}
+
+.blueimp-gallery .time {
+    color: #666;
+    display: block;
+    font-size: 13px;
+}
+
+.blueimp-gallery .close {
+    position: absolute;
+    right: 10px;
+    top: 6px;
+    font-size: 25px;
+    z-index: 10;
+}
+
+.blueimp-gallery .modal-content {
+    background-color: transparent;
+    position: relative;
+}
+
+.blueimp-gallery .modal-footer {
+    margin: 0;
+    width: 350px;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    padding: 10px;
+}
+
+.blueimp-gallery-image {
+    max-width: calc(100% - 350px);
+    max-height: 100%;
+    margin: auto;
+    /*    border-bottom-left-radius: 6px;
+        border-top-left-radius: 6px;*/
+}
+
+.commentbox {
+    overflow: hidden;
+    padding-bottom: 0;
+}
+
+.comments {
+    overflow: auto;
+}
+
+.image-comment {
+    width: 330px;
+    padding-bottom: 10px;
+    font-size: 12px;
+}
+
+.image-comment .close {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.image-comment:hover .close {
+    display: block;
+}
+
+.image-comment > .avatar {
+    width: 40px;
+    height: 40px;
+    margin-right: 7px !important;
+    max-height: none !important;
+    max-width: none !important;
+    border-radius: 4px;
+}
+
+.image-comment a {
+    font-weight: bold;
+}
+
+.image-comment .content-box {
+    width: 283px;
+    height: auto;
+    min-height: 40px;
+    padding-bottom: 17px;
+    position: relative;
+}
+
+.image-comment .message {
+    padding: 10px 0;
+}
+
+.image-comment .time {
+    font-weight: bold;
+    font-size: 11px !important;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+
+.image-comment .content-box textarea {
+    height: 40px;
+    font-size: 12px;
+    padding: 3px;
+    resize: none;
+}
+
+.newimagebox {
+    background-color: #efefef;
+    padding: 10px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+
+.newimagebox .image-comment, .newimagebox .content-box {
+    padding-bottom: 0;
+}
+
+.image-loading {
+    width: 100%;
+    height: 50px;
+    display: block;
+    margin-top: 50px;
+}
+
+.lightbox-likebox .label {
+    margin: 7px;
+    display: inline-block;
+    padding: 5px 10px;
+}
+
+.lightbox-likebox {
+    border: 1px solid #ccc;
+    border-width: 1px 0;
+    border-bottom: 0;
+    margin: 10px -10px -10px -10px;
+}
+
+.lightbox-likes {
+    width: 50%;
+    padding: 5px 0;
+    border-right: 1px solid #ccc;
+}
+
+.lightbox-dislikes {
+    width: 50%;
+    padding: 5px 0;
+}
+
+.lightbox-likes .fa, .lightbox-dislikes .fa {
+    font-size: 1.5em;
+    margin: 7px 4px;
+}
+
+.lightbox-dislikes a, .lightbox-likes a {
+    margin-left: 5px;
+    float: left;
+    display: inline-block;
+}
+
+.lightbox-dislikes img, .lightbox-likes img {
+    width: 35px;
+    height: 35px;
+    padding: 2px;
+}
+
+@media screen and (min-width: 768px) {
+    .blueimp-gallery .modal-dialog {
+        right: auto;
+        left: auto;
+        width: 90%;
+        height: 90%;
+        padding: 0;
+        margin: 25px auto;
+    }
+
+    .blueimp-gallery .modal-content {
+        height: 100%
+    }
+
+    .blueimp-gallery .modal-body {
+        height: 100%
+    }
+}

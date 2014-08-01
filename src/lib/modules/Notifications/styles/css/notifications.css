@@ -1,0 +1,22 @@
+
+.notification-popover {
+    width: 500px;
+    max-width: 500px;
+}
+
+.notification-popover .arrow {
+    top: 50px !important;
+}
+
+.notification-popover-loader {
+    height: 60px;
+}
+
+.notification-item img {
+    width: 50px;
+    height: 50px;
+}
+
+.notification-item-message {
+    font-style: italic;
+}

@@ -1,0 +1,257 @@
+.conversation-partners a {
+    margin-left: 5px;
+    float: left;
+    display: inline-block;
+}
+
+.conversation-partners img {
+    width: 40px;
+    height: 40px;
+    padding: 2px;
+    display: inline-block;
+}
+
+.conversation-partners-name {
+    padding: 0 8px;
+    font-weight: bold;
+}
+
+#conversation-content {
+    margin: 0 -10px 0 -9px;
+    height: 600px;
+    overflow: hidden;
+    background-color: #f0f0f0;
+    background-size: 50px 50px;
+    background-image: linear-gradient(-45deg,
+    rgba(255, 255, 255, 0.3) 25%,
+    rgba(0, 0, 0, 0) 25%,
+    rgba(0, 0, 0, 0) 50%,
+    rgba(255, 255, 255, 0.3) 50%,
+    rgba(255, 255, 255, 0.3) 75%,
+    rgba(0, 0, 0, 0) 75%,
+    rgba(0, 0, 0, 0));
+    border-bottom: 1px solid #aaa;
+}
+
+#conversation-content .jspPane {
+    width: 568px !important;
+}
+
+#conversation-content .list div[class^="conversation-item-"]:first-child {
+    margin-top: 13px;
+}
+
+#conversation-more {
+    background-color: #fff;
+    width: 100%;
+    padding: 8px;
+    box-shadow: inset -5px 10px 30px #eee;
+    border-bottom: 1px solid #ccc;
+    text-align: center;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+#conversation-more a:hover {
+    text-decoration: none;
+}
+
+.conversation-writingbox {
+    padding: 10px 0;
+}
+
+.conversation-writingbox .thumbnail {
+    width: 70px;
+    height: 70px;
+
+}
+
+.conversation-writingbox div.message:not(.responsive) {
+    height: 70px;
+    width: 469px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    resize: vertical;
+}
+
+.emoticon-select {
+    cursor: pointer;
+    margin: 5px;
+}
+
+.message-smiley {
+    margin: 0 2px;
+}
+
+#conversation-content .conversation-item-me {
+    max-width: 466px;
+    margin-bottom: 13px;
+    float: right;
+    margin-right: 10px;
+}
+
+#conversation-content .conversation-item-me > a {
+    float: right;
+    width: 50px;
+    height: 50px;
+}
+
+#conversation-content .conversation-item-me > a > img {
+    width: 100%;
+    height: 100%;
+}
+
+#conversation-content .conversation-item-me > .conversation-item-content-wrap {
+    float: right;
+    width: 410px;
+    padding-right: 10px;
+    padding-top: 3px;
+    position: relative;
+    text-align: right;
+}
+
+#conversation-content .conversation-item-me .close {
+    position: absolute;
+    right: 15px;
+    z-index: 1;
+}
+
+#conversation-content .conversation-item-me .conversation-item-content {
+    background-color: #428bca;
+    border-radius: 5px;
+    padding: 10px 10px 20px 10px;
+    font-size: 12px;
+    width: auto;
+    display: inline-block;
+    text-align: left;
+    position: relative;
+    min-width: 200px;
+    word-break: break-word;
+}
+
+#conversation-content .conversation-item-me .message-time {
+    font-size: 11px;
+    position: absolute;
+    bottom: 4px;
+    right: 10px;
+    color: #333;
+}
+
+#conversation-content .conversation-item-me .arrow {
+    border-top: 7px solid transparent;
+    border-left: 10px solid #428bca;
+    border-bottom: 7px solid transparent;
+    position: absolute;
+    right: 0;
+    top: 25px;
+    display: block;
+    width: 0;
+    height: 0;
+    margin-top: -5px;
+}
+
+#conversation-content .conversation-item-foreign {
+    max-width: 466px;
+    margin-bottom: 13px;
+    margin-left: 10px;
+    float: left;
+}
+
+#conversation-content .conversation-item-foreign > a {
+    float: left;
+    width: 50px;
+    height: 50px;
+}
+
+#conversation-content .conversation-item-foreign > a > img {
+    width: 100%;
+    height: 100%;
+}
+
+#conversation-content .conversation-item-foreign > .conversation-item-content-wrap {
+    float: left;
+    width: 410px;
+    padding-top: 3px;
+    padding-left: 10px;
+    position: relative;
+}
+
+#conversation-content .conversation-item-foreign .conversation-item-content {
+    background-color: #ccc;
+    border-radius: 5px;
+    padding: 10px 10px 20px 10px;
+    font-size: 12px;
+    width: auto;
+    display: inline-block;
+    position: relative;
+    min-width: 200px;
+    word-break: break-word;
+}
+
+#conversation-content .conversation-item-foreign .message-time {
+    font-size: 11px;
+    position: absolute;
+    bottom: 4px;
+    right: 10px;
+    color: #333;
+}
+
+#conversation-content .conversation-item-foreign .arrow {
+    border-top: 7px solid transparent;
+    border-right: 10px solid #ccc;
+    border-bottom: 7px solid transparent;
+    position: absolute;
+    left: 0;
+    top: 25px;
+    display: block;
+    width: 0;
+    height: 0;
+    margin-top: -5px;
+}
+
+@media screen and (max-width: 1023px) {
+    .main > .content {
+        padding: 0;
+    }
+
+    #conversation-content .conversation-item-foreign, .conversation-item-me {
+        margin: 5px 0;
+    }
+
+    #conversation-content {
+        height: auto;
+        overflow: auto;
+        width: 100%;
+        margin: 0;
+        min-height: 100%;
+        padding-bottom: 60px;
+    }
+
+    #conversation-content .conversation-writingbox {
+        padding: 10px;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        background-color: #fff;
+        border-top: 1px solid #ccc;
+    }
+
+    #conversation-content .conversation-item-content-mobile-name {
+        display: block;
+    }
+
+    #conversation-content .conversation-item-content {
+        padding-top: 5px !important;
+    }
+
+}
+
+@media screen and (max-width: 400px) {
+    div[class^="conversation-item-"] > .conversation-item-content-wrap {
+        width: auto;
+    }
+
+    #conversation-content .conversation-item-foreign, .conversation-item-me {
+        margin: 5px 0;
+    }
+}

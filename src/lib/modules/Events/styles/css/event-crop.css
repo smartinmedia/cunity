@@ -1,0 +1,9 @@
+.event-banner {
+    overflow: hidden;
+}
+
+.event-banner-preview-image {
+    position: absolute;
+    left: 0;
+    top: 0;
+}

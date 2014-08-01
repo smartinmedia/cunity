@@ -1,0 +1,1 @@
+<div class="alert alert-danger alert-block" style="margin:20px 10px"><h4 class="alert-heading">Fatal Error</h4><p>{-$MESSAGE}</p></div>

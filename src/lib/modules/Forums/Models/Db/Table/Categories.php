@@ -1,0 +1,54 @@
+<?php
+
+namespace Forums\Models\Db\Table;
+
+use Core\Models\Db\Abstractables\Table;
+
+/**
+ * Class Categories
+ * @package Forums\Models\Db\Table
+ */
+class Categories extends Table {
+
+    /**
+     * @var string
+     */
+    protected $_name = 'forums_categories';
+    /**
+     * @var string
+     */
+    protected $_primary = 'id';
+
+    /**
+     *
+     */
+    public function __construct() {
+        parent::__construct();
+    }
+
+    /**
+     * @return array|bool
+     */
+    public function getCategories() {
+        $query = $this->getAdapter()->select()->from(["c" => $this->_name])
+                ->joinLeft(["t" => $this->_dbprefix . "forums_threads"], "t.category=c.id", new \Zend_Db_Expr("COUNT(DISTINCT t.id) AS threadCount"))
+                ->joinLeft(["pc" => $this->_dbprefix . "forums_posts"], "pc.thread_id=t.id", new \Zend_Db_Expr("COUNT(DISTINCT pc.id) AS postcount"))
+                ->group("c.id");
+        $res = $this->getAdapter()->fetchAll($query);
+        if ($res !== NULL && $res !== false)
+            return $res;
+        return false;
+    }
+
+    /**
+     * @param $tag
+     * @return array|bool
+     */
+    public function getCategoryData($tag) {
+        $res = $this->fetchRow($this->select()->where("tag=?", $tag));
+        if ($res !== NULL && $res !== false)
+            return $res->toArray();
+        return false;
+    }
+
+}

@@ -1,0 +1,9 @@
+config.xml
+Zend
+Smarty
+/nbproject/
+.idea
+/data/searchindex/*
+/data/temp/templates-compiled/*
+/data/uploads/*
+!/data/uploads/searchindex

@@ -1,0 +1,49 @@
+<?php
+
+namespace Contact\View;
+
+use Core\Cunity;
+use Core\View\Mail\MailView;
+
+/**
+ * Class ContactMail
+ * @package Contact\View
+ */
+class ContactMail extends MailView
+{
+
+    /**
+     * @var string
+     */
+    protected $_templateDir = "contact";
+    /**
+     * @var string
+     */
+    protected $_templateFile = "contact-mail.tpl";
+
+    /**
+     * @param array $receiver
+     * @param array $content
+     * @param array $cc
+     * @throws \Exception
+     */
+    public function __construct(array $receiver = [],
+                                array $content = [],
+                                array $cc = [])
+    {
+        parent::__construct();
+        if (empty($receiver)) {
+            $settings = Cunity::get("settings");
+            $receiver = [
+                "email" => $settings->getSetting("core.contact_mail"),
+                "name" => "Cunity Administrator"
+            ];
+        }
+        $this->_receiver = $receiver;
+        $this->_cc = $cc;
+        $this->_subject = $content['subject'];
+        $this->assign('message', $content['message']);
+        $this->show();
+    }
+
+}
