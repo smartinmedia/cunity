@@ -62,26 +62,26 @@
             </table>
         </div>
     </div>
-    <div class="col-lg-4">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title"><i class="fa fa-download"></i>&nbsp;{-"Import module"|translate}</h4>
-            </div>
-            <div class="panel-body">
-                <form class="form-horizontal">
-                    <div class="form-group">
-                        <div class="col-lg-12">
-                            <p class="help-block">{-"Here you can upload a new Module-Package as .zip file"|translate}</p>
-                        </div>
-                        <div class="col-lg-9">
-                            <input type="file" class="form-control" accept="application/zip">
-                        </div>
-                        <div class="col-lg-3">
-                            <button class="btn btn-primary btn-block" type="submit"><i
-                                        class="fa fa-upload"></i>&nbsp;{-"Upload"|translate}</button>
-                        </div>
-                </form>
-            </div>
-        </div>
-    </div>
+    {-*<div class="col-lg-4">*}
+        {-*<div class="panel panel-default">*}
+            {-*<div class="panel-heading">*}
+                {-*<h4 class="panel-title"><i class="fa fa-download"></i>&nbsp;{-"Import module"|translate}</h4>*}
+            {-*</div>*}
+            {-*<div class="panel-body">*}
+                {-*<form class="form-horizontal">*}
+                    {-*<div class="form-group">*}
+                        {-*<div class="col-lg-12">*}
+                            {-*<p class="help-block">{-"Here you can upload a new Module-Package as .zip file"|translate}</p>*}
+                        {-*</div>*}
+                        {-*<div class="col-lg-9">*}
+                            {-*<input type="file" class="form-control" accept="application/zip">*}
+                        {-*</div>*}
+                        {-*<div class="col-lg-3">*}
+                            {-*<button class="btn btn-primary btn-block" type="submit"><i*}
+                                        {-*class="fa fa-upload"></i>&nbsp;{-"Upload"|translate}</button>*}
+                        {-*</div>*}
+                {-*</form>*}
+            {-*</div>*}
+        {-*</div>*}
+    {-*</div>*}
 </div>
