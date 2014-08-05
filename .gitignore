@@ -7,3 +7,4 @@ Smarty
 /data/temp/templates-compiled/*
 /data/uploads/*
 !/data/uploads/searchindex
+/atlassian-ide-plugin.xml
