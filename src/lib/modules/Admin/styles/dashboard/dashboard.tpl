@@ -1,6 +1,7 @@
 <link rel="stylesheet" href="http://cdn.oesmith.co.uk/morris-0.4.3.min.css">
-<script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-<script src="http://cdn.oesmith.co.uk/morris-0.4.3.min.js"></script>
+<link href="{-"core.siteurl"|setting}lib/plugins/morris/css/morris-0.4.3.min.css" rel="stylesheet">
+<script src="{-"core.siteurl"|setting}lib/plugins/raphael/js/raphael-min.js" type="text/javascript"></script>
+<script src="{-"core.siteurl"|setting}lib/plugins/morris/js/morris-0.4.3.min.js" type="text/javascript"></script>
 <div class="row">
     <div class="col-lg-12">
         <h1 class="page-header">{-"Dashboard"|translate}</h1>
