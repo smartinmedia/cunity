@@ -79,7 +79,7 @@
             </select>
         </div>
     </div>
-    {-if "register_min_age"|setting > 0}
+    {-if "register.min_age"|setting > 0}
     <div class="form-group" style="margin-bottom:10px">
         <label class="control-label col-lg-4">{-"Birthday"|translate}</label>
 
