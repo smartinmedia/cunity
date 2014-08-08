@@ -6,13 +6,13 @@
     <link href="{-"core.siteurl"|setting}lib/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="{-"core.siteurl"|setting}lib/plugins/bootstrap-validator/css/bootstrapValidator.min.css" rel="stylesheet">
     <link href="{-"core.siteurl"|setting}lib/modules/Admin/styles/css/login.css" rel="stylesheet">
-    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" rel="stylesheet">
-    <script src="//code.jquery.com/jquery-1.9.1.js" type="text/javascript"></script>
+    <link href="{-"core.siteurl"|setting}lib/plugins/fontawesome/css/font-awesome.css" rel="stylesheet">
+    <script src="{-"core.siteurl"|setting}lib/plugins/js/jquery.min.js" type="text/javascript"></script>
     <script src="{-"core.siteurl"|setting}lib/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
     <script src="{-"core.siteurl"|setting}lib/plugins/bootstrap-validator/js/bootstrapValidator.min.js" type="text/javascript"></script>
     <script src="{-"core.siteurl"|setting}lib/modules/Core/styles/javascript/cunity-core.js" type="text/javascript"></script>
     <!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="{-"core.siteurl"|setting}lib/plugins/html5/js/html5.js" type="text/javascript"></script>
     <![endif]-->
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 </head>
