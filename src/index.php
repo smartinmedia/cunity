@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
     ########################################################################################
     ## CUNITY(R) V2.0 - An open source social network / "your private social network"     ##
     ########################################################################################
@@ -29,11 +29,10 @@
    For example, if your program is a web application, its interface could display
    a "Source" link that leads users to an archive of the code. There are many ways
    you could offer source, and different solutions will be better for different programs;
-   see section 13 of the GNU Affero General Public License for the specific requirements. 
+   see section 13 of the GNU Affero General Public License for the specific requirements.
    
    #####################################################################################
    */
-
 
 
 ob_start("ob_gzhandler");
