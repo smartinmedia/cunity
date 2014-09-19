@@ -1,9 +1,11 @@
 {
-    "name": "cunity/tests",
-    "description": "Behaviour tests for cunity",
+    "name": "cunity",
+    "description": "Cunity is an open-source social network that was programmed out of the need of having an own social network, which is not controlled by some big internet company. Cunity offers a variety of modules such as friends, forum, pinboard, chat, photo-gallery, messaging, etc.",
     "minimum-stability": "dev",
     "require": {
         "php":  "~5.5",
+        "zendframework/zendframework1": "~1",
+        "smarty/smarty":    "~3",
         "behat/behat": "2.4.*@stable",
         "behat/mink": "1.4.*@stable",
         "behat/mink-extension": "*",
