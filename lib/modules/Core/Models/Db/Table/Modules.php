@@ -44,11 +44,11 @@ use Cunity\Core\Models\Db\Abstractables\Table;
  */
 class Modules extends Table
 {
-
     /**
      * @var string
      */
     protected $_name = 'modules';
+
     /**
      * @var string
      */
@@ -78,5 +78,4 @@ class Modules extends Table
     {
         return $this->fetchRow($this->select()->where("namespace=?", $moduletag)->limit(1));
     }
-
 }

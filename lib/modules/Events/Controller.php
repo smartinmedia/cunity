@@ -74,9 +74,9 @@ class Controller implements ModuleController
      */
     private function handleRequest()
     {
-        if (!isset($_GET['action']) || empty($_GET['action']))
+        if (!isset($_GET['action']) || empty($_GET['action'])) {
             new View\Events();
-        elseif (
+        } elseif (
             isset(
                 $_GET['action']
             ) &&
@@ -87,10 +87,11 @@ class Controller implements ModuleController
                 $_GET['action'],
                 $this->_allowedActions
             )
-        )
+        ) {
             new Models\Process($_GET['action']);
-        else
+        } else {
             new Models\Process("loadEvent");
+        }
     }
 
     /**
@@ -99,7 +100,6 @@ class Controller implements ModuleController
      */
     public static function onRegister($user)
     {
-
     }
 
     /**
@@ -108,7 +108,5 @@ class Controller implements ModuleController
      */
     public static function onUnregister($user)
     {
-
     }
-
 }

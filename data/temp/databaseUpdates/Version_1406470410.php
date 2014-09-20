@@ -36,8 +36,8 @@
  */
 
 
-use Admin\Models\Updater\DbCommandInterface;
-use Admin\Models\Updater\DbUpdateVersion;
+use Cunity\Admin\Models\Updater\DbCommandInterface;
+use Cunity\Admin\Models\Updater\DbUpdateVersion;
 
 /**
  * Class Version 1231231231

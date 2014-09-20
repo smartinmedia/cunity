@@ -74,5 +74,4 @@ class Event extends View
         $this->registerScript("gallery", "jquery.blueimp-gallery");
         $this->registerScript("gallery", "lightbox");
     }
-
 }

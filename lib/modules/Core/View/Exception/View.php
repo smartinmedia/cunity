@@ -73,5 +73,3 @@ class View extends \Cunity\Core\View\View
         $this->show();
     }
 }
-
-

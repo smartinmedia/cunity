@@ -54,8 +54,9 @@ class Controller implements ModuleController
     {
         $pages = new Pages();
         $page = $pages->getPage($_GET['action']);
-        if ($page == NULL)
+        if ($page == null) {
             new PageNotFound();
+        }
         $page->displayPage();
     }
 
@@ -65,7 +66,6 @@ class Controller implements ModuleController
      */
     public static function onRegister($user)
     {
-
     }
 
     /**
@@ -74,7 +74,5 @@ class Controller implements ModuleController
      */
     public static function onUnregister($user)
     {
-
     }
-
 }

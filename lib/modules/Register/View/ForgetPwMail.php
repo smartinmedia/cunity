@@ -71,5 +71,4 @@ class ForgetPwMail extends MailView
         $this->assign('password', $password);
         $this->show();
     }
-
 }

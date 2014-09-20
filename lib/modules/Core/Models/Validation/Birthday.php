@@ -42,7 +42,8 @@ use Cunity\Core\Cunity;
  * Class Birthday
  * @package Core\Models\Validation
  */
-class Birthday extends \Zend_Validate_Abstract {
+class Birthday extends \Zend_Validate_Abstract
+{
 
     /**
      *
@@ -65,7 +66,8 @@ class Birthday extends \Zend_Validate_Abstract {
      * @param array $options
      * @throws \Exception
      */
-    public function __construct($options = []) {
+    public function __construct($options = [])
+    {
         $this->_messageTemplates[self::TOOYOUNG] .= Cunity::get("settings")->getSetting("register.min_age");
     }
 
@@ -74,21 +76,22 @@ class Birthday extends \Zend_Validate_Abstract {
      * @return bool
      * @throws \Exception
      */
-    public function isValid($value) {
-        $this->_setValue($value);        
-        if(!is_array($value) || empty($value['month']) || empty($value['day']) || empty($value['year']))
+    public function isValid($value)
+    {
+        $this->_setValue($value);
+        if (!is_array($value) || empty($value['month']) || empty($value['day']) || empty($value['year'])) {
             $this->_error(self::INVALID);
-        else if (!checkdate($value['month'], $value['day'], $value['year']))
+        } elseif (!checkdate($value['month'], $value['day'], $value['year'])) {
             $this->_error(self::INVALID);
-        else {
+        } else {
             $now = new \DateTime();
-            $received = new \DateTime($value['year']."-".$value['month']."-".$value['day']);
-            if ($received->diff($now)->y < Cunity::get("settings")->getSetting("register.min_age"))
+            $received = new \DateTime($value['year'] . "-" . $value['month'] . "-" . $value['day']);
+            if ($received->diff($now)->y < Cunity::get("settings")->getSetting("register.min_age")) {
                 $this->_error(self::TOOYOUNG);
-            else
+            } else {
                 return true;
-        }    
+            }
+        }
         return false;
     }
-
 }

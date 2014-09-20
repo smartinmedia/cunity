@@ -49,10 +49,12 @@ class Board extends View
      * @var string
      */
     protected $_templateDir = "forums";
+
     /**
      * @var string
      */
     protected $_templateFile = "board.tpl";
+
     /**
      * @var array
      */
@@ -70,8 +72,8 @@ class Board extends View
         $this->registerCunityPlugin(
             "summernote",
             [
-            "css/summernote.css",
-            "js/summernote.min.js"
+                "css/summernote.css",
+                "js/summernote.min.js"
             ]
         );
         $this->registerScript("forums", "category-cloud");

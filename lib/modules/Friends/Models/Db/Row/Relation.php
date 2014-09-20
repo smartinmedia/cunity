@@ -40,7 +40,6 @@ namespace Cunity\Friends\Models\Db\Row;
  * Class Relation
  * @package Cunity\Friends\Models\Db\Row
  */
-class Relation extends \Zend_Db_Table_Row_Abstract {
-    
+class Relation extends \Zend_Db_Table_Row_Abstract
+{
 }
-

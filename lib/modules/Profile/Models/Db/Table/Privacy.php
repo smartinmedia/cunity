@@ -42,21 +42,23 @@ use Cunity\Core\Models\Db\Abstractables\Table;
  * Class Privacy
  * @package Cunity\Profile\Models\Db\Table
  */
-class Privacy extends Table {
+class Privacy extends Table
+{
 
-    /**
-     * @var string
-     */
-    protected $_name = 'privacy';
     /**
      * @var array
      */
     private static $privacies = ["message" => 3, "visit" => 3, "posts" => 3, "search" => 3];
+    /**
+     * @var string
+     */
+    protected $_name = 'privacy';
 
     /**
      *
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
     }
 
@@ -65,14 +67,18 @@ class Privacy extends Table {
      * @param $userid
      * @return bool
      */
-    public function checkPrivacy($type, $userid) {
-        if($userid == $_SESSION['user']->userid)
-            return true;        
-        $pri = $this->getPrivacy($type, $userid);        
-        if ($pri == 3)
+    public function checkPrivacy($type, $userid)
+    {
+        if ($userid == $_SESSION['user']->userid) {
             return true;
-        else if ($pri == 1 && $_SESSION['user']->isFriend($userid))
+        }
+        $pri = $this->getPrivacy($type, $userid);
+        if ($pri == 3) {
             return true;
+        } elseif ($pri == 1 && $_SESSION['user']->isFriend($userid)) {
+            return true;
+        }
+
         return false;
     }
 
@@ -81,19 +87,23 @@ class Privacy extends Table {
      * @param int $userid
      * @return array
      */
-    public function getPrivacy($type = false, $userid = 0) {
-        if ($userid == 0)
+    public function getPrivacy($type = false, $userid = 0)
+    {
+        if ($userid == 0) {
             $userid = $_SESSION['user']->userid;
+        }
         if ($type == false) {
             $res = $this->fetchAll($this->select()->where("userid=?", $userid));
             $result = [];
-            foreach ($res AS $p)
+            foreach ($res as $p) {
                 $result[$p->type] = $p->value;
+            }
             return $result;
         } else {
             $res = $this->fetchAll($this->select()->where("userid=?", $userid)->where("type=?", $type));
-            if ($res == NULL || $res == false)
-                return $this::$privacies[$type];
+            if ($res == null || $res == false) {
+                return self::$privacies[$type];
+            }
             return $res->value;
         }
     }
@@ -104,20 +114,21 @@ class Privacy extends Table {
      * @param int $val
      * @return mixed
      */
-    public function updatePrivacy($userid, $privacyName, $val = 0) {
+    public function updatePrivacy($userid, $privacyName, $val = 0)
+    {
         if (is_array($privacyName)) {
             $res = [];
-            foreach ($privacyName AS $type => $val)
+            foreach ($privacyName as $type => $val) {
                 $res[] = $this->updatePrivacy($userid, $type, $val);
+            }
             return !in_array(false, $res);
         }
         $res = $this->fetchRow($this->select()->where("userid=?", $userid)->where("type=?", $privacyName));
-        if ($res !== NULL) {
+        if ($res !== null) {
             $res->value = $val;
             return $res->save();
         } else {
             return $this->insert(["userid" => $userid, "type" => $privacyName, "value" => $val]);
         }
     }
-
 }

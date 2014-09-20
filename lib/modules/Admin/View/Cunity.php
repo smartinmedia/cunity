@@ -59,5 +59,4 @@ class Cunity extends View
         $this->_templateFile = "cunity/" . $_GET['x'] . ".tpl";
         $this->registerCss("cunity", $_GET['x']);
     }
-
 }

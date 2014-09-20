@@ -40,12 +40,14 @@ namespace Cunity\Admin\Models\Pages;
  * Class Users
  * @package Cunity\Admin\Models\Pages
  */
-class Users extends PageAbstract {
+class Users extends PageAbstract
+{
 
     /**
      *
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->loadData();
         $this->render("users");
     }
@@ -53,9 +55,9 @@ class Users extends PageAbstract {
     /**
      *
      */
-    private function loadData() {
+    private function loadData()
+    {
         $users = new \Cunity\Core\Models\Db\Table\Users();
         $this->assignments["users"] = $users->fetchAll();
     }
-
 }

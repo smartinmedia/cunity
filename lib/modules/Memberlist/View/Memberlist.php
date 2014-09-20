@@ -72,5 +72,4 @@ class Memberlist extends View
         $this->registerScript("memberlist", "memberlist");
         $this->show();
     }
-
 }

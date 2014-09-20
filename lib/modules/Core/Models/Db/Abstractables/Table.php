@@ -47,7 +47,6 @@ use Cunity\Core\Cunity;
  */
 abstract class Table extends \Zend_Db_Table_Abstract
 {
-
     /**
      * Stores the config-object
      *
@@ -70,25 +69,15 @@ abstract class Table extends \Zend_Db_Table_Abstract
     protected $_rowsetClass = "Cunity\Core\Models\Db\Rowset\Rowset";
 
     /**
-     * @throws \Exception
-     */
-    protected function _setupTableName()
-    {
-        $this->_config = Cunity::get("config");
-        $this->_dbprefix = $this->_config->db->params->table_prefix . '_';
-        $this->_name = $this->_dbprefix . $this->_name;
-        parent::_setupTableName();
-    }
-
-    /**
      * @param array $data
      * @return mixed
      * @throws \Zend_Db_Table_Exception
      */
     public function insert(array $data)
     {
-        if (in_array("time", $this->info(\Zend_Db_Table_Abstract::COLS)))
+        if (in_array("time", $this->info(\Zend_Db_Table_Abstract::COLS))) {
             $data['time'] = new \Zend_Db_Expr("UTC_TIMESTAMP()");
+        }
         return parent::insert($data);
     }
 
@@ -99,9 +88,20 @@ abstract class Table extends \Zend_Db_Table_Abstract
      */
     public function update(array $data, $where)
     {
-        if (in_array("time", $this->info(\Zend_Db_Table_Abstract::COLS)))
+        if (in_array("time", $this->info(\Zend_Db_Table_Abstract::COLS))) {
             $data['time'] = new \Zend_Db_Expr("UTC_TIMESTAMP()");
+        }
         return parent::update($data, $where);
     }
 
+    /**
+     * @throws \Exception
+     */
+    protected function _setupTableName()
+    {
+        $this->_config = Cunity::get("config");
+        $this->_dbprefix = $this->_config->db->params->table_prefix . '_';
+        $this->_name = $this->_dbprefix . $this->_name;
+        parent::_setupTableName();
+    }
 }

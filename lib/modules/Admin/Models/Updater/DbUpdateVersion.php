@@ -43,7 +43,8 @@ use Cunity\Admin\Models\Db\Table\Versions;
  * @package Cunity\Admin\Models\Updater
  * @abstract
  */
-abstract class DbUpdateVersion {
+abstract class DbUpdateVersion
+{
 
     /**
      *
@@ -58,18 +59,19 @@ abstract class DbUpdateVersion {
     protected $_timestamp = 0;
 
     /**
-     * 
+     *
      * @param \Zend_Db_Adapter_Mysqli $database
      */
-    public function __construct(\Zend_Db_Adapter_Mysqli $database) {
+    public function __construct(\Zend_Db_Adapter_Mysqli $database)
+    {
         $this->_db = $database;
     }
 
     /**
      * @param Versions $db
      */
-    public function updateDatabaseTimestamp(Versions $db) {
-        $db->insert(["timestamp"=>$this->_timestamp]);
+    public function updateDatabaseTimestamp(Versions $db)
+    {
+        $db->insert(["timestamp" => $this->_timestamp]);
     }
-
 }

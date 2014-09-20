@@ -10,15 +10,17 @@
     <link rel="stylesheet" href="{-"core.siteurl"|setting}lib/plugins/bootstrap/css/bootstrap.min.css">
     <link href="{-"core.siteurl"|setting}lib/plugins/fontawesome/css/font-awesome.css" rel="stylesheet">
     <link href="{-"core.siteurl"|setting}lib/modules/Admin/styles/css/cunity-admin.css" rel="stylesheet"/>
-    <link href="{-"core.siteurl"|setting}lib/plugins/bootstrap-validator/css/bootstrapValidator.min.css" rel="stylesheet">
+    <link href="{-"core.siteurl"|setting}lib/plugins/bootstrap-validator/css/bootstrapValidator.min.css"
+          rel="stylesheet">
     <link href="{-"core.siteurl"|setting}style/CunityRefreshed/img/favicon-default.gif" rel="icon" type="image/x-icon">
     {-if !$css_head eq ""}
-    <link rel="stylesheet" type="text/css"
-          href="{-"core.siteurl"|setting}lib/modules/Core/styles/css/cunity.min.css.php?files={-$css_head}">
+        <link rel="stylesheet" type="text/css"
+              href="{-"core.siteurl"|setting}lib/modules/Core/styles/css/cunity.min.css.php?files={-$css_head}">
     {-/if}
     <script src="{-"core.siteurl"|setting}lib/plugins/js/jquery.min.js" type="text/javascript"></script>
     <script type="text/javascript">var modrewrite = {-$modrewrite}, siteurl = "{-"core.siteurl"|setting}", userid = {-$user.userid}, design = "CunityRefreshed", login = {-if empty($user)}false{-else}true{-/if};</script>
-    <script src="{-"core.siteurl"|setting}lib/modules/Core/styles/javascript/cunity-core.js" type="text/javascript"></script>
+    <script src="{-"core.siteurl"|setting}lib/modules/Core/styles/javascript/cunity-core.js"
+            type="text/javascript"></script>
     <script src="{-"core.siteurl"|setting}lib/modules/Admin/styles/javascript/cunity-admin.js"
             type="text/javascript"></script>
     <script src="{-"core.siteurl"|setting}lib/plugins/js/jquery.metisMenu.min.js"></script>
@@ -47,7 +49,8 @@
 
         <ul class="nav navbar-top-links navbar-right">
             <li>
-                <a href="{-"core.siteurl"|setting}" data-title="{-"Back to your cunity"|translate}" class="tooltip-trigger"
+                <a href="{-"core.siteurl"|setting}" data-title="{-"Back to your cunity"|translate}"
+                   class="tooltip-trigger"
                    data-placement="left">
                     {-"Back to your Cunity"|translate}&nbsp;<i class="fa fa-sign-out fa-fw"></i>
                 </a>

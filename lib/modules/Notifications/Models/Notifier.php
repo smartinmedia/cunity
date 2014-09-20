@@ -42,7 +42,8 @@ use Cunity\Notifications\View\NotificationMail;
  * Class Notifier
  * @package Cunity\Notifications\Models
  */
-class Notifier {
+class Notifier
+{
 
     /**
      * @var null
@@ -60,18 +61,16 @@ class Notifier {
      * @var mixed|null
      */
     private $types = null;
-    /**
-     * @var null
-     */
-    private $mailView = null;
 
     /**
-     * @return null
+     *
      */
-    static public function getInstance() {
-        if (self::$instance === null)
-            self::$instance = new self;
-        return self::$instance;
+    public function __construct()
+    {
+        $this->db = new Db\Table\Notifications();
+        $this->settings = new Db\Table\Notification_Settings();
+        $data = new \Zend_Config_Xml("modules/Notifications/lang/types.xml");
+        $this->types = $data->types;
     }
 
     /**
@@ -81,10 +80,12 @@ class Notifier {
      * @param $target
      * @param array $ways
      */
-    public static function notify($receiver, $sender, $type, $target, $ways = ["alert", "mail"]) {
+    public static function notify($receiver, $sender, $type, $target, $ways = ["alert", "mail"])
+    {
         if (is_array($receiver)) {
-            foreach ($receiver AS $user)
+            foreach ($receiver as $user) {
                 self::notify($user['userid'], $sender, $type, $target, $ways);
+            }
         } else {
             $obj = self::getInstance();
             $st = $obj->settings->getSetting($type, $receiver);
@@ -110,23 +111,24 @@ class Notifier {
     }
 
     /**
-     *
+     * @return null
      */
-    public function __construct() {
-        $this->db = new Db\Table\Notifications();
-        $this->settings = new Db\Table\Notification_Settings();
-        $data = new \Zend_Config_Xml("modules/Notifications/lang/types.xml");
-        $this->types = $data->types;
+    public static function getInstance()
+    {
+        if (self::$instance === null) {
+            self::$instance = new self;
+        }
+        return self::$instance;
     }
 
     /**
      * @param $type
      * @return mixed
      */
-    public static function getNotificationData($type) {
+    public static function getNotificationData($type)
+    {
         $obj = self::getInstance();
         $temp = $obj->types->toArray();
         return $temp[$type];
     }
-
 }

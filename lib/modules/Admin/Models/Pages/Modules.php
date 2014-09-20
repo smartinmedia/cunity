@@ -43,12 +43,14 @@ use Cunity\Core\View\Ajax\View;
  * Class Modules
  * @package Cunity\Admin\Models\Pages
  */
-class Modules extends PageAbstract {
+class Modules extends PageAbstract
+{
 
     /**
      *
      */
-    public function __construct() {
+    public function __construct()
+    {
         if (isset($_POST) && !empty($_POST)) {
             $this->handleRequest();
         } else {
@@ -57,7 +59,8 @@ class Modules extends PageAbstract {
         }
     }
 
-    private function handleRequest() {
+    private function handleRequest()
+    {
         $view = new View(true);
         switch ($_POST['action']) {
             case 'loadModules':
@@ -71,10 +74,10 @@ class Modules extends PageAbstract {
     /**
      *
      */
-    private function loadData() {
+    private function loadData()
+    {
         $modules = new \Cunity\Core\Models\Db\Table\Modules();
         $installedModules = $modules->getModules()->toArray();
         $this->assignments['installedModules'] = $installedModules;
     }
-
 }

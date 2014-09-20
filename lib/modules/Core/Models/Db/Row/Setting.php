@@ -42,7 +42,6 @@ namespace Cunity\Core\Models\Db\Row;
  */
 class Setting extends \Zend_Db_Table_Row_Abstract
 {
-
     /**
      *
      */

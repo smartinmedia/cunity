@@ -43,8 +43,8 @@ use Cunity\Register\Models\Login;
  * Class Email
  * @package Cunity\Core\Models\Validation
  */
-class Email extends \Zend_Validate_EmailAddress {
-
+class Email extends \Zend_Validate_EmailAddress
+{
     /**
      *
      */
@@ -66,24 +66,26 @@ class Email extends \Zend_Validate_EmailAddress {
      * @param string $value
      * @return bool
      */
-    public function isValid($value) {
+    public function isValid($value)
+    {
         $returnValue = false;
 
         $this->_setValue($value);
         $users = new Users();
-        if (empty($value))
+        if (empty($value)) {
             $this->_error(self::EMPTYSTRING);
-        else {
+        } else {
             $user = $users->search("email", $value);
-            if (($user !== NULL && !Login::loggedIn()) ||
-                (Login::loggedIn() && $user->userid !== $_SESSION['user']->userid)) {
+            if (($user !== null && !Login::loggedIn()) ||
+                (Login::loggedIn() && $user->userid !== $_SESSION['user']->userid)
+            ) {
                 $this->_error(self::USED);
                 $returnValue = false;
-            } else
+            } else {
                 $returnValue = parent::isValid($value);
+            }
         }
 
         return $returnValue;
     }
-
 }

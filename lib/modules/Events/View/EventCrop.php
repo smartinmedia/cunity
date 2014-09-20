@@ -72,5 +72,4 @@ class EventCrop extends View
         $this->registerCss("events", "event-crop");
         $this->assign("eventid", $_GET['y']);
     }
-
 }

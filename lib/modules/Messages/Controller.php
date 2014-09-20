@@ -77,14 +77,16 @@ class Controller implements ModuleController
      */
     private function handleRequest()
     {
-        if (!isset($_GET['action']) || empty($_GET['action']))
+        if (!isset($_GET['action']) || empty($_GET['action'])) {
             new View\Inbox();
-        else if (isset($_GET['action']) &&
+        } elseif (isset($_GET['action']) &&
             !empty($_GET['action']) &&
-            in_array($_GET['action'], $this->_allowedActions))
+            in_array($_GET['action'], $this->_allowedActions)
+        ) {
             new Models\Process($_GET['action']);
-        else if (isset($_GET['action']) && !empty($_GET['action']))
+        } elseif (isset($_GET['action']) && !empty($_GET['action'])) {
             new Models\Conversation();
+        }
     }
 
     /**
@@ -93,7 +95,6 @@ class Controller implements ModuleController
      */
     public static function onRegister($user)
     {
-
     }
 
     /**
@@ -102,7 +103,5 @@ class Controller implements ModuleController
      */
     public static function onUnregister($user)
     {
-
     }
-
 }

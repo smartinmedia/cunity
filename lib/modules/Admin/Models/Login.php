@@ -42,20 +42,45 @@ use Cunity\Core\Models\Generator\Url;
  * Class Login
  * @package Cunity\Admin\Models
  */
-class Login {
+class Login
+{
 
     /**
      * @param string $action
      */
-    public function __construct($action = "") {
-        if (method_exists($this, $action))
-            call_user_func([$this, $action]);       
+    public function __construct($action = "")
+    {
+        if (method_exists($this, $action)) {
+            call_user_func([$this, $action]);
+        }
     }
 
     /**
      *
      */
-    public function login() {
+    public static function loginRequired()
+    {
+        if (!self::loggedIn()) {
+            header("Location:" . Url::convertUrl("index.php?m=admin&action=login"));
+            exit();
+        } else {
+            return;
+        }
+    }
+
+    /**
+     * @return bool
+     */
+    public static function loggedIn()
+    {
+        return (isset($_SESSION['admin_loggedIn']) && $_SESSION['admin_loggedIn'] === true && isset($_SESSION['user']));
+    }
+
+    /**
+     *
+     */
+    public function login()
+    {
         if (isset($_POST['email'])) {
             if ($_SESSION['user']->email == $_POST['email'] && $_SESSION['user']->password == sha1($_POST['password'] . $_SESSION['user']->salt)) {
                 $_SESSION['admin_loggedIn'] = true;
@@ -72,23 +97,4 @@ class Login {
             $view->show();
         }
     }
-
-    /**
-     * @return bool
-     */
-    public static function loggedIn() {
-        return (isset($_SESSION['admin_loggedIn']) && $_SESSION['admin_loggedIn'] === true && isset($_SESSION['user']));
-    }
-
-    /**
-     *
-     */
-    public static function loginRequired() {
-        if (!self::loggedIn()) {
-            header("Location:" . Url::convertUrl("index.php?m=admin&action=login"));
-            exit();
-        } else
-            return;
-    }
-
 }

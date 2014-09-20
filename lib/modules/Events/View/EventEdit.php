@@ -75,5 +75,4 @@ class EventEdit extends View
             Cunity::get("config")->site->upload_limit
         );
     }
-
 }

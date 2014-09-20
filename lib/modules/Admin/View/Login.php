@@ -61,5 +61,4 @@ class Login extends View
     {
         parent::__construct();
     }
-
 }

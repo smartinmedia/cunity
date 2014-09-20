@@ -63,7 +63,7 @@ class Controller implements ModuleController
         if (isset($_GET['action']) && $_GET['action'] == "get") {
             $process = new Models\Process();
             $process->get();
-        } else if (isset($_GET['action']) && $_GET['action'] == "markRead") {
+        } elseif (isset($_GET['action']) && $_GET['action'] == "markRead") {
             $view = new View();
             $n = new Notifications();
             $view->setStatus($n->read($_POST['id']));
@@ -77,7 +77,6 @@ class Controller implements ModuleController
      */
     public static function onRegister($user)
     {
-
     }
 
     /**
@@ -86,7 +85,5 @@ class Controller implements ModuleController
      */
     public static function onUnregister($user)
     {
-
     }
-
 }

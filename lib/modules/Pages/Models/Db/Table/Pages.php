@@ -42,7 +42,8 @@ use Cunity\Core\Models\Db\Abstractables\Table;
  * Class Pages
  * @package Cunity\Pages\Models\Db\Table
  */
-class Pages extends Table {
+class Pages extends Table
+{
 
     /**
      * @var string
@@ -60,7 +61,8 @@ class Pages extends Table {
     /**
      *
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
     }
 
@@ -68,7 +70,8 @@ class Pages extends Table {
      * @param $shortlink
      * @return null|\Zend_Db_Table_Row_Abstract
      */
-    public function getPage($shortlink) {
+    public function getPage($shortlink)
+    {
         return $this->fetchRow($this->select()->where("shortlink=?", $shortlink));
     }
 
@@ -76,7 +79,8 @@ class Pages extends Table {
      * @param $id
      * @return null|\Zend_Db_Table_Row_Abstract
      */
-    public function getPageById($id) {
+    public function getPageById($id)
+    {
         return $this->fetchRow($this->select()->where("id=?", intval($id)));
     }
 
@@ -84,23 +88,27 @@ class Pages extends Table {
      * @param array $data
      * @return mixed
      */
-    public function addPage(array $data) {
+    public function addPage(array $data)
+    {
         $returnValue = false;
 
         if (isset($data['pageid']) && $data['pageid'] > 0) {
-            if (false !== $this->update([
-                        "title" => $data['title'],
-                        "content" => $data['content'],
-                        "comments" => isset($data['comments']) ? 1 : 0,
-                        "shortlink" => preg_replace('/[^a-zA-Z0-9\-]/', "", $data['title'])
-                            ], "id=" . $data['pageid']))
+            if (false !== $this->update(
+                    [
+                    "title" => $data['title'],
+                    "content" => $data['content'],
+                    "comments" => isset($data['comments']) ? 1 : 0,
+                    "shortlink" => preg_replace('/[^a-zA-Z0-9\-]/', "", $data['title'])
+                ],
+                    "id=" . $data['pageid'])
+            )
                 $returnValue = preg_replace('/[^a-zA-Z0-9\-]/', "", $data['title']);
         } else {
             $returnValue = $this->insert([
-                        "title" => $data['title'],
-                        "content" => $data['content'],
-                        "comments" => isset($data['comments']) ? 1 : 0,
-                        "shortlink" => preg_replace('/[^a-zA-Z0-9\-]/', "", $data['title'])
+                "title" => $data['title'],
+                "content" => $data['content'],
+                "comments" => isset($data['comments']) ? 1 : 0,
+                "shortlink" => preg_replace('/[^a-zA-Z0-9\-]/', "", $data['title'])
             ]);
         }
 
@@ -111,19 +119,21 @@ class Pages extends Table {
      * @param $pageid
      * @return bool
      */
-    public function deletePage($pageid) {
+    public function deletePage($pageid)
+    {
         return ($this->delete($this->getAdapter()->quoteInto("id=?", $pageid)) > 0);
     }
 
     /**
      * @return \Zend_Db_Table_Rowset_Abstract
      */
-    public function loadPages() {
+    public function loadPages()
+    {
         $res = $this->fetchAll();
-        foreach ($res AS $page)
+        foreach ($res as $page) {
             $page->content = html_entity_decode($page->content);
+        }
 
         return $res;
     }
-
 }

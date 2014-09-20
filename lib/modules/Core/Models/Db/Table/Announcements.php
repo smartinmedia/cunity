@@ -61,8 +61,9 @@ class Announcements extends Table
     public function getAnnouncements()
     {
         $res = $this->fetchAll($this->select()->where("active = 1")->order("time DESC"));
-        if ($res !== NULL)
+        if ($res !== null) {
             return $res->toArray();
+        }
         return [];
     }
 

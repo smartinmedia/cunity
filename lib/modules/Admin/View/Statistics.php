@@ -60,5 +60,4 @@ class Statistics extends View
         $this->registerCss("statistics", $_GET['x']);
         $this->show();
     }
-
 }

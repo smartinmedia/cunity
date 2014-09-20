@@ -59,5 +59,4 @@ class Modules extends View
         $this->_templateFile = "modules/" . $_GET['x'] . ".tpl";
         $this->registerCss("modules", $_GET['x']);
     }
-
 }

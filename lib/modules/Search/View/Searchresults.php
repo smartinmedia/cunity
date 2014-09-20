@@ -77,5 +77,4 @@ class Searchresults extends View
     {
         $this->_metadata = $data;
     }
-
 }

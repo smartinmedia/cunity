@@ -42,7 +42,6 @@ namespace Cunity\Core\View;
  */
 class PageNotFound extends View
 {
-
     /**
      * @var string
      */
@@ -65,5 +64,4 @@ class PageNotFound extends View
         $this->show();
         exit();
     }
-
 }

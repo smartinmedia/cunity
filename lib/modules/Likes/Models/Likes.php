@@ -42,7 +42,8 @@ use Cunity\Core\View\Ajax\View;
  * Class Likes
  * @package Likes\Models
  */
-class Likes {
+class Likes
+{
     /**
      * @var Db\Table\Likes
      */
@@ -56,14 +57,16 @@ class Likes {
     /**
      * @param $action
      */
-    public function __construct($action) {
+    public function __construct($action)
+    {
         $this->view = new View();
         if (!isset($_POST['ref_name']) || !isset($_POST['ref_id'])) {
             $this->view->setStatus(false);
         } else {
             $this->table = new Db\Table\Likes();
-            if (method_exists($this, $action))
+            if (method_exists($this, $action)) {
                 call_user_func([$this, $action]);
+            }
         }
         $this->view->sendResponse();
     }
@@ -71,7 +74,8 @@ class Likes {
     /**
      *
      */
-    private function like() {
+    private function like()
+    {
         $res = $this->table->like($_POST['ref_id'], $_POST['ref_name']);
         $this->view->setStatus($res !== false);
         $this->view->addData($res);
@@ -80,7 +84,8 @@ class Likes {
     /**
      *
      */
-    private function dislike() {
+    private function dislike()
+    {
         $res = $this->table->dislike($_POST['ref_id'], $_POST['ref_name']);
         $this->view->setStatus($res !== false);
         $this->view->addData($res);
@@ -89,7 +94,8 @@ class Likes {
     /**
      *
      */
-    private function unlike() {
+    private function unlike()
+    {
         $res = $this->table->unlike($_POST['ref_id'], $_POST['ref_name']);
         $this->view->setStatus($res !== false);
         $this->view->addData($res);
@@ -98,10 +104,10 @@ class Likes {
     /**
      *
      */
-    private function get() {
+    private function get()
+    {
         $res = $this->table->getLikes($_POST['ref_id'], $_POST['ref_name'], $_POST['dislike']);
         $this->view->setStatus($res !== false);
         $this->view->addData(["likes" => $res]);
     }
-
 }

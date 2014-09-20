@@ -62,8 +62,9 @@ class Process
     {
         $this->view = new View();
         $this->table = new Db\Table\Comments();
-        if (method_exists($this, $action))
+        if (method_exists($this, $action)) {
             call_user_func([$this, $action]);
+        }
 
         $this->view->sendResponse();
     }
@@ -105,5 +106,4 @@ class Process
         $this->view->setStatus($res !== false);
         $this->view->addData(["comments" => $res]);
     }
-
 }

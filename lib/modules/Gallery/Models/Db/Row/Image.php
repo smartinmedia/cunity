@@ -46,16 +46,17 @@ use Cunity\Newsfeed\Models\Db\Table\Posts;
  * Class Image
  * @package Cunity\Gallery\Models\Db\Row
  */
-class Image extends \Zend_Db_Table_Row_Abstract {
-
+class Image extends \Zend_Db_Table_Row_Abstract
+{
     /**
      * @return bool
      * @throws \Exception
      * @throws \Zend_Db_Table_Exception
      * @throws \Zend_Db_Table_Row_Exception
      */
-    public function deleteImage() {
-        if ($this->owner_id == $_SESSION['user']->userid && $this->owner_type == NULL) {
+    public function deleteImage()
+    {
+        if ($this->owner_id == $_SESSION['user']->userid && $this->owner_type == null) {
             $albums = new Gallery_Albums();
             $album = $albums->find($this->albumid);
             $album->current()->removeImage($this->id);
@@ -66,14 +67,24 @@ class Image extends \Zend_Db_Table_Row_Abstract {
             $posts->delete([$posts->getAdapter()->quote("type=`image`"), $posts->getAdapter()->quoteInto("content=?", $this->id)]);
             $comments->delete($this->_getTable()->getAdapter()->quoteInto("ref_id=? AND ref_name='image'", $this->id));
             $likes->delete($this->_getTable()->getAdapter()->quoteInto("ref_id=? AND ref_name='image'", $this->id));
-            @unlink("../data/uploads/" . $settings->getSetting("core.filesdir") . "/" . $this->filename);
-            @unlink("../data/uploads/" . $settings->getSetting("core.filesdir") . "/thumb_" . $this->filename);
-            if (file_exists("../data/uploads/" . $settings->getSetting("core.filesdir") . "/cr_" . $this->filename)) {
-                unlink("../data/uploads/" . $settings->getSetting("core.filesdir") . "/cr_" . $this->filename);
+            $filename = "../data/uploads/" . $settings->getSetting("core.filesdir") . "/" . $this->filename;
+            $filenameThumb = "../data/uploads/" . $settings->getSetting("core.filesdir") . "/thumb_" . $this->filename;
+            $filenameCr = "../data/uploads/" . $settings->getSetting("core.filesdir") . "/cr_" . $this->filename;
+
+            if (file_exists($filename)) {
+                unlink($filename);
             }
+
+            if (file_exists($filenameThumb)) {
+                unlink($filenameThumb);
+            }
+
+            if (file_exists($filenameCr)) {
+                unlink($filenameCr);
+            }
+
             return ($this->delete() == 1);
         }
         return false;
     }
-
 }

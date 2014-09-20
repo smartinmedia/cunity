@@ -45,7 +45,8 @@ use Cunity\Core\View\PageNotFound;
  * Class Profile
  * @package Cunity\Profile\Models
  */
-class Profile {
+class Profile
+{
 
     /**
      * @var array
@@ -55,9 +56,11 @@ class Profile {
     /**
      *
      */
-    public function __construct() {
-        if (Request::isAjaxRequest())
+    public function __construct()
+    {
+        if (Request::isAjaxRequest()) {
             $this->handleAjaxAction();
+        }
         $this->checkUser();
         $this->render();
     }
@@ -65,35 +68,8 @@ class Profile {
     /**
      *
      */
-    private function checkUser() {
-        $users = $_SESSION['user']->getTable();
-        if (isset($_GET['action']) && !empty($_GET['action'])) {
-            $result = $users->get($_GET['action'], "username");
-            if (!$result instanceof User || $result['name'] == NULL)
-                new PageNotFound();
-        } else
-            $result = $users->get($_SESSION['user']->userid); // Get a new user Object with all image-data                
-        $result = $result->toArray();
-        //$result['privacy'] = \Core\Models\Generator\Privacy::parse($result['privacy']);
-        $this->profileData = $result;
-        if (isset($this->profileData['status']) && $this->profileData['status'] === 0 && $this->profileData['receiver'] == $_SESSION['user']->userid)
-            new PageNotFound();
-    }
-
-    /**
-     *
-     */
-    protected function render() {
-        $view = new \Cunity\Profile\View\Profile();
-        $view->assign('profile', $this->profileData);
-        $view->setMetaData(["title" => $this->profileData['name']]);
-        $view->render();
-    }
-
-    /**
-     *
-     */
-    private function handleAjaxAction() {
+    private function handleAjaxAction()
+    {
         switch ($_GET['action']) {
             case 'getpins':
                 $pins = new Db\Table\ProfilePins();
@@ -101,14 +77,49 @@ class Profile {
                 $view = new View(true);
                 if (!is_array($result)) {
                     $result = $result->toArray();
-                    foreach ($result AS $i => $res)
+                    foreach ($result as $i => $res) {
                         $result[$i]['content'] = htmlspecialchars_decode($res['content']);
-                } else
+                    }
+                } else {
                     $result = [];
+                }
                 $view->addData(["result" => $result]);
                 $view->sendResponse();
                 break;
         }
     }
 
+    /**
+     *
+     */
+    private function checkUser()
+    {
+        $users = $_SESSION['user']->getTable();
+        if (isset($_GET['action']) && !empty($_GET['action'])) {
+            $result = $users->get($_GET['action'], "username");
+            if (!$result instanceof User || $result['name'] == null) {
+                new PageNotFound();
+            }
+        } else {
+            $result = $users->get($_SESSION['user']->userid);
+        }
+        // Get a new user Object with all image-data
+        $result = $result->toArray();
+        //$result['privacy'] = \Core\Models\Generator\Privacy::parse($result['privacy']);
+        $this->profileData = $result;
+        if (isset($this->profileData['status']) && $this->profileData['status'] === 0 && $this->profileData['receiver'] == $_SESSION['user']->userid) {
+            new PageNotFound();
+        }
+    }
+
+    /**
+     *
+     */
+    protected function render()
+    {
+        $view = new \Cunity\Profile\View\Profile();
+        $view->assign('profile', $this->profileData);
+        $view->setMetaData(["title" => $this->profileData['name']]);
+        $view->render();
+    }
 }

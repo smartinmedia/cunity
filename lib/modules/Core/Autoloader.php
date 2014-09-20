@@ -62,7 +62,7 @@ class Autoloader
      */
     public function addAutoloadNamespace($namespace)
     {
-        if (!in_array($namespace, $this->_namespaces)){
+        if (!in_array($namespace, $this->_namespaces)) {
             $this->_namespaces[] = $namespace;
         }
     }
@@ -72,16 +72,15 @@ class Autoloader
      */
     public function load($name)
     {
-        if (preg_match('/' . implode('|',$this->_namespaces). '/',
+        if (preg_match('/' . implode('|', $this->_namespaces) . '/',
                 $name
             ) == 1
         ) {
             $name = str_replace("_", "/", $name);
             require_once $name . ".php";
-        } else if (strpos($name, "\\") !== false) {
+        } elseif (strpos($name, "\\") !== false) {
             $name = str_replace("\\", "/", $name);
             require_once "./modules/" . $name . ".php";
         }
     }
-
 }

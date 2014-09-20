@@ -44,8 +44,8 @@ use Cunity\Notifications\Models\Notifier;
  * Class Notifications
  * @package Cunity\Notifications\Models\Db\Table
  */
-class Notifications extends Table {
-
+class Notifications extends Table
+{
     /**
      * @var string
      */
@@ -57,8 +57,9 @@ class Notifications extends Table {
 
     /**
      *
-     */ 
-    public function __construct() {
+     */
+    public function __construct()
+    {
         parent::__construct();
     }
 
@@ -66,28 +67,31 @@ class Notifications extends Table {
      * @param array $data
      * @return bool
      */
-    public function insertNotification(array $data) {
+    public function insertNotification(array $data)
+    {
         return (1 == $this->insert($data));
     }
 
     /**
      * @return array
      */
-    public function getNotifications() {
+    public function getNotifications()
+    {
         $result = [];
         $query = $this->getAdapter()->select()->from(["n" => $this->_name])
-                ->joinLeft(["u" => $this->_dbprefix . "users"], "n.ref_userid=u.userid", ["name", "username"])
-                ->joinLeft(["pi" => $this->_dbprefix . "gallery_images"], "pi.id = u.profileImage", ['filename AS pimg', 'albumid AS palbumid'])
-                ->where("n.userid=?", $_SESSION['user']->userid)
-                ->order("n.unread DESC")
-                ->limit(5);
+            ->joinLeft(["u" => $this->_dbprefix . "users"], "n.ref_userid=u.userid", ["name", "username"])
+            ->joinLeft(["pi" => $this->_dbprefix . "gallery_images"], "pi.id = u.profileImage", ['filename AS pimg', 'albumid AS palbumid'])
+            ->where("n.userid=?", $_SESSION['user']->userid)
+            ->order("n.unread DESC")
+            ->limit(5);
         $res = $this->getAdapter()->fetchAll($query);
         for ($i = 0; $i < count($res); $i++) {
             $d = Notifier::getNotificationData($res[$i]["type"]);
             $res[$i]["message"] = \sprintf($d, $res[$i]["name"]);
             $res[$i]["target"] = Url::convertUrl($res[$i]["target"]);
-            if ($res[$i]["unread"] == 1)
-                $result["new"] ++;
+            if ($res[$i]["unread"] == 1) {
+                $result["new"]++;
+            }
         }
         $result["all"] = $res;
         return $result;
@@ -97,8 +101,8 @@ class Notifications extends Table {
      * @param $id
      * @return bool
      */
-    public function read($id) {
+    public function read($id)
+    {
         return ($this->update(["unread" => 0], $this->getAdapter()->quoteInto("id=?", $id)) !== false);
     }
-
 }

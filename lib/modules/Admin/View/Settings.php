@@ -60,5 +60,3 @@ class Settings extends View
         $this->registerCss("settings", $_GET['x']);
     }
 }
-
-

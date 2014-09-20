@@ -38,20 +38,22 @@
 namespace Cunity\Admin\Models\Pages;
 
 use Cunity\Core\Cunity;
-use Cunity\Core\Models\Db\Table\Modules;
 use Cunity\Core\Models\Db\Table\Menu;
+use Cunity\Core\Models\Db\Table\Modules;
 use Cunity\Core\View\Ajax\View;
 
 /**
  * Class Appearance
  * @package Cunity\Admin\Models\Pages
  */
-class Appearance extends PageAbstract {
+class Appearance extends PageAbstract
+{
 
     /**
      *
      */
-    public function __construct() {
+    public function __construct()
+    {
         if (isset($_POST) && !empty($_POST)) {
             $this->handleRequest();
         } else {
@@ -60,7 +62,8 @@ class Appearance extends PageAbstract {
         }
     }
 
-    private function handleRequest() {
+    private function handleRequest()
+    {
         $view = new View(true);
         switch ($_POST['action']) {
             case 'loadMenu':
@@ -69,7 +72,7 @@ class Appearance extends PageAbstract {
                 $view->sendResponse();
                 break;
             case 'addMenuItem':
-                $menu = new Menu();                
+                $menu = new Menu();
                 $res = $menu->addMenuItem($_POST);
                 $view->addData(["data" => $res]);
                 $view->sendResponse();
@@ -80,10 +83,12 @@ class Appearance extends PageAbstract {
                 $menu = new Menu();
                 $res = [];
                 if ($menu->deleteBut(array_merge($mainMenu, $footerMenu))) {
-                    foreach ($mainMenu AS $i => $m)
+                    foreach ($mainMenu as $i => $m) {
                         $res[] = (false !== $menu->update(["pos" => $i], $menu->getAdapter()->quoteInto("id=?", $m)));
-                    foreach ($footerMenu AS $i => $m)
+                    }
+                    foreach ($footerMenu as $i => $m) {
                         $res[] = (false !== $menu->update(["pos" => $i], $menu->getAdapter()->quoteInto("id=?", $m)));
+                    }
                 }
                 $view->addData(["panel" => "menu-panel"]);
                 $view->setStatus(!in_array(false, $res));
@@ -95,12 +100,12 @@ class Appearance extends PageAbstract {
     /**
      * @throws \Exception
      */
-    private function loadData() {
+    private function loadData()
+    {
         $modules = new Modules();
         $installedModules = $modules->getModules()->toArray();
         $config = Cunity::get("config");
         $this->assignments['smtp_check'] = $config->mail->smtp_check;
         $this->assignments['modules'] = $installedModules;
     }
-
 }

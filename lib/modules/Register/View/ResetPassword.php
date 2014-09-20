@@ -67,5 +67,4 @@ class ResetPassword extends View
         parent::__construct();
         $this->registerCss("register", "resetpw");
     }
-
 }

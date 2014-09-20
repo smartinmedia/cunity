@@ -42,7 +42,8 @@ use Cunity\Core\Models\Db\Abstractables\Table;
  * Class Categories
  * @package Cunity\Forums\Models\Db\Table
  */
-class Categories extends Table {
+class Categories extends Table
+{
 
     /**
      * @var string
@@ -56,21 +57,24 @@ class Categories extends Table {
     /**
      *
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
     }
 
     /**
      * @return array|bool
      */
-    public function getCategories() {
+    public function getCategories()
+    {
         $query = $this->getAdapter()->select()->from(["c" => $this->_name])
-                ->joinLeft(["t" => $this->_dbprefix . "forums_threads"], "t.category=c.id", new \Zend_Db_Expr("COUNT(DISTINCT t.id) AS threadCount"))
-                ->joinLeft(["pc" => $this->_dbprefix . "forums_posts"], "pc.thread_id=t.id", new \Zend_Db_Expr("COUNT(DISTINCT pc.id) AS postcount"))
-                ->group("c.id");
+            ->joinLeft(["t" => $this->_dbprefix . "forums_threads"], "t.category=c.id", new \Zend_Db_Expr("COUNT(DISTINCT t.id) AS threadCount"))
+            ->joinLeft(["pc" => $this->_dbprefix . "forums_posts"], "pc.thread_id=t.id", new \Zend_Db_Expr("COUNT(DISTINCT pc.id) AS postcount"))
+            ->group("c.id");
         $res = $this->getAdapter()->fetchAll($query);
-        if ($res !== NULL && $res !== false)
+        if ($res !== null && $res !== false) {
             return $res;
+        }
         return false;
     }
 
@@ -78,11 +82,12 @@ class Categories extends Table {
      * @param $tag
      * @return array|bool
      */
-    public function getCategoryData($tag) {
+    public function getCategoryData($tag)
+    {
         $res = $this->fetchRow($this->select()->where("tag=?", $tag));
-        if ($res !== NULL && $res !== false)
+        if ($res !== null && $res !== false) {
             return $res->toArray();
+        }
         return false;
     }
-
 }

@@ -43,8 +43,8 @@ use Cunity\Core\View\Ajax\View;
  * Class Process
  * @package Cunity\Admin\Models
  */
-class Process {
-
+class Process
+{
     /**
      * @var array
      */
@@ -53,7 +53,8 @@ class Process {
     /**
      * @param $form
      */
-    public function __construct($form) {
+    public function __construct($form)
+    {
         if (in_array($form, $this->validForms)) {
             $this->save($form);
         }
@@ -64,12 +65,13 @@ class Process {
      * @throws \Exception
      * @throws \Zend_Config_Exception
      */
-    private function save($form) {
+    private function save($form)
+    {
 
         $res = [];
         switch ($form) {
             case "settings":
-                foreach ($_POST AS $key => $value) {
+                foreach ($_POST as $key => $value) {
                     if (strpos($key, "settings-") !== false) {
                         $setting = explode("-", $key);
                         /** @noinspection PhpUnnecessaryFullyQualifiedNameInspection */
@@ -102,7 +104,8 @@ class Process {
      * @author Daniel <daniel (at) danielsmedegaardbuus (dot) dk>
      * @author Gabriel Sobrinho <gabriel (dot) sobrinho (at) gmail (dot) com>
      */
-    public static function array_merge_recursive_distinct(array $array1, array $array2) {
+    public static function array_merge_recursive_distinct(array $array1, array $array2)
+    {
         $merged = $array1;
 
         foreach ($array2 as $key => &$value) {
@@ -115,5 +118,4 @@ class Process {
 
         return $merged;
     }
-
 }

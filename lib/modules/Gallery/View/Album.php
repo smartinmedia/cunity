@@ -71,6 +71,6 @@ class Album extends View
         $this->registerScript("gallery", "jquery.blueimp-gallery");
         $this->registerScript("gallery", "album");
         $this->registerScript("gallery", "lightbox");
-        $this->registerCunityPlugin("plupload",["js/plupload.full.min.js"]);
+        $this->registerCunityPlugin("plupload", ["js/plupload.full.min.js"]);
     }
 }

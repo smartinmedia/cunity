@@ -43,18 +43,20 @@ use Cunity\Core\View\Ajax\View;
  * Class Process
  * @package Cunity\Memberlist\Models
  */
-class Process {
+class Process
+{
 
     /**
      *
      */
-    public function getAll() {
+    public function getAll()
+    {
         $table = new Users();
 
-        $result = $table->getSet([], "userid", ["username", "name","userid"]);
-        $view = new View($result !== NULL);
+        $result = $table->getSet([], "userid", ["username", "name", "userid"]);
+        $view = new View($result !== null);
         $view->addData(["result" => $result->toArray()]);
-        $view->sendResponse(); 
+        $view->sendResponse();
     }
 
 }

@@ -42,7 +42,8 @@ use Cunity\Core\Models\Db\Table\Users;
  * Class Process
  * @package Cunity\Search\Models
  */
-class Process {
+class Process
+{
 
     /**
      * @var string
@@ -53,11 +54,12 @@ class Process {
      * @param $queryString
      * @return array
      */
-    public function find($queryString) {
+    public function find($queryString)
+    {
         $queryString = trim($queryString);
-        if (empty($queryString))
+        if (empty($queryString)) {
             return ["queryString" => $queryString, "message" => "No String"];
-        else {
+        } else {
             $index = \Zend_Search_Lucene::open($this->indexfile);
             $res = explode(' ', $queryString);
             \Zend_Search_Lucene_Search_Query_Wildcard::setMinPrefixLength(1);
@@ -79,19 +81,23 @@ class Process {
             $hits = $index->find($query);
             if (!empty($hits)) {
                 $results = [];
-                foreach ($hits as $hit)
-                    if ($hit->username !== $_SESSION['user']->username)
+                foreach ($hits as $hit) {
+                    if ($hit->username !== $_SESSION['user']->username) {
                         $results[] = $hit->username;
+                    }
+                }
                 if (!empty($results)) {
                     $users = $_SESSION['user']->getTable();
                     if (isset($_POST['friends'])) {
                         $friends = $_SESSION['user']->getFriendList();
-                        if (empty($friends))
+                        if (empty($friends)) {
                             return ["queryString" => $queryString, "users" => []];
-                        else
+                        } else {
                             $userresult = $users->getSetIn($results, $friends, "username", "userid", ["userid", "username", "name"]);
-                    } else
+                        }
+                    } else {
                         $userresult = $users->getSet($results, "u.username", ["u.userid", "u.username", "u.name"]);
+                    }
                     return ["queryString" => $queryString, "users" => $userresult->toArray()];
                 }
             }
@@ -101,10 +107,28 @@ class Process {
 
     /**
      * @param $username
+     * @param $newusername
+     * @param $newname
+     * @return bool
+     */
+    public function updateUser($username, $newusername, $newname)
+    {
+        $index = \Zend_Search_Lucene::open($this->indexfile);
+        $hits = $index->find('username:' . $username);
+
+        foreach ($hits as $hit) {
+            $index->delete($hit->id);
+        }
+        return $this->addUser($newusername, $newname);
+    }
+
+    /**
+     * @param $username
      * @param $name
      * @return bool
      */
-    public function addUser($username, $name) {
+    public function addUser($username, $name)
+    {
         try {
             $index = \Zend_Search_Lucene::open($this->indexfile);
         } catch (\Zend_Search_Lucene_Exception $e) {
@@ -121,23 +145,9 @@ class Process {
 
     /**
      * @param $username
-     * @param $newusername
-     * @param $newname
-     * @return bool
      */
-    public function updateUser($username, $newusername, $newname) {
-        $index = \Zend_Search_Lucene::open($this->indexfile);
-        $hits = $index->find('username:' . $username);
-
-        foreach ($hits as $hit)
-            $index->delete($hit->id);
-        return $this->addUser($newusername, $newname);
-    }
-
-    /**
-     * @param $username
-     */
-    public function removeUser($username) {
+    public function removeUser($username)
+    {
         $index = \Zend_Search_Lucene::open($this->indexfile);
         $hits = $index->find('username:' . $username);
         foreach ($hits as $hit) {
@@ -148,7 +158,8 @@ class Process {
     /**
      * @return bool
      */
-    public function optimize() {
+    public function optimize()
+    {
         try {
             $index = \Zend_Search_Lucene::open($this->indexfile);
         } catch (\Zend_Search_Lucene_Exception $e) {
@@ -161,7 +172,8 @@ class Process {
     /**
      * @return bool
      */
-    public function recreateSearchIndex() {
+    public function recreateSearchIndex()
+    {
         $users = new Users;
         try {
             $index = \Zend_Search_Lucene::open($this->indexfile);
@@ -169,7 +181,7 @@ class Process {
             $index = \Zend_Search_Lucene::create($this->indexfile);
         }
         $all = $users->getSet([]);
-        foreach ($all AS $user) {
+        foreach ($all as $user) {
             $doc = new \Zend_Search_Lucene_Document();
             $doc->addField(\Zend_Search_Lucene_Field::Text('username', $user->username));
             $doc->addField(\Zend_Search_Lucene_Field::unStored('name', $user->name));
@@ -178,5 +190,4 @@ class Process {
         $index->optimize();
         return true;
     }
-
 }

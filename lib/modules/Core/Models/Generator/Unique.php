@@ -40,13 +40,14 @@ namespace Cunity\Core\Models\Generator;
  * Class Unique
  * @package Core\Models\Generator
  */
-class Unique {
-
+class Unique
+{
     /**
      * @param int $max
      * @return string
      */
-    public static function createSalt($max = 25) {
+    public static function createSalt($max = 25)
+    {
         $characterList = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         $i = 0;
         $salt = "";
@@ -56,5 +57,4 @@ class Unique {
         } while ($i < $max);
         return $salt;
     }
-
 }

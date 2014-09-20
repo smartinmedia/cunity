@@ -42,19 +42,22 @@ use Cunity\Core\Cunity;
  * Class Url
  * @package Core\Models\Generator
  */
-class Url {
-
+class Url
+{
     /**
      * @param $urlString
      * @return string
      * @throws \Exception
      */
-    public static function convertUrl($urlString) {
-        if (Cunity::get("mod_rewrite")) { //if mod rewrite is enabled!
+    public static function convertUrl($urlString)
+    {
+        //if mod rewrite is enabled!
+        if (Cunity::get("mod_rewrite")) {
             $parsedUrl = parse_url($urlString);
-            parse_str($parsedUrl['query'], $parsedQuery);                        
-            return  Cunity::get("settings")->getSetting("core.siteurl").implode('/', $parsedQuery);
-        } else
-            return Cunity::get("settings")->getSetting("core.siteurl").$urlString;
-    }    
+            parse_str($parsedUrl['query'], $parsedQuery);
+            return Cunity::get("settings")->getSetting("core.siteurl") . implode('/', $parsedQuery);
+        } else {
+            return Cunity::get("settings")->getSetting("core.siteurl") . $urlString;
+        }
+    }
 }

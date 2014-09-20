@@ -43,12 +43,14 @@ use Cunity\Core\View\Ajax\View;
  * Class FriendShipController
  * @package Cunity\Friends\Models
  */
-class FriendShipController {
+class FriendShipController
+{
 
     /**
      *
      */
-    public function __construct() {
+    public function __construct()
+    {
         if (method_exists($this, $_GET['action'])) {
             call_user_func([$this, $_GET['action']]);
         }
@@ -57,10 +59,11 @@ class FriendShipController {
     /**
      *
      */
-    private function add() {
-        if (!isset($_POST['userid']))
+    private function add()
+    {
+        if (!isset($_POST['userid'])) {
             new Exception("No userid given!");
-        else {
+        } else {
             $relations = new Db\Table\Relationships();
             $res = $relations->insert(["sender" => $_SESSION['user']->userid, "receiver" => $_POST['userid'], "status" => 1]);
             if ($res) {
@@ -73,10 +76,11 @@ class FriendShipController {
     /**
      *
      */
-    private function block() {
-        if (!isset($_POST['userid']))
+    private function block()
+    {
+        if (!isset($_POST['userid'])) {
             new Exception("No userid given!");
-        else {
+        } else {
             $relations = new Db\Table\Relationships();
             $res = $relations->updateRelation($_SESSION['user']->userid, $_POST['userid'], ["status" => 0, "sender" => $_SESSION['user']->userid, "receiver" => $_POST['userid']]);
             if ($res) {
@@ -89,10 +93,12 @@ class FriendShipController {
     /**
      *
      */
-    private function confirm() {
-        if (!isset($_POST['userid'])) // Here the userid is the relation id to make it easier to identify the friendship!
+    private function confirm()
+    {
+        // Here the userid is the relation id to make it easier to identify the friendship!
+        if (!isset($_POST['userid'])) {
             new Exception("No userid given!");
-        else {
+        } else {
             $relations = new Db\Table\Relationships();
             $res = $relations->updateRelation($_SESSION['user']->userid, $_POST['userid'], ["status" => 2]);
             if ($res) {
@@ -105,10 +111,12 @@ class FriendShipController {
     /**
      *
      */
-    private function remove() {
-        if (!isset($_POST['userid'])) // Here the userid is the relation id to make it easier to identify the friendship!
+    private function remove()
+    {
+        // Here the userid is the relation id to make it easier to identify the friendship!
+        if (!isset($_POST['userid'])) {
             new Exception("No userid given!");
-        else {
+        } else {
             $relations = new Db\Table\Relationships();
             $res = $relations->deleteRelation($_SESSION['user']->userid, $_POST['userid']);
             if ($res) {
@@ -121,10 +129,12 @@ class FriendShipController {
     /**
      *
      */
-    private function change() {
-        if (!isset($_POST['userid'])) // Here the userid is the relation id to make it easier to identify the friendship!
+    private function change()
+    {
+        // Here the userid is the relation id to make it easier to identify the friendship!
+        if (!isset($_POST['userid'])) {
             new Exception("No userid given!");
-        else {
+        } else {
             $relations = new Db\Table\Relationships();
             $res = $relations->updateRelation($_POST['userid'], $_SESSION['user']->userid, ["status" => $_POST['status']]);
             if ($res) {
@@ -137,13 +147,14 @@ class FriendShipController {
     /**
      * @throws Exception
      */
-    private function loadData() {
+    private function loadData()
+    {
         $userid = $_POST['userid'];
         $users = $_SESSION['user']->getTable();
         $result = $users->get($userid);
-        if ($result === NULL)
+        if ($result === null) {
             throw new Exception("No User found with the given ID!");
-        else {
+        } else {
             $view = new View(true);
             $view->addData(["user" => $result->toArray(["pimg", "username", "firstname", "lastname"])]);
             $view->sendResponse();
@@ -153,7 +164,8 @@ class FriendShipController {
     /**
      *
      */
-    private function load() {
+    private function load()
+    {
         $relations = new Db\Table\Relationships();
         $userid = ($_POST['userid'] == 0) ? $_SESSION['user']->userid : $_POST['userid'];
         $rows = $relations->getFullFriendList(">1", $userid);
@@ -161,5 +173,4 @@ class FriendShipController {
         $view->addData(["result" => $rows]);
         $view->sendResponse();
     }
-
 }

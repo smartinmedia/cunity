@@ -38,29 +38,30 @@ namespace Cunity\Events\Models;
 
 use Cunity\Core\Cunity;
 use Cunity\Core\Models\Generator\Url;
+use Cunity\Core\View\Ajax\View;
 use Cunity\Core\View\Message;
 use Cunity\Core\View\PageNotFound;
-use DateTime;
 use Cunity\Events\Models\Db\Table\Events;
 use Cunity\Events\Models\Db\Table\Guests;
-use Cunity\Core\View\Ajax\View;
 use Cunity\Events\View\Event;
 use Cunity\Events\View\EventCrop;
 use Cunity\Events\View\EventEdit;
 use Cunity\Gallery\Models\Db\Table\Gallery_Albums;
 use Cunity\Gallery\Models\Db\Table\Gallery_Images;
 use Cunity\Newsfeed\Models\Db\Table\Walls;
+use DateTime;
 
 /**
  * Class Process
  * @package Events\Models
  */
-class Process {
-
+class Process
+{
     /**
      * @param $action
      */
-    public function __construct($action) {
+    public function __construct($action)
+    {
         if (method_exists($this, $action)) {
             call_user_func([$this, $action]);
         }
@@ -69,7 +70,8 @@ class Process {
     /**
      *
      */
-    private function createEvent() {
+    private function createEvent()
+    {
         $events = new Events;
         $result = false;
         $res = $events->addEvent([
@@ -89,14 +91,14 @@ class Process {
             $gallery_albums = new Gallery_Albums;
             $guests->addGuests($res, $_SESSION['user']->userid, 2, false);
             $result = $walls->createWall($res, "event") && $gallery_albums->insert([
-                        "title" => "",
-                        "description" => "",
-                        "owner_id" => $res,
-                        "owner_type" => "event",
-                        "type" => "event",
-                        "user_upload" => 0,
-                        "privacy" => 2
-            ]);
+                    "title" => "",
+                    "description" => "",
+                    "owner_id" => $res,
+                    "owner_type" => "event",
+                    "type" => "event",
+                    "user_upload" => 0,
+                    "privacy" => 2
+                ]);
         }
 
         $view = new View($result);
@@ -109,29 +111,39 @@ class Process {
     /**
      *
      */
-    private function loadEvents() {
+    private function loadEvents()
+    {
         $start = date("Y-m-d H:i:s", ($_GET['from'] / 1000));
         $end = date("Y-m-d H:i:s", ($_GET['to'] / 1000));
 
         $events = new Events;
         $result = $events->fetchBetween($start, $end);
-        $view = new View($result !== NULL);
-        $view->addData([
-            "success" => ($result !== NULL) ? 1 : 0,
-            "result" => $result
-        ]);
+        $view = new View($result !== null);
+        if (($result !== null)) {
+            $view->addData([
+                "success" => 1,
+                "result" => $result
+            ]);
+        } else {
+            $view->addData([
+                "success" => 0,
+                "result" => $result
+            ]);
+        }
         $view->sendResponse();
     }
 
     /**
      *
      */
-    private function loadEvent() {
+    private function loadEvent()
+    {
         $events = new Events;
         if (isset($_GET['x']) && $_GET['x'] == "edit") {
             $eventData = $events->getEventData(intval($_GET['action']));
-            if ($eventData['userid'] !== $_SESSION['user']->userid)
+            if ($eventData['userid'] !== $_SESSION['user']->userid) {
                 new PageNotFound();
+            }
             $view = new EventEdit();
             $eventData['date'] = new DateTime($eventData['start']);
             $view->assign("event", $eventData);
@@ -141,8 +153,9 @@ class Process {
             $id = explode("-", $_GET['action']);
             $view = new Event;
             $data = $events->getEventData($id[0]);
-            if ($data == NULL || $data == false)
-                new PageNotFound ();
+            if ($data == null || $data == false) {
+                new PageNotFound();
+            }
             $data['date'] = new DateTime($data['start']);
             $data['guests'] = $guests->getGuests($id[0]);
             $view->assign("event", $data);
@@ -153,7 +166,8 @@ class Process {
     /**
      *
      */
-    private function changeStatus() {
+    private function changeStatus()
+    {
         if (isset($_POST['eventid']) && isset($_POST['status'])) {
             $guests = new Guests;
             $res = $guests->changeStatus($_POST['status'], $_SESSION['user']->userid, $_POST['eventid']);
@@ -165,7 +179,8 @@ class Process {
     /**
      *
      */
-    private function invite() {
+    private function invite()
+    {
         if (isset($_POST['receiver']) && !empty($_POST['receiver'])) {
             $conv = new Guests;
             $result = $conv->addGuests($_POST['eventid'], $_POST['receiver'], true);
@@ -178,7 +193,8 @@ class Process {
     /**
      *
      */
-    private function loadGuestList() {
+    private function loadGuestList()
+    {
         $guests = new Guests;
         $g = $guests->getGuests($_POST['eventid']);
         $view = new View(is_array($g));
@@ -189,32 +205,36 @@ class Process {
     /**
      *
      */
-    private function edit() {
+    private function edit()
+    {
         $view = new View();
         if (!isset($_POST['edit']) || $_POST['edit'] != "editPhoto") {
             $events = new Events;
-            $res = $events->updateEvent(intval($_GET['x']), array_intersect_key($_POST, array_flip(["title", "description", "place", "start", "privacy", "guest_invitation"])));
+            $events->updateEvent(intval($_GET['x']), array_intersect_key($_POST, array_flip(["title", "description", "place", "start", "privacy", "guest_invitation"])));
 
             $view->addData(["msg" => $msg]);
             $view->sendResponse();
-        } else if ($_POST['edit'] == "editPhoto") {
+        } elseif ($_POST['edit'] == "editPhoto") {
             $gimg = new Gallery_Images();
             $result = $gimg->uploadEventImage($_POST['eventid']);
             if ($result !== false) {
                 $view->setStatus(true);
                 $view->addData($result);
                 $view->sendResponse();
-            } else
+            } else {
                 new Message("Sorry!", "Something went wrong on our server!");
+            }
         }
     }
 
     /**
      * @throws \Exception
      */
-    private function cropImage() {
-        if (!isset($_GET['x']) || empty($_GET['x']))
+    private function cropImage()
+    {
+        if (!isset($_GET['x']) || empty($_GET['x'])) {
             new PageNotFound();
+        }
         $imageid = $_GET['x'];
         $eventid = $_GET['y'];
         $images = new Gallery_Images();
@@ -226,14 +246,16 @@ class Process {
             $eventData['date'] = new DateTime($data['start']);
             $view->assign(["event" => $eventData, "result" => $result[0], "type" => $_GET['y'], "image" => getimagesize("../data/uploads/" . Cunity::get("settings")->getSetting("core.filesdir") . "/" . $result[0]['filename'])]);
             $view->show();
-        } else
+        } else {
             new PageNotFound;
+        }
     }
 
     /**
      * @throws \Exception
      */
-    private function crop() {
+    private function crop()
+    {
         $file = new \Skoch_Filter_File_Crop([
             "x" => $_POST['crop-x'],
             "y" => $_POST['crop-y'],
@@ -245,8 +267,8 @@ class Process {
         ]);
         $file->filter($_POST['crop-image']);
         $events = new Events;
-        if ($events->updateEvent($_POST['eventid'], ["imageId" => $_POST['imageid']]))
+        if ($events->updateEvent($_POST['eventid'], ["imageId" => $_POST['imageid']])) {
             header("Location: " . Url::convertUrl("index.php?m=events&action=" . $_POST['eventid']));
+        }
     }
-
 }

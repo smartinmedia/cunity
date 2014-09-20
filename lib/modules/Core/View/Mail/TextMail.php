@@ -42,7 +42,6 @@ namespace Cunity\Core\View\Mail;
  */
 class TextMail extends MailView
 {
-
     /**
      * @var string
      */
@@ -61,12 +60,13 @@ class TextMail extends MailView
         parent::__construct();
         if ((!isset($receiver['name']) ||
                 !isset($receiver['email'])) &&
-            isset($receiver['userid'])) {
+            isset($receiver['userid'])
+        ) {
             $user = $_SESSION['user']->getTable()->search(
                 "userid",
                 $receiver['userid']
             );
-            if ($user !== NULL) {
+            if ($user !== null) {
                 $receiver['name'] = $user->name;
                 $receiver['email'] = $user->email;
             }
@@ -74,23 +74,25 @@ class TextMail extends MailView
 
         $this->_receiver = $receiver;
         $this->_subject = $this->translate(
-            $text['subject']['text'], $text['subject']['replaces']
+            $text['subject']['text'],
+            $text['subject']['replaces']
         );
         $this->assign("name", $receiver["name"]);
-        if (isset($text['content']))
+        if (isset($text['content'])) {
             $this->assign(
                 "content", $this->translate(
                     $text['content']['text'],
                     $text['content']['replaces']
                 )
             );
-        else
+        } else {
             $this->assign(
                 "content", $this->translate(
                     $text['subject']['text'],
                     $text['subject']['replaces']
                 )
             );
+        }
         $this->show();
     }
 }

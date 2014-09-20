@@ -17,13 +17,13 @@ foreach ($cssFiles as $cssFile) {
 // Remove whitespace
 $buffer = str_replace(
     [
-    "\r\n",
-    "\r",
-    "\n",
-    "\t",
-    '  ',
-    '    ',
-    '    '],
+        "\r\n",
+        "\r",
+        "\n",
+        "\t",
+        '  ',
+        '    ',
+        '    '],
     '',
     $buffer
 );

@@ -72,41 +72,11 @@ class Settings extends Table
     }
 
     /**
-     * @param $name
-     * @return string
-     */
-    public function getSetting($name)
-    {
-        if (isset($this->settings[$name]))
-            return $this->settings[$name];
-        $row = $this->fetchRow($this->select()->where("name=?", $name));
-        $this->settings[$name] = $row->value;
-        return $row->value;
-    }
-
-    /**
      * @return \Zend_Db_Table_Rowset_Abstract
      */
     public function getSettings()
     {
         return $this->fetchAll();
-    }
-
-    /**
-     * @param $name
-     * @param $value
-     * @return bool
-     * @throws Exception
-     */
-    public function setSetting($name, $value)
-    {
-        $row = $this->fetchRow($this->select()->where("name=?", $name));
-        if ($row == NULL)
-            throw new Exception("Try to set undefined setting: \"" . $name . "\"");
-        else {
-            $row->value = $value;
-            return (false !== $row->save());
-        }
     }
 
     /**
@@ -129,4 +99,34 @@ class Settings extends Table
         return $this->setSetting($name, $value);
     }
 
+    /**
+     * @param $name
+     * @return string
+     */
+    public function getSetting($name)
+    {
+        if (isset($this->settings[$name])) {
+            return $this->settings[$name];
+        }
+        $row = $this->fetchRow($this->select()->where("name=?", $name));
+        $this->settings[$name] = $row->value;
+        return $row->value;
+    }
+
+    /**
+     * @param $name
+     * @param $value
+     * @return bool
+     * @throws Exception
+     */
+    public function setSetting($name, $value)
+    {
+        $row = $this->fetchRow($this->select()->where("name=?", $name));
+        if ($row == null) {
+            throw new Exception("Try to set undefined setting: \"" . $name . "\"");
+        } else {
+            $row->value = $value;
+            return (false !== $row->save());
+        }
+    }
 }

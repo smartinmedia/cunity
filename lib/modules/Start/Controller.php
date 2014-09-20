@@ -61,7 +61,6 @@ class Controller implements ModuleController
      */
     public static function onRegister($user)
     {
-
     }
 
     /**
@@ -70,7 +69,5 @@ class Controller implements ModuleController
      */
     public static function onUnregister($user)
     {
-
     }
-
 }

@@ -40,10 +40,11 @@ namespace Cunity\Admin\Models\Updater;
  * Class Register
  * @package Cunity\Admin\Models\Updater
  */
-interface DbCommandInterface {
+interface DbCommandInterface
+{
 
     /**
-     * 
+     *
      */
     public function execute();
 }

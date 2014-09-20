@@ -107,5 +107,4 @@ class Menu extends Table
     {
         return (false !== $this->delete($this->getAdapter()->quoteInto("id NOT IN (?)", $not)));
     }
-
 }

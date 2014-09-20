@@ -44,7 +44,6 @@ use Cunity\Core\Models\Db\Abstractables\Table;
  */
 class Contact extends Table
 {
-
     /**
      * @var string
      */
@@ -61,5 +60,4 @@ class Contact extends Table
     {
         parent::__construct();
     }
-
 }

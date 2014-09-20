@@ -59,5 +59,4 @@ class Appearance extends View
         $this->_templateFile = "appearance/" . $_GET['x'] . ".tpl";
         $this->registerCss("appearance", $_GET['x']);
     }
-
 }

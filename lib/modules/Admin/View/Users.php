@@ -59,5 +59,4 @@ class Users extends View
         $this->_templateFile = "users/" . $_GET['x'] . ".tpl";
         $this->registerCss("users", $_GET['x']);
     }
-
 }

@@ -42,7 +42,6 @@ namespace Cunity\Core\View;
  */
 class Message extends View
 {
-
     /**
      * @var string
      */
@@ -71,9 +70,8 @@ class Message extends View
         $this->assign("HEADER", $titleTranslated);
         $this->assign(
             "TYPE", (
-        in_array($type, $this->_validTypes) ? $type : "info")
+            in_array($type, $this->_validTypes) ? $type : "info")
         );
         $this->show();
     }
-
 }

@@ -45,7 +45,6 @@ use Cunity\Core\View\View;
  */
 class MailView extends View
 {
-
     /**
      * @var array
      */
@@ -92,5 +91,4 @@ class MailView extends View
             $this->_cc
         );
     }
-
 }

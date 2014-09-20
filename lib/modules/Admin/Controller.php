@@ -44,45 +44,48 @@ use Cunity\Register\Models\Login;
  * Class Controller
  * @package Cunity\Admin
  */
-class Controller implements ModuleController {
+class Controller implements ModuleController
+{
 
     /**
      *
      */
-    public function __construct() {
+    public function __construct()
+    {
         if (isset($_GET['action']) && $_GET['action'] != "update") {
             Login::loginRequired();
         }
         if (isset($_GET['action']) && $_GET['action'] == "login") {
             new Models\Login("login");
-        } else if (isset($_GET['action']) && $_GET['action'] == "save") {
+        } elseif (isset($_GET['action']) && $_GET['action'] == "save") {
             new Models\Process($_POST['form']);
-        } else if (isset($_GET['action']) && $_GET['action'] == "update") {
+        } elseif (isset($_GET['action']) && $_GET['action'] == "update") {
             new Models\Updater\DatabaseUpdater();
-        } else if (isset($_GET['action']) && !empty($_GET['action'])) {
-            $model = "\Admin\Models\\Pages\\" . ucfirst($_GET['action']);
-            if (!Models\Login::loggedIn())
+        } elseif (isset($_GET['action']) && !empty($_GET['action'])) {
+            $model = "\Cunity\Admin\Models\\Pages\\" . ucfirst($_GET['action']);
+            if (!Models\Login::loggedIn()) {
                 new View\Login();
-            else if (Request::isAjaxRequest())
+            } elseif (Request::isAjaxRequest()) {
                 new $model;
-        } else
+            }
+        } else {
             new View\Admin();
+        }
     }
 
     /**
      * @param $user
      * @return mixed|void
      */
-    public static function onRegister($user) {
-        
+    public static function onRegister($user)
+    {
     }
 
     /**
      * @param $user
      * @return mixed|void
      */
-    public static function onUnregister($user) {
-        
+    public static function onUnregister($user)
+    {
     }
-
 }

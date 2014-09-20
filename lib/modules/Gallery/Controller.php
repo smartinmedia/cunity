@@ -74,9 +74,9 @@ class Controller implements ModuleController
      */
     private function handleRequest()
     {
-        if (!isset($_GET['action']) || empty($_GET['action']))
+        if (!isset($_GET['action']) || empty($_GET['action'])) {
             new View\Albums();
-        elseif (
+        } elseif (
             isset(
                 $_GET['action']
             ) &&
@@ -87,17 +87,18 @@ class Controller implements ModuleController
                 $_GET['action'],
                 $this->_allowedActions
             )
-        )
+        ) {
             new Models\Process($_GET['action']);
-        elseif (
+        } elseif (
             isset(
                 $_GET['action']
             ) &&
             !empty(
             $_GET['action']
             )
-        )
+        ) {
             new Models\Process("loadAlbum");
+        }
     }
 
     /**
@@ -119,5 +120,4 @@ class Controller implements ModuleController
         $albums = new Models\Db\Table\Gallery_Albums();
         $albums->deleteAlbumsByUser($user->userid);
     }
-
 }

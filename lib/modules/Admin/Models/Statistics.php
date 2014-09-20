@@ -46,7 +46,8 @@ use Cunity\Newsfeed\Models\Db\Table\Posts;
  * Class Statistics
  * @package Cunity\Admin\Models
  */
-class Statistics {
+class Statistics
+{
 
     /**
      * @var array
@@ -56,7 +57,8 @@ class Statistics {
     /**
      *
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->tables['messages'] = new Messages();
         $this->tables['comments'] = new Comments();
         $this->tables['likes'] = new Likes();
@@ -68,14 +70,13 @@ class Statistics {
      * @param $name
      * @return mixed
      */
-    private function __get($name) {
-        $returnValue = NULL;
-        if (array_key_exists($name, $this->tables))
-        {
+    private function __get($name)
+    {
+        $returnValue = null;
+        if (array_key_exists($name, $this->tables)) {
             $returnValue = $this->tables[$name];
         }
 
         return $returnValue;
     }
-
 }

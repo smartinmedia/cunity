@@ -36,10 +36,10 @@
 
 namespace Cunity\Contact\Models;
 
-use Cunity\Register\Models\Login;
 use Cunity\Contact\Models\Db\Table\Contact;
 use Cunity\Contact\View\ContactMail;
 use Cunity\Core\View\Message;
+use Cunity\Register\Models\Login;
 
 /**
  * Class ContactForm
@@ -47,7 +47,6 @@ use Cunity\Core\View\Message;
  */
 class ContactForm
 {
-
     /**
      *
      */
@@ -75,9 +74,9 @@ class ContactForm
                 $cc = (isset($_POST['send_copy']) && $_POST['send_copy'] == 1) ? ["email" => $_POST['email'], "name" => $_POST['firstname'] . " " . $_POST['lastname']] : [];
                 new ContactMail([], ["subject" => $_POST['subject'], "message" => $_POST['message']], $cc);
                 new Message("Finished!", "Your Message was sent successfully!", "success");
-            } else
+            } else {
                 new Message("Sorry!", "There was an error in our system, please try again later", "danger");
+            }
         }
     }
-
 }

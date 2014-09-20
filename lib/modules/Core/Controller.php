@@ -47,17 +47,11 @@ use Cunity\Register\Models\Login;
  */
 class Controller
 {
-
-    /**
-     * @var null
-     */
-    private $_cunity = null;
-
     /**
      * @throws \Exception
      */
     public function __construct()
-    {        
+    {
         array_walk_recursive($_GET, [$this, 'trimhtml']);
         array_walk_recursive($_POST, [$this, 'trimhtml']);
 
@@ -69,10 +63,11 @@ class Controller
             . Cunity::get("settings")->getSetting("core.filesdir")
         );
         session_start();
-        if (Models\Request::isAjaxRequest())
+        if (Models\Request::isAjaxRequest()) {
             set_exception_handler([$this, 'handleAjaxException']);
-        else
+        } else {
             set_exception_handler([$this, 'handleException']);
+        }
         $this->handleQuery();
     }
 
@@ -90,23 +85,26 @@ class Controller
                     )
                 );
                 exit();
-            } else
+            } else {
                 $_GET['m'] = 'start';
+            }
         }
+
         $moduleController = new Module($_GET['m']);
-        if (!Request::isAjaxRequest() && !$moduleController->isActive())
+        if (!Request::isAjaxRequest() && !$moduleController->isActive()) {
             new PageNotFound();
-        else if ($moduleController->isValid()) {
+        } elseif ($moduleController->isValid()) {
             $classname = $moduleController->getClassName();
             new $classname;
-        } else
+        } else {
             new PageNotFound;
+        }
     }
 
     /**
      * @param $e
      */
-    static function handleException($e)
+    public static function handleException($e)
     {
         new View($e);
     }
@@ -114,7 +112,7 @@ class Controller
     /**
      * @param $exception
      */
-    static function handleAjaxException($exception)
+    public static function handleAjaxException($exception)
     {
         /** @noinspection PhpUnnecessaryFullyQualifiedNameInspection */
         $view = new \Cunity\Core\View\Ajax\View();
@@ -130,5 +128,4 @@ class Controller
     {
         $value = trim(htmlspecialchars($value, ENT_QUOTES));
     }
-
 }

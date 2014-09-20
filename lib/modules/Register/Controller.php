@@ -76,7 +76,7 @@ class Controller implements ModuleController
             $view = new View\Registration();
             $view->assign('success', false);
             $view->render();
-        } else if (
+        } elseif (
             isset(
                 $_GET['action']
             ) && !empty(
@@ -86,8 +86,9 @@ class Controller implements ModuleController
                 $_GET['action'],
                 $this->_allowedActions
             )
-        )
+        ) {
             new Models\Process($_GET['action']);
+        }
     }
 
     /**
@@ -96,7 +97,6 @@ class Controller implements ModuleController
      */
     public static function onRegister($user)
     {
-
     }
 
     /**
@@ -105,7 +105,5 @@ class Controller implements ModuleController
      */
     public static function onUnregister($user)
     {
-
     }
-
 }

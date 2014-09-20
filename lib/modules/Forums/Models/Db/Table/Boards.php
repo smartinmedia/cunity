@@ -42,7 +42,8 @@ use Cunity\Core\Models\Db\Abstractables\Table;
  * Class Boards
  * @package Cunity\Forums\Models\Db\Table
  */
-class Boards extends Table {
+class Boards extends Table
+{
 
     /**
      * @var string
@@ -56,7 +57,8 @@ class Boards extends Table {
     /**
      *
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
     }
 
@@ -66,16 +68,22 @@ class Boards extends Table {
      * @param int $offset
      * @return array|bool
      */
-    public function loadBoards($forumid, $limit = 20, $offset = 0) {
-        $res = $this->getAdapter()->fetchAll($this->getAdapter()->select()
-                        ->from(["b" => $this->_name])
-                        ->joinLeft(["t" => $this->_dbprefix . "forums_threads"], "t.board_id=b.id", [""])
-                        ->joinLeft(["th" => $this->_dbprefix . "forums_threads"], "th.board_id=b.id", new \Zend_Db_Expr("COUNT(th.id) AS threadcount"))
-                        ->joinLeft(["p" => $this->_dbprefix . "forums_posts"], "p.thread_id=t.id", ["time"])
-                        ->order("t.time DESC")
-                        ->where("b.forum_id=?", $forumid)->limit($limit, $offset)->group("b.id"));
-        if ($res !== NULL && $res !== false)
+    public function loadBoards($forumid, $limit = 20, $offset = 0)
+    {
+        $res = $this->getAdapter()->fetchAll(
+            $this
+                ->getAdapter()
+                ->select()
+                ->from(["b" => $this->_name])
+                ->joinLeft(["t" => $this->_dbprefix . "forums_threads"], "t.board_id=b.id", [""])
+                ->joinLeft(["th" => $this->_dbprefix . "forums_threads"], "th.board_id=b.id", new \Zend_Db_Expr("COUNT(th.id) AS threadcount"))
+                ->joinLeft(["p" => $this->_dbprefix . "forums_posts"], "p.thread_id=t.id", ["time"])
+                ->order("t.time DESC")
+                ->where("b.forum_id=?", $forumid)->limit($limit, $offset)->group("b.id")
+        );
+        if ($res !== null && $res !== false) {
             return $res;
+        }
         return false;
     }
 
@@ -83,11 +91,13 @@ class Boards extends Table {
      * @param $id
      * @return bool|mixed
      */
-    public function loadBoardData($id) {
+    public function loadBoardData($id)
+    {
         $res = $this->getAdapter()->fetchRow($this->getAdapter()->select()->from(["b" => $this->_name])
-                        ->joinLeft(["f" => $this->_dbprefix . "forums"], "f.id=b.forum_id", [new \Zend_Db_Expr("f.title as parenttitle")])->where("b.id=?", $id));
-        if($res == NULL || $res["id"] == NULL)
+            ->joinLeft(["f" => $this->_dbprefix . "forums"], "f.id=b.forum_id", [new \Zend_Db_Expr("f.title as parenttitle")])->where("b.id=?", $id));
+        if ($res == null || $res["id"] == null) {
             return false;
+        }
         return $res;
     }
 
@@ -95,10 +105,12 @@ class Boards extends Table {
      * @param array $data
      * @return array|bool
      */
-    public function add(array $data) {
+    public function add(array $data)
+    {
         $res = $this->insert($data);
-        if ($res !== false)
+        if ($res !== false) {
             return array_merge(["id" => $res], $data);
+        }
         return false;
     }
 
@@ -106,24 +118,27 @@ class Boards extends Table {
      * @param $id
      * @return bool
      */
-    public function deleteBoard($id) {
-        $threads = new Threads;
-        $r = $threads->deleteThreadsByBoardId($id);
-        if ($r)
-            return ($this->delete($this->getAdapter()->quoteInto("id=?", $id)) > 0);
-        return false;
-    }
-
-    /**
-     * @param $id
-     * @return bool
-     */
-    public function deleteBoardsByForumId($id) {
+    public function deleteBoardsByForumId($id)
+    {
         $result = [];
         $res = $this->fetchAll($this->select()->where("forum_id=?", $id));
-        foreach ($res AS $r)
+        foreach ($res as $r) {
             $result[] = $this->deleteBoard($r->id);
+        }
         return !in_array(false, $result);
     }
 
+    /**
+     * @param $id
+     * @return bool
+     */
+    public function deleteBoard($id)
+    {
+        $threads = new Threads;
+        $r = $threads->deleteThreadsByBoardId($id);
+        if ($r) {
+            return ($this->delete($this->getAdapter()->quoteInto("id=?", $id)) > 0);
+        }
+        return false;
+    }
 }

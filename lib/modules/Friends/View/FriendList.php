@@ -74,5 +74,3 @@ class FriendList extends View
         $this->show();
     }
 }
-
-

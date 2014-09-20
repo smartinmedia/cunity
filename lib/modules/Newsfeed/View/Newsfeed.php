@@ -44,7 +44,6 @@ use Cunity\Core\View\View;
  */
 class Newsfeed extends View
 {
-
     /**
      * @var string
      */
@@ -76,5 +75,4 @@ class Newsfeed extends View
         $this->registerScript("gallery", "lightbox");
         $this->show();
     }
-
 }

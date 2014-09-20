@@ -66,5 +66,4 @@ class NotificationMail extends MailView
         $this->assign("message", $data['message']);
         $this->show();
     }
-
 }

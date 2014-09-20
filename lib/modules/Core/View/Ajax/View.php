@@ -42,7 +42,6 @@ namespace Cunity\Core\View\Ajax;
  */
 class View extends \Cunity\Core\View\View
 {
-
     /**
      * @var bool
      */
@@ -59,7 +58,6 @@ class View extends \Cunity\Core\View\View
     {
         $this->setStatus($status);
     }
-
 
     /**
      * @param $status
@@ -94,7 +92,4 @@ class View extends \Cunity\Core\View\View
         )
         );
     }
-
 }
-
-

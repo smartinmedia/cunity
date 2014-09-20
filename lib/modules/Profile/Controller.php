@@ -61,10 +61,12 @@ class Controller implements ModuleController
     private function handleRequest()
     {
         if (isset($_GET['action']) && ($_GET['action'] == "edit" ||
-                $_GET['action'] == "cropImage"))
+                $_GET['action'] == "cropImage")
+        ) {
             new Models\ProfileEdit();
-        else
+        } else {
             new Models\Profile();
+        }
     }
 
     /**
@@ -73,7 +75,6 @@ class Controller implements ModuleController
      */
     public static function onRegister($user)
     {
-
     }
 
     /**
@@ -82,7 +83,5 @@ class Controller implements ModuleController
      */
     public static function onUnregister($user)
     {
-
     }
-
 }

@@ -43,12 +43,14 @@ use Cunity\Core\Models\Db\Table\Modules;
  * Class Statistics
  * @package Cunity\Admin\Models\Pages
  */
-class Statistics extends PageAbstract {
+class Statistics extends PageAbstract
+{
 
     /**
      *
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->loadData();
         $this->render("statistics");
     }
@@ -56,12 +58,12 @@ class Statistics extends PageAbstract {
     /**
      * @throws \Exception
      */
-    private function loadData() {
+    private function loadData()
+    {
         $modules = new Modules();
         $installedModules = $modules->getModules()->toArray();
         $config = Cunity::get("config");
         $this->assignments['smtp_check'] = $config->mail->smtp_check;
         $this->assignments['modules'] = $installedModules;
     }
-
 }

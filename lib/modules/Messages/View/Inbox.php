@@ -77,5 +77,4 @@ class Inbox extends View
     {
         $this->show();
     }
-
 }

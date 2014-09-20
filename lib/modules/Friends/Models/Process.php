@@ -37,31 +37,35 @@
 namespace Cunity\Friends\Models;
 
 use Cunity\Core\Exception;
-use Cunity\Friends\Models\Db\Table\Relationships;
 use Cunity\Core\View\Ajax\View;
+use Cunity\Friends\Models\Db\Table\Relationships;
 use Cunity\Notifications\Models\Notifier;
 
 /**
  * Class Process
  * @package Cunity\Friends\Models
  */
-class Process {
+class Process
+{
 
     /**
      * @param $action
      */
-    public function __construct($action) {
-        if (method_exists($this, $action))
+    public function __construct($action)
+    {
+        if (method_exists($this, $action)) {
             call_user_func([$this, $action]);
+        }
     }
 
     /**
      *
      */
-    private function add() {
-        if (!isset($_POST['userid']))
+    private function add()
+    {
+        if (!isset($_POST['userid'])) {
             new Exception("No userid given!");
-        else {
+        } else {
             $relations = new Relationships();
             $res = $relations->insert(["sender" => $_SESSION['user']->userid, "receiver" => $_POST['userid'], "status" => 1]);
             if ($res) {
@@ -75,10 +79,11 @@ class Process {
     /**
      *
      */
-    private function block() {
-        if (!isset($_POST['userid']))
+    private function block()
+    {
+        if (!isset($_POST['userid'])) {
             new Exception("No userid given!");
-        else {
+        } else {
             $relations = new Relationships();
             $res = $relations->updateRelation($_SESSION['user']->userid, $_POST['userid'], ["status" => 0, "sender" => $_SESSION['user']->userid, "receiver" => $_POST['userid']]);
             if ($res) {
@@ -91,10 +96,12 @@ class Process {
     /**
      *
      */
-    private function confirm() {
-        if (!isset($_POST['userid'])) // Here the userid is the relation id to make it easier to identify the friendship!
+    private function confirm()
+    {
+        // Here the userid is the relation id to make it easier to identify the friendship!
+        if (!isset($_POST['userid'])) {
             new Exception("No userid given!");
-        else {
+        } else {
             $relations = new Relationships();
             $res = $relations->updateRelation($_SESSION['user']->userid, $_POST['userid'], ["status" => 2]);
             if ($res) {
@@ -108,10 +115,12 @@ class Process {
     /**
      *
      */
-    private function remove() {
-        if (!isset($_POST['userid'])) // Here the userid is the relation id to make it easier to identify the friendship!
+    private function remove()
+    {
+        // Here the userid is the relation id to make it easier to identify the friendship!
+        if (!isset($_POST['userid'])) {
             new Exception("No userid given!");
-        else {
+        } else {
             $relations = new Relationships();
             $res = $relations->deleteRelation($_SESSION['user']->userid, $_POST['userid']);
             if ($res) {
@@ -124,10 +133,12 @@ class Process {
     /**
      *
      */
-    private function change() {
-        if (!isset($_POST['userid'])) // Here the userid is the relation id to make it easier to identify the friendship!
+    private function change()
+    {
+        // Here the userid is the relation id to make it easier to identify the friendship!
+        if (!isset($_POST['userid'])) {
             new Exception("No userid given!");
-        else {
+        } else {
             $relations = new Relationships();
             $res = $relations->updateRelation($_POST['userid'], $_SESSION['user']->userid, ["status" => $_POST['status']]);
             if ($res) {
@@ -140,13 +151,14 @@ class Process {
     /**
      * @throws Exception
      */
-    private function loadData() {
+    private function loadData()
+    {
         $userid = $_POST['userid'];
         $users = $_SESSION['user']->getTable();
         $result = $users->get($userid);
-        if ($result === NULL)
+        if ($result === null) {
             throw new Exception("No User found with the given ID!");
-        else {
+        } else {
             $view = new View(true);
             $view->addData(["user" => $result->toArray(["pimg", "username", "firstname", "lastname"])]);
             $view->sendResponse();
@@ -156,7 +168,8 @@ class Process {
     /**
      *
      */
-    private function load() {
+    private function load()
+    {
         $relations = new Relationships();
         $rows = $relations->getFullFriendList(">1", $_POST['userid']);
         $view = new View(true);
@@ -167,7 +180,8 @@ class Process {
     /**
      *
      */
-    private function loadOnline() {
+    private function loadOnline()
+    {
         $view = new View(false);
         if ($_SESSION['user']->chat_available == 1) {
             $relations = new Relationships();
@@ -184,7 +198,8 @@ class Process {
     /**
      *
      */
-    private function chatStatus() {
+    private function chatStatus()
+    {
         $view = new View(false);
         if ($_POST['status'] == 1 || $_POST['status'] == 0) {
             $_SESSION['user']->chat_available = $_POST['status'];
@@ -192,5 +207,4 @@ class Process {
         }
         $view->sendResponse();
     }
-
 }

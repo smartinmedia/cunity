@@ -50,21 +50,25 @@ use Cunity\Register\View\Registration;
  * Class Process
  * @package Cunity\Register\Models
  */
-class Process {
+class Process
+{
 
     /**
      * @param $action
      */
-    public function __construct($action) {
-        if (method_exists($this, $action))
+    public function __construct($action)
+    {
+        if (method_exists($this, $action)) {
             call_user_func([$this, $action]);
+        }
     }
 
     /**
      *
      */
-    private function sendRegistration() {
-        $register = new Register;        
+    private function sendRegistration()
+    {
+        $register = new Register();
         if (!$register->validateForm()) {
             $register->renderErrors();
         } else {
@@ -80,47 +84,56 @@ class Process {
     /**
      *
      */
-    private function validate() {
+    private function validate()
+    {
         $users = new Users;
         $res = $users->search($_POST['field'], $_POST['val']);
         $view = new View(true);
-        $view->addData(["valid" => ($res == NULL)]);
+        $view->addData(["valid" => ($res == null)]);
         $view->sendResponse();
     }
 
     /**
      * @throws Exception
      */
-    private function login() {
-        if (!isset($_POST['email']) || !isset($_POST['password']))
+    private function login()
+    {
+        if (!isset($_POST['email']) || !isset($_POST['password'])) {
             throw new Exception("Missing Parameters for login!");
+        }
+
         $email = trim($_POST['email']);
         $password = trim($_POST['password']);
         $users = new Users();
         $user = $users->search("email", $email);
-        if ($user !== NULL) {
+        if ($user !== null) {
             if ($user->passwordMatch($password)) {
-                if ($user->groupid == 0)
-                    new \Cunity\Core\View\Message("Sorry", "Your account is not verified! Please check your verification mail! if you have not received a mail, enter your email at \"I forgot my password\" and we will send you a new mail!", "danger");
-                else if ($user->groupid == 4)
-                    new \Cunity\Core\View\Message("Sorry", "Your Account is blocked! Please contact the Administrator", "danger");
-                else {
+                if ($user->groupid == 0) {
+                    new Message("Sorry", "Your account is not verified! Please check your verification mail! if you have not received a mail, enter your email at \"I forgot my password\" and we will send you a new mail!", "danger");
+                } elseif ($user->groupid == 4) {
+                    new Message("Sorry", "Your Account is blocked! Please contact the Administrator", "danger");
+                } else {
                     $user->setLogin(isset($_POST['save-login']));
                     header("Location:" . Url::convertUrl("index.php?m=profile"));
                     exit();
                 }
-            } else
-                new \Cunity\Core\View\Message("Sorry", "The entered data is not correct!", "danger");
-        } else
-            new \Cunity\Core\View\Message("Sorry", "The entered data is not correct!", "danger");
+            } else {
+                new Message("Sorry", "The entered data is not correct!", "danger");
+            }
+        } else {
+            new Message("Sorry", "The entered data is not correct!", "danger");
+        }
     }
 
     /**
      *
      */
-    private function logout() {
-        if (Login::loggedIn())
+    private function logout()
+    {
+        if (Login::loggedIn()) {
             $_SESSION['user']->logout();
+        }
+
         header("Location:" . Url::convertUrl("index.php?m=start"));
         exit();
     }
@@ -129,34 +142,39 @@ class Process {
      * @throws Exception
      * @throws \Exception
      */
-    private function verify() {
-        if (!isset($_GET['x']) || empty($_GET['x']))
+    private function verify()
+    {
+        if (!isset($_GET['x']) || empty($_GET['x'])) {
             throw new Exception("No verify-code submitted!");
+        }
         $users = new Users();
         $user = $users->search("salt", $_GET['x']);
-        if ($user !== NULL) {
+        if ($user !== null) {
             $user->groupid = 1;
             $user->save();
             $config = Cunity::get("config");
             $functions = $config->registerFunctions->toArray();
-            foreach ($functions["module"] AS $module)
-                call_user_func([ucfirst($module) . "\Controller", "onRegister"], $user);
+            foreach ($functions["module"] as $module) {
+                call_user_func(["\Cunity\\" . ucfirst($module) . "\Controller", "onRegister"], $user);
+            }
             new Message("Ready to go!", "Your account was verified! You can now login!", "success");
-        } else
+        } else {
             new Message("Sorry", "We cannot verify your account! The given data was not found!", "danger");
+        }
     }
 
     /**
      *
      */
-    private function forgetPw() {
+    private function forgetPw()
+    {
         if (!isset($_POST['resetPw'])) {
             $view = new ForgetPw();
             $view->render();
         } else {
             $users = new Users();
             $user = $users->search("email", $_POST['email']);
-            if ($user !== NULL) {
+            if ($user !== null) {
                 $token = rand(123123, 999999);
                 $user->password_token = json_encode(["token" => $token, "time" => time()]);
                 $user->save();
@@ -173,19 +191,21 @@ class Process {
     /**
      * @throws \Exception
      */
-    private function delete() {
+    private function delete()
+    {
         $config = Cunity::get("config");
         $functions = $config->registerFunctions->toArray();
-        foreach ($functions["module"] AS $module)
+        foreach ($functions["module"] as $module) {
             call_user_func([ucfirst($module) . "\Controller", "onUnregister"], $_SESSION['user']);
+        }
     }
 
     /**
      *
      */
-    private function reset() {
-        $register = new Register;
+    private function reset()
+    {
+        $register = new Register();
         $register->reset();
     }
-
 }

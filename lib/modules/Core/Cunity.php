@@ -36,22 +36,16 @@
 
 namespace Cunity\Core;
 
-use Cunity\Core\Models\Db\Table\Settings;
-use Cunity\Core\Exception;
 use Cunity\Core\Models\Db\Adapter\Mysqli;
+use Cunity\Core\Models\Db\Table\Settings;
 use Zend_Db_Table_Abstract;
 
 /**
  * Class Cunity
  * @package Cunity\Core
  */
-class Cunity {
-
-    /**
-     * @var Cunity
-     */
-    private static $_instance = null;
-
+class Cunity
+{
     /**
      * @var array
      */
@@ -60,18 +54,20 @@ class Cunity {
     /**
      * @throws Cunity\Core\Exception
      */
-    public static function init() {
+    public static function init()
+    {
         self::set("config", new \Zend_Config_Xml("../data/config.xml"));
         self::set(
-                "db", new Mysqli(self::get("config"))
+            "db",
+            new Mysqli(self::get("config"))
         );
         Zend_Db_Table_Abstract::setDefaultAdapter(self::get("db"));
         self::set("settings", new Settings());
         if (function_exists("apache_get_modules")) {
             self::set(
-                    "mod_rewrite", in_array(
-                            'mod_rewrite', apache_get_modules()
-                    )
+                "mod_rewrite", in_array(
+                    'mod_rewrite', apache_get_modules()
+                )
             );
         } else {
             self::set("mod_rewrite", false);
@@ -82,7 +78,8 @@ class Cunity {
      * @param String $instance
      * @param mixed $obj
      */
-    public static function set($instance, $obj) {
+    public static function set($instance, $obj)
+    {
         self::$_instances[$instance] = $obj;
     }
 
@@ -91,14 +88,14 @@ class Cunity {
      * @throws Exception
      * @return mixed
      */
-    public static function get($instance) {
+    public static function get($instance)
+    {
         if (isset(self::$_instances[$instance])) {
             return self::$_instances[$instance];
         } else {
             throw new Exception(
-            "Instance of \"" . $instance . "\" not found!"
+                "Instance of \"" . $instance . "\" not found!"
             );
         }
     }
-
 }

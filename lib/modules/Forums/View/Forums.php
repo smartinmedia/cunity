@@ -70,6 +70,4 @@ class Forums extends View
         $this->registerScript("forums", "category-cloud");
         $this->show();
     }
-
 }
- 

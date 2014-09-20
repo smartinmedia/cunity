@@ -44,7 +44,8 @@ use Cunity\Core\Models\Db\Abstractables\Table;
  * Class Version
  * @package Cunity\Admin\Models\Db\Table
  */
-class Versions extends Table {
+class Versions extends Table
+{
 
     /**
      * @var string
@@ -59,20 +60,24 @@ class Versions extends Table {
     /**
      *
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
     }
 
-    public function getVersions() {
+    /**
+     * @return array|bool
+     */
+    public function getVersions()
+    {
         $res = $this->fetchAll();
-        if ($res !== NULL) {
+        if ($res !== null) {
             $versions = [];
-            foreach($res AS $version) {
+            foreach ($res as $version) {
                 $versions[] = $version->timestamp;
             }
             return $versions;
         }
         return false;
     }
-
 }

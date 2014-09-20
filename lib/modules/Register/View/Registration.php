@@ -85,5 +85,4 @@ class Registration extends View
     {
         $this->show();
     }
-
 }

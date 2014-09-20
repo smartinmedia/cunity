@@ -61,5 +61,4 @@ class View extends \Cunity\Core\View\View
     {
         parent::registerCss("admin", "../" . $adminModule . "/css/" . $file);
     }
-
 }

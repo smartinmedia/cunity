@@ -42,7 +42,8 @@ use Cunity\Core\Models\Db\Abstractables\Table;
  * Class ProfilePins
  * @package Profile\Models\Db\Table
  */
-class ProfilePins extends Table {
+class ProfilePins extends Table
+{
 
     /**
      * @var string
@@ -56,7 +57,8 @@ class ProfilePins extends Table {
     /**
      *
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
     }
 
@@ -64,13 +66,15 @@ class ProfilePins extends Table {
      * @param $userid
      * @return array|\Zend_Db_Table_Rowset_Abstract
      */
-    public function getAllByUser($userid) {
+    public function getAllByUser($userid)
+    {
         $pt = new Privacy();
-        $res = $pt->checkPrivacy("visit",$userid);                        
-        if ($res)            
+        $res = $pt->checkPrivacy("visit", $userid);
+        if ($res) {
             return $this->fetchAll($this->select()->where("userid=?", $userid)->order("row"));
-        else
+        } else {
             return ["status" => true];
+        }
     }
 
     /**
@@ -79,8 +83,8 @@ class ProfilePins extends Table {
      * @param $pinid
      * @return int
      */
-    public function updatePosition($columns, $row, $pinid) {
+    public function updatePosition($columns, $row, $pinid)
+    {
         return $this->update(["column" => $columns, "row" => $row], $this->getAdapter()->quoteInto("id=?", $pinid));
     }
-
 }

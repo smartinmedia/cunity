@@ -43,39 +43,44 @@ use Cunity\Core\View\PageNotFound;
  * Class Conversation
  * @package Cunity\Messages\Models
  */
-class Conversation {
+class Conversation
+{
 
     /**
      *
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->load();
     }
 
     /**
      *
      */
-    private function load() {
+    private function load()
+    {
         $table = new Db\Table\Conversations();
         $userTable = new Users();
         $view = new \Cunity\Messages\View\Conversation();
         $conversation = $table->loadConversationDetails($_GET['action']);
         $users = explode(",", $conversation['users']);
-        if (!in_array($_SESSION['user']->userid, $users))
+        if (!in_array($_SESSION['user']->userid, $users)) {
             $view = new PageNotFound();
-        else
+        } else {
             unset($users[array_search($_SESSION['user']->userid, $users)]);
+        }
         $table->markAsRead($_GET['action']);
         if (!empty($users)) {
             $conversation['users'] = $userTable->getSet($users, "u.userid", ["u.userid", "u.username", "u.name"])->toArray();
             $usernames = "";
-            foreach ($conversation['users'] AS $user)
+            foreach ($conversation['users'] as $user) {
                 $usernames .= $user['name'] . ',';
+            }
             $view->setMetaData(["title" => substr($usernames, 0, -1)]);
-        }  else
+        } else {
             $view->setMetaData(["title" => "Conversation"]);
+        }
         $view->assign("conversation", $conversation);
         $view->show();
     }
-
 }

@@ -44,7 +44,6 @@ use Cunity\Core\Models\Db\Table\Modules;
  */
 class Module
 {
-
     /**
      * @var
      */
@@ -73,7 +72,7 @@ class Module
      */
     public function getClassName()
     {
-        return "Cunity\\".ucfirst($this->_tag) . "\Controller";
+        return "Cunity\\" . ucfirst($this->_tag) . "\Controller";
     }
 
     /**
@@ -99,5 +98,4 @@ class Module
         else
             return true;
     }
-
 }

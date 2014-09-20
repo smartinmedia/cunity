@@ -46,7 +46,6 @@ use Cunity\Register\Models\Login;
  */
 class Controller implements ModuleController
 {
-
     /**
      * @var array
      */
@@ -71,17 +70,18 @@ class Controller implements ModuleController
      */
     private function handleRequest()
     {
-        if (!isset($_GET['action']) || empty($_GET['action']))
+        if (!isset($_GET['action']) || empty($_GET['action'])) {
             new View\Newsfeed();
-        else if (
+        } elseif (
             isset(
                 $_GET['action']) &&
-                !empty(
-                    $_GET['action']
-                ) &&
+            !empty(
+            $_GET['action']
+            ) &&
             in_array($_GET['action'], $this->_allowedActions)
-        )
+        ) {
             new Models\Process($_GET['action']);
+        }
     }
 
     /**
@@ -103,5 +103,4 @@ class Controller implements ModuleController
         $walls = new Walls();
         $walls->deleteWallByOwner($user->userid, "profile");
     }
-
 }

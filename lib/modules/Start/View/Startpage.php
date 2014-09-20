@@ -90,5 +90,4 @@ class Startpage extends View
     {
         $this->show();
     }
-
 }

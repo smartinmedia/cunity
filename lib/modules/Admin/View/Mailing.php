@@ -60,5 +60,4 @@ class Mailing extends View
         $this->registerCss("mailing", $_GET['x']);
         $this->show();
     }
-
 }

@@ -44,7 +44,6 @@ use Cunity\Core\ModuleController;
  */
 class Controller implements ModuleController
 {
-
     /**
      *
      */
@@ -58,10 +57,11 @@ class Controller implements ModuleController
      */
     private function handleRequest()
     {
-        if (!isset($_GET['action']) || empty($_GET['action']))
+        if (!isset($_GET['action']) || empty($_GET['action'])) {
             new View\ContactForm();
-        else if (isset($_GET['action']) && $_GET['action'] == "sendContact")
+        } elseif (isset($_GET['action']) && $_GET['action'] == "sendContact") {
             new Models\ContactForm();
+        }
     }
 
     /**
@@ -70,7 +70,6 @@ class Controller implements ModuleController
      */
     public static function onRegister($user)
     {
-
     }
 
     /**
@@ -79,9 +78,5 @@ class Controller implements ModuleController
      */
     public static function onUnregister($user)
     {
-
     }
-
 }
-
-

@@ -42,7 +42,8 @@ use Cunity\Core\Models\Db\Abstractables\Table;
  * Class Messages
  * @package Messages\Models\Db\Table
  */
-class Messages extends Table {
+class Messages extends Table
+{
 
     /**
      * @var string
@@ -56,7 +57,8 @@ class Messages extends Table {
     /**
      *
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
     }
 
@@ -65,7 +67,8 @@ class Messages extends Table {
      * @param $cid
      * @return bool
      */
-    public function deleteByUser($userid, $cid) {
+    public function deleteByUser($userid, $cid)
+    {
         return (0 < $this->delete([$this->getAdapter()->quoteInto("sender=?", $userid), $this->getAdapter()->quoteInto("conversation=?", $cid)]));
     }
 
@@ -75,18 +78,20 @@ class Messages extends Table {
      * @param int $refresh
      * @return array
      */
-    public function loadByConversation($conversation_id, $offset = 0, $refresh = 0) {
+    public function loadByConversation($conversation_id, $offset = 0, $refresh = 0)
+    {
         $query = $this->getAdapter()->select()
-                ->from($this->_dbprefix . "messages AS m")
-                ->where("conversation = ?", $conversation_id)
-                ->join($this->_dbprefix . "users AS us", "m.sender = us.userid", ["us.username", "us.name"])
-                ->joinLeft($this->_dbprefix . "gallery_images AS img", "img.id = us.profileImage", ["filename AS pimg"])
-                ->order("time DESC");
+            ->from($this->_dbprefix . "messages AS m")
+            ->where("conversation = ?", $conversation_id)
+            ->join($this->_dbprefix . "users AS us", "m.sender = us.userid", ["us.username", "us.name"])
+            ->joinLeft($this->_dbprefix . "gallery_images AS img", "img.id = us.profileImage", ["filename AS pimg"])
+            ->order("time DESC");
 
-        if ($refresh > 0)
+        if ($refresh > 0) {
             $query->where("m.id > ?", $refresh);
-        else
+        } else {
             $query->limit(20, $offset);
+        }
         return $this->getAdapter()->fetchAll($query);
     }
 
@@ -94,10 +99,10 @@ class Messages extends Table {
      * @param array $data
      * @return mixed
      */
-    public function insert(array $data) {
+    public function insert(array $data)
+    {
         $conversation = new Conversations();
         $conversation->markAsUnRead($data['conversation']);
         return parent::insert($data);
     }
-
 }

@@ -53,8 +53,6 @@ class Controller implements ModuleController
     public function __construct()
     {
         $this->handleRequest();
-//        $s = new Models\Process();
-//        $s->recreateSearchIndex();
     }
 
     /**
@@ -62,9 +60,9 @@ class Controller implements ModuleController
      */
     private function handleRequest()
     {
-        if (isset($_GET['q']) && !empty($_GET['q']) && empty($_GET['action']))
+        if (isset($_GET['q']) && !empty($_GET['q']) && empty($_GET['action'])) {
             new Searchresults();
-        else if (isset($_GET['action']) && $_GET['action'] == "livesearch") {
+        } elseif (isset($_GET['action']) && $_GET['action'] == "livesearch") {
             $process = new Models\Process();
             $result = $process->find($_POST['q']);
             $view = new View();
@@ -93,5 +91,4 @@ class Controller implements ModuleController
         $searchindex = new Models\Process();
         $searchindex->removeUser($user->username);
     }
-
 }

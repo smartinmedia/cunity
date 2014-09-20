@@ -45,15 +45,16 @@ use Cunity\Register\Models\Login;
  */
 class ContactForm extends View
 {
-
     /**
      * @var string
      */
     protected $_templateDir = "contact";
+
     /**
      * @var string
      */
     protected $_templateFile = "contactform.tpl";
+
     /**
      * @var array
      */
@@ -73,8 +74,10 @@ class ContactForm extends View
                 "lastname" => $user->lastname,
                 "email" => $user->email
             ];
-        } else
+        } else {
             $userData = ["firstname" => "", "lastname" => "", "email" => ""];
+        }
+
         $this->registerScript("contact", "contactform");
         $this->assign("userData", $userData);
         $this->show();
@@ -85,7 +88,5 @@ class ContactForm extends View
      */
     public function render()
     {
-
     }
-
 }

@@ -42,7 +42,6 @@ namespace Cunity\Core\Models\Db\Adapter;
  */
 class Mysqli extends \Zend_Db_Adapter_Mysqli
 {
-
     /**
      *
      * @var String
@@ -67,5 +66,4 @@ class Mysqli extends \Zend_Db_Adapter_Mysqli
     {
         return $this->_dbprefix . '_';
     }
-
 }

@@ -43,8 +43,8 @@ use Cunity\Register\Models\Login;
  * Class Username
  * @package Cunity\Core\Models\Validation
  */
-class Username extends \Zend_Validate_Alnum {
-
+class Username extends \Zend_Validate_Alnum
+{
     /**
      *
      */
@@ -71,7 +71,8 @@ class Username extends \Zend_Validate_Alnum {
      * @param string $value
      * @return bool
      */
-    public function isValid($value) {
+    public function isValid($value)
+    {
         $this->_setValue($value);
         if (empty($value) || strlen($value) < 2 || strlen($value) > 20) {
             $this->_error(self::LENGTH);
@@ -79,8 +80,9 @@ class Username extends \Zend_Validate_Alnum {
         }
         $users = new Users();
         $user = $users->search("username", $value);
-        if (($user !== NULL && !Login::loggedIn()) ||
-            (Login::loggedIn() && $user->userid !== $_SESSION['user']->userid)) {
+        if (($user !== null && !Login::loggedIn()) ||
+            (Login::loggedIn() && $user->userid !== $_SESSION['user']->userid)
+        ) {
             $this->_error(self::USED);
             return false;
         }
@@ -91,5 +93,4 @@ class Username extends \Zend_Validate_Alnum {
         }
         return true;
     }
-
 }

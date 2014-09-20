@@ -84,5 +84,4 @@ class Profile extends View
     {
         $this->show();
     }
-
 }

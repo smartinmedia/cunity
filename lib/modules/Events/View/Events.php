@@ -70,26 +70,25 @@ class Events extends View
         $this->registerCunityPlugin(
             "bootstrap-datepicker",
             [
-            "css/bootstrap-datepicker.css",
-            "js/bootstrap-datepicker.js"
+                "css/bootstrap-datepicker.css",
+                "js/bootstrap-datepicker.js"
             ]
         );
         $this->registerCunityPlugin(
             "bootstrap-timepicker",
             [
-            "css/bootstrap-timepicker.css",
-            "js/bootstrap-timepicker.min.js"
+                "css/bootstrap-timepicker.css",
+                "js/bootstrap-timepicker.min.js"
             ]
         );
         $this->registerCunityPlugin(
             "calendar",
             [
-            "css/calendar.css",
-            "js/calendar.min.js"
+                "css/calendar.css",
+                "js/calendar.min.js"
             ]
         );
         $this->registerCunityPlugin("js", ["underscore-min.js"]);
         $this->show();
     }
-
 }

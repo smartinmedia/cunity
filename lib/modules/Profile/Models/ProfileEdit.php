@@ -45,14 +45,14 @@ use Cunity\Core\View\Message;
 use Cunity\Core\View\PageNotFound;
 use Cunity\Gallery\Models\Db\Table\Gallery_Images;
 use Cunity\Notifications\Models\Db\Table\Notification_Settings;
-use Cunity\Notifications\Models\Db\Table\Notifications;
 use Cunity\Profile\View\ProfileCrop;
 
 /**
  * Class ProfileEdit
  * @package Profile\Models
  */
-class ProfileEdit {
+class ProfileEdit
+{
 
     /**
      * @var null
@@ -62,7 +62,8 @@ class ProfileEdit {
     /**
      *
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->user = $_SESSION['user'];
         $this->handleRequest();
     }
@@ -70,12 +71,14 @@ class ProfileEdit {
     /**
      *
      */
-    private function handleRequest() {
-        if ($_GET['action'] == "cropImage")
+    private function handleRequest()
+    {
+        if ($_GET['action'] == "cropImage") {
             $this->cropImage();
-        else if (isset($_POST['edit']) && !empty($_POST['edit'])) {
-            if (method_exists($this, $_POST['edit']))
+        } elseif (isset($_POST['edit']) && !empty($_POST['edit'])) {
+            if (method_exists($this, $_POST['edit'])) {
                 call_user_func([$this, $_POST['edit']]);
+            }
         } else {
             $view = new \Cunity\Profile\View\ProfileEdit();
             $user = $this->user->getTable()->get($_SESSION['user']->userid);
@@ -90,14 +93,49 @@ class ProfileEdit {
     }
 
     /**
+     * @throws \Exception
+     */
+    private function cropImage()
+    {
+        if (!isset($_GET['x']) || empty($_GET['x'])) {
+            new PageNotFound();
+        }
+        /** @noinspection PhpUnnecessaryFullyQualifiedNameInspection */
+        $images = new \Cunity\Gallery\Models\Db\Table\Gallery_Images();
+        $result = $images->getImageData($_GET['x']);
+        $view = new ProfileCrop();
+        $user = $_SESSION['user']->getTable()->get($_SESSION['user']->userid); // Get a new user Object with all image-data
+        $profileData = $user->toArray(["userid", "username", "name", "timg", "pimg", "talbumid", "palbumid"]);
+        $view->assign(["profile" => $profileData, "result" => $result[0], "type" => $_GET['y'], "image" => getimagesize("../data/uploads/" . Cunity::get("settings")->getSetting("core.filesdir") . "/" . $result[0]['filename'])]);
+        $view->show();
+    }
+
+    /**
+     *
+     */
+    public function deleteImage()
+    {
+        if ($_POST['type'] == "profile") {
+            $_SESSION['user']->profileImage = 0;
+        } else {
+            $_SESSION['user']->titleImage = 0;
+        }
+        if ($_SESSION['user']->save()) {
+            $view = new View(true);
+            $view->sendResponse();
+        }
+    }
+
+    /**
      * @throws \Zend_Db_Table_Exception
      */
-    private function loadPinData() {
+    private function loadPinData()
+    {
         $pinid = $_POST['id'];
         $pins = new Db\Table\ProfilePins();
         $data = $pins->find($pinid)->current()->toArray();
         $data['content'] = htmlspecialchars_decode($data['content']);
-        $view = new View($data !== NULL);
+        $view = new View($data !== null);
         $view->addData($data);
         $view->sendResponse();
     }
@@ -105,7 +143,8 @@ class ProfileEdit {
     /**
      *
      */
-    private function deletePin() {
+    private function deletePin()
+    {
         if (isset($_POST['id'])) {
             $pins = new Db\Table\ProfilePins();
             $result = $pins->delete($pins->getAdapter()->quoteInto("id=?", $_POST['id']));
@@ -118,7 +157,8 @@ class ProfileEdit {
     /**
      *
      */
-    private function pin() {
+    private function pin()
+    {
         if (isset($_POST['title']) && isset($_POST['type']) && isset($_POST['content'])) {
             $pins = new Db\Table\ProfilePins();
             if (isset($_POST['editPin'])) {
@@ -136,18 +176,20 @@ class ProfileEdit {
     /**
      *
      */
-    private function notifications() {
+    private function notifications()
+    {
         if (!empty($_POST['types'])) {
             $result = [];
-            foreach ($_POST['types'] AS $key => $v) {
-                if (isset($_POST['alert'][$key]) && isset($_POST['mail'][$key]))
+            foreach ($_POST['types'] as $key => $v) {
+                if (isset($_POST['alert'][$key]) && isset($_POST['mail'][$key])) {
                     $result[$key] = 3;
-                else if (isset($_POST['alert'][$key]) && !isset($_POST['mail'][$key]))
+                } elseif (isset($_POST['alert'][$key]) && !isset($_POST['mail'][$key])) {
                     $result[$key] = 1;
-                else if (!isset($_POST['alert'][$key]) && isset($_POST['mail'][$key]))
+                } elseif (!isset($_POST['alert'][$key]) && isset($_POST['mail'][$key])) {
                     $result[$key] = 2;
-                else
+                } else {
                     $result[$key] = 0;
+                }
             }
             $settings = new Notification_Settings();
             $res = $settings->updateSettings($result);
@@ -167,10 +209,11 @@ class ProfileEdit {
     /**
      *
      */
-    private function pinPositions() {
+    private function pinPositions()
+    {
         $pins = new Db\Table\ProfilePins();
         if (isset($_POST['pins'])) {
-            foreach ($_POST['pins'] AS $i => $pin) {
+            foreach ($_POST['pins'] as $i => $pin) {
                 $pins->updatePosition($_POST['column'], $i, $pin);
             }
         }
@@ -179,29 +222,34 @@ class ProfileEdit {
     /**
      *
      */
-    private function general() {
+    private function general()
+    {
         if (isset($_POST['email']) || isset($_POST['username']) || $_POST['sex']) {
             $view = new View();
             $message = [];
             $validateMail = new Email();
             $validateUsername = new Username();
 
-            if ($validateUsername->isValid($_POST['username']))
+            if ($validateUsername->isValid($_POST['username'])) {
                 $this->user->username = $_POST['username'];
-            else
+            } else {
                 $message[] = implode(",", $validateUsername->getMessages());
-            if ($validateMail->isValid($_POST['email']))
+            }
+            if ($validateMail->isValid($_POST['email'])) {
                 $this->user->email = $_POST['email'];
-            else
+            } else {
                 $message[] = implode(",", $validateMail->getMessages());
+            }
             $this->user->sex = $_POST['sex'];
 
             $res = $this->user->save();
-            if (!$res)
+            if (!$res) {
                 $message[] = $view->translate("Something went wrong! Please try again later!");
+            }
             $view->setStatus(empty($message));
-            if (empty($message))
+            if (empty($message)) {
                 $message[] = $view->translate("Your changes were saved successfully!");
+            }
             $view->addData(["msg" => implode(',', $message)]);
             $view->sendResponse();
         }
@@ -210,7 +258,8 @@ class ProfileEdit {
     /**
      *
      */
-    private function changePassword() {
+    private function changePassword()
+    {
         $status = false;
         $view = new View();
         if (sha1($_POST['old-password'] . $this->user->salt) === $this->user->password) {
@@ -219,10 +268,12 @@ class ProfileEdit {
                 $this->user->save();
                 $status = true;
                 $message = $view->translate("Password changed successfully!");
-            } else
+            } else {
                 $message = $view->translate("The new passwords do not match!");
-        } else
+            }
+        } else {
             $message = $view->translate("The current password is wrong");
+        }
         $view->setStatus($status);
         $view->addData(["msg" => $message]);
         $view->sendResponse();
@@ -231,7 +282,8 @@ class ProfileEdit {
     /**
      *
      */
-    private function changePrivacy() {
+    private function changePrivacy()
+    {
         if (isset($_POST['privacy']) && is_array($_POST['privacy'])) {
             $table = new Db\Table\Privacy();
             $res = $table->updatePrivacy($_SESSION['user']->userid, $_POST['privacy']);
@@ -252,7 +304,8 @@ class ProfileEdit {
     /**
      *
      */
-    private function changeimage() {
+    private function changeimage()
+    {
         $gimg = new Gallery_Images();
         $result = $gimg->uploadProfileImage();
         if ($result !== false) {
@@ -265,41 +318,10 @@ class ProfileEdit {
     }
 
     /**
-     *
-     */
-    function deleteImage() {
-        if ($_POST['type'] == "profile") {
-            $_SESSION['user']->profileImage = 0;
-        } else {
-            $_SESSION['user']->titleImage = 0;
-        }
-        if ($_SESSION['user']->save()) {
-            $view = new View(true);
-            $view->sendResponse();
-        }
-    }
-
-    /**
      * @throws \Exception
      */
-    private function cropImage() {
-        if (!isset($_GET['x']) || empty($_GET['x'])) {
-            new PageNotFound();
-        }
-        /** @noinspection PhpUnnecessaryFullyQualifiedNameInspection */
-        $images = new \Cunity\Gallery\Models\Db\Table\Gallery_Images();
-        $result = $images->getImageData($_GET['x']);
-        $view = new ProfileCrop();
-        $user = $_SESSION['user']->getTable()->get($_SESSION['user']->userid); // Get a new user Object with all image-data
-        $profileData = $user->toArray(["userid", "username", "name", "timg", "pimg", "talbumid", "palbumid"]);
-        $view->assign(["profile" => $profileData, "result" => $result[0], "type" => $_GET['y'], "image" => getimagesize("../data/uploads/" . Cunity::get("settings")->getSetting("core.filesdir") . "/" . $result[0]['filename'])]);
-        $view->show();
-    }
-
-    /**
-     * @throws \Exception
-     */
-    private function crop() {
+    private function crop()
+    {
         $file = new \Skoch_Filter_File_Crop([
             "x" => $_POST['crop-x'],
             "y" => $_POST['crop-y'],
@@ -310,12 +332,13 @@ class ProfileEdit {
             "prefix" => "cr_"
         ]);
         $file->filter($_POST['crop-image']);
-        if ($_POST['type'] == "title")
+        if ($_POST['type'] == "title") {
             $_SESSION['user']->titleImage = $_POST['imageid'];
-        else
+        } else {
             $_SESSION['user']->profileImage = $_POST['imageid'];
-        if ($_SESSION['user']->save())
+        }
+        if ($_SESSION['user']->save()) {
             header("Location: " . Url::convertUrl("index.php?m=profile"));
+        }
     }
-
 }

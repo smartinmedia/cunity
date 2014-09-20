@@ -40,8 +40,8 @@ namespace Cunity\Core\Models\Generator;
  * Class Privacy
  * @package Core\Models\Generator
  */
-class Privacy {
-
+class Privacy
+{
     /**
      * @var array
      */
@@ -56,16 +56,17 @@ class Privacy {
      * @param $privacyString
      * @return array
      */
-    public static function parse($privacyString) {
-        if (!is_string($privacyString) || empty($privacyString) || $privacyString == null)
+    public static function parse($privacyString)
+    {
+        if (!is_string($privacyString) || empty($privacyString) || $privacyString == null) {
             return self::$privacies;
+        }
         $privacy = explode(',', $privacyString);
         $r = self::$privacies;
-        foreach ($privacy AS $p) {
+        foreach ($privacy as $p) {
             $x = explode(':', $p);
             $r[$x[0]] = intval($x[1]);
         }
         return $r;
     }
-
 }

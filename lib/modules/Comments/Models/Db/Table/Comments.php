@@ -79,6 +79,15 @@ class Comments extends Table
 
     /**
      * @param $commentid
+     * @return mixed
+     */
+    public function getComment($commentid)
+    {
+        return $this->getAdapter()->fetchRow($this->getAdapter()->select()->from(["c" => $this->_dbprefix . "comments"], ["id", "content", "time", "userid"])->joinLeft(["u" => $this->_dbprefix . "users"], "u.userid = c.userid", ["username", "name"])->joinLeft(["i" => $this->_dbprefix . "gallery_images"], "u.profileImage = i.id", ["filename"])->where("c.id = ?", $commentid));
+    }
+
+    /**
+     * @param $commentid
      * @return int
      */
     public function removeComment($commentid)
@@ -97,15 +106,6 @@ class Comments extends Table
     }
 
     /**
-     * @param $commentid
-     * @return mixed
-     */
-    public function getComment($commentid)
-    {
-        return $this->getAdapter()->fetchRow($this->getAdapter()->select()->from(["c" => $this->_dbprefix . "comments"], ["id", "content", "time", "userid"])->joinLeft(["u" => $this->_dbprefix . "users"], "u.userid = c.userid", ["username", "name"])->joinLeft(["i" => $this->_dbprefix . "gallery_images"], "u.profileImage = i.id", ["filename"])->where("c.id = ?", $commentid));
-    }
-
-    /**
      * @param $referenceId
      * @param $referenceName
      * @param bool $last
@@ -115,9 +115,9 @@ class Comments extends Table
     public function get($referenceId, $referenceName, $last = false, $limit = 20)
     {
         $query = $this->getAdapter()->select()->from(["c" => $this->_dbprefix . "comments"])->joinLeft(["u" => $this->_dbprefix . "users"], "u.userid = c.userid", ["username", "name"])->joinLeft(["i" => $this->_dbprefix . "gallery_images"], "u.profileImage = i.id", ["filename"])->where("c.ref_id = ?", $referenceId)->where("c.ref_name = ?", $referenceName)->order("c.time DESC")->limit($limit);
-        if ($last)
+        if ($last) {
             $query->where("c.id < ?", $last);
+        }
         return $this->getAdapter()->fetchAll($query);
     }
-
 }

@@ -42,9 +42,6 @@ namespace Cunity\Core\Models\Db\Rowset;
  */
 class Rowset extends \Zend_Db_Table_Rowset_Abstract
 {
-
-    //put your code here
-
     /**
      * @param array $fields
      * @return array
@@ -52,17 +49,18 @@ class Rowset extends \Zend_Db_Table_Rowset_Abstract
     public function toSelectedArray(array $fields)
     {
         if (empty($this->_rows) && !empty($this->_data)) {
-            foreach ($this->_data AS $i => $row) {
+            foreach ($this->_data as $i => $row) {
                 $result = [];
-                foreach ($fields AS $v)
+                foreach ($fields as $v) {
                     $result[$v] = $this->_data[$i][$v];
+                }
                 $this->_data[$i] = $result;
             }
         } else {
-            foreach ($this->_rows AS $i => $row)
+            foreach ($this->_rows as $i => $row) {
                 $this->_data[$i] = $row->toSelectedArray($fields);
+            }
         }
         return $this->_data;
     }
-
 }

@@ -40,13 +40,14 @@ namespace Cunity\Core\Models\Generator;
  * Class Date
  * @package Cunity\Core\Models\Generator
  */
-class Date {
-
+class Date
+{
     /**
      * @param $since
      * @return string
      */
-    public static function time_since($since) {
+    public static function time_since($since)
+    {
         $chunks = [
             [22896000, 'year'],
             [2592000, 'month'],
@@ -68,5 +69,4 @@ class Date {
         $print = ($count == 1) ? '1 ' . $name : "$count {$name}s";
         return $print;
     }
-
 }

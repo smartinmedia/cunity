@@ -65,8 +65,9 @@ class Comments
             $this->view->setStatus(false);
         } else {
             $this->table = new Db\Table\Comments();
-            if (method_exists($this, $action))
+            if (method_exists($this, $action)) {
                 call_user_func([$this, $action]);
+            }
         }
         $this->view->sendResponse();
     }
@@ -108,5 +109,4 @@ class Comments
         $this->view->setStatus($res !== false);
         $this->view->addData(["comments" => $res]);
     }
-
 }

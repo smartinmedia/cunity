@@ -37,9 +37,9 @@
 namespace Cunity\Gallery\Models;
 
 use Cunity\Comments\Models\Db\Table\Comments;
+use Cunity\Core\Models\Generator\Url;
 use Cunity\Core\View\Ajax\View;
 use Cunity\Core\View\Message;
-use Cunity\Core\Models\Generator\Url;
 use Cunity\Core\View\PageNotFound;
 use Cunity\Gallery\Models\Db\Table\Gallery_Albums;
 use Cunity\Gallery\Models\Db\Table\Gallery_Images;
@@ -50,44 +50,72 @@ use Cunity\Likes\Models\Db\Table\Likes;
  * Class Process
  * @package Cunity\Gallery\Models
  */
-class Process {
+class Process
+{
 
     /**
      * @param $action
      */
-    public function __construct($action) {
-        if (method_exists($this, $action))
+    public function __construct($action)
+    {
+        if (method_exists($this, $action)) {
             call_user_func([$this, $action]);
+        }
+    }
+
+    /**
+     * @throws \Zend_Db_Table_Exception
+     */
+    public function deleteAlbum()
+    {
+        $albums = new Gallery_Albums();
+        $album = $albums->find($_POST['albumid'])->current();
+        $view = new View($album->deleteAlbum());
+        $view->sendResponse();
     }
 
     /**
      *
      */
-    private function overview() {
+    private function overview()
+    {
         $table = new Gallery_Albums();
         $albums = $table->loadAlbums($_POST['userid']);
-        if ($albums !== NULL) {
+        if ($albums !== null) {
             $view = new View(true);
             $view->addData(["result" => $albums]);
             $view->sendResponse();
-        } else
+        } else {
             new Message("Sorry", "We can't find any albums!", "danger");
+        }
     }
 
     /**
      *
      */
-    private function create() {
+    private function create()
+    {
         $table = new Gallery_Albums();
-        $result = $table->insert([
-            "title" => $_POST['title'],
-            "description" => $_POST['description'],
-            "owner_id" => $_SESSION['user']->userid,
-            "type" => ($_POST['privacy'] == 0) ? "shared" : NULL,
-            "user_upload" => isset($_POST['allow_upload']) ? 1 : 0,
-            "privacy" => $_POST['privacy']
-        ]);
-        $view = new View($result !== NULL);
+        if (($_POST['privacy'] == 0)) {
+            $result = $table->insert([
+                "title" => $_POST['title'],
+                "description" => $_POST['description'],
+                "owner_id" => $_SESSION['user']->userid,
+                "type" => "shared",
+                "user_upload" => isset($_POST['allow_upload']) ? 1 : 0,
+                "privacy" => $_POST['privacy']
+            ]);
+        } else {
+            $result = $table->insert([
+                "title" => $_POST['title'],
+                "description" => $_POST['description'],
+                "owner_id" => $_SESSION['user']->userid,
+                "type" => null,
+                "user_upload" => isset($_POST['allow_upload']) ? 1 : 0,
+                "privacy" => $_POST['privacy']
+            ]);
+        }
+        $view = new View($result !== null);
         $view->addData(["target" => Url::convertUrl("index.php?m=gallery&action=" . $result . "&x=" . str_replace(" ", "_", $_POST['title']))]);
         $view->sendResponse();
     }
@@ -95,29 +123,32 @@ class Process {
     /**
      * @throws \Zend_Db_Table_Exception
      */
-    private function edit() {
+    private function edit()
+    {
         $table = new Gallery_Albums();
         $album = $table->find($_POST['albumid'])->current();
         $result = $album->update($_POST);
         $view = new View();
-        $view->setStatus($result !== NULL);
+        $view->setStatus($result !== null);
         $view->sendResponse();
     }
 
     /**
      * @throws \Zend_Db_Table_Exception
      */
-    private function upload() {
+    private function upload()
+    {
         $albums = new Gallery_Albums();
         $images = new Gallery_Images();
         if (isset($_POST['newsfeed_post'])) {
             $album = $albums->fetchRow($albums->select()->where("type=?", "newsfeed")->where("owner_id=?", $_SESSION['user']->userid)->where("owner_type IS NULL"));
-            if ($album === NULL) {
+            if ($album === null) {
                 $albumid = $albums->newNewsfeedAlbums($_SESSION['user']->userid);
                 $album = $albums->fetchRow($albums->select()->where("id=?", $albumid));
             }
-        } else
+        } else {
             $album = $albums->find($_POST['albumid'])->current();
+        }
         $result = $images->uploadImage($album->id, isset($_POST['newsfeed_post']));
         $album->addImage((isset($_POST['newsfeed_post'])) ? $result['content'] : $result['imageid']);
         $view = new View($result !== false);
@@ -128,24 +159,30 @@ class Process {
     /**
      * @throws \Zend_Db_Table_Exception
      */
-    private function deleteImage() {
+    private function deleteImage()
+    {
         $images = new Gallery_Images();
         $image = $images->find($_POST['imageid'])->current();
         $view = new View();
-        $view->setStatus(($image !== NULL) ? $image->deleteImage() : false);
+        if (($image !== null)) {
+            $view->setStatus($image->deleteImage());
+        } else {
+            $view->setStatus(false);
+        }
         $view->sendResponse();
     }
 
     /**
      *
      */
-    private function loadImage() {
+    private function loadImage()
+    {
         $id = $_POST['id'];
         $images = new Gallery_Images();
         $albums = new Gallery_Albums();
         $result = $images->getImageData($id);
         $view = new View(true);
-        if ($result !== NULL) {
+        if ($result !== null) {
             $result = $result[0];
             $albumData = $albums->getAlbumData($result['albumid']);
             $likeTable = new Likes();
@@ -155,18 +192,21 @@ class Process {
             if ($result['commentcount'] > 0) {
                 $comments = new Comments();
                 $socialData['comments'] = $comments->get($id, "image", false, 13);
-            } else
+            } else {
                 $socialData['comments'] = [];
+            }
             $view->addData(array_merge($socialData, $result, ["album" => $albumData]));
-        } else
+        } else {
             $view->setStatus(false);
+        }
         $view->sendResponse();
     }
 
     /**
      *
      */
-    private function loadImages() {
+    private function loadImages()
+    {
         $images = new Gallery_Images();
         $result = $images->getImages($_POST['albumid'], ["limit" => $_POST['limit'], "offset" => $_POST['offset']]);
         $view = new View($result !== false);
@@ -177,28 +217,20 @@ class Process {
     /**
      * @throws \Cunity\Core\Exception
      */
-    private function loadAlbum() {
+    private function loadAlbum()
+    {
         $albums = new Gallery_Albums();
         $album = $albums->getAlbumData($_GET['action']);
         if ($album !== false) {
             $view = new Album();
             $view->setMetaData(["title" => $album['title'], "description" => $album['description']]);
             $view->assign("album", $album);
-            if ($album->owner_id == $_SESSION['userid'] && $album->owner_type == NULL)
+            if ($album->owner_id == $_SESSION['userid'] && $album->owner_type == null) {
                 $view->registerScript("gallery", "album-edit");
+            }
             $view->show();
-        } else
+        } else {
             new PageNotFound();
+        }
     }
-
-    /**
-     * @throws \Zend_Db_Table_Exception
-     */
-    function deleteAlbum() {
-        $albums = new Gallery_Albums();
-        $album = $albums->find($_POST['albumid'])->current();
-        $view = new View($album->deleteAlbum());
-        $view->sendResponse();
-    }
-
 }

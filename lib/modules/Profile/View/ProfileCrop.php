@@ -72,4 +72,3 @@ class ProfileCrop extends View
         $this->registerCss("profile", "profile-crop");
     }
 }
-

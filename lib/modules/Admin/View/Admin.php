@@ -69,5 +69,4 @@ class Admin extends View
 
         $this->show();
     }
-
 }

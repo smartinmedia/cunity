@@ -63,8 +63,9 @@ class Controller implements ModuleController
         if (isset($_GET['action']) && $_GET['action'] == "load") {
             $p = new Models\Process();
             $p->getAll();
-        } else
+        } else {
             new View\Memberlist();
+        }
     }
 
     /**
@@ -73,7 +74,6 @@ class Controller implements ModuleController
      */
     public static function onRegister($user)
     {
-
     }
 
     /**
@@ -82,7 +82,5 @@ class Controller implements ModuleController
      */
     public static function onUnregister($user)
     {
-
     }
-
 }

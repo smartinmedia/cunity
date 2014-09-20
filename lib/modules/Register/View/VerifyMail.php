@@ -71,5 +71,4 @@ class VerifyMail extends MailView
         $this->assign('registerSalt', $registerSalt);
         $this->show();
     }
-
 }

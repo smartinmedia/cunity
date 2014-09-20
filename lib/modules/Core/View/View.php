@@ -52,7 +52,6 @@ use Zend_Log_Writer_Stream;
  */
 class View extends Smarty
 {
-
     /**
      * @var
      */
@@ -116,12 +115,13 @@ class View extends Smarty
     public function __construct()
     {
         parent::__construct();
-        if (!file_exists("../style/" . $this->getSetting("core.design")))
+        if (!file_exists("../style/" . $this->getSetting("core.design"))) {
             throw new \Exception(
                 "Cannot find Theme-Folder \""
                 . $this->getSetting("core.design")
                 . "\""
             );
+        }
         $this->_coreRoot = str_replace(
             "%design%",
             $this->getSetting("core.design"),
@@ -187,12 +187,13 @@ class View extends Smarty
      */
     public function convertImage($filename, $type, $prefix = "")
     {
-        if ($filename == NULL || empty($filename))
+        if ($filename == null || empty($filename)) {
             return $this->getSetting("core.siteurl")
             . "style/"
             . $this->getSetting("core.design")
             . "/img/placeholders/noimg-"
             . $type . ".png";
+        }
         return $this->getSetting("core.siteurl")
         . "data/uploads/"
         . $this->getSetting("core.filesdir")
@@ -244,8 +245,8 @@ class View extends Smarty
         $this->registerCunityPlugin(
             "bootstrap-validator",
             [
-            "css/bootstrapValidator.min.css",
-            "js/bootstrapValidator.min.js"
+                "css/bootstrapValidator.min.css",
+                "js/bootstrapValidator.min.js"
             ]
         );
         $this->_metadata["module"] = $_GET['m'];
@@ -253,7 +254,7 @@ class View extends Smarty
         $this->assign('script_head', implode("\n", $this->_headScripts));
         $this->assign('css_head', base64_encode(implode(",", $this->_headCss)));
         $this->assign('modrewrite', (boolean)Cunity::get("mod_rewrite"));
-        if ($this->_useWrapper) {           
+        if ($this->_useWrapper) {
             $this->assign(
                 'tpl_name',
                 $this->_templateDir . '/styles/' . $this->_templateFile
@@ -282,9 +283,10 @@ class View extends Smarty
         } else {
             $module = "../plugins/javascript/";
         }
+
         if (file_exists(
             $this->_templateRoot . $module . $scriptName . ".min.js"
-        ))
+        )) {
             $this->_headScripts[] = '<script src="'
                 . $this->getSetting("core.siteurl")
                 . "lib/"
@@ -293,9 +295,9 @@ class View extends Smarty
                 . $scriptName
                 . ".min.js"
                 . '"></script>';
-        elseif (file_exists(
+        } elseif (file_exists(
             $this->_templateRoot . $module . $scriptName . ".js"
-        ))
+        )) {
             $this->_headScripts[] = '<script src="'
                 . $this->getSetting("core.siteurl")
                 . "lib/"
@@ -304,7 +306,7 @@ class View extends Smarty
                 . $scriptName
                 . ".js"
                 . '"></script>';
-        else
+        } else {
             throw new Exception(
                 "Cannot load javascript-file: '"
                 . $this->_templateRoot
@@ -313,6 +315,7 @@ class View extends Smarty
                 . ".js"
                 . "'"
             );
+        }
     }
 
     /**
@@ -327,9 +330,10 @@ class View extends Smarty
         } else {
             $module = "../plugins/css/";
         }
-        if (file_exists($this->_templateRoot . $module . $fileName . ".css"))
+
+        if (file_exists($this->_templateRoot . $module . $fileName . ".css")) {
             $this->_headCss[] = $module . $fileName . ".css";
-        else
+        } else {
             throw new Exception(
                 "Cannot load CSS-file: '"
                 . $this->_templateRoot
@@ -338,6 +342,7 @@ class View extends Smarty
                 . ".css"
                 . "'"
             );
+        }
     }
 
     /**
@@ -348,20 +353,21 @@ class View extends Smarty
     {
         if (file_exists("plugins/" . $pluginName)) {
             if (!empty($files)) {
-                foreach ($files AS $file) {
+                foreach ($files as $file) {
                     $finfo = pathinfo($file);
-                    if ($finfo['extension'] == "js")
+                    if ($finfo['extension'] == "js") {
                         $this->_headScripts[] = '<script src="'
                             . $this->getSetting("core.siteurl")
                             . "lib/plugins/" . $pluginName
                             . "/"
                             . $file
                             . '"></script>';
-                    else if ($finfo['extension'] == "css")
+                    } elseif ($finfo['extension'] == "css") {
                         $this->_headCss[] = "../plugins/"
                             . $pluginName
                             . "/"
                             . $file;
+                    }
                 }
             }
         }
@@ -375,23 +381,24 @@ class View extends Smarty
         $locale = new \Zend_Locale();
         self::$zt = new \Zend_Translate(
             [
-            'adapter' => 'gettext',
-            'locale' => 'auto',
-            'content' => "Core/languages/",
-            'scan' => \Zend_Translate::LOCALE_FILENAME
+                'adapter' => 'gettext',
+                'locale' => 'auto',
+                'content' => "Core/languages/",
+                'scan' => \Zend_Translate::LOCALE_FILENAME
             ]
         );
         self::$zt->setOptions(
             [
-            'log' => new Zend_Log(
-                new Zend_Log_Writer_Stream('missing-translations.log')
-            ),
-            'logUntranslated' => true
+                'log' => new Zend_Log(
+                    new Zend_Log_Writer_Stream('missing-translations.log')
+                ),
+                'logUntranslated' => true
             ]
         );
-        if (!self::$zt->isAvailable($locale->getLanguage()))
+
+        if (!self::$zt->isAvailable($locale->getLanguage())) {
             self::$zt->setLocale(self::$defaultLanguage);
+        }
         self::$zt->getLocale();
     }
-
 }

@@ -45,11 +45,11 @@ use Cunity\Core\View\Mail\MailView;
  */
 class ContactMail extends MailView
 {
-
     /**
      * @var string
      */
     protected $_templateDir = "contact";
+
     /**
      * @var string
      */
@@ -79,5 +79,4 @@ class ContactMail extends MailView
         $this->assign('message', $content['message']);
         $this->show();
     }
-
 }

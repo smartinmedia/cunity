@@ -40,12 +40,14 @@ namespace Cunity\Pages\Models\Db\Row;
  * Class Page
  * @package Cunity\Pages\Models\Db\Row
  */
-class Page extends \Zend_Db_Table_Row_Abstract {
+class Page extends \Zend_Db_Table_Row_Abstract
+{
 
     /**
      *
      */
-    public function displayPage() {
+    public function displayPage()
+    {
         if (isset($_GET['x']) && $_GET['x'] == "textonly") {
             echo $this->content;
         } else {
@@ -56,5 +58,4 @@ class Page extends \Zend_Db_Table_Row_Abstract {
             $view->show();
         }
     }
-
 }

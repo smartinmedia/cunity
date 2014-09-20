@@ -41,7 +41,8 @@ namespace Cunity\Admin\Models\Pages;
  * Class PageAbstract
  * @package Cunity\Admin\Models\Pages
  */
-abstract class PageAbstract {
+abstract class PageAbstract
+{
 
     /**
      * @var array
@@ -51,8 +52,9 @@ abstract class PageAbstract {
     /**
      * @param $class
      */
-    public function render($class){
-        $class = "\\Cunity\\Admin\\View\\".ucfirst($class);
+    public function render($class)
+    {
+        $class = "\\Cunity\\Admin\\View\\" . ucfirst($class);
         $view = new $class;
         $view->assign($this->assignments);
         $view->show();

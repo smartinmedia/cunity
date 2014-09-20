@@ -40,17 +40,8 @@ namespace Cunity\Core\Models\Validation;
  * Class Password
  * @package Core\Models\Validation
  */
-class Password extends \Zend_Validate_StringLength {
-
-    /**
-     * @var int
-     */
-    protected $_min = 6;
-    /**
-     * @var int
-     */
-    protected $_max = 30;
-
+class Password extends \Zend_Validate_StringLength
+{
     /**
      *
      */
@@ -63,7 +54,14 @@ class Password extends \Zend_Validate_StringLength {
      *
      */
     const MATCH = 'match';
-
+    /**
+     * @var int
+     */
+    protected $_min = 6;
+    /**
+     * @var int
+     */
+    protected $_max = 30;
     /**
      * @var array
      */
@@ -78,20 +76,20 @@ class Password extends \Zend_Validate_StringLength {
      * @param $passwordRepeat
      * @return bool
      */
-    public function passwordValid($password, $passwordRepeat) {
+    public function passwordValid($password, $passwordRepeat)
+    {
         if ($password == "") {
             $this->_error(self::EMPTYSTRING);
             return false;
-        }if (strlen($password) < $this->_min || strlen($password) > $this->_max) {
+        }
+        if (strlen($password) < $this->_min || strlen($password) > $this->_max) {
             $this->_error(self::LENGTH);
             return false;
-        } else if ($password !== $passwordRepeat) {
+        } elseif ($password !== $passwordRepeat) {
             $this->_error(self::MATCH);
             return false;
-        } else
+        } else {
             return parent::isValid($password);
+        }
     }
-
 }
-
-

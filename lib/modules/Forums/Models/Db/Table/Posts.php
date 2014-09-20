@@ -42,7 +42,8 @@ use Cunity\Core\Models\Db\Abstractables\Table;
  * Class Posts
  * @package Forums\Models\Db\Table
  */
-class Posts extends Table {
+class Posts extends Table
+{
 
     /**
      * @var string
@@ -56,7 +57,8 @@ class Posts extends Table {
     /**
      *
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
     }
 
@@ -66,48 +68,52 @@ class Posts extends Table {
      * @param int $offset
      * @return array
      */
-    public function loadPosts($thread_id, $limit = 20, $offset = 0) {
+    public function loadPosts($thread_id, $limit = 20, $offset = 0)
+    {
         $query = $this->getAdapter()->select()->from(["p" => $this->_name])
-                ->joinLeft(["u" => $this->_dbprefix . "users"], "u.userid=.p.userid", ["name", "username"])
-                ->joinLeft(["pi" => $this->_dbprefix . "gallery_images"], "pi.id=u.profileImage", ["filename"])
-                ->joinLeft(["pc" => $this->_dbprefix . "forums_posts"], "pc.thread_id=p.thread_id", new \Zend_Db_Expr("COUNT(DISTINCT pc.id) AS postcount"))
-                ->where("p.thread_id=?", $thread_id)
-                ->group("p.id")
-                ->order("time")
-                ->limit($limit, $offset);
+            ->joinLeft(["u" => $this->_dbprefix . "users"], "u.userid=.p.userid", ["name", "username"])
+            ->joinLeft(["pi" => $this->_dbprefix . "gallery_images"], "pi.id=u.profileImage", ["filename"])
+            ->joinLeft(["pc" => $this->_dbprefix . "forums_posts"], "pc.thread_id=p.thread_id", new \Zend_Db_Expr("COUNT(DISTINCT pc.id) AS postcount"))
+            ->where("p.thread_id=?", $thread_id)
+            ->group("p.id")
+            ->order("time")
+            ->limit($limit, $offset);
         return $this->getAdapter()->fetchAll($query);
-    }
-
-    /**
-     * @param $postid
-     * @return mixed
-     */
-    public function getPost($postid) {
-        $query = $this->getAdapter()->select()->from(["p" => $this->_name])
-                ->joinLeft(["u" => $this->_dbprefix . "users"], "u.userid=.p.userid", ["name", "username"])
-                ->joinLeft(["pi" => $this->_dbprefix . "gallery_images"], "pi.id=u.profileImage", ["filename"])
-                ->joinLeft(["pc" => $this->_dbprefix . "forums_posts"], "pc.thread_id=p.thread_id", new \Zend_Db_Expr("COUNT(DISTINCT pc.id) AS postcount"))
-                ->where("p.id=?", $postid);
-        return $this->getAdapter()->fetchRow($query);
     }
 
     /**
      * @param array $data
      * @return bool|mixed
      */
-    public function post(array $data) {
+    public function post(array $data)
+    {
         $res = $this->insert(array_merge($data, ["userid" => $_SESSION['user']->userid]));
-        if ($res !== false)
+        if ($res !== false) {
             return $this->getPost($res);
+        }
         return false;
+    }
+
+    /**
+     * @param $postid
+     * @return mixed
+     */
+    public function getPost($postid)
+    {
+        $query = $this->getAdapter()->select()->from(["p" => $this->_name])
+            ->joinLeft(["u" => $this->_dbprefix . "users"], "u.userid=.p.userid", ["name", "username"])
+            ->joinLeft(["pi" => $this->_dbprefix . "gallery_images"], "pi.id=u.profileImage", ["filename"])
+            ->joinLeft(["pc" => $this->_dbprefix . "forums_posts"], "pc.thread_id=p.thread_id", new \Zend_Db_Expr("COUNT(DISTINCT pc.id) AS postcount"))
+            ->where("p.id=?", $postid);
+        return $this->getAdapter()->fetchRow($query);
     }
 
     /**
      * @param $postid
      * @return bool
      */
-    public function deletePost($postid) {
+    public function deletePost($postid)
+    {
         return ($this->delete($this->getAdapter()->quoteInto("id=?", $postid)) > 0);
     }
-
 }

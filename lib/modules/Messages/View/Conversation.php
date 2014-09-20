@@ -76,5 +76,4 @@ class Conversation extends View
     {
         $this->show();
     }
-
 }

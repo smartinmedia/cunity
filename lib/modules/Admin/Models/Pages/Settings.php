@@ -38,20 +38,22 @@ namespace Cunity\Admin\Models\Pages;
 
 use Cunity\Comments\Models\Db\Table\Comments;
 use Cunity\Core\Cunity;
-use Cunity\Core\View\Ajax\View;
 use Cunity\Core\Models\Mail\Mail;
+use Cunity\Core\View\Ajax\View;
 use Cunity\Pages\Models\Db\Table\Pages;
 
 /**
  * Class Settings
  * @package Cunity\Admin\Models\Pages
  */
-class Settings extends PageAbstract {
+class Settings extends PageAbstract
+{
 
     /**
      *
      */
-    public function __construct() {
+    public function __construct()
+    {
         if (isset($_POST) && !empty($_POST)) {
             $this->handleRequest();
         } else {
@@ -61,38 +63,21 @@ class Settings extends PageAbstract {
     }
 
     /**
-     * @throws \Exception
-     */
-    private function loadData() {
-        $langIterator = new \DirectoryIterator("modules/Core/lang");
-        $designIterator = new \DirectoryIterator("../style");
-        foreach ($designIterator AS $design) {
-            if ($design->isDir() && $design->isReadable() && !$design->isDot()) {
-                $this->assignments['availableDesigns'][] = [$design->getBasename(), file_get_contents($design->getRealPath() . DIRECTORY_SEPARATOR . "name.txt")];
-            }
-        }
-
-        foreach ($langIterator AS $lang)
-            if ($lang->isReadable() && $lang->getExtension() == "php")
-                $this->assignments['availableLanguages'][] = explode("-", $lang->getBasename(".php"));
-        $this->assignments["config"] = Cunity::get("config");
-    }
-
-    /**
      *
      */
-    private function handleRequest() {
+    private function handleRequest()
+    {
         $view = new View();
         switch ($_POST['action']) {
             case "sendTestMail":
                 $mail = new Mail();
-                $res = $mail->sendMail("TestMail from cunity", "Cunity - Testmail", ["name" => "Cunity Admin", "email" => $_POST['mail']]);
-                $view->setStatus($res !== NULL);
+                $mail->sendMail("TestMail from cunity", "Cunity - Testmail", ["name" => "Cunity Admin", "email" => $_POST['mail']]);
+                $view->setStatus(true);
                 break;
             case "loadPages":
                 $pages = new Pages();
                 $res = $pages->loadPages();
-                $view->setStatus($res !== NULL);
+                $view->setStatus($res !== null);
                 $view->addData(["pages" => $res->toArray()]);
                 break;
             case "deletePage":
@@ -102,18 +87,20 @@ class Settings extends PageAbstract {
                     if ($status !== false && false) {
                         $comments = new Comments();
                         $status = $comments->removeAllComments($_POST['id'], "page");
-                    } else
+                    } else {
                         $status = true;
+                    }
                     $view->setStatus($status);
                     $view->sendResponse();
-                } else
+                } else {
                     $view->setStatus(false);
+                }
                 break;
             case 'addPage':
                 $pages = new Pages();
                 $res = $pages->addPage($_POST);
                 $page = $pages->getPage($res);
-                $view->setStatus($res !== NULL && $res !== false);
+                $view->setStatus($res !== null && $res !== false);
                 $page->content = html_entity_decode($page->content);
                 $view->addData(["page" => $page->toArray()]);
                 break;
@@ -121,4 +108,24 @@ class Settings extends PageAbstract {
         $view->sendResponse();
     }
 
+    /**
+     * @throws \Exception
+     */
+    private function loadData()
+    {
+        $langIterator = new \DirectoryIterator("modules/Core/lang");
+        $designIterator = new \DirectoryIterator("../style");
+        foreach ($designIterator as $design) {
+            if ($design->isDir() && $design->isReadable() && !$design->isDot()) {
+                $this->assignments['availableDesigns'][] = [$design->getBasename(), file_get_contents($design->getRealPath() . DIRECTORY_SEPARATOR . "name.txt")];
+            }
+        }
+
+        foreach ($langIterator as $lang) {
+            if ($lang->isReadable() && $lang->getExtension() == "php") {
+                $this->assignments['availableLanguages'][] = explode("-", $lang->getBasename(".php"));
+            }
+        }
+        $this->assignments["config"] = Cunity::get("config");
+    }
 }
