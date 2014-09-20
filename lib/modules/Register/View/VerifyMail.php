@@ -34,13 +34,13 @@
  * #####################################################################################
  */
 
-namespace Register\View;
+namespace Cunity\Register\View;
 
-use Core\View\Mail\MailView;
+use Cunity\Core\View\Mail\MailView;
 
 /**
  * Class VerifyMail
- * @package Register\View
+ * @package Cunity\Register\View
  */
 class VerifyMail extends MailView
 {

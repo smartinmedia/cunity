@@ -34,11 +34,11 @@
  * #####################################################################################
  */
 
-namespace Newsfeed\Models\Db\Table;
+namespace Cunity\Newsfeed\Models\Db\Table;
 
-use Comments\Models\Db\Table\Comments;
-use Core\Models\Db\Abstractables\Table;
-use Likes\Models\Db\Table\Likes;
+use Cunity\Comments\Models\Db\Table\Comments;
+use Cunity\Core\Models\Db\Abstractables\Table;
+use Cunity\Likes\Models\Db\Table\Likes;
 
 /**
  * Class Posts

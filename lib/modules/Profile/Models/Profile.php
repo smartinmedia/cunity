@@ -34,16 +34,16 @@
  * #####################################################################################
  */
 
-namespace Profile\Models;
+namespace Cunity\Profile\Models;
 
-use \Core\Models\Db\Row\User;
-use Core\Models\Request;
-use Core\View\Ajax\View;
-use Core\View\PageNotFound;
+use Cunity\Core\Models\Db\Row\User;
+use Cunity\Core\Models\Request;
+use Cunity\Core\View\Ajax\View;
+use Cunity\Core\View\PageNotFound;
 
 /**
  * Class Profile
- * @package Profile\Models
+ * @package Cunity\Profile\Models
  */
 class Profile {
 
@@ -84,7 +84,7 @@ class Profile {
      *
      */
     protected function render() {
-        $view = new \Profile\View\Profile();
+        $view = new \Cunity\Profile\View\Profile();
         $view->assign('profile', $this->profileData);
         $view->setMetaData(["title" => $this->profileData['name']]);
         $view->render();

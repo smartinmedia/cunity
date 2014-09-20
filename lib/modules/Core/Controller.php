@@ -34,12 +34,12 @@
  * #####################################################################################
  */
 
-namespace Core;
+namespace Cunity\Core;
 
-use Core\Models\Request;
-use Core\View\Exception\View;
-use Core\View\PageNotFound;
-use Register\Models\Login;
+use Cunity\Core\Models\Request;
+use Cunity\Core\View\Exception\View;
+use Cunity\Core\View\PageNotFound;
+use Cunity\Register\Models\Login;
 
 /**
  * Class Controller
@@ -117,7 +117,7 @@ class Controller
     static function handleAjaxException($exception)
     {
         /** @noinspection PhpUnnecessaryFullyQualifiedNameInspection */
-        $view = new \Core\View\Ajax\View();
+        $view = new \Cunity\Core\View\Ajax\View();
         $view->setStatus(false);
         $view->addData(["msg" => $exception->getMessage()]);
         $view->sendResponse();

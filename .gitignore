@@ -16,3 +16,4 @@ vendor
 /src/bin/phpunit
 /src/bin/webunit.bat
 /src/bin/webunit
+/data/config.xml

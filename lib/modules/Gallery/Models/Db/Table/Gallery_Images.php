@@ -34,15 +34,15 @@
  * #####################################################################################
  */
 
-namespace Gallery\Models\Db\Table;
+namespace Cunity\Gallery\Models\Db\Table;
 
-use Core\Models\Db\Abstractables\Table;
-use Gallery\Models\Uploader;
-use Newsfeed\Models\Db\Table\Posts;
+use Cunity\Core\Models\Db\Abstractables\Table;
+use Cunity\Gallery\Models\Uploader;
+use Cunity\Newsfeed\Models\Db\Table\Posts;
 
 /**
  * Class Gallery_Images
- * @package Gallery\Models\Db\Table
+ * @package Cunity\Gallery\Models\Db\Table
  */
 class Gallery_Images extends Table {
 
@@ -59,7 +59,7 @@ class Gallery_Images extends Table {
     /**
      * @var string
      */
-    protected $_rowClass = "\Gallery\Models\Db\Row\Image";
+    protected $_rowClass = "\Cunity\Gallery\Models\Db\Row\Image";
 
     /**
      *

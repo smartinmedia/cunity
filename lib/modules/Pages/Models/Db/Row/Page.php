@@ -34,11 +34,11 @@
  * #####################################################################################
  */
 
-namespace Pages\Models\Db\Row;
+namespace Cunity\Pages\Models\Db\Row;
 
 /**
  * Class Page
- * @package Pages\Models\Db\Row
+ * @package Cunity\Pages\Models\Db\Row
  */
 class Page extends \Zend_Db_Table_Row_Abstract {
 
@@ -50,7 +50,7 @@ class Page extends \Zend_Db_Table_Row_Abstract {
             echo $this->content;
         } else {
             $this->content = html_entity_decode($this->content);
-            $view = new \Pages\View\Page();
+            $view = new \Cunity\Pages\View\Page();
             $view->setMetaData(["title" => $this->title]);
             $view->assign("page", $this->_data);
             $view->show();

@@ -34,13 +34,13 @@
  * #####################################################################################
  */
 
-namespace Notifications\Models\Db\Table;
+namespace Cunity\Notifications\Models\Db\Table;
 
-use Core\Models\Db\Abstractables\Table;
+use Cunity\Core\Models\Db\Abstractables\Table;
 
 /**
  * Class Notification_Settings
- * @package Notifications\Models\Db\Table
+ * @package Cunity\Notifications\Models\Db\Table
  */
 class Notification_Settings extends Table {
 

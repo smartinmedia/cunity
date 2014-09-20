@@ -34,15 +34,15 @@
  * #####################################################################################
  */
 
-namespace Gallery\Models;
+namespace Cunity\Gallery\Models;
 
-use \Core\Cunity;
+use \Cunity\Core\Cunity;
 use Skoch_Filter_File_Crop;
 use Skoch_Filter_File_Resize;
 
 /**
  * Class Uploader
- * @package Gallery\Models
+ * @package Cunity\Gallery\Models
  */
 class Uploader {
 

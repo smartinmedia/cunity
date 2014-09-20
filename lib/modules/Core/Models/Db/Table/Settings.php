@@ -34,10 +34,10 @@
  * #####################################################################################
  */
 
-namespace Core\Models\Db\Table;
+namespace Cunity\Core\Models\Db\Table;
 
-use Core\Exception;
-use Core\Models\Db\Abstractables\Table;
+use Cunity\Core\Exception;
+use Cunity\Core\Models\Db\Abstractables\Table;
 
 /**
  * Class Settings
@@ -57,7 +57,7 @@ class Settings extends Table
     /**
      * @var string
      */
-    protected $_rowClass = "\Core\Models\Db\Row\Setting";
+    protected $_rowClass = "\Cunity\Core\Models\Db\Row\Setting";
     /**
      * @var array
      */

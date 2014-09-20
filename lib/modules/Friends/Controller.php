@@ -34,14 +34,14 @@
  * #####################################################################################
  */
 
-namespace Friends;
+namespace Cunity\Friends;
 
-use Core\ModuleController;
-use Register\Models\Login;
+use Cunity\Core\ModuleController;
+use Cunity\Register\Models\Login;
 
 /**
  * Class Controller
- * @package Friends
+ * @package Cunity\Friends
  */
 class Controller implements ModuleController
 {

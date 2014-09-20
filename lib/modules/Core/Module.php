@@ -34,9 +34,9 @@
  * #####################################################################################
  */
 
-namespace Core;
+namespace Cunity\Core;
 
-use Core\Models\Db\Table\Modules;
+use Cunity\Core\Models\Db\Table\Modules;
 
 /**
  * Class Module
@@ -73,7 +73,7 @@ class Module
      */
     public function getClassName()
     {
-        return ucfirst($this->_tag) . "\Controller";
+        return "Cunity\\".ucfirst($this->_tag) . "\Controller";
     }
 
     /**
@@ -83,7 +83,7 @@ class Module
     {
         return (class_exists($this->getClassName()) &&
             in_array(
-                'Core\ModuleController',
+                'Cunity\Core\ModuleController',
                 class_implements($this->getClassName())
             )
         );

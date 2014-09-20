@@ -34,11 +34,11 @@
  * #####################################################################################
  */
 
-namespace Core;
+namespace Cunity\Core;
 
 /**
  * Interface ModuleController
- * @package Core
+ * @package Cunity\Core
  */
 interface ModuleController
 {

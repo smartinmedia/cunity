@@ -34,13 +34,13 @@
  * #####################################################################################
  */
 
-namespace Register\View;
+namespace Cunity\Register\View;
 
-use Core\View\View;
+use Cunity\Core\View\View;
 
 /**
  * Class ResetPassword
- * @package Register\View
+ * @package Cunity\Register\View
  */
 class ResetPassword extends View
 {
@@ -59,7 +59,7 @@ class ResetPassword extends View
     protected $_metadata = ["title" => "Reset Password"];
 
     /**
-     * @throws \Core\Exception
+     * @throws \Cunity\Core\Exception
      * @throws \Exception
      */
     public function __construct()

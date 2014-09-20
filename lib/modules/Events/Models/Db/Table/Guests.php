@@ -34,14 +34,14 @@
  * #####################################################################################
  */
 
-namespace Events\Models\Db\Table;
+namespace Cunity\Events\Models\Db\Table;
 
-use Core\Models\Db\Abstractables\Table;
-use Notifications\Models\Notifier;
+use Cunity\Core\Models\Db\Abstractables\Table;
+use Cunity\Notifications\Models\Notifier;
 
 /**
  * Class Guests
- * @package Events\Models\Db\Table
+ * @package Cunity\Events\Models\Db\Table
  */
 class Guests extends Table {
 

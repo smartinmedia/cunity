@@ -34,14 +34,14 @@
  * #####################################################################################
  */
 
-namespace Start;
+namespace Cunity\Start;
 
-use Core\ModuleController;
-use Register\Models\Login;
+use Cunity\Core\ModuleController;
+use Cunity\Register\Models\Login;
 
 /**
  * Class Controller
- * @package Start
+ * @package Cunity\Start
  */
 class Controller implements ModuleController
 {

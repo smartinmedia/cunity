@@ -34,13 +34,13 @@
  * #####################################################################################
  */
 
-namespace Profile\View;
+namespace Cunity\Profile\View;
 
-use Core\View\View;
+use Cunity\Core\View\View;
 
 /**
  * Class ProfileCrop
- * @package Profile\View
+ * @package Cunity\Profile\View
  */
 class ProfileCrop extends View
 {
@@ -59,7 +59,7 @@ class ProfileCrop extends View
     protected $_metadata = ["title" => "Crop Image"];
 
     /**
-     * @throws \Core\Exception
+     * @throws \Cunity\Core\Exception
      * @throws \Exception
      */
     public function __construct()

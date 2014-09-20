@@ -34,13 +34,13 @@
  * #####################################################################################
  */
 
-namespace Core\View\Ajax;
+namespace Cunity\Core\View\Ajax;
 
 /**
  * Class View
- * @package Core\View\Ajax
+ * @package Cunity\Core\View\Ajax
  */
-class View extends \Core\View\View
+class View extends \Cunity\Core\View\View
 {
 
     /**

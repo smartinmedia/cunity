@@ -34,13 +34,13 @@
  * #####################################################################################
  */
 
-namespace Comments\Models\Db\Table;
+namespace Cunity\Comments\Models\Db\Table;
 
-use Core\Models\Db\Abstractables\Table;
+use Cunity\Core\Models\Db\Abstractables\Table;
 
 /**
  * Class Comments
- * @package Comments\Models\Db\Table
+ * @package Cunity\Comments\Models\Db\Table
  */
 class Comments extends Table
 {

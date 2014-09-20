@@ -34,10 +34,10 @@
  * #####################################################################################
  */
 
-namespace Profile\View;
+namespace Cunity\Profile\View;
 
-use Core\Cunity;
-use Core\View\View;
+use Cunity\Core\Cunity;
+use Cunity\Core\View\View;
 
 /**
  * Class ProfileEdit

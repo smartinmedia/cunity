@@ -34,9 +34,9 @@
  * #####################################################################################
  */
 
-namespace Events\View;
+namespace Cunity\Events\View;
 
-use Core\View\View;
+use Cunity\Core\View\View;
 
 /**
  * Class EventCrop
@@ -59,7 +59,7 @@ class EventCrop extends View
     protected $_metadata = ["title" => "Crop Image"];
 
     /**
-     * @throws \Core\Exception
+     * @throws \Cunity\Core\Exception
      * @throws \Exception
      */
     public function __construct()

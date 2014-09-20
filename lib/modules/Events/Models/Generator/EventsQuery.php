@@ -34,9 +34,9 @@
  * #####################################################################################
  */
 
-namespace Events\Models\Generator;
+namespace Cunity\Events\Models\Generator;
 
-use Core\Cunity;
+use Cunity\Core\Cunity;
 use Zend_Db_Expr;
 
 /**

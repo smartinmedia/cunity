@@ -36,13 +36,13 @@
  */
 
 
-namespace Admin\Models\Db\Table;
+namespace Cunity\Admin\Models\Db\Table;
 
-use Core\Models\Db\Abstractables\Table;
+use Cunity\Core\Models\Db\Abstractables\Table;
 
 /**
  * Class Version
- * @package Admin\Models\Db\Table
+ * @package Cunity\Admin\Models\Db\Table
  */
 class Versions extends Table {
 

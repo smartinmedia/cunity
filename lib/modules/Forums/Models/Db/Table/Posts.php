@@ -34,9 +34,9 @@
  * #####################################################################################
  */
 
-namespace Forums\Models\Db\Table;
+namespace Cunity\Forums\Models\Db\Table;
 
-use Core\Models\Db\Abstractables\Table;
+use Cunity\Core\Models\Db\Abstractables\Table;
 
 /**
  * Class Posts

@@ -34,9 +34,9 @@
  * #####################################################################################
  */
 
-namespace Register\View;
+namespace Cunity\Register\View;
 
-use Core\View\Mail\MailView;
+use Cunity\Core\View\Mail\MailView;
 
 /**
  * Class ForgetPwMail

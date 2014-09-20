@@ -34,15 +34,15 @@
  * #####################################################################################
  */
 
-namespace Newsfeed\Models\Db\Table;
+namespace Cunity\Newsfeed\Models\Db\Table;
 
-use Core\Models\Db\Abstractables\Table;
-use Events\Models\Generator\EventsQuery;
-use Friends\Models\Generator\FriendQuery;
+use Cunity\Core\Models\Db\Abstractables\Table;
+use Cunity\Events\Models\Generator\EventsQuery;
+use Cunity\Friends\Models\Generator\FriendQuery;
 
 /**
  * Class Walls
- * @package Newsfeed\Models\Db\Table
+ * @package Cunity\Newsfeed\Models\Db\Table
  */
 class Walls extends Table {
 

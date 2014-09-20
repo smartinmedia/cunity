@@ -34,14 +34,14 @@
  * #####################################################################################
  */
 
-namespace Messages\Models;
+namespace Cunity\Messages\Models;
 
-use Core\Models\Db\Table\Users;
-use Core\View\PageNotFound;
+use Cunity\Core\Models\Db\Table\Users;
+use Cunity\Core\View\PageNotFound;
 
 /**
  * Class Conversation
- * @package Messages\Models
+ * @package Cunity\Messages\Models
  */
 class Conversation {
 
@@ -58,7 +58,7 @@ class Conversation {
     private function load() {
         $table = new Db\Table\Conversations();
         $userTable = new Users();
-        $view = new \Messages\View\Conversation();
+        $view = new \Cunity\Messages\View\Conversation();
         $conversation = $table->loadConversationDetails($_GET['action']);
         $users = explode(",", $conversation['users']);
         if (!in_array($_SESSION['user']->userid, $users))

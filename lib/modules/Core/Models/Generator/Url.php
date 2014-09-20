@@ -34,9 +34,9 @@
  * #####################################################################################
  */
 
-namespace Core\Models\Generator;
+namespace Cunity\Core\Models\Generator;
 
-use Core\Cunity;
+use Cunity\Core\Cunity;
 
 /**
  * Class Url

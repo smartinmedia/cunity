@@ -34,13 +34,13 @@
  * #####################################################################################
  */
 
-namespace Core\View\Exception;
+namespace Cunity\Core\View\Exception;
 
 /**
  * Class View
- * @package Core\View\Exception
+ * @package Cunity\Core\View\Exception
  */
-class View extends \Core\View\View
+class View extends \Cunity\Core\View\View
 {
     /**
      * @var string

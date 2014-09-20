@@ -34,11 +34,11 @@
  * #####################################################################################
  */
 
-namespace Core\View\Mail;
+namespace Cunity\Core\View\Mail;
 
 /**
  * Class TextMail
- * @package Core\View\Mail
+ * @package Cunity\Core\View\Mail
  */
 class TextMail extends MailView
 {

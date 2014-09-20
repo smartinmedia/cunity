@@ -34,10 +34,12 @@
  * #####################################################################################
  */
 
-namespace Admin\Models\Updater;
+namespace Cunity\Admin\Models\Updater;
 
-use Core\Exception;
-use Core\View\Message;
+use Cunity\Admin\Models\Db\Table\Versions;
+use Cunity\Core\Cunity;
+use Cunity\Core\Exception;
+use Cunity\Core\View\Message;
 
 /**
  * Class DatabaseUpdater
@@ -59,7 +61,7 @@ class DatabaseUpdater {
     
     /**
      *
-     * @var Admin\Models\Db\Table\Versions
+     * @var \Cunity\Admin\Models\Db\Table\Versions
      */
     protected $versionDb = null;
 
@@ -75,7 +77,7 @@ class DatabaseUpdater {
      * 
      */
     private function init() {   
-        $this->versionDb = new \Admin\Models\Db\Table\Versions;
+        $this->versionDb = new Versions();
         $v = $this->versionDb->getVersions();
         $this->versions = ($v !== false) ? $v : [];
     }
@@ -91,7 +93,7 @@ class DatabaseUpdater {
 
     /**
      * 
-     * @throws \Core\Exception
+     * @throws \Cunity\Core\Exception
      */
     public function run() {
         $dir = new \DirectoryIterator($this->_directory);
@@ -102,7 +104,7 @@ class DatabaseUpdater {
                     $classname = $fileinfo->getBasename(".php");
                     $classnameParts = explode('_',$classname);
                     if (class_exists($classname) && !$this->versionInstalled($classnameParts[1])) {
-                        $dbCmd = new $classname(\Core\Cunity::get("db"));
+                        $dbCmd = new $classname(Cunity::get("db"));
                         if ($dbCmd instanceof DbCommandInterface) {
                             $dbCmd->execute();
                             $dbCmd->updateDatabaseTimestamp($this->versionDb);

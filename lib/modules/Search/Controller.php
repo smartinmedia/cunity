@@ -34,15 +34,15 @@
  * #####################################################################################
  */
 
-namespace Search;
+namespace Cunity\Search;
 
-use Core\ModuleController;
-use Core\View\Ajax\View;
-use Search\View\Searchresults;
+use Cunity\Core\ModuleController;
+use Cunity\Core\View\Ajax\View;
+use Cunity\Search\View\Searchresults;
 
 /**
  * Class Controller
- * @package Search
+ * @package Cunity\Search
  */
 class Controller implements ModuleController
 {

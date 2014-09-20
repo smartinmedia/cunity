@@ -34,9 +34,9 @@
  * #####################################################################################
  */
 
-namespace Comments\Models;
+namespace Cunity\Comments\Models;
 
-use Core\View\Ajax\View;
+use Cunity\Core\View\Ajax\View;
 
 /**
  * Class Comments
@@ -48,10 +48,12 @@ class Comments
     /**
      * @var Db\Table\Comments
      */
+    private $table;
+
     /**
-     * @var Db\Table\Comments|\Core\View\Ajax\View
+     * @var View
      */
-    private $table, $view;
+    private $view;
 
     /**
      * @param $action

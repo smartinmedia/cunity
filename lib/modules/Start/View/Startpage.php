@@ -34,13 +34,13 @@
  * #####################################################################################
  */
 
-namespace Start\View;
+namespace Cunity\Start\View;
 
-use Core\View\View;
+use Cunity\Core\View\View;
 
 /**
  * Class Startpage
- * @package Start\View
+ * @package Cunity\Start\View
  */
 class Startpage extends View
 {
@@ -67,7 +67,7 @@ class Startpage extends View
     protected $_useWrapper = false;
 
     /**
-     * @throws \Core\Exception
+     * @throws \Cunity\Core\Exception
      * @throws \Exception
      */
     public function __construct()

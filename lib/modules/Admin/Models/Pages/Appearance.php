@@ -35,17 +35,16 @@
  * #####################################################################################
  */
 
+namespace Cunity\Admin\Models\Pages;
 
-namespace Admin\Models\Pages;
-
-use Core\Cunity;
-use Core\Models\Db\Table\Modules;
-use Core\Models\Db\Table\Menu;
-use Core\View\Ajax\View;
+use Cunity\Core\Cunity;
+use Cunity\Core\Models\Db\Table\Modules;
+use Cunity\Core\Models\Db\Table\Menu;
+use Cunity\Core\View\Ajax\View;
 
 /**
  * Class Appearance
- * @package Admin\Models\Pages
+ * @package Cunity\Admin\Models\Pages
  */
 class Appearance extends PageAbstract {
 

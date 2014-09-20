@@ -34,21 +34,21 @@
  * #####################################################################################
  */
 
-namespace Register\Models;
+namespace Cunity\Register\Models;
 
-use Core\Cunity;
-use Core\Models\Db\Table\Users;
-use Core\Models\Validation\Email;
-use Core\Models\Validation\Password;
-use Core\Models\Validation\Username;
-use Core\View\Message;
-use Register\View\Registration;
-use Register\View\ResetPassword;
+use Cunity\Core\Cunity;
+use Cunity\Core\Models\Db\Table\Users;
+use Cunity\Core\Models\Validation\Email;
+use Cunity\Core\Models\Validation\Password;
+use Cunity\Core\Models\Validation\Username;
+use Cunity\Core\View\Message;
+use Cunity\Register\View\Registration;
+use Cunity\Register\View\ResetPassword;
 use Zend_Validate_Date;
 
 /**
  * Class Register
- * @package Register\Models
+ * @package Cunity\Register\Models
  */
 class Register {
 

@@ -34,16 +34,16 @@
  * #####################################################################################
  */
 
-namespace Friends\Models;
+namespace Cunity\Friends\Models;
 
-use Core\Exception;
-use Friends\Models\Db\Table\Relationships;
-use Core\View\Ajax\View;
-use Notifications\Models\Notifier;
+use Cunity\Core\Exception;
+use Cunity\Friends\Models\Db\Table\Relationships;
+use Cunity\Core\View\Ajax\View;
+use Cunity\Notifications\Models\Notifier;
 
 /**
  * Class Process
- * @package Friends\Models
+ * @package Cunity\Friends\Models
  */
 class Process {
 

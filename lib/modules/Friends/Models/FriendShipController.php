@@ -34,14 +34,14 @@
  * #####################################################################################
  */
 
-namespace Friends\Models;
+namespace Cunity\Friends\Models;
 
-use Core\Exception;
-use Core\View\Ajax\View;
+use Cunity\Core\Exception;
+use Cunity\Core\View\Ajax\View;
 
 /**
  * Class FriendShipController
- * @package Friends\Models
+ * @package Cunity\Friends\Models
  */
 class FriendShipController {
 

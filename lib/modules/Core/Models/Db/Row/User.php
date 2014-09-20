@@ -34,17 +34,17 @@
  * #####################################################################################
  */
 
-namespace Core\Models\Db\Row;
+namespace Cunity\Core\Models\Db\Row;
 
-use Core\Cunity;
-use Core\Models\Db\Table\Users;
-use \Gallery\Models\Db\Table\Gallery_Images;
-use \Friends\Models\Db\Table\Relationships;
-use Search\Models\Process;
+use Cunity\Core\Cunity;
+use Cunity\Core\Models\Db\Table\Users;
+use Cunity\Gallery\Models\Db\Table\Gallery_Images;
+use Cunity\Friends\Models\Db\Table\Relationships;
+use Cunity\Search\Models\Process;
 
 /**
  * Class User
- * @package Core\Models\Db\Row
+ * @package Cunity\Core\Models\Db\Row
  */
 class User extends \Zend_Db_Table_Row_Abstract
 {

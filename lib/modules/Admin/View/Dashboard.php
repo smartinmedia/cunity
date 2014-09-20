@@ -34,14 +34,14 @@
  * #####################################################################################
  */
 
-namespace Admin\View;
+namespace Cunity\Admin\View;
 
-use Admin\Models\Login;
-use Admin\View\Abstractables\View;
+use Cunity\Admin\Models\Login;
+use Cunity\Admin\View\Abstractables\View;
 
 /**
  * Class Dashboard
- * @package Admin\View
+ * @package Cunity\Admin\View
  */
 class Dashboard extends View
 {
@@ -68,5 +68,4 @@ class Dashboard extends View
         Login::loginRequired();
         $this->registerCss("dashboard", "dashboard");
     }
-
 }

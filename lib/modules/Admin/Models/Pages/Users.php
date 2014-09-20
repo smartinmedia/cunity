@@ -1,6 +1,5 @@
 <?php
 
-
 /**
  * ########################################################################################
  * ## CUNITY(R) V2.0 - An open source social network / "your private social network"     ##
@@ -35,11 +34,11 @@
  * #####################################################################################
  */
 
-namespace Admin\Models\Pages;
+namespace Cunity\Admin\Models\Pages;
 
 /**
  * Class Users
- * @package Admin\Models\Pages
+ * @package Cunity\Admin\Models\Pages
  */
 class Users extends PageAbstract {
 
@@ -55,7 +54,7 @@ class Users extends PageAbstract {
      *
      */
     private function loadData() {
-        $users = new \Core\Models\Db\Table\Users();
+        $users = new \Cunity\Core\Models\Db\Table\Users();
         $this->assignments["users"] = $users->fetchAll();
     }
 

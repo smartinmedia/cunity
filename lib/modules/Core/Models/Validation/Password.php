@@ -34,7 +34,7 @@
  * #####################################################################################
  */
 
-namespace Core\Models\Validation;
+namespace Cunity\Core\Models\Validation;
 
 /**
  * Class Password

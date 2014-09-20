@@ -34,11 +34,11 @@
  * #####################################################################################
  */
 
-namespace Core\View;
+namespace Cunity\Core\View;
 
 /**
  * Class Message
- * @package Core\View
+ * @package Cunity\Core\View
  */
 class Message extends View
 {

@@ -34,14 +34,14 @@
  * #####################################################################################
  */
 
-namespace Events\Models\Db\Table;
+namespace Cunity\Events\Models\Db\Table;
 
-use Core\Models\Db\Abstractables\Table;
-use Friends\Models\Generator\FriendQuery;
+use Cunity\Core\Models\Db\Abstractables\Table;
+use Cunity\Friends\Models\Generator\FriendQuery;
 
 /**
  * Class Events
- * @package Events\Models\Db\Table
+ * @package Cunity\Events\Models\Db\Table
  */
 class Events extends Table {
 

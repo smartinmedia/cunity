@@ -34,13 +34,13 @@
  * #####################################################################################
  */
 
-namespace Pages\View;
+namespace Cunity\Pages\View;
 
-use Core\View\View;
+use Cunity\Core\View\View;
 
 /**
  * Class Page
- * @package Pages\View
+ * @package Cunity\Pages\View
  */
 class Page extends View
 {
@@ -59,7 +59,7 @@ class Page extends View
     protected $_metadata = ["title" => "Content page"];
 
     /**
-     * @throws \Core\Exception
+     * @throws \Cunity\Core\Exception
      * @throws \Exception
      */
     public function __construct()
@@ -76,5 +76,3 @@ class Page extends View
         $this->_metadata = $data;
     }
 }
-
-

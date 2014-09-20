@@ -34,15 +34,15 @@
  * #####################################################################################
  */
 
-namespace Admin;
+namespace Cunity\Admin;
 
-use Core\Models\Request;
-use Core\ModuleController;
-use Register\Models\Login;
+use Cunity\Core\Models\Request;
+use Cunity\Core\ModuleController;
+use Cunity\Register\Models\Login;
 
 /**
  * Class Controller
- * @package Admin
+ * @package Cunity\Admin
  */
 class Controller implements ModuleController {
 

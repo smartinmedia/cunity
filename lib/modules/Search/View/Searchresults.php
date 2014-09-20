@@ -34,13 +34,13 @@
  * #####################################################################################
  */
 
-namespace Search\View;
+namespace Cunity\Search\View;
 
-use Core\View\View;
+use Cunity\Core\View\View;
 
 /**
  * Class Searchresults
- * @package Search\View
+ * @package Cunity\Search\View
  */
 class Searchresults extends View
 {
@@ -59,7 +59,7 @@ class Searchresults extends View
     protected $_metadata = ["title" => "Searchresults"];
 
     /**
-     * @throws \Core\Exception
+     * @throws \Cunity\Core\Exception
      * @throws \Exception
      */
     public function __construct()

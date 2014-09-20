@@ -34,15 +34,15 @@
  * #####################################################################################
  */
 
-namespace Gallery\Models\Db\Table;
+namespace Cunity\Gallery\Models\Db\Table;
 
-use Core\Models\Db\Abstractables\Table;
-use Core\View\View;
+use Cunity\Core\Models\Db\Abstractables\Table;
+use Cunity\Core\View\View;
 use Zend_Db_Table_Row_Abstract;
 
 /**
  * Class Gallery_Albums
- * @package Gallery\Models\Db\Table
+ * @package Cunity\Gallery\Models\Db\Table
  */
 class Gallery_Albums extends Table {
 
@@ -57,7 +57,7 @@ class Gallery_Albums extends Table {
     /**
      * @var string
      */
-    protected $_rowClass = "\Gallery\Models\Db\Row\Album";
+    protected $_rowClass = "\Cunity\Gallery\Models\Db\Row\Album";
 
     /**
      *

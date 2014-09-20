@@ -34,13 +34,13 @@
  * #####################################################################################
  */
 
-namespace Newsfeed\View;
+namespace Cunity\Newsfeed\View;
 
-use Core\View\View;
+use Cunity\Core\View\View;
 
 /**
  * Class Newsfeed
- * @package Newsfeed\View
+ * @package Cunity\Newsfeed\View
  */
 class Newsfeed extends View
 {
@@ -63,7 +63,7 @@ class Newsfeed extends View
     protected $_metadata = ["title" => "Newsfeed"];
 
     /**
-     * @throws \Core\Exception
+     * @throws \Cunity\Core\Exception
      * @throws \Exception
      */
     public function __construct()

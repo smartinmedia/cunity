@@ -34,13 +34,13 @@
  * #####################################################################################
  */
 
-namespace Admin\Models\Updater;
+namespace Cunity\Admin\Models\Updater;
 
-use Admin\Models\Db\Table\Versions;
+use Cunity\Admin\Models\Db\Table\Versions;
 
 /**
  * Class DbUpdateVersion
- * @package Admin\Models\Updater
+ * @package Cunity\Admin\Models\Updater
  * @abstract
  */
 abstract class DbUpdateVersion {
@@ -53,7 +53,7 @@ abstract class DbUpdateVersion {
 
     /**
      *
-     * @var long 
+     * @var int
      */
     protected $_timestamp = 0;
 
@@ -66,7 +66,7 @@ abstract class DbUpdateVersion {
     }
 
     /**
-     * 
+     * @param Versions $db
      */
     public function updateDatabaseTimestamp(Versions $db) {
         $db->insert(["timestamp"=>$this->_timestamp]);

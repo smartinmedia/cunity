@@ -34,13 +34,13 @@
  * #####################################################################################
  */
 
-namespace Notifications\Models;
+namespace Cunity\Notifications\Models;
 
-use Notifications\View\NotificationMail;
+use Cunity\Notifications\View\NotificationMail;
 
 /**
  * Class Notifier
- * @package Notifications\Models
+ * @package Cunity\Notifications\Models
  */
 class Notifier {
 

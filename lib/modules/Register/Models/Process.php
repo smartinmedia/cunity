@@ -34,21 +34,21 @@
  * #####################################################################################
  */
 
-namespace Register\Models;
+namespace Cunity\Register\Models;
 
-use Core\Cunity;
-use Core\Exception;
-use Core\Models\Db\Table\Users;
-use Core\Models\Generator\Url;
-use Core\View\Ajax\View;
-use Core\View\Message;
-use Register\View\ForgetPw;
-use Register\View\ForgetPwMail;
-use Register\View\Registration;
+use Cunity\Core\Cunity;
+use Cunity\Core\Exception;
+use Cunity\Core\Models\Db\Table\Users;
+use Cunity\Core\Models\Generator\Url;
+use Cunity\Core\View\Ajax\View;
+use Cunity\Core\View\Message;
+use Cunity\Register\View\ForgetPw;
+use Cunity\Register\View\ForgetPwMail;
+use Cunity\Register\View\Registration;
 
 /**
  * Class Process
- * @package Register\Models
+ * @package Cunity\Register\Models
  */
 class Process {
 
@@ -101,22 +101,18 @@ class Process {
         if ($user !== NULL) {
             if ($user->passwordMatch($password)) {
                 if ($user->groupid == 0)
-                    /** @noinspection PhpUnnecessaryFullyQualifiedNameInspection */
-                    new \Core\View\Message("Sorry", "Your account is not verified! Please check your verification mail! if you have not received a mail, enter your email at \"I forgot my password\" and we will send you a new mail!", "danger");
+                    new \Cunity\Core\View\Message("Sorry", "Your account is not verified! Please check your verification mail! if you have not received a mail, enter your email at \"I forgot my password\" and we will send you a new mail!", "danger");
                 else if ($user->groupid == 4)
-                    /** @noinspection PhpUnnecessaryFullyQualifiedNameInspection */
-                    new \Core\View\Message("Sorry", "Your Account is blocked! Please contact the Administrator", "danger");
+                    new \Cunity\Core\View\Message("Sorry", "Your Account is blocked! Please contact the Administrator", "danger");
                 else {
                     $user->setLogin(isset($_POST['save-login']));
                     header("Location:" . Url::convertUrl("index.php?m=profile"));
                     exit();
                 }
             } else
-                /** @noinspection PhpUnnecessaryFullyQualifiedNameInspection */
-                new \Core\View\Message("Sorry", "The entered data is not correct!", "danger");
+                new \Cunity\Core\View\Message("Sorry", "The entered data is not correct!", "danger");
         } else
-            /** @noinspection PhpUnnecessaryFullyQualifiedNameInspection */
-            new \Core\View\Message("Sorry", "The entered data is not correct!", "danger");
+            new \Cunity\Core\View\Message("Sorry", "The entered data is not correct!", "danger");
     }
 
     /**

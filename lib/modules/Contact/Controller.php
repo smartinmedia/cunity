@@ -34,13 +34,13 @@
  * #####################################################################################
  */
 
-namespace Contact;
+namespace Cunity\Contact;
 
-use Core\ModuleController;
+use Cunity\Core\ModuleController;
 
 /**
  * Class Controller
- * @package Contact
+ * @package Cunity\Contact
  */
 class Controller implements ModuleController
 {

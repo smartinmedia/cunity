@@ -34,14 +34,14 @@
  * #####################################################################################
  */
 
-namespace Core\Models\Validation;
+namespace Cunity\Core\Models\Validation;
 
-use Core\Models\Db\Table\Users;
-use Register\Models\Login;
+use Cunity\Core\Models\Db\Table\Users;
+use Cunity\Register\Models\Login;
 
 /**
  * Class Email
- * @package Core\Models\Validation
+ * @package Cunity\Core\Models\Validation
  */
 class Email extends \Zend_Validate_EmailAddress {
 

@@ -34,11 +34,11 @@
  * #####################################################################################
  */
 
-namespace Admin\Models\Updater;
+namespace Cunity\Admin\Models\Updater;
 
 /**
  * Class Register
- * @package Admin\Models\Updater
+ * @package Cunity\Admin\Models\Updater
  */
 interface DbCommandInterface {
 

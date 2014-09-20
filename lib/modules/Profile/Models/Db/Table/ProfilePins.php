@@ -34,9 +34,9 @@
  * #####################################################################################
  */
 
-namespace Profile\Models\Db\Table;
+namespace Cunity\Profile\Models\Db\Table;
 
-use Core\Models\Db\Abstractables\Table;
+use Cunity\Core\Models\Db\Abstractables\Table;
 
 /**
  * Class ProfilePins

@@ -34,13 +34,13 @@
  * #####################################################################################
  */
 
-namespace Memberlist\View;
+namespace Cunity\Memberlist\View;
 
-use Core\View\View;
+use Cunity\Core\View\View;
 
 /**
  * Class Memberlist
- * @package Memberlist\View
+ * @package Cunity\Memberlist\View
  */
 class Memberlist extends View
 {
@@ -63,7 +63,7 @@ class Memberlist extends View
     protected $_metadata = ["title" => "Memberlist"];
 
     /**
-     * @throws \Core\Exception
+     * @throws \Cunity\Core\Exception
      * @throws \Exception
      */
     public function __construct()

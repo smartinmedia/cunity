@@ -34,10 +34,10 @@
  * #####################################################################################
  */
 
-namespace Profile;
+namespace Cunity\Profile;
 
-use Core\ModuleController;
-use Register\Models\Login;
+use Cunity\Core\ModuleController;
+use Cunity\Register\Models\Login;
 
 /**
  * Class Controller

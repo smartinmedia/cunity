@@ -1,6 +1,5 @@
 <?php
 
-
 /**
  * ########################################################################################
  * ## CUNITY(R) V2.0 - An open source social network / "your private social network"     ##
@@ -35,15 +34,14 @@
  * #####################################################################################
  */
 
+namespace Cunity\Admin\Models\Pages;
 
-namespace Admin\Models\Pages;
-
-use Core\Cunity;
-use Core\Models\Db\Table\Modules;
+use Cunity\Core\Cunity;
+use Cunity\Core\Models\Db\Table\Modules;
 
 /**
  * Class Statistics
- * @package Admin\Models\Pages
+ * @package Cunity\Admin\Models\Pages
  */
 class Statistics extends PageAbstract {
 

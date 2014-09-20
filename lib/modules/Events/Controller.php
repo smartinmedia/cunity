@@ -34,14 +34,14 @@
  * #####################################################################################
  */
 
-namespace Events;
+namespace Cunity\Events;
 
-use Core\ModuleController;
-use Register\Models\Login;
+use Cunity\Core\ModuleController;
+use Cunity\Register\Models\Login;
 
 /**
  * Class Controller
- * @package Events
+ * @package Cunity\Events
  */
 class Controller implements ModuleController
 {

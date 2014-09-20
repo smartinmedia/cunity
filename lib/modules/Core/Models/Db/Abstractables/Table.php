@@ -34,9 +34,9 @@
  * #####################################################################################
  */
 
-namespace Core\Models\Db\Abstractables;
+namespace Cunity\Core\Models\Db\Abstractables;
 
-use Core\Cunity;
+use Cunity\Core\Cunity;
 
 /**
  * abstract Table Class which automatically inserts the database-prefix
@@ -67,7 +67,7 @@ abstract class Table extends \Zend_Db_Table_Abstract
      *
      * @var String
      */
-    protected $_rowsetClass = "Core\Models\Db\Rowset\Rowset";
+    protected $_rowsetClass = "Cunity\Core\Models\Db\Rowset\Rowset";
 
     /**
      * @throws \Exception

@@ -34,13 +34,13 @@
  * #####################################################################################
  */
 
-namespace Register\View;
+namespace Cunity\Register\View;
 
-use Core\View\View;
+use Cunity\Core\View\View;
 
 /**
  * Class Registration
- * @package Register\View
+ * @package Cunity\Register\View
  */
 class Registration extends View
 {
@@ -63,7 +63,7 @@ class Registration extends View
     protected $_metadata = ["title" => "Registration"];
 
     /**
-     * @throws \Core\Exception
+     * @throws \Cunity\Core\Exception
      * @throws \Exception
      */
     public function __construct()

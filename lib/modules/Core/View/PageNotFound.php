@@ -34,11 +34,11 @@
  * #####################################################################################
  */
 
-namespace Core\View;
+namespace Cunity\Core\View;
 
 /**
  * Class PageNotFound
- * @package Core\View
+ * @package Cunity\Core\View
  */
 class PageNotFound extends View
 {

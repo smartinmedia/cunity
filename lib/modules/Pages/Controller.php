@@ -34,15 +34,15 @@
  * #####################################################################################
  */
 
-namespace Pages;
+namespace Cunity\Pages;
 
-use Core\ModuleController;
-use Core\View\PageNotFound;
-use Pages\Models\Db\Table\Pages;
+use Cunity\Core\ModuleController;
+use Cunity\Core\View\PageNotFound;
+use Cunity\Pages\Models\Db\Table\Pages;
 
 /**
  * Class Controller
- * @package Pages
+ * @package Cunity\Pages
  */
 class Controller implements ModuleController
 {

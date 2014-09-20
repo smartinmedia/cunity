@@ -34,10 +34,10 @@
  * #####################################################################################
  */
 
-namespace Events\View;
+namespace Cunity\Events\View;
 
-use Core\Cunity;
-use Core\View\View;
+use Cunity\Core\Cunity;
+use Cunity\Core\View\View;
 
 /**
  * Class EventEdit
@@ -60,7 +60,7 @@ class EventEdit extends View
     protected $_metadata = ["title" => "Edit Event"];
 
     /**
-     * @throws \Core\Exception
+     * @throws \Cunity\Core\Exception
      * @throws \Exception
      */
     public function __construct()

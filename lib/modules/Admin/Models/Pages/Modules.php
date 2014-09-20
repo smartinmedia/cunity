@@ -35,14 +35,13 @@
  * #####################################################################################
  */
 
+namespace Cunity\Admin\Models\Pages;
 
-namespace Admin\Models\Pages;
-
-use \Core\View\Ajax\View;
+use Cunity\Core\View\Ajax\View;
 
 /**
  * Class Modules
- * @package Admin\Models\Pages
+ * @package Cunity\Admin\Models\Pages
  */
 class Modules extends PageAbstract {
 
@@ -62,7 +61,7 @@ class Modules extends PageAbstract {
         $view = new View(true);
         switch ($_POST['action']) {
             case 'loadModules':
-                $modules = new \Core\Models\Db\Table\Modules();
+                $modules = new \Cunity\Core\Models\Db\Table\Modules();
                 $view->addData(["modules" => $modules->getModules()->toArray()]);
                 $view->sendResponse();
                 break;
@@ -73,7 +72,7 @@ class Modules extends PageAbstract {
      *
      */
     private function loadData() {
-        $modules = new \Core\Models\Db\Table\Modules();
+        $modules = new \Cunity\Core\Models\Db\Table\Modules();
         $installedModules = $modules->getModules()->toArray();
         $this->assignments['installedModules'] = $installedModules;
     }

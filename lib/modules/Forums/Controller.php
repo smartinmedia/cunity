@@ -34,14 +34,14 @@
  * #####################################################################################
  */
 
-namespace Forums;
+namespace Cunity\Forums;
 
-use Core\ModuleController;
-use Register\Models\Login;
+use Cunity\Core\ModuleController;
+use Cunity\Register\Models\Login;
 
 /**
  * Class Controller
- * @package Forums
+ * @package Cunity\Forums
  */
 class Controller implements ModuleController
 {

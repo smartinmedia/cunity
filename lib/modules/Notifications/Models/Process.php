@@ -34,7 +34,7 @@
  * #####################################################################################
  */
 
-namespace Notifications\Models;
+namespace Cunity\Notifications\Models;
 
 use Core\View\Ajax\View;
 use Friends\Models\Db\Table\Relationships;

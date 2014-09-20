@@ -34,9 +34,9 @@
  * #####################################################################################
  */
 
-namespace Friends\Models\Generator;
+namespace Cunity\Friends\Models\Generator;
 
-use Core\Cunity;
+use Cunity\Core\Cunity;
 use Zend_Db_Expr;
 
 /**

@@ -34,13 +34,13 @@
  * #####################################################################################
  */
 
-namespace Admin\View\Abstractables;
+namespace Cunity\Admin\View\Abstractables;
 
 /**
  * Class View
  * @package Admin\View\Abstractables
  */
-class View extends \Core\View\View
+class View extends \Cunity\Core\View\View
 {
 
     /**
@@ -55,7 +55,7 @@ class View extends \Core\View\View
     /**
      * @param $adminModule
      * @param $file
-     * @throws \Core\Exception
+     * @throws \Cunity\Core\Exception
      */
     public function registerCss($adminModule, $file)
     {

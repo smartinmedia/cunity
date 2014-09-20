@@ -34,13 +34,13 @@
  * #####################################################################################
  */
 
-namespace Admin\View;
+namespace Cunity\Admin\View;
 
-use Admin\View\Abstractables\View;
+use Cunity\Admin\View\Abstractables\View;
 
 /**
  * Class Cunity
- * @package Admin\View
+ * @package Cunity\Admin\View
  */
 class Cunity extends View
 {

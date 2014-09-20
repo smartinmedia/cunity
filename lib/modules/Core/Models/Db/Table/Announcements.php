@@ -34,13 +34,13 @@
  * #####################################################################################
  */
 
-namespace Core\Models\Db\Table;
+namespace Cunity\Core\Models\Db\Table;
 
-use Core\Models\Db\Abstractables\Table;
+use Cunity\Core\Models\Db\Abstractables\Table;
 
 /**
  * Class Settings
- * @package Core\Models\Db\Table
+ * @package Cunity\Core\Models\Db\Table
  */
 class Announcements extends Table
 {

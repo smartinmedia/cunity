@@ -34,16 +34,11 @@
  * #####################################################################################
  */
 
-namespace Core\Models\Db\Rowset;
+namespace Cunity\Core\Models\Db\Rowset;
 
-    /**
-     * Description of Rowset
-     *
-     * @author Julian
-     */
 /**
  * Class Rowset
- * @package Core\Models\Db\Rowset
+ * @package Cunity\Core\Models\Db\Rowset
  */
 class Rowset extends \Zend_Db_Table_Rowset_Abstract
 {

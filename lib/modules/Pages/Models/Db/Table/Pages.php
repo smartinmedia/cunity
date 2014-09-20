@@ -34,13 +34,13 @@
  * #####################################################################################
  */
 
-namespace Pages\Models\Db\Table;
+namespace Cunity\Pages\Models\Db\Table;
 
-use Core\Models\Db\Abstractables\Table;
+use Cunity\Core\Models\Db\Abstractables\Table;
 
 /**
  * Class Pages
- * @package Pages\Models\Db\Table
+ * @package Cunity\Pages\Models\Db\Table
  */
 class Pages extends Table {
 
@@ -55,7 +55,7 @@ class Pages extends Table {
     /**
      * @var string
      */
-    protected $_rowClass = "\Pages\Models\Db\Row\Page";
+    protected $_rowClass = "\Cunity\Pages\Models\Db\Row\Page";
 
     /**
      *

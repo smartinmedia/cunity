@@ -34,14 +34,14 @@
  * #####################################################################################
  */
 
-namespace Comments;
+namespace Cunity\Comments;
 
-use Core\ModuleController;
-use Register\Models\Login;
+use Cunity\Core\ModuleController;
+use Cunity\Register\Models\Login;
 
 /**
  * Class Controller
- * @package Comments
+ * @package Cunity\Comments
  */
 class Controller implements ModuleController
 {

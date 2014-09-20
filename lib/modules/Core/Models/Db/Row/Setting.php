@@ -34,7 +34,7 @@
  * #####################################################################################
  */
 
-namespace Core\Models\Db\Row;
+namespace Cunity\Core\Models\Db\Row;
 
 /**
  * Class Setting

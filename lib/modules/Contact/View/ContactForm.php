@@ -34,14 +34,14 @@
  * #####################################################################################
  */
 
-namespace Contact\View;
+namespace Cunity\Contact\View;
 
-use Core\View\View;
-use Register\Models\Login;
+use Cunity\Core\View\View;
+use Cunity\Register\Models\Login;
 
 /**
  * Class ContactForm
- * @package Contact\View
+ * @package Cunity\Contact\View
  */
 class ContactForm extends View
 {
@@ -60,7 +60,7 @@ class ContactForm extends View
     protected $_metadata = ["title" => "Contact Form"];
 
     /**
-     * @throws \Core\Exception
+     * @throws \Cunity\Core\Exception
      * @throws \Exception
      */
     public function __construct()

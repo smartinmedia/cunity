@@ -34,13 +34,13 @@
  * #####################################################################################
  */
 
-namespace Forums\Models\Db\Table;
+namespace Cunity\Forums\Models\Db\Table;
 
-use Core\Models\Db\Abstractables\Table;
+use Cunity\Core\Models\Db\Abstractables\Table;
 
 /**
  * Class Categories
- * @package Forums\Models\Db\Table
+ * @package Cunity\Forums\Models\Db\Table
  */
 class Categories extends Table {
 

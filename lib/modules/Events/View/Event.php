@@ -34,13 +34,13 @@
  * #####################################################################################
  */
 
-namespace Events\View;
+namespace Cunity\Events\View;
 
-use Core\View\View;
+use Cunity\Core\View\View;
 
 /**
  * Class Event
- * @package Events\View
+ * @package Cunity\Events\View
  */
 class Event extends View
 {
@@ -59,7 +59,7 @@ class Event extends View
     protected $_metadata = ["title" => "Event"];
 
     /**
-     * @throws \Core\Exception
+     * @throws \Cunity\Core\Exception
      * @throws \Exception
      */
     public function __construct()

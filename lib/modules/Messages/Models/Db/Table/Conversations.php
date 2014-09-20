@@ -34,14 +34,14 @@
  * #####################################################################################
  */
 
-namespace Messages\Models\Db\Table;
+namespace Cunity\Messages\Models\Db\Table;
 
-use Core\Models\Db\Abstractables\Table;
-use Notifications\Models\Notifier;
+use Cunity\Core\Models\Db\Abstractables\Table;
+use Cunity\Notifications\Models\Notifier;
 
 /**
  * Class Conversations
- * @package Messages\Models\Db\Table
+ * @package Cunity\Messages\Models\Db\Table
  */
 class Conversations extends Table {
 

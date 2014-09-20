@@ -34,15 +34,15 @@
  * #####################################################################################
  */
 
-namespace Messages\Models;
+namespace Cunity\Messages\Models;
 
-use Core\View\Ajax\View;
-use Friends\Models\Db\Table\Relationships;
-use Messages\Models\Db\Table\Conversations;
+use Cunity\Core\View\Ajax\View;
+use Cunity\Friends\Models\Db\Table\Relationships;
+use Cunity\Messages\Models\Db\Table\Conversations;
 
 /**
  * Class Process
- * @package Messages\Models
+ * @package Cunity\Messages\Models
  */
 class Process {
 

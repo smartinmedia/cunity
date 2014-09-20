@@ -35,12 +35,11 @@
  * #####################################################################################
  */
 
-
-namespace Admin\Models\Pages;
+namespace Cunity\Admin\Models\Pages;
 
 /**
  * Class PageAbstract
- * @package Admin\Models\Pages
+ * @package Cunity\Admin\Models\Pages
  */
 abstract class PageAbstract {
 
@@ -53,7 +52,7 @@ abstract class PageAbstract {
      * @param $class
      */
     public function render($class){
-        $class = "\\Admin\\View\\".ucfirst($class);
+        $class = "\\Cunity\\Admin\\View\\".ucfirst($class);
         $view = new $class;
         $view->assign($this->assignments);
         $view->show();

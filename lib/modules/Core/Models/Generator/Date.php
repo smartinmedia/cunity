@@ -33,11 +33,12 @@
  *
  * #####################################################################################
  */
-namespace Core\Models\Generator;
+
+namespace Cunity\Core\Models\Generator;
 
 /**
  * Class Date
- * @package Core\Models\Generator
+ * @package Cunity\Core\Models\Generator
  */
 class Date {
 

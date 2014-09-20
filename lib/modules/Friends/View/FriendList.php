@@ -34,13 +34,13 @@
  * #####################################################################################
  */
 
-namespace Friends\View;
+namespace Cunity\Friends\View;
 
-use Core\View\View;
+use Cunity\Core\View\View;
 
 /**
  * Class FriendList
- * @package Friends\View
+ * @package Cunity\Friends\View
  */
 class FriendList extends View
 {
@@ -63,7 +63,7 @@ class FriendList extends View
     protected $_metadata = ["title" => "My friends"];
 
     /**
-     * @throws \Core\Exception
+     * @throws \Cunity\Core\Exception
      * @throws \Exception
      */
     public function __construct()

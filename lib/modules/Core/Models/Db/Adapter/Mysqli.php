@@ -34,11 +34,11 @@
  * #####################################################################################
  */
 
-namespace Core\Models\Db\Adapter;
+namespace Cunity\Core\Models\Db\Adapter;
 
 /**
  * Class Mysqli
- * @package Core\Models\Db\Adapter
+ * @package Cunity\Core\Models\Db\Adapter
  */
 class Mysqli extends \Zend_Db_Adapter_Mysqli
 {
@@ -50,7 +50,8 @@ class Mysqli extends \Zend_Db_Adapter_Mysqli
     protected $_dbprefix = "cunity";
 
     /**
-     * @param \Zend_Config_Abstract $config
+     * @param \Zend_Config_Abstract|\Zend_Config_Xml $config
+     * @throws \Zend_Db_Adapter_Exception
      */
     public function __construct(\Zend_Config_Xml $config)
     {

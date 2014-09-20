@@ -33,7 +33,8 @@
  *
  * #####################################################################################
  */
-namespace Core\Models\Generator;
+
+namespace Cunity\Core\Models\Generator;
 
 /**
  * Class Privacy

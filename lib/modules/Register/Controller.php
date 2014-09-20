@@ -34,13 +34,13 @@
  * #####################################################################################
  */
 
-namespace Register;
+namespace Cunity\Register;
 
-use Core\ModuleController;
+use Cunity\Core\ModuleController;
 
 /**
  * Class Controller
- * @package Register
+ * @package Cunity\Register
  */
 class Controller implements ModuleController
 {

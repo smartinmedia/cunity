@@ -34,14 +34,14 @@
  * #####################################################################################
  */
 
-namespace Contact\View;
+namespace Cunity\Contact\View;
 
-use Core\Cunity;
-use Core\View\Mail\MailView;
+use Cunity\Core\Cunity;
+use Cunity\Core\View\Mail\MailView;
 
 /**
  * Class ContactMail
- * @package Contact\View
+ * @package Cunity\Contact\View
  */
 class ContactMail extends MailView
 {

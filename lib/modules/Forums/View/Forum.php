@@ -34,13 +34,13 @@
  * #####################################################################################
  */
 
-namespace Forums\View;
+namespace Cunity\Forums\View;
 
-use Core\View\View;
+use Cunity\Core\View\View;
 
 /**
  * Class Forum
- * @package Forums\View
+ * @package Cunity\Forums\View
  */
 class Forum extends View
 {
@@ -59,7 +59,7 @@ class Forum extends View
     protected $_metadata = ["title" => "Forum"];
 
     /**
-     * @throws \Core\Exception
+     * @throws \Cunity\Core\Exception
      * @throws \Exception
      */
     public function __construct()

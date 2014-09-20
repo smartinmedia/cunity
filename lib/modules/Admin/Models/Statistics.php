@@ -34,17 +34,17 @@
  * #####################################################################################
  */
 
-namespace Admin\Models;
+namespace Cunity\Admin\Models;
 
-use Comments\Models\Db\Table\Comments;
-use Gallery\Models\Db\Table\Gallery_Images;
-use Likes\Models\Db\Table\Likes;
-use Messages\Models\Db\Table\Messages;
-use Newsfeed\Models\Db\Table\Posts;
+use Cunity\Comments\Models\Db\Table\Comments;
+use Cunity\Gallery\Models\Db\Table\Gallery_Images;
+use Cunity\Likes\Models\Db\Table\Likes;
+use Cunity\Messages\Models\Db\Table\Messages;
+use Cunity\Newsfeed\Models\Db\Table\Posts;
 
 /**
  * Class Statistics
- * @package Admin\Models
+ * @package Cunity\Admin\Models
  */
 class Statistics {
 

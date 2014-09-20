@@ -34,17 +34,17 @@
  * #####################################################################################
  */
 
-namespace Core\Models\Db\Table;
+namespace Cunity\Core\Models\Db\Table;
 
-use Core\Cunity;
-use Core\Models\Db\Abstractables\Table;
-use Core\Models\Generator\Privacy;
-use Core\Models\Generator\Unique;
-use Register\View\VerifyMail;
+use Cunity\Core\Cunity;
+use Cunity\Core\Models\Db\Abstractables\Table;
+use Cunity\Core\Models\Generator\Privacy;
+use Cunity\Core\Models\Generator\Unique;
+use Cunity\Register\View\VerifyMail;
 
 /**
  * Class Users
- * @package Core\Models\Db\Table
+ * @package Cunity\Core\Models\Db\Table
  */
 class Users extends Table
 {
@@ -60,7 +60,7 @@ class Users extends Table
     /**
      * @var string
      */
-    protected $_rowClass = "\Core\Models\Db\Row\User";
+    protected $_rowClass = "\Cunity\Core\Models\Db\Row\User";
 
     /**
      *

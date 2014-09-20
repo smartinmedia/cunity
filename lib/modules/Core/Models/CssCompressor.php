@@ -34,11 +34,11 @@
  * #####################################################################################
  */
 
-namespace Core\Models;
+namespace Cunity\Core\Models;
 
 /**
  * Class CssCompressor
- * @package Core\Models
+ * @package Cunity\Core\Models
  */
 class CssCompressor {
 

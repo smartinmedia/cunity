@@ -34,13 +34,13 @@
  * #####################################################################################
  */
 
-namespace Gallery\View;
+namespace Cunity\Gallery\View;
 
-use Core\View\View;
+use Cunity\Core\View\View;
 
 /**
  * Class Album
- * @package Gallery\View
+ * @package Cunity\Gallery\View
  */
 class Album extends View
 {
@@ -59,7 +59,7 @@ class Album extends View
     protected $_metadata = ["title" => "Album"];
 
     /**
-     * @throws \Core\Exception
+     * @throws \Cunity\Core\Exception
      * @throws \Exception
      */
     public function __construct()

@@ -34,16 +34,16 @@
  * #####################################################################################
  */
 
-namespace Contact\Models;
+namespace Cunity\Contact\Models;
 
-use Register\Models\Login;
-use Contact\Models\Db\Table\Contact;
-use Contact\View\ContactMail;
-use \Core\View\Message;
+use Cunity\Register\Models\Login;
+use Cunity\Contact\Models\Db\Table\Contact;
+use Cunity\Contact\View\ContactMail;
+use Cunity\Core\View\Message;
 
 /**
  * Class ContactForm
- * @package Contact\Models
+ * @package Cunity\Contact\Models
  */
 class ContactForm
 {

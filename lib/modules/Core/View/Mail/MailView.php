@@ -34,14 +34,14 @@
  * #####################################################################################
  */
 
-namespace Core\View\Mail;
+namespace Cunity\Core\View\Mail;
 
-use Core\Models\Mail\Mail;
-use Core\View\View;
+use Cunity\Core\Models\Mail\Mail;
+use Cunity\Core\View\View;
 
 /**
  * Class MailView
- * @package Core\View\Mail
+ * @package Cunity\Core\View\Mail
  */
 class MailView extends View
 {

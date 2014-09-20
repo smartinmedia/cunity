@@ -34,11 +34,11 @@
  * #####################################################################################
  */
 
-namespace Core;
+namespace Cunity\Core;
 
 /**
  * Class Exception
- * @package Core
+ * @package Cunity\Core
  */
 class Exception extends \Exception
 {

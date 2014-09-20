@@ -34,17 +34,17 @@
  * #####################################################################################
  */
 
-namespace Gallery\Models\Db\Row;
+namespace Cunity\Gallery\Models\Db\Row;
 
-use Comments\Models\Db\Table\Comments;
-use Core\Cunity;
-use Gallery\Models\Db\Table\Gallery_Albums;
-use Likes\Models\Db\Table\Likes;
-use Newsfeed\Models\Db\Table\Posts;
+use Cunity\Comments\Models\Db\Table\Comments;
+use Cunity\Core\Cunity;
+use Cunity\Gallery\Models\Db\Table\Gallery_Albums;
+use Cunity\Likes\Models\Db\Table\Likes;
+use Cunity\Newsfeed\Models\Db\Table\Posts;
 
 /**
  * Class Image
- * @package Gallery\Models\Db\Row
+ * @package Cunity\Gallery\Models\Db\Row
  */
 class Image extends \Zend_Db_Table_Row_Abstract {
 

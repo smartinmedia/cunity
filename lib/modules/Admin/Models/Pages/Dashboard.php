@@ -35,15 +35,14 @@
  * #####################################################################################
  */
 
+namespace Cunity\Admin\Models\Pages;
 
-namespace Admin\Models\Pages;
-
-use Core\Cunity;
-use Core\Models\Db\Table\Modules;
+use Cunity\Core\Cunity;
+use Cunity\Core\Models\Db\Table\Modules;
 
 /**
  * Class Dashboard
- * @package Admin\Models\Pages
+ * @package Cunity\Admin\Models\Pages
  */
 class Dashboard extends PageAbstract {
 

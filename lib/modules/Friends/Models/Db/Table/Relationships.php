@@ -34,14 +34,14 @@
  * #####################################################################################
  */
 
-namespace Friends\Models\Db\Table;
+namespace Cunity\Friends\Models\Db\Table;
 
-use Core\Models\Db\Abstractables\Table;
-use Core\Models\Db\Table\Users;
+use Cunity\Core\Models\Db\Abstractables\Table;
+use Cunity\Core\Models\Db\Table\Users;
 
 /**
  * Class Relationships
- * @package Friends\Models\Db\Table
+ * @package Cunity\Friends\Models\Db\Table
  */
 class Relationships extends Table {
 
@@ -56,7 +56,7 @@ class Relationships extends Table {
     /**
      * @var string
      */
-    protected $_rowClass = "\Friends\Models\Db\Row\Relation";
+    protected $_rowClass = "\Cunity\Friends\Models\Db\Row\Relation";
 
     /**
      *

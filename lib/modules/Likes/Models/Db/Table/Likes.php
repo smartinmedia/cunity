@@ -34,13 +34,13 @@
  * #####################################################################################
  */
 
-namespace Likes\Models\Db\Table;
+namespace Cunity\Likes\Models\Db\Table;
 
-use Core\Models\Db\Abstractables\Table;
+use Cunity\Core\Models\Db\Abstractables\Table;
 
 /**
  * Class Likes
- * @package Likes\Models\Db\Table
+ * @package Cunity\Likes\Models\Db\Table
  */
 class Likes extends Table {
 

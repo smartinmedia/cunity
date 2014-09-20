@@ -34,14 +34,15 @@
  * #####################################################################################
  */
 
-namespace Notifications\Models\Db\Table;
+namespace Cunity\Notifications\Models\Db\Table;
 
-use Core\Models\Db\Abstractables\Table;
-use Notifications\Models\Notifier;
+use Cunity\Core\Models\Db\Abstractables\Table;
+use Cunity\Core\Models\Generator\Url;
+use Cunity\Notifications\Models\Notifier;
 
 /**
  * Class Notifications
- * @package Notifications\Models\Db\Table
+ * @package Cunity\Notifications\Models\Db\Table
  */
 class Notifications extends Table {
 
@@ -84,7 +85,7 @@ class Notifications extends Table {
         for ($i = 0; $i < count($res); $i++) {
             $d = Notifier::getNotificationData($res[$i]["type"]);
             $res[$i]["message"] = \sprintf($d, $res[$i]["name"]);
-            $res[$i]["target"] = \Core\Models\Generator\Url::convertUrl($res[$i]["target"]);
+            $res[$i]["target"] = Url::convertUrl($res[$i]["target"]);
             if ($res[$i]["unread"] == 1)
                 $result["new"] ++;
         }

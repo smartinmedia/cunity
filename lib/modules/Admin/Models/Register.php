@@ -34,20 +34,20 @@
  * #####################################################################################
  */
 
-namespace Register\Models;
+namespace Cunity\Register\Models;
 
-use Core\Models\Db\Table\Users;
-use Core\Models\Validation\Email;
-use Core\Models\Validation\Password;
-use Register\View\ForgetPw;
-use Register\View\Registration;
+use Cunity\Core\Models\Db\Table\Users;
+use Cunity\Core\Models\Validation\Email;
+use Cunity\Core\Models\Validation\Password;
+use Cunity\Register\View\ForgetPw;
+use Cunity\Register\View\Registration;
 use Zend_Validate;
 use Zend_Validate_Alpha;
 use Zend_Validate_StringLength;
 
 /**
  * Class Register
- * @package Register\Models
+ * @package Cunity\Register\Models
  */
 class Register {
 
@@ -142,5 +142,3 @@ class Register {
     }
 
 }
-
-

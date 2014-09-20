@@ -34,13 +34,13 @@
  * #####################################################################################
  */
 
-namespace Profile\View;
+namespace Cunity\Profile\View;
 
-use Core\View\View;
+use Cunity\Core\View\View;
 
 /**
  * Class Profile
- * @package Profile\View
+ * @package Cunity\Profile\View
  */
 class Profile extends View
 {
@@ -59,7 +59,7 @@ class Profile extends View
     protected $_metadata = ["title" => "Profile"];
 
     /**
-     * @throws \Core\Exception
+     * @throws \Cunity\Core\Exception
      * @throws \Exception
      */
     public function __construct()

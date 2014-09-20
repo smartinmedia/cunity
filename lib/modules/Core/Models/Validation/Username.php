@@ -34,14 +34,14 @@
  * #####################################################################################
  */
 
-namespace Core\Models\Validation;
+namespace Cunity\Core\Models\Validation;
 
-use Core\Models\Db\Table\Users;
-use Register\Models\Login;
+use Cunity\Core\Models\Db\Table\Users;
+use Cunity\Register\Models\Login;
 
 /**
  * Class Username
- * @package Core\Models\Validation
+ * @package Cunity\Core\Models\Validation
  */
 class Username extends \Zend_Validate_Alnum {
 

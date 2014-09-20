@@ -34,16 +34,16 @@
  * #####################################################################################
  */
 
-namespace Core;
+namespace Cunity\Core;
 
-use Core\Models\Db\Table\Settings;
-use Core\Exception;
-use Core\Models\Db\Adapter\Mysqli;
+use Cunity\Core\Models\Db\Table\Settings;
+use Cunity\Core\Exception;
+use Cunity\Core\Models\Db\Adapter\Mysqli;
 use Zend_Db_Table_Abstract;
 
 /**
  * Class Cunity
- * @package Core
+ * @package Cunity\Core
  */
 class Cunity {
 
@@ -58,7 +58,7 @@ class Cunity {
     private static $_instances = [];
 
     /**
-     * @throws Core\Exception
+     * @throws Cunity\Core\Exception
      */
     public static function init() {
         self::set("config", new \Zend_Config_Xml("../data/config.xml"));
@@ -88,7 +88,7 @@ class Cunity {
 
     /**
      * @param String $instance
-     * @throws Core\Exception
+     * @throws Exception
      * @return mixed
      */
     public static function get($instance) {

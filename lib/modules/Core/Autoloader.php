@@ -34,11 +34,11 @@
  * #####################################################################################
  */
 
-namespace Core;
+namespace Cunity\Core;
 
 /**
  * Class Autoloader
- * @package Core
+ * @package Cunity\Core
  */
 class Autoloader
 {

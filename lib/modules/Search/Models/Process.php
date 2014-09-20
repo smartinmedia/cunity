@@ -34,13 +34,13 @@
  * #####################################################################################
  */
 
-namespace Search\Models;
+namespace Cunity\Search\Models;
 
-use Core\Models\Db\Table\Users;
+use Cunity\Core\Models\Db\Table\Users;
 
 /**
  * Class Process
- * @package Search\Models
+ * @package Cunity\Search\Models
  */
 class Process {
 

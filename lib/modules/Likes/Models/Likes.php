@@ -34,23 +34,24 @@
  * #####################################################################################
  */
 
-namespace Likes\Models;
+namespace Cunity\Likes\Models;
 
-use Core\View\Ajax\View;
+use Cunity\Core\View\Ajax\View;
 
 /**
  * Class Likes
  * @package Likes\Models
  */
 class Likes {
-
     /**
      * @var Db\Table\Likes
      */
+    private $table;
+
     /**
-     * @var \Core\View\Ajax\View|Db\Table\Likes
+     * @var View
      */
-    private $table, $view;
+    private $view;
 
     /**
      * @param $action

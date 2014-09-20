@@ -34,13 +34,13 @@
  * #####################################################################################
  */
 
-namespace Contact\Models\Db\Table;
+namespace Cunity\Contact\Models\Db\Table;
 
-use Core\Models\Db\Abstractables\Table;
+use Cunity\Core\Models\Db\Abstractables\Table;
 
 /**
  * Class Contact
- * @package Contact\Models\Db\Table
+ * @package Cunity\Contact\Models\Db\Table
  */
 class Contact extends Table
 {

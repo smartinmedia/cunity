@@ -34,9 +34,9 @@
  * #####################################################################################
  */
 
-namespace Forums\View;
+namespace Cunity\Forums\View;
 
-use Core\View\View;
+use Cunity\Core\View\View;
 
 /**
  * Class Category
@@ -59,7 +59,7 @@ class Category extends View
     protected $_metadata = ["title" => "Category"];
 
     /**
-     * @throws \Core\Exception
+     * @throws \Cunity\Core\Exception
      * @throws \Exception
      */
     public function __construct()

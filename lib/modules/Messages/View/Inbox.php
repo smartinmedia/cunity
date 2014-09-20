@@ -34,13 +34,13 @@
  * #####################################################################################
  */
 
-namespace Messages\View;
+namespace Cunity\Messages\View;
 
-use Core\View\View;
+use Cunity\Core\View\View;
 
 /**
  * Class Inbox
- * @package Messages\View
+ * @package Cunity\Messages\View
  */
 class Inbox extends View
 {
@@ -59,7 +59,7 @@ class Inbox extends View
     protected $_metadata = ["title" => "My Conversations"];
 
     /**
-     * @throws \Core\Exception
+     * @throws \Cunity\Core\Exception
      * @throws \Exception
      */
     public function __construct()

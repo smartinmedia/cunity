@@ -34,11 +34,11 @@
  * #####################################################################################
  */
 
-namespace Core\Models;
+namespace Cunity\Core\Models;
 
 /**
  * Class Request
- * @package Core\Models
+ * @package Cunity\Core\Models
  */
 class Request {
 

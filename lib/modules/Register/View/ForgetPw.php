@@ -34,13 +34,13 @@
  * #####################################################################################
  */
 
-namespace Register\View;
+namespace Cunity\Register\View;
 
-use Core\View\View;
+use Cunity\Core\View\View;
 
 /**
  * Class ForgetPw
- * @package Register\View
+ * @package Cunity\Register\View
  */
 class ForgetPw extends View
 {
@@ -78,5 +78,3 @@ class ForgetPw extends View
         $this->show();
     }
 }
-
-

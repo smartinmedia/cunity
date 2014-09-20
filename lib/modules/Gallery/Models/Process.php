@@ -34,21 +34,21 @@
  * #####################################################################################
  */
 
-namespace Gallery\Models;
+namespace Cunity\Gallery\Models;
 
-use Comments\Models\Db\Table\Comments;
-use Core\View\Ajax\View;
-use Core\View\Message;
-use Core\Models\Generator\Url;
-use Core\View\PageNotFound;
-use Gallery\Models\Db\Table\Gallery_Albums;
-use Gallery\Models\Db\Table\Gallery_Images;
-use Gallery\View\Album;
-use Likes\Models\Db\Table\Likes;
+use Cunity\Comments\Models\Db\Table\Comments;
+use Cunity\Core\View\Ajax\View;
+use Cunity\Core\View\Message;
+use Cunity\Core\Models\Generator\Url;
+use Cunity\Core\View\PageNotFound;
+use Cunity\Gallery\Models\Db\Table\Gallery_Albums;
+use Cunity\Gallery\Models\Db\Table\Gallery_Images;
+use Cunity\Gallery\View\Album;
+use Cunity\Likes\Models\Db\Table\Likes;
 
 /**
  * Class Process
- * @package Gallery\Models
+ * @package Cunity\Gallery\Models
  */
 class Process {
 
@@ -175,7 +175,7 @@ class Process {
     }
 
     /**
-     * @throws \Core\Exception
+     * @throws \Cunity\Core\Exception
      */
     private function loadAlbum() {
         $albums = new Gallery_Albums();

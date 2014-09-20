@@ -34,13 +34,13 @@
  * #####################################################################################
  */
 
-namespace Admin\Models;
+namespace Cunity\Admin\Models;
 
-use Core\Models\Generator\Url;
+use Cunity\Core\Models\Generator\Url;
 
 /**
  * Class Login
- * @package Admin\Models
+ * @package Cunity\Admin\Models
  */
 class Login {
 
@@ -62,12 +62,12 @@ class Login {
                 header("Location:" . Url::convertUrl("index.php?m=admin"));
                 exit();
             } else {
-                $view = new \Admin\View\Login();
+                $view = new \Cunity\Admin\View\Login();
                 $view->assign("message", "The entered data is not correct!");
                 $view->show();
             }
         } else {
-            $view = new \Admin\View\Login();
+            $view = new \Cunity\Admin\View\Login();
             $view->assign("message", "");
             $view->show();
         }

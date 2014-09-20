@@ -34,10 +34,11 @@
  * #####################################################################################
  */
 
-namespace Newsfeed;
+namespace Cunity\Newsfeed;
 
-use Core\ModuleController;
-use Register\Models\Login;
+use Cunity\Core\ModuleController;
+use Cunity\Newsfeed\Models\Db\Table\Walls;
+use Cunity\Register\Models\Login;
 
 /**
  * Class Controller
@@ -89,7 +90,7 @@ class Controller implements ModuleController
      */
     public static function onRegister($user)
     {
-        $walls = new Models\Db\Table\Walls();
+        $walls = new Walls();
         $walls->createWall($user->userid);
     }
 
@@ -99,7 +100,7 @@ class Controller implements ModuleController
      */
     public static function onUnregister($user)
     {
-        $walls = new Models\Db\Table\Walls();
+        $walls = new Walls();
         $walls->deleteWallByOwner($user->userid, "profile");
     }
 

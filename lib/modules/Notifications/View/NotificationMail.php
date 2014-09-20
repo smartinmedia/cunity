@@ -34,9 +34,9 @@
  * #####################################################################################
  */
 
-namespace Notifications\View;
+namespace Cunity\Notifications\View;
 
-use Core\View\Mail\MailView;
+use Cunity\Core\View\Mail\MailView;
 
 /**
  * Class NotificationMail

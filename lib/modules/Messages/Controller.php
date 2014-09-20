@@ -34,14 +34,14 @@
  * #####################################################################################
  */
 
-namespace Messages;
+namespace Cunity\Messages;
 
-use Core\ModuleController;
-use Register\Models\Login;
+use Cunity\Core\ModuleController;
+use Cunity\Register\Models\Login;
 
 /**
  * Class Controller
- * @package Messages
+ * @package Cunity\Messages
  */
 class Controller implements ModuleController
 {

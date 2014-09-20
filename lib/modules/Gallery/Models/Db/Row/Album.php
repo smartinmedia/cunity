@@ -34,12 +34,12 @@
  * #####################################################################################
  */
 
-namespace Gallery\Models\Db\Row;
+namespace Cunity\Gallery\Models\Db\Row;
 
-use Comments\Models\Db\Table\Comments;
-use Core\Cunity;
-use Gallery\Models\Db\Table\Gallery_Images;
-use Likes\Models\Db\Table\Likes;
+use Cunity\Comments\Models\Db\Table\Comments;
+use Cunity\Core\Cunity;
+use Cunity\Gallery\Models\Db\Table\Gallery_Images;
+use Cunity\Likes\Models\Db\Table\Likes;
 
 /**
  * Class Album

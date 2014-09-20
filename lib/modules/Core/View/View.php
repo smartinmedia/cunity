@@ -34,24 +34,23 @@
  * #####################################################################################
  */
 
-namespace Core\View;
+namespace Cunity\Core\View;
 
-use Core\Cunity;
-use Core\Exception;
-use Core\Models\Db\Table\Announcements;
-use Core\Models\Db\Table\Menu;
-use Core\Models\Generator\Url;
-use Register\Models\Login;
+use Cunity\Core\Cunity;
+use Cunity\Core\Exception;
+use Cunity\Core\Models\Db\Table\Announcements;
+use Cunity\Core\Models\Db\Table\Menu;
+use Cunity\Core\Models\Generator\Url;
+use Cunity\Register\Models\Login;
+use Smarty;
 use Zend_Log;
 use Zend_Log_Writer_Stream;
-
-require_once 'Smarty/Smarty.class.php';
 
 /**
  * Class View
  * @package Core\View
  */
-class View extends \Smarty
+class View extends Smarty
 {
 
     /**
@@ -211,7 +210,7 @@ class View extends \Smarty
     }
 
     /**
-     * @throws \Core\Exception
+     * @throws \Cunity\Core\Exception
      * @throws \Exception
      */
     public function show()
@@ -274,7 +273,7 @@ class View extends \Smarty
     /**
      * @param $module
      * @param $scriptName
-     * @throws \Core\Exception
+     * @throws Exception
      */
     protected function registerScript($module, $scriptName)
     {
@@ -319,7 +318,7 @@ class View extends \Smarty
     /**
      * @param $module
      * @param $fileName
-     * @throws \Core\Exception
+     * @throws Exception
      */
     protected function registerCss($module, $fileName)
     {

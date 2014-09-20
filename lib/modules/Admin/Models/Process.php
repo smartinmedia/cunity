@@ -34,14 +34,14 @@
  * #####################################################################################
  */
 
-namespace Admin\Models;
+namespace Cunity\Admin\Models;
 
-use \Core\Cunity;
-use Core\View\Ajax\View;
+use Cunity\Core\Cunity;
+use Cunity\Core\View\Ajax\View;
 
 /**
  * Class Process
- * @package Admin\Models
+ * @package Cunity\Admin\Models
  */
 class Process {
 
@@ -73,7 +73,7 @@ class Process {
                     if (strpos($key, "settings-") !== false) {
                         $setting = explode("-", $key);
                         /** @noinspection PhpUnnecessaryFullyQualifiedNameInspection */
-                        $settings = \Core\Cunity::get("settings");
+                        $settings = \Cunity\Core\Cunity::get("settings");
                         $res[] = $settings->setSetting(preg_replace('/_/', '.', $setting[1], 1), $value);
                     }
                 }

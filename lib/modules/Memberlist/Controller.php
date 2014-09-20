@@ -34,14 +34,14 @@
  * #####################################################################################
  */
 
-namespace Memberlist;
+namespace Cunity\Memberlist;
 
-use Core\ModuleController;
-use Register\Models\Login;
+use Cunity\Core\ModuleController;
+use Cunity\Register\Models\Login;
 
 /**
  * Class Controller
- * @package Memberlist
+ * @package Cunity\Memberlist
  */
 class Controller implements ModuleController
 {

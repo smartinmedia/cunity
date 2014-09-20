@@ -34,24 +34,24 @@
  * #####################################################################################
  */
 
-namespace Forums\Models;
+namespace Cunity\Forums\Models;
 
-use Core\Models\Generator\Url;
-use Core\View\Ajax\View;
-use Core\View\PageNotFound;
-use \Forums\Models\Db\Table\Forums;
-use \Forums\Models\Db\Table\Boards;
-use \Forums\Models\Db\Table\Threads;
-use \Forums\Models\Db\Table\Posts;
-use \Forums\Models\Db\Table\Categories;
-use Forums\View\Board;
-use Forums\View\Category;
-use Forums\View\Forum;
-use Forums\View\Thread;
+use Cunity\Core\Models\Generator\Url;
+use Cunity\Core\View\Ajax\View;
+use Cunity\Core\View\PageNotFound;
+use \Cunity\Forums\Models\Db\Table\Forums;
+use \Cunity\Forums\Models\Db\Table\Boards;
+use \Cunity\Forums\Models\Db\Table\Threads;
+use \Cunity\Forums\Models\Db\Table\Posts;
+use \Cunity\Forums\Models\Db\Table\Categories;
+use Cunity\Forums\View\Board;
+use Cunity\Forums\View\Category;
+use Cunity\Forums\View\Forum;
+use Cunity\Forums\View\Thread;
 
 /**
  * Class Process
- * @package Forums\Models
+ * @package Cunity\Forums\Models
  */
 class Process {
 

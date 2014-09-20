@@ -34,14 +34,14 @@
  * #####################################################################################
  */
 
-namespace Likes;
+namespace Cunity\Likes;
 
-use Core\ModuleController;
-use Register\Models\Login;
+use Cunity\Core\ModuleController;
+use Cunity\Register\Models\Login;
 
 /**
  * Class Controller
- * @package Likes
+ * @package Cunity\Likes
  */
 class Controller implements ModuleController
 {

@@ -1,6 +1,5 @@
 <?php
 
-
 /**
  * ########################################################################################
  * ## CUNITY(R) V2.0 - An open source social network / "your private social network"     ##
@@ -35,18 +34,17 @@
  * #####################################################################################
  */
 
+namespace Cunity\Admin\Models\Pages;
 
-namespace Admin\Models\Pages;
-
-use Comments\Models\Db\Table\Comments;
-use Core\Cunity;
-use Core\View\Ajax\View;
-use Core\Models\Mail\Mail;
-use Pages\Models\Db\Table\Pages;
+use Cunity\Comments\Models\Db\Table\Comments;
+use Cunity\Core\Cunity;
+use Cunity\Core\View\Ajax\View;
+use Cunity\Core\Models\Mail\Mail;
+use Cunity\Pages\Models\Db\Table\Pages;
 
 /**
  * Class Settings
- * @package Admin\Models\Pages
+ * @package Cunity\Admin\Models\Pages
  */
 class Settings extends PageAbstract {
 

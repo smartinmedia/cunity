@@ -34,22 +34,22 @@
  * #####################################################################################
  */
 
-namespace Events\Models;
+namespace Cunity\Events\Models;
 
-use Core\Cunity;
-use Core\Models\Generator\Url;
-use Core\View\Message;
-use Core\View\PageNotFound;
+use Cunity\Core\Cunity;
+use Cunity\Core\Models\Generator\Url;
+use Cunity\Core\View\Message;
+use Cunity\Core\View\PageNotFound;
 use DateTime;
-use Events\Models\Db\Table\Events;
-use Events\Models\Db\Table\Guests;
-use Core\View\Ajax\View;
-use Events\View\Event;
-use Events\View\EventCrop;
-use Events\View\EventEdit;
-use Gallery\Models\Db\Table\Gallery_Albums;
-use Gallery\Models\Db\Table\Gallery_Images;
-use Newsfeed\Models\Db\Table\Walls;
+use Cunity\Events\Models\Db\Table\Events;
+use Cunity\Events\Models\Db\Table\Guests;
+use Cunity\Core\View\Ajax\View;
+use Cunity\Events\View\Event;
+use Cunity\Events\View\EventCrop;
+use Cunity\Events\View\EventEdit;
+use Cunity\Gallery\Models\Db\Table\Gallery_Albums;
+use Cunity\Gallery\Models\Db\Table\Gallery_Images;
+use Cunity\Newsfeed\Models\Db\Table\Walls;
 
 /**
  * Class Process

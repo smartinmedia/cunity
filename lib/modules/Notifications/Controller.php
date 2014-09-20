@@ -34,15 +34,15 @@
  * #####################################################################################
  */
 
-namespace Notifications;
+namespace Cunity\Notifications;
 
-use Core\ModuleController;
-use Core\View\Ajax\View;
-use Notifications\Models\Db\Table\Notifications;
+use Cunity\Core\ModuleController;
+use Cunity\Core\View\Ajax\View;
+use Cunity\Notifications\Models\Db\Table\Notifications;
 
 /**
  * Class Controller
- * @package Notifications
+ * @package Cunity\Notifications
  */
 class Controller implements ModuleController
 {

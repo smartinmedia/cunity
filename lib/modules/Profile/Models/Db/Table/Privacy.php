@@ -34,13 +34,13 @@
  * #####################################################################################
  */
 
-namespace Profile\Models\Db\Table;
+namespace Cunity\Profile\Models\Db\Table;
 
-use Core\Models\Db\Abstractables\Table;
+use Cunity\Core\Models\Db\Abstractables\Table;
 
 /**
  * Class Privacy
- * @package Profile\Models\Db\Table
+ * @package Cunity\Profile\Models\Db\Table
  */
 class Privacy extends Table {
 

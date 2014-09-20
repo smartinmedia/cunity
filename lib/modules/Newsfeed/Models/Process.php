@@ -34,9 +34,9 @@
  * #####################################################################################
  */
 
-namespace Newsfeed\Models;
+namespace Cunity\Newsfeed\Models;
 
-use Core\View\Ajax\View;
+use Cunity\Core\View\Ajax\View;
 
 /**
  * Class Process

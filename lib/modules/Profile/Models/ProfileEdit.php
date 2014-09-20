@@ -34,19 +34,19 @@
  * #####################################################################################
  */
 
-namespace Profile\Models;
+namespace Cunity\Profile\Models;
 
-use Core\Cunity;
-use Core\Models\Generator\Url;
-use Core\Models\Validation\Email;
-use Core\Models\Validation\Username;
-use Core\View\Ajax\View;
-use Core\View\Message;
-use Core\View\PageNotFound;
-use Gallery\Models\Db\Table\Gallery_Images;
-use Notifications\Models\Db\Table\Notification_Settings;
-use Notifications\Models\Db\Table\Notifications;
-use Profile\View\ProfileCrop;
+use Cunity\Core\Cunity;
+use Cunity\Core\Models\Generator\Url;
+use Cunity\Core\Models\Validation\Email;
+use Cunity\Core\Models\Validation\Username;
+use Cunity\Core\View\Ajax\View;
+use Cunity\Core\View\Message;
+use Cunity\Core\View\PageNotFound;
+use Cunity\Gallery\Models\Db\Table\Gallery_Images;
+use Cunity\Notifications\Models\Db\Table\Notification_Settings;
+use Cunity\Notifications\Models\Db\Table\Notifications;
+use Cunity\Profile\View\ProfileCrop;
 
 /**
  * Class ProfileEdit
@@ -77,7 +77,7 @@ class ProfileEdit {
             if (method_exists($this, $_POST['edit']))
                 call_user_func([$this, $_POST['edit']]);
         } else {
-            $view = new \Profile\View\ProfileEdit();
+            $view = new \Cunity\Profile\View\ProfileEdit();
             $user = $this->user->getTable()->get($_SESSION['user']->userid);
             $profile = $user->toArray(["userid", "username", "email", "firstname", "lastname", "registered", "sex", "pimg", "timg", "palbumid", "talbumid"]);
             $table = new Db\Table\Privacy();
@@ -287,7 +287,7 @@ class ProfileEdit {
             new PageNotFound();
         }
         /** @noinspection PhpUnnecessaryFullyQualifiedNameInspection */
-        $images = new \Gallery\Models\Db\Table\Gallery_Images();
+        $images = new \Cunity\Gallery\Models\Db\Table\Gallery_Images();
         $result = $images->getImageData($_GET['x']);
         $view = new ProfileCrop();
         $user = $_SESSION['user']->getTable()->get($_SESSION['user']->userid); // Get a new user Object with all image-data

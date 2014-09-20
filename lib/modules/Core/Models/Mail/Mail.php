@@ -34,15 +34,15 @@
  * #####################################################################################
  */
 
-namespace Core\Models\Mail;
+namespace Cunity\Core\Models\Mail;
 
-use Core\Cunity;
+use Cunity\Core\Cunity;
 use Zend_Mail_Transport_Smtp;
 use Zend_Mail_Transport_Sendmail;
 
 /**
  * Class Mail
- * @package Core\Models\Mail
+ * @package Cunity\Core\Models\Mail
  */
 class Mail extends \Zend_Mail {
 

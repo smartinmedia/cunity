@@ -34,14 +34,14 @@
  * #####################################################################################
  */
 
-namespace Admin\View;
+namespace Cunity\Admin\View;
 
-use Admin\Models\Login;
-use Core\View\View;
+use Cunity\Admin\Models\Login;
+use Cunity\Core\View\View;
 
 /**
  * Class Admin
- * @package Admin\View
+ * @package Cunity\Admin\View
  */
 class Admin extends View
 {

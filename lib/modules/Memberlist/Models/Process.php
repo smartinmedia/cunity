@@ -34,14 +34,14 @@
  * #####################################################################################
  */
 
-namespace Memberlist\Models;
+namespace Cunity\Memberlist\Models;
 
-use Core\Models\Db\Table\Users;
-use Core\View\Ajax\View;
+use Cunity\Core\Models\Db\Table\Users;
+use Cunity\Core\View\Ajax\View;
 
 /**
  * Class Process
- * @package Memberlist\Models
+ * @package Cunity\Memberlist\Models
  */
 class Process {
 

@@ -34,10 +34,10 @@
  * #####################################################################################
  */
 
-namespace Gallery;
+namespace Cunity\Gallery;
 
-use Core\ModuleController;
-use Register\Models\Login;
+use Cunity\Core\ModuleController;
+use Cunity\Register\Models\Login;
 
 /**
  * Class Controller
