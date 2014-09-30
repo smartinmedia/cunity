@@ -53,16 +53,14 @@
 }
 
 .profile-pin-placeholder {
-    border: 2px dashed #DDD;
     margin-bottom: 20px;
     border: 1px solid rgba(0, 0, 0, 0);
     border-radius: 4px;
     -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
     height: 91px;
-    background-color: #ccc;
     background-size: 20px 20px;
-    background-image: linear-gradient(-45deg,
+    background: #ccc linear-gradient(-45deg,
     rgba(255, 255, 255, 0.3) 25%,
     rgba(0, 0, 0, 0) 25%,
     rgba(0, 0, 0, 0) 50%,
