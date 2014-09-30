@@ -43,7 +43,7 @@ use Cunity\Register\Models\Login;
  * Class Controller
  * @package Gallery
  */
-class Controller implements ModuleController
+class Controller extends ModuleController
 {
 
     /**
@@ -107,6 +107,7 @@ class Controller implements ModuleController
      */
     public static function onRegister($user)
     {
+        parent::onRegister($user);
         $albums = new Models\Db\Table\Gallery_Albums();
         $albums->newProfileAlbums($user->userid);
     }
@@ -117,6 +118,7 @@ class Controller implements ModuleController
      */
     public static function onUnregister($user)
     {
+        parent::onUnregister($user);
         $albums = new Models\Db\Table\Gallery_Albums();
         $albums->deleteAlbumsByUser($user->userid);
     }

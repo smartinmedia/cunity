@@ -43,7 +43,7 @@ use Cunity\Register\Models\Login;
  * Class Controller
  * @package Profile
  */
-class Controller implements ModuleController
+class Controller extends ModuleController
 {
 
     /**
@@ -67,21 +67,5 @@ class Controller implements ModuleController
         } else {
             new Models\Profile();
         }
-    }
-
-    /**
-     * @param $user
-     * @return mixed|void
-     */
-    public static function onRegister($user)
-    {
-    }
-
-    /**
-     * @param $user
-     * @return mixed|void
-     */
-    public static function onUnregister($user)
-    {
     }
 }

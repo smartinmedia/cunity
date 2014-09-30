@@ -44,7 +44,7 @@ use Cunity\Register\Models\Login;
  * Class Controller
  * @package Cunity\Admin
  */
-class Controller implements ModuleController
+class Controller extends ModuleController
 {
 
     /**
@@ -71,21 +71,5 @@ class Controller implements ModuleController
         } else {
             new View\Admin();
         }
-    }
-
-    /**
-     * @param $user
-     * @return mixed|void
-     */
-    public static function onRegister($user)
-    {
-    }
-
-    /**
-     * @param $user
-     * @return mixed|void
-     */
-    public static function onUnregister($user)
-    {
     }
 }

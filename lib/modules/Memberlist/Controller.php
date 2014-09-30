@@ -43,7 +43,7 @@ use Cunity\Register\Models\Login;
  * Class Controller
  * @package Cunity\Memberlist
  */
-class Controller implements ModuleController
+class Controller extends ModuleController
 {
 
     /**
@@ -66,21 +66,5 @@ class Controller implements ModuleController
         } else {
             new View\Memberlist();
         }
-    }
-
-    /**
-     * @param $user
-     * @return mixed|void
-     */
-    public static function onRegister($user)
-    {
-    }
-
-    /**
-     * @param $user
-     * @return mixed|void
-     */
-    public static function onUnregister($user)
-    {
     }
 }

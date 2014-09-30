@@ -42,7 +42,7 @@ use Cunity\Core\ModuleController;
  * Class Controller
  * @package Cunity\Contact
  */
-class Controller implements ModuleController
+class Controller extends ModuleController
 {
     /**
      *
@@ -62,21 +62,5 @@ class Controller implements ModuleController
         } elseif (isset($_GET['action']) && $_GET['action'] == "sendContact") {
             new Models\ContactForm();
         }
-    }
-
-    /**
-     * @param $user
-     * @return mixed|void
-     */
-    public static function onRegister($user)
-    {
-    }
-
-    /**
-     * @param $user
-     * @return mixed|void
-     */
-    public static function onUnregister($user)
-    {
     }
 }

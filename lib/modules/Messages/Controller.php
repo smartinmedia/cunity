@@ -43,7 +43,7 @@ use Cunity\Register\Models\Login;
  * Class Controller
  * @package Cunity\Messages
  */
-class Controller implements ModuleController
+class Controller extends ModuleController
 {
 
     /**
@@ -87,21 +87,5 @@ class Controller implements ModuleController
         } elseif (isset($_GET['action']) && !empty($_GET['action'])) {
             new Models\Conversation();
         }
-    }
-
-    /**
-     * @param $user
-     * @return mixed|void
-     */
-    public static function onRegister($user)
-    {
-    }
-
-    /**
-     * @param $user
-     * @return mixed|void
-     */
-    public static function onUnregister($user)
-    {
     }
 }

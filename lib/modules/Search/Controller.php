@@ -44,7 +44,7 @@ use Cunity\Search\View\Searchresults;
  * Class Controller
  * @package Cunity\Search
  */
-class Controller implements ModuleController
+class Controller extends ModuleController
 {
 
     /**
@@ -78,6 +78,7 @@ class Controller implements ModuleController
      */
     public static function onRegister($user)
     {
+        parent::onRegister($user);
         $searchindex = new Models\Process();
         $searchindex->addUser($user->username, $user->name);
     }
@@ -88,6 +89,7 @@ class Controller implements ModuleController
      */
     public static function onUnregister($user)
     {
+        parent::onUnregister($user);
         $searchindex = new Models\Process();
         $searchindex->removeUser($user->username);
     }

@@ -44,7 +44,7 @@ use Cunity\Pages\Models\Db\Table\Pages;
  * Class Controller
  * @package Cunity\Pages
  */
-class Controller implements ModuleController
+class Controller extends ModuleController
 {
 
     /**
@@ -58,21 +58,5 @@ class Controller implements ModuleController
             new PageNotFound();
         }
         $page->displayPage();
-    }
-
-    /**
-     * @param $user
-     * @return mixed|void
-     */
-    public static function onRegister($user)
-    {
-    }
-
-    /**
-     * @param $user
-     * @return mixed|void
-     */
-    public static function onUnregister($user)
-    {
     }
 }

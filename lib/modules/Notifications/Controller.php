@@ -44,7 +44,7 @@ use Cunity\Notifications\Models\Db\Table\Notifications;
  * Class Controller
  * @package Cunity\Notifications
  */
-class Controller implements ModuleController
+class Controller extends ModuleController
 {
 
     /**
@@ -69,21 +69,5 @@ class Controller implements ModuleController
             $view->setStatus($n->read($_POST['id']));
             $view->sendResponse();
         }
-    }
-
-    /**
-     * @param $user
-     * @return mixed|void
-     */
-    public static function onRegister($user)
-    {
-    }
-
-    /**
-     * @param $user
-     * @return mixed|void
-     */
-    public static function onUnregister($user)
-    {
     }
 }

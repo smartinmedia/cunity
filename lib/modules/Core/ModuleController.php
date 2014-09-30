@@ -40,18 +40,22 @@ namespace Cunity\Core;
  * Interface ModuleController
  * @package Cunity\Core
  */
-interface ModuleController
+abstract class ModuleController
 {
 
     /**
      * @param $user
      * @return mixed
      */
-    public static function onRegister($user);
+    public static function onRegister($user)
+    {
+    }
 
     /**
      * @param $user
      * @return mixed
      */
-    public static function onUnregister($user);
+    public static function onUnregister($user)
+    {
+    }
 }

@@ -43,7 +43,7 @@ use Cunity\Register\Models\Login;
  * Class Controller
  * @package Cunity\Events
  */
-class Controller implements ModuleController
+class Controller extends ModuleController
 {
 
     /**
@@ -92,21 +92,5 @@ class Controller implements ModuleController
         } else {
             new Models\Process("loadEvent");
         }
-    }
-
-    /**
-     * @param $user
-     * @return mixed|void
-     */
-    public static function onRegister($user)
-    {
-    }
-
-    /**
-     * @param $user
-     * @return mixed|void
-     */
-    public static function onUnregister($user)
-    {
     }
 }

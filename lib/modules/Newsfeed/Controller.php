@@ -44,7 +44,7 @@ use Cunity\Register\Models\Login;
  * Class Controller
  * @package Newsfeed
  */
-class Controller implements ModuleController
+class Controller extends ModuleController
 {
     /**
      * @var array
@@ -90,6 +90,7 @@ class Controller implements ModuleController
      */
     public static function onRegister($user)
     {
+        parent::onRegister($user);
         $walls = new Walls();
         $walls->createWall($user->userid);
     }
@@ -100,6 +101,7 @@ class Controller implements ModuleController
      */
     public static function onUnregister($user)
     {
+        parent::onUnregister($user);
         $walls = new Walls();
         $walls->deleteWallByOwner($user->userid, "profile");
     }

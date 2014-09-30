@@ -43,7 +43,7 @@ use Cunity\Register\Models\Login;
  * Class Controller
  * @package Cunity\Comments
  */
-class Controller implements ModuleController
+class Controller extends ModuleController
 {
 
     /**
@@ -53,21 +53,5 @@ class Controller implements ModuleController
     {
         Login::loginRequired();
         new Models\Process($_GET['action']);
-    }
-
-    /**
-     * @param $user
-     * @return mixed|void
-     */
-    public static function onRegister($user)
-    {
-    }
-
-    /**
-     * @param $user
-     * @return mixed|void
-     */
-    public static function onUnregister($user)
-    {
     }
 }

@@ -42,7 +42,7 @@ use Cunity\Core\ModuleController;
  * Class Controller
  * @package Cunity\Register
  */
-class Controller implements ModuleController
+class Controller extends ModuleController
 {
 
     /**
@@ -89,21 +89,5 @@ class Controller implements ModuleController
         ) {
             new Models\Process($_GET['action']);
         }
-    }
-
-    /**
-     * @param $user
-     * @return mixed|void
-     */
-    public static function onRegister($user)
-    {
-    }
-
-    /**
-     * @param $user
-     * @return mixed|void
-     */
-    public static function onUnregister($user)
-    {
     }
 }
