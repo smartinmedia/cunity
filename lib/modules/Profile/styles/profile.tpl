@@ -98,7 +98,7 @@
 </div>
 <ul class="nav nav-pills profile-menu" id="profile-menu">
     {-if ($profile.privacy.visit eq 1 && $profile.status > 2) || $profile.privacy.visit eq 3 || $profile.userid eq $user.userid}
-        <li><a href="#Pins" id="profile-menu-pins" data-toggle="pill" ><i class="fa fa-thumb-tack"></i>&nbsp;{-"Pins"|translate}</a></li>
+        {-*<li><a href="#Pins" id="profile-menu-pins" data-toggle="pill" ><i class="fa fa-thumb-tack"></i>&nbsp;{-"Pins"|translate}</a></li>*}
         {-/if}
     <li class=""><a href="#Wall" id="profile-menu-wall" data-toggle="pill"><i class="fa fa-rss"></i>&nbsp;{-"Wall"|translate}</a></li>
     <li class=""><a href="#Friends" id="profile-menu-friends" data-toggle="pill" onclick="loadFriends({-$profile.userid});"><i class="fa fa-users"></i>&nbsp;{-"Friends"|translate}&nbsp;<span class="badge">{-if $profile.friendscount > 0}{-$profile.friendscount}{-/if}</span></a></li>

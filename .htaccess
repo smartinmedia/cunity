@@ -1,5 +1,6 @@
 <IfModule mod_rewrite.c>
 RewriteEngine on
+RewriteBase /cunity
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_URI} !(\/style) [NC]
 RewriteRule ^([^/]+)(/([^/]+))?(/([^/]+))?(/([^/]+))*/*$ index.php?m=$1&action=$3&x=$5&y=$7 [L,QSA]

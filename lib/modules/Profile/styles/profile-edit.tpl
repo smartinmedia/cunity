@@ -17,8 +17,8 @@
     </li>
     <li class=""><a href="#editProfileImages" id="profile-menu-edit-images" data-toggle="pill" data-type="profile"><i class="fa fa-picture-o"></i>&nbsp;{-"Images"|translate}
         </a></li>
-    <li class=""><a href="#editProfilePins" id="profile-menu-edit-pins" data-toggle="pill"><i
-                class="fa fa-thumb-tack"></i>&nbsp;{-"Profile Pins"|translate}</a></li>
+    {-*<li class=""><a href="#editProfilePins" id="profile-menu-edit-pins" data-toggle="pill"><i*}
+                {-*class="fa fa-thumb-tack"></i>&nbsp;{-"Profile Pins"|translate}</a></li>*}
     <li class=""><a href="#editNotifications" id="profile-menu-edit-notifications" data-toggle="pill"><i
                 class="fa fa-envelope-o"></i>&nbsp;{-"Notifications"|translate}</a></li>
 </ul>
