@@ -83,7 +83,7 @@ class Module
         return (class_exists($this->getClassName()) &&
             in_array(
                 'Cunity\Core\ModuleController',
-                class_implements($this->getClassName())
+                class_parents($this->getClassName())
             )
         );
     }
