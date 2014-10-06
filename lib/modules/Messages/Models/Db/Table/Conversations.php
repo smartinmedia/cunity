@@ -184,15 +184,7 @@ class Conversations extends Table
     {
         $query = $this->getAdapter()->select()
             ->from(
-                ["c" => $this->_dbprefix . "conversations"], [
-                    "c.status, (" . new \Zend_Db_Expr($this->getAdapter()->select()
-                        ->from(["u" => $this->_dbprefix . "users"], new \Zend_Db_Expr("GROUP_CONCAT(CONCAT(u.name,'|',u.userid))"))
-                        ->where("u.userid != ?", $userid)
-                        ->where("u.userid IN (" .
-                            new \Zend_Db_Expr($this->getAdapter()->select()
-                                ->from(["uc" => $this->_dbprefix . "conversations"], "uc.userid")
-                                ->where("uc.conversation_id = c.conversation_id")) . ")")) . ") AS users"
-                ])
+                ["c" => $this->_dbprefix . "conversations"])
             ->where("c.userid=?", $userid)
             ->joinLeft(["m" => $this->_dbprefix . "messages"], "m.conversation=c.conversation_id")
             ->join(["su" => $this->_dbprefix . "users"], "m.sender = su.userid", "su.name AS sendername")
