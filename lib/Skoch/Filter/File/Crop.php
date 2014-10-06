@@ -12,6 +12,11 @@
 /**
  * @see Zend_Filter_Interface
  */
+namespace Skoch\Filter\File;
+
+use Skoch\Filter\File\Adapter\AbstractAdapter;
+use Zend_Config;
+use Zend_Filter_Exception;
 
 /**
  * Resizes a given file and saves the created file
@@ -19,7 +24,7 @@
  * @category   Skoch
  * @package    Skoch_Filter
  */
-class Skoch_Filter_File_Crop implements \Zend_Filter_Interface
+class Crop implements \Zend_Filter_Interface
 {
 
     /**
@@ -32,14 +37,10 @@ class Skoch_Filter_File_Crop implements \Zend_Filter_Interface
     protected $_y = null;
     /**
      * @var null
-     *
-     * @todo julian: check if $_x1 can be renamed to avoid numbers
      */
     protected $_x1 = null;
     /**
      * @var null
-     *
-     * @todo julian: check if $_x1 can be renamed to avoid numbers
      */
     protected $_y1 = null;
     /**
@@ -57,7 +58,7 @@ class Skoch_Filter_File_Crop implements \Zend_Filter_Interface
     /**
      * @var string
      */
-    protected $_adapter = 'Skoch_Filter_File_Adapter_Gd';
+    protected $_adapter = 'Skoch\Filter\File\Adapter\Gd';
 
     /**
      * Create a new resize filter with the given options
@@ -67,23 +68,19 @@ class Skoch_Filter_File_Crop implements \Zend_Filter_Interface
      * expected), directory (save thumbnail to another directory),
      * adapter (the name or an instance of the desired adapter)
      * @throws Zend_Filter_Exception
-     * @return \Skoch_Filter_File_Crop An instance of this filter
+     * @return \Skoch\Filter\File\Crop An instance of this filter
      */
     public function __construct($options = [])
     {
         if ($options instanceof \Zend_Config) {
             $options = $options->toArray();
         } elseif (!is_array($options)) {
-            /** @noinspection PhpIncludeInspection */
-            require_once 'Zend/Filter/Exception.php';
             throw new Zend_Filter_Exception(
                 'Invalid options argument provided to filter'
             );
         }
 
         if (isset($options['x1'])) {
-            // @todo julian: check if $this->_x1 an $this->_y1
-            // @todo julian: can be renamed to avoid numbers
             $this->_x1 = $options['x1'];
         }
         if (isset($options['y1'])) {
@@ -106,7 +103,8 @@ class Skoch_Filter_File_Crop implements \Zend_Filter_Interface
         }
         if (isset($options['adapter'])) {
             if ($options['adapter'] instanceof
-                Skoch_Filter_File_Adapter_Abstract) {
+                AbstractAdapter
+            ) {
                 $this->_adapter = $options['adapter'];
             } else {
                 $name = $options['adapter'];
@@ -130,7 +128,7 @@ class Skoch_Filter_File_Crop implements \Zend_Filter_Interface
      */
     protected function _prepareAdapter()
     {
-        if ($this->_adapter instanceof Skoch_Filter_File_Adapter_Abstract) {
+        if ($this->_adapter instanceof AbstractAdapter) {
             return;
         } else {
             $this->_adapter = new $this->_adapter();

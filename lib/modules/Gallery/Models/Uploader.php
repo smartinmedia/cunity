@@ -37,8 +37,8 @@
 namespace Cunity\Gallery\Models;
 
 use Cunity\Core\Cunity;
-use Skoch_Filter_File_Crop;
-use Skoch_Filter_File_Resize;
+use Skoch\Filter\File\Crop;
+use Skoch\Filter\File\Resize;
 
 /**
  * Class Uploader
@@ -106,9 +106,9 @@ class Uploader
             rename("{$filePath}.part", $destinationFile);
             copy($destinationFile, $previewFile);
 
-            $resizer = new Skoch_Filter_File_Resize($config->images);
-            $preview = new Skoch_Filter_File_Resize($config->previewImages);
-            $crop = new Skoch_Filter_File_Crop([
+            $resizer = new Resize($config->images);
+            $preview = new Resize($config->previewImages);
+            $crop = new Crop([
                 "thumbwidth" => "thumbnail",
                 "directory" => "../data/uploads/" . Cunity::get("settings")->getSetting("core.filesdir"),
                 "prefix" => "thumb_"

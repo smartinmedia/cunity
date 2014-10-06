@@ -8,7 +8,7 @@
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
  * @author     Stefan Koch <cct@stefan-koch.name>
  */
-
+namespace Skoch\Filter\File\Adapter;
 
 /**
  * Resizes a given file and saves the created file
@@ -16,7 +16,7 @@
  * @category   Skoch
  * @package    Skoch_Filter
  */
-abstract class Skoch_Filter_File_Adapter_Abstract
+abstract class AbstractAdapter
 {
     /**
      * @param $width
