@@ -84,8 +84,6 @@ class Install {
         if (!file_exists("data/config-example.xml")) {
             throw new Exception("config-example.xml missing!");
         }
-        @include 'Zend/Version.php';
-        @include 'Smarty/Smarty.class.php';
         $this->initTranslator();
     }
 
@@ -561,8 +559,8 @@ $installer = new Install();
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-2 clearfix"><a role="button" disabled href="#installCarousel" id="installNextButton" data-slide="next" class="btn btn-primary pull-right"><?php __("Next"); ?>&nbsp;<i class="fa fa-chevron-right"></i></a></div>                                                
-                            <div class="col-lg-2 clearfix"><a role="button" disabled href=".." id="installFinishButton" class="btn btn-success pull-right hidden"><i class="fa fa-check"></i>&nbsp;<?php __("Finish"); ?></a></div>                                                
+                            <div class="col-lg-2 clearfix"><a role="button" href="#installCarousel" id="installNextButton" data-slide="next" class="btn btn-primary pull-right"><?php __("Next"); ?>&nbsp;<i class="fa fa-chevron-right"></i></a></div>
+                            <div class="col-lg-2 clearfix"><a role="button" href=".." id="installFinishButton" class="btn btn-success pull-right hidden"><i class="fa fa-check"></i>&nbsp;<?php __("Finish"); ?></a></div>
                         </div>                    
                     </div>
                 </div>                          
