@@ -184,7 +184,7 @@ class Conversations extends Table
     {
         $query = $this->getAdapter()->select()
             ->from(
-                $this, [
+                ["c" => $this->_dbprefix . "conversations"], [
                     "c.status, (" . new \Zend_Db_Expr($this->getAdapter()->select()
                         ->from(["u" => $this->_dbprefix . "users"], new \Zend_Db_Expr("GROUP_CONCAT(CONCAT(u.name,'|',u.userid))"))
                         ->where("u.userid != ?", $userid)

@@ -196,7 +196,7 @@ class Relationships extends Table
      */
     public function loadOnlineFriends($userid)
     {
-        return $this->getAdapter()->fetchAll($this->getAdapter()->select()->from($this, ["userid", "name", "username", "onlineStatus", "chat_available", "(lastAction BETWEEN DATE_SUB(UTC_TIMESTAMP() , INTERVAL 1 MINUTE) AND UTC_TIMESTAMP()) AS online"])
+        return $this->getAdapter()->fetchAll($this->getAdapter()->select()->from(["u" => $this->_dbprefix . "users"], ["userid", "name", "username", "onlineStatus", "chat_available"])
                 ->joinLeft(["pi" => $this->_dbprefix . "gallery_images"], "pi.id = u.profileImage", "filename AS pimg")
                 ->where("u.userid IN (" . new \Zend_Db_Expr(
                         $this
