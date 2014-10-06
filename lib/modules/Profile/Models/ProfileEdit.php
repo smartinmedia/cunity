@@ -46,6 +46,8 @@ use Cunity\Core\View\PageNotFound;
 use Cunity\Gallery\Models\Db\Table\Gallery_Images;
 use Cunity\Notifications\Models\Db\Table\Notification_Settings;
 use Cunity\Profile\View\ProfileCrop;
+use Cunity\Search\Models\Process;
+use Skoch\Filter\File\Crop;
 
 /**
  * Class ProfileEdit
@@ -322,7 +324,7 @@ class ProfileEdit
      */
     private function crop()
     {
-        $file = new \Skoch_Filter_File_Crop([
+        $file = new Crop([
             "x" => $_POST['crop-x'],
             "y" => $_POST['crop-y'],
             "x1" => $_POST['crop-x1'],
