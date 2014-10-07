@@ -52,7 +52,7 @@ class Cunity
     private static $_instances = [];
 
     /**
-     * @throws Cunity\Core\Exception
+     * @throws Exception
      */
     public static function init()
     {
