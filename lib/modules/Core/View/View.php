@@ -43,8 +43,10 @@ use Cunity\Core\Models\Db\Table\Menu;
 use Cunity\Core\Models\Generator\Url;
 use Cunity\Register\Models\Login;
 use Smarty;
+use Zend_Locale;
 use Zend_Log;
 use Zend_Log_Writer_Stream;
+use Zend_Translate;
 
 /**
  * Class View
@@ -53,9 +55,11 @@ use Zend_Log_Writer_Stream;
 class View extends Smarty
 {
     /**
-     * @var
+     * @var Zend_Translate
      */
     public static $zt;
+
+    protected static $defaultLanguage = 'en';
     /**
      * @var string
      */
@@ -378,15 +382,16 @@ class View extends Smarty
      */
     private function initTranslator()
     {
-        $locale = new \Zend_Locale();
-        self::$zt = new \Zend_Translate(
+        $locale = new Zend_Locale();
+        self::$zt = new Zend_Translate(
             [
-                'adapter' => 'gettext',
+                'adapter' => 'csv',
                 'locale' => 'auto',
-                'content' => "Core/languages/",
-                'scan' => \Zend_Translate::LOCALE_FILENAME
+                'content' => __DIR__.'/../languages/'.$locale->getLanguage().'.php',
+                'scan' => Zend_Translate::LOCALE_FILENAME
             ]
         );
+
         self::$zt->setOptions(
             [
                 'log' => new Zend_Log(
