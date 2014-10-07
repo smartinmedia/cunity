@@ -1,6 +1,4 @@
 <?php
-
-
 /**
  * ########################################################################################
  * ## CUNITY(R) V2.0 - An open source social network / "your private social network"     ##
@@ -35,16 +33,61 @@
  * #####################################################################################
  */
 
-
 return [
-    "Install Cunity" => "Cunity installieren",
-    "Terms" => "Bedingungen",
-    "Requirements" => "Anforderungen",
-    "Database" => "Datenbank",
-    "Information" => "Informationen",
-    "Account" => "Benutzerkonto",
-    "Finish" => "Abschließen",
-    "Next" => "Weiter",
-    "Prev" => "Zurück",
-    "Complete" => "Abgeschlossen"
+    'Install Cunity' => 'Cunity installieren',
+    'Terms' => 'Bedingungen',
+    'Requirements' => 'Anforderungen',
+    'Database' => 'Datenbank',
+    'Information' => 'Informationen',
+    'Account' => 'Benutzerkonto',
+    'Finish' => 'Abschließen',
+    'Next' => 'Weiter',
+    'Prev' => 'Zurück',
+    'Complete' => 'Abgeschlossen',
+    'Back to language selection' => 'Zurück zur Sprachauswahl',
+    'Terms and Conditions' => 'AGBs',
+    'Please agree to our Terms & Conditions first' => 'Stimmen Sie bitte erst den AGBs zu',
+    'I accept the Terms and Conditions' => 'Ich akzeptiere die AGBs',
+    'Check Requirements' => 'Voraussetzungen überprüfen',
+    'Will be checked in the next step' => 'Wird im nächsten Schritt überprüft',
+    'Install' => 'Installieren',
+    'Setup Database' => 'Datenbank Konfiguration',
+    'Database-Host' => 'Host',
+    'Database-User' => 'Benutzer',
+    'Database-Password' => 'Passwort',
+    'Database-Name' => 'Name',
+    'Database-Prefix' => 'Prefix',
+    'Check Connection & copy data to database' => 'Verbindung testen und Daten in die Datenbank kopieren',
+    'Enter Cunity-Settings' => 'Cunity Einstellungen',
+    'General Settings' => 'Generelle Einstellungen',
+    'Name of your Cunity' => 'Name des Cunity',
+    'URL of your Cunity' => 'URL des Cunity',
+    'Description' => 'Beschreibung',
+    'Contact Mail' => 'Kontakt E-Mail',
+    'Mail Settings' => 'E-Mail Einstellungen',
+    'Mailserver' => 'Server',
+    'Use SMTP' => 'SMTP bentuzen',
+    'Use PHP Sendmail' => 'PHP Sendmail benutzen',
+    'SMTP-Host' => 'Host',
+    'SMTP-Port' => 'Port',
+    'SMTP-Authentication' => 'Authentifizierung',
+    'Yes' => 'Ja',
+    'No' => 'Nein',
+    'SMTP-Username' => 'Benutzername',
+    'SMTP-Password' => 'Passwort',
+    'SMTP-Security' => 'Sicherheit',
+    'Use SSL' => 'SSL benutzen',
+    'Create Admin-Account' => 'Admin Konto anlegen',
+    'Username' => 'Bentuzername',
+    'E-Mail' => 'E-Mail',
+    'Firstname' => 'Vorname',
+    'Lastname' => 'Nachname',
+    'Password' => 'Passwort',
+    'Repeat password' => 'Passwort wiederholen',
+    'I am' => 'Ich bin',
+    'Select your gender' => 'Geschlecht wählen',
+    'Female' => 'Weiblich',
+    'Male' => 'Männlich',
+    'Finish Installation' => 'Installation abschließen',
+    'Settings' => 'Einstellungen'
 ];

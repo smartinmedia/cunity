@@ -313,7 +313,7 @@ $installer = new Install();
                                             </div>
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox" value="1" name="accept-terms">
+                                                    <input type="checkbox" value="1" name="accept-terms" id="accept-terms">
                                                     <?php __("I accept the Terms and Conditions"); ?>
                                                 </label>
                                             </div>
@@ -324,7 +324,7 @@ $installer = new Install();
                                     <span class="title"><?php __("Check Requirements"); ?></span>
                                     <div class="list-group">                                        
                                         <li class="list-group-item"><i class="fa <?php if (version_compare(PHP_VERSION, '5.5.0', '>=')) { ?> fa-check-circle-o text-success <?php } else { ?>fa-times-circle-o text-danger <?php } ?> fa-fw fa-lg"></i>&nbsp;PHP Version 5.5+</li>
-                                        <li class="list-group-item"><i class="fa fa-question text-muted fa-fw fa-lg"></i>&nbsp;MySQL Version 5+ (<?php __("Will be checkd in the next step"); ?>)</li>
+                                        <li class="list-group-item"><i class="fa fa-question text-muted fa-fw fa-lg"></i>&nbsp;MySQL Version 5+ (<?php __("Will be checked in the next step"); ?>)</li>
                                         <li class="list-group-item">
                                             <i class="fa <?php if (class_exists("Zend_Version") && Zend_Version::compareVersion('1.12') < 1 && Zend_Version::compareVersion('2.0.0') == 1) { ?> fa-check-circle-o text-success <?php } else { ?>fa-times-circle-o text-danger <?php } ?> fa-fw fa-lg"></i>&nbsp;Zend Framework 1.12
                                             <?php if (!class_exists("Zend_Version") || true) { ?>
@@ -365,7 +365,7 @@ $installer = new Install();
                                                     <input type="text" id="db-prefix" class="form-control" value="cunity" autocomplete="off">
                                                 </div>
                                                 <div class="form-group">
-                                                    <button class="btn btn-primary btn-block"><i class="fa-check fa"></i>&nbsp;<?php __("Check Connection & install Cunity into database"); ?></button>
+                                                    <button class="btn btn-primary btn-block"><i class="fa-check fa"></i>&nbsp;<?php __("Check Connection & copy data to database"); ?></button>
                                                 </div>
                                             </form>  
                                         </div>
