@@ -139,7 +139,7 @@ class View extends Smarty
         $this->registerPlugin("modifier", "image", [$this, "convertImage"]);
         $this->registerPlugin("modifier", "URL", [$this, 'convertUrl']);
         $this->_templateDir = ucfirst($this->_templateDir);
-        //$this->initTranslator();
+        $this->initTranslator();
     }
 
     /**
