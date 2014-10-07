@@ -38,7 +38,6 @@
 ob_start("ob_gzhandler");
 error_reporting(E_ALL ^ E_NOTICE);
 date_default_timezone_set("UTC");
-set_include_path(get_include_path() . PATH_SEPARATOR . "./lib/modules/");
 chdir("lib");
 require_once(__DIR__.'/vendor/autoload.php');
 new \Cunity\Core\Controller();
