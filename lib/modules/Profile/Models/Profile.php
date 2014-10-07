@@ -117,7 +117,7 @@ class Profile
      */
     protected function render()
     {
-        $view = new \Cunity\Profile\View\Profile();
+        $view = new Profile();
         $view->assign('profile', $this->profileData);
         $view->setMetaData(["title" => $this->profileData['name']]);
         $view->render();
