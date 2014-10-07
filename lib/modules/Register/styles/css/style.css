@@ -13,4 +13,5 @@
 
 .registration-form .form-group.has-feedback .form-control-feedback, .registration-form .form-group.has-feedback .help-block {
     display: block;
+    padding-top: 10px;
 }
