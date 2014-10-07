@@ -18,4 +18,3 @@ vendor
 /src/bin/webunit
 /data/config.xml
 /composer.lock
-log
