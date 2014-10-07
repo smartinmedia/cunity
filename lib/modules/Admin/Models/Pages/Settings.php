@@ -113,7 +113,7 @@ class Settings extends PageAbstract
      */
     private function loadData()
     {
-        $langIterator = new \DirectoryIterator("modules/Core/lang");
+        $langIterator = new \DirectoryIterator("modules/Core/languages");
         $designIterator = new \DirectoryIterator("../style");
         foreach ($designIterator as $design) {
             if ($design->isDir() && $design->isReadable() && !$design->isDot()) {
