@@ -57,7 +57,7 @@ class View extends Smarty
     /**
      * @var Zend_Translate
      */
-    public static $zt;
+    public static $zt = null;
 
     /**
      * @var string
@@ -174,9 +174,15 @@ class View extends Smarty
      * @param array $replaces
      * @return string
      */
-    public static function translate($string, $replaces = [])
+    public function translate($string, $replaces = [])
     {
-        return vsprintf($string, $replaces);
+        if ($string == 'Wall')
+        {
+//            var_dump(self::$zt->);exit;
+            //($string));exit;
+        }
+        return self::$zt->_($string);
+//        return vsprintf($string, $replaces);
     }
 
     /**
@@ -385,34 +391,42 @@ class View extends Smarty
     /**
      *
      */
-    private function initTranslator()
+    public static function initTranslator()
     {
-        $locale = new Zend_Locale();
-        self::$zt = new Zend_Translate(
-            [
-                'adapter' => 'csv',
-                'locale' => 'auto',
-                'content' => __DIR__ . '/../languages/' . $locale->getLanguage() . '.csv',
-                'scan' => Zend_Translate::LOCALE_FILENAME
-            ]
-        );
+        if (null === self::$zt) {
+            $locale = new Zend_Locale();
+            self::$zt = new Zend_Translate(
+                [
+                    'adapter' => 'csv',
+                    'content' => __DIR__ . '/../languages/' . $locale->getLanguage() . '.csv',
+                    'scan' => Zend_Translate::LOCALE_FILENAME
+                ]
+            );
 
-        /** @noinspection PhpUndefinedMethodInspection */
-        self::$zt->setOptions(
-            [
-                'log' => new Zend_Log(
-                    new Zend_Log_Writer_Stream('missing-translations.log')
-                ),
-                'logUntranslated' => true
-            ]
-        );
+            self::$zt->addTranslation(
+                array(
+                    'content' => __DIR__ . '/../languages/' . $locale->getLanguage() . '.csv',
+                    'locale' => $locale->getLanguage()
+                )
+            );
 
-        /** @noinspection PhpUndefinedMethodInspection */
-        if (!self::$zt->isAvailable($locale->getLanguage())) {
             /** @noinspection PhpUndefinedMethodInspection */
-            self::$zt->setLocale(self::$defaultLanguage);
+            self::$zt->setOptions(
+                [
+                    'log' => new Zend_Log(
+                        new Zend_Log_Writer_Stream('missing-translations.log')
+                    ),
+                    'logUntranslated' => true
+                ]
+            );
+
+            /** @noinspection PhpUndefinedMethodInspection */
+            if (!self::$zt->isAvailable($locale->getLanguage())) {
+                /** @noinspection PhpUndefinedMethodInspection */
+                self::$zt->setLocale(self::$defaultLanguage);
+            }
+            /** @noinspection PhpUndefinedMethodInspection */
+            self::$zt->getLocale();
         }
-        /** @noinspection PhpUndefinedMethodInspection */
-        self::$zt->getLocale();
     }
 }

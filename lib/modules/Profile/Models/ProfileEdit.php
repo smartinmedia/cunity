@@ -37,6 +37,7 @@
 namespace Cunity\Profile\Models;
 
 use Cunity\Core\Cunity;
+use Cunity\Core\Models\Db\Row\User;
 use Cunity\Core\Models\Generator\Url;
 use Cunity\Core\Models\Validation\Email;
 use Cunity\Core\Models\Validation\Username;
@@ -46,7 +47,6 @@ use Cunity\Core\View\PageNotFound;
 use Cunity\Gallery\Models\Db\Table\Gallery_Images;
 use Cunity\Notifications\Models\Db\Table\Notification_Settings;
 use Cunity\Profile\View\ProfileCrop;
-use Cunity\Search\Models\Process;
 use Skoch\Filter\File\Crop;
 
 /**
@@ -57,7 +57,7 @@ class ProfileEdit
 {
 
     /**
-     * @var null
+     * @var User
      */
     private $user = null;
 
@@ -83,7 +83,9 @@ class ProfileEdit
             }
         } else {
             $view = new \Cunity\Profile\View\ProfileEdit();
+            /** @noinspection PhpUndefinedMethodInspection */
             $user = $this->user->getTable()->get($_SESSION['user']->userid);
+            /** @var User $user */
             $profile = $user->toArray(["userid", "username", "email", "firstname", "lastname", "registered", "sex", "pimg", "timg", "palbumid", "talbumid"]);
             $table = new Db\Table\Privacy();
             $privacy = $table->getPrivacy();
@@ -106,7 +108,9 @@ class ProfileEdit
         $images = new \Cunity\Gallery\Models\Db\Table\Gallery_Images();
         $result = $images->getImageData($_GET['x']);
         $view = new ProfileCrop();
+        /** @noinspection PhpUndefinedMethodInspection */
         $user = $_SESSION['user']->getTable()->get($_SESSION['user']->userid); // Get a new user Object with all image-data
+        /** @var User $user */
         $profileData = $user->toArray(["userid", "username", "name", "timg", "pimg", "talbumid", "palbumid"]);
         $view->assign(["profile" => $profileData, "result" => $result[0], "type" => $_GET['y'], "image" => getimagesize("../data/uploads/" . Cunity::get("settings")->getSetting("core.filesdir") . "/" . $result[0]['filename'])]);
         $view->show();
@@ -122,6 +126,7 @@ class ProfileEdit
         } else {
             $_SESSION['user']->titleImage = 0;
         }
+        /** @noinspection PhpUndefinedMethodInspection */
         if ($_SESSION['user']->save()) {
             $view = new View(true);
             $view->sendResponse();
@@ -131,6 +136,7 @@ class ProfileEdit
     /**
      * @throws \Zend_Db_Table_Exception
      */
+    /** @noinspection PhpUnusedPrivateMethodInspection */
     private function loadPinData()
     {
         $pinid = $_POST['id'];
@@ -145,6 +151,7 @@ class ProfileEdit
     /**
      *
      */
+    /** @noinspection PhpUnusedPrivateMethodInspection */
     private function deletePin()
     {
         if (isset($_POST['id'])) {
@@ -159,6 +166,7 @@ class ProfileEdit
     /**
      *
      */
+    /** @noinspection PhpUnusedPrivateMethodInspection */
     private function pin()
     {
         if (isset($_POST['title']) && isset($_POST['type']) && isset($_POST['content'])) {
@@ -178,6 +186,7 @@ class ProfileEdit
     /**
      *
      */
+    /** @noinspection PhpUnusedPrivateMethodInspection */
     private function notifications()
     {
         if (!empty($_POST['types'])) {
@@ -211,6 +220,7 @@ class ProfileEdit
     /**
      *
      */
+    /** @noinspection PhpUnusedPrivateMethodInspection */
     private function pinPositions()
     {
         $pins = new Db\Table\ProfilePins();
@@ -224,6 +234,7 @@ class ProfileEdit
     /**
      *
      */
+    /** @noinspection PhpUnusedPrivateMethodInspection */
     private function general()
     {
         if (isset($_POST['email']) || isset($_POST['username']) || $_POST['sex']) {
@@ -260,6 +271,7 @@ class ProfileEdit
     /**
      *
      */
+    /** @noinspection PhpUnusedPrivateMethodInspection */
     private function changePassword()
     {
         $status = false;
@@ -284,6 +296,7 @@ class ProfileEdit
     /**
      *
      */
+    /** @noinspection PhpUnusedPrivateMethodInspection */
     private function changePrivacy()
     {
         if (isset($_POST['privacy']) && is_array($_POST['privacy'])) {
@@ -306,6 +319,7 @@ class ProfileEdit
     /**
      *
      */
+    /** @noinspection PhpUnusedPrivateMethodInspection */
     private function changeimage()
     {
         $gimg = new Gallery_Images();
@@ -322,6 +336,7 @@ class ProfileEdit
     /**
      * @throws \Exception
      */
+    /** @noinspection PhpUnusedPrivateMethodInspection */
     private function crop()
     {
         $file = new Crop([
@@ -339,6 +354,7 @@ class ProfileEdit
         } else {
             $_SESSION['user']->profileImage = $_POST['imageid'];
         }
+        /** @noinspection PhpUndefinedMethodInspection */
         if ($_SESSION['user']->save()) {
             header("Location: " . Url::convertUrl("index.php?m=profile"));
         }

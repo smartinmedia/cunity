@@ -52,6 +52,7 @@ class Controller
      */
     public function __construct()
     {
+        View::initTranslator();
         array_walk_recursive($_GET, [$this, 'trimhtml']);
         array_walk_recursive($_POST, [$this, 'trimhtml']);
 
