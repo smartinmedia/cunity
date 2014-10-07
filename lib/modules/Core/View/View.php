@@ -59,7 +59,11 @@ class View extends Smarty
      */
     public static $zt;
 
+    /**
+     * @var string
+     */
     protected static $defaultLanguage = 'en';
+
     /**
      * @var string
      */
@@ -234,6 +238,7 @@ class View extends Smarty
         $announcements = new Announcements();
         $this->assign("announcements", $announcements->getAnnouncements());
         if ((Login::loggedIn())) {
+            /** @noinspection PhpUndefinedMethodInspection */
             $this->assign(
                 'user',
                 $_SESSION['user']->getTable()->get($_SESSION['user']->userid)
@@ -387,11 +392,12 @@ class View extends Smarty
             [
                 'adapter' => 'csv',
                 'locale' => 'auto',
-                'content' => __DIR__.'/../languages/'.$locale->getLanguage().'.php',
+                'content' => __DIR__ . '/../languages/' . $locale->getLanguage() . '.php',
                 'scan' => Zend_Translate::LOCALE_FILENAME
             ]
         );
 
+        /** @noinspection PhpUndefinedMethodInspection */
         self::$zt->setOptions(
             [
                 'log' => new Zend_Log(
@@ -401,9 +407,12 @@ class View extends Smarty
             ]
         );
 
+        /** @noinspection PhpUndefinedMethodInspection */
         if (!self::$zt->isAvailable($locale->getLanguage())) {
+            /** @noinspection PhpUndefinedMethodInspection */
             self::$zt->setLocale(self::$defaultLanguage);
         }
+        /** @noinspection PhpUndefinedMethodInspection */
         self::$zt->getLocale();
     }
 }
