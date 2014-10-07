@@ -255,6 +255,7 @@ $installer = new Install();
                                 <span class="input-group-addon"><i class="fa fa-globe"></i></span>
                                 <select class="form-control" name="lang">
                                     <option value="en">English</option>
+                                    <option value="de">Deutsch</option>
                                 </select>
                             </div>                            
                         </div>
