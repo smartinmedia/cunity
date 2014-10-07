@@ -52,22 +52,6 @@ class User extends \Zend_Db_Table_Row_Abstract
      * @var array
      */
     public $friends = [];
-
-    /**
-     * @var
-     */
-    public $sex;
-
-    /**
-     * @var
-     */
-    public $username;
-
-    /**
-     * @var
-     */
-    public $email;
-    public $password;
     /**
      * @var array
      */
