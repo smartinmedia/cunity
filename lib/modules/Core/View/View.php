@@ -392,7 +392,7 @@ class View extends Smarty
             [
                 'adapter' => 'csv',
                 'locale' => 'auto',
-                'content' => __DIR__ . '/../languages/' . $locale->getLanguage() . '.php',
+                'content' => __DIR__ . '/../languages/' . $locale->getLanguage() . '.csv',
                 'scan' => Zend_Translate::LOCALE_FILENAME
             ]
         );
