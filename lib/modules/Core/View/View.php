@@ -174,15 +174,9 @@ class View extends Smarty
      * @param array $replaces
      * @return string
      */
-    public function translate($string, $replaces = [])
+    public static function translate($string, $replaces = [])
     {
-        if ($string == 'Wall')
-        {
-//            var_dump(self::$zt->);exit;
-            //($string));exit;
-        }
         return self::$zt->_($string);
-//        return vsprintf($string, $replaces);
     }
 
     /**
@@ -414,7 +408,7 @@ class View extends Smarty
             self::$zt->setOptions(
                 [
                     'log' => new Zend_Log(
-                        new Zend_Log_Writer_Stream('missing-translations.log')
+                        new Zend_Log_Writer_Stream(__DIR__.'/../../../../resources/log/missing-translations.log')
                     ),
                     'logUntranslated' => true
                 ]
