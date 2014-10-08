@@ -52,7 +52,7 @@
                                 {-else}
                                 <li><a href="javascript:changeModuleStatus({-$module.id}, 1);"><i class="fa fa-power-off"></i>&nbsp;{-"Activate"|translate}</a></li>
                                 {-/if}
-                                <li><a href="javascript:changeIcon({-$module.id});"><i class="fa fa-pencil"></i>&nbsp;{-"Change Icon"|translate}</a></li>
+                                {-*<li><a href="javascript:changeIcon({-$module.id});"><i class="fa fa-pencil"></i>&nbsp;{-"Change Icon"|translate}</a></li>*}
                                 {-*<li class="divider"></li>*}
                                 {-*<li><a href="#"><i class="fa fa-trash-o"></i>&nbsp;{-"Uninstall"|translate}</a></li>*}
                             </ul>
