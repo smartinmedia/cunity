@@ -52,21 +52,29 @@ class Controller extends ModuleController
      */
     public function __construct()
     {
-        if (isset($_GET['action']) && $_GET['action'] != "update") {
-            Login::loginRequired();
-        }
-        if (isset($_GET['action']) && $_GET['action'] == "login") {
-            new Models\Login("login");
-        } elseif (isset($_GET['action']) && $_GET['action'] == "save") {
-            new Models\Process($_POST['form']);
-        } elseif (isset($_GET['action']) && $_GET['action'] == "update") {
-            new Models\Updater\DatabaseUpdater();
-        } elseif (isset($_GET['action']) && !empty($_GET['action'])) {
-            $model = "\Cunity\Admin\Models\\Pages\\" . ucfirst($_GET['action']);
-            if (!Models\Login::loggedIn()) {
-                new View\Login();
-            } elseif (Request::isAjaxRequest()) {
-                new $model;
+        if (isset($_GET['action']) && $_GET['action'] !== '') {
+            if ($_GET['action'] != "update") {
+                Login::loginRequired();
+            }
+
+            switch ($_GET['action']) {
+                case 'login':
+                    new Models\Login("login");
+                    break;
+                case 'save':
+                    new Models\Process($_POST['form']);
+                    break;
+                case 'update':
+                    new Models\Updater\DatabaseUpdater();
+                    break;
+                default:
+                    $model = "\Cunity\Admin\Models\\Pages\\" . ucfirst($_GET['action']);
+                    if (!Models\Login::loggedIn()) {
+                        new View\Login();
+                    } elseif (Request::isAjaxRequest()) {
+                        new $model;
+                    }
+                    break;
             }
         } else {
             new View\Admin();

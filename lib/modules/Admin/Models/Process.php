@@ -37,6 +37,7 @@
 namespace Cunity\Admin\Models;
 
 use Cunity\Core\Cunity;
+use Cunity\Core\Models\Db\Table\Modules;
 use Cunity\Core\View\Ajax\View;
 
 /**
@@ -48,7 +49,7 @@ class Process
     /**
      * @var array
      */
-    private $validForms = ["config", "settings", "mailtemplates"];
+    private $validForms = ["config", "settings", "mailtemplates", "modules"];
 
     /**
      * @param $form
@@ -89,7 +90,12 @@ class Process
                 $settings = Cunity::get("settings");
                 $res[] = $settings->setSetting("core.mail_header", $_POST['mail_header']);
                 $res[] = $settings->setSetting("core.mail_footer", $_POST['mail_footer']);
-
+                break;
+            case 'modules':
+                Cunity::set('modules', new Modules());
+                $modules = Cunity::get("modules");
+                fb($_POST);
+                $modules->update(['status' => $_POST['status']], 'id = '.$_POST['id']);
                 break;
         }
         $view = new View(!in_array(false, $res));

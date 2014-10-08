@@ -8,6 +8,8 @@
         </ol>
     </div>
 </div>
+<form class="ajaxform form-validate" data-bv-excluded=""
+      action="{-"index.php?m=admin&action=manage"|URL}" id="manageform" method="POST">
 <div class="row">
     <div class="col-lg-8">
         <div class="panel panel-default">
@@ -46,11 +48,11 @@
                             </button>
                             <ul class="dropdown-menu" role="menu">
                                 {-if $module.status == 1}
-                                <li><a href="#"><i class="fa fa-power-off"></i>&nbsp;{-"Deactivate"|translate}</a></li>
+                                <li><a href="javascript:changeModuleStatus({-$module.id}, 0);"><i class="fa fa-power-off"></i>&nbsp;{-"Deactivate"|translate}</a></li>
                                 {-else}
-                                <li><a href="#"><i class="fa fa-power-off"></i>&nbsp;{-"Activate"|translate}</a></li>
+                                <li><a href="javascript:changeModuleStatus({-$module.id}, 1);"><i class="fa fa-power-off"></i>&nbsp;{-"Activate"|translate}</a></li>
                                 {-/if}
-                                <li><a href="#"><i class="fa fa-pencil"></i>&nbsp;{-"Change Icon"|translate}</a></li>
+                                <li><a href="javascript:changeIcon({-$module.id});"><i class="fa fa-pencil"></i>&nbsp;{-"Change Icon"|translate}</a></li>
                                 {-*<li class="divider"></li>*}
                                 {-*<li><a href="#"><i class="fa fa-trash-o"></i>&nbsp;{-"Uninstall"|translate}</a></li>*}
                             </ul>
@@ -85,3 +87,4 @@
         {-*</div>*}
     {-*</div>*}
 </div>
+</form>
