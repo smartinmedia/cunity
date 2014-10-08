@@ -72,10 +72,18 @@ class Modules extends Table
 
     /**
      * @param $moduletag
+     * @param bool $onlyActive
      * @return null|\Zend_Db_Table_Row_Abstract
      */
-    public function getModuleData($moduletag)
+    public function getModuleData($moduletag, $onlyActive = true)
     {
-        return $this->fetchRow($this->select()->where("namespace=?", $moduletag)->limit(1));
+        /** @var \Zend_Db_Table_Select $where */
+        $where = $this->select()->where("namespace=?", $moduletag)->limit(1);
+
+        if ($onlyActive) {
+            $where->where('status = ?', 1);
+        }
+
+        return $this->fetchRow($where);
     }
 }
