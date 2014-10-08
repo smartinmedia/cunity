@@ -38,8 +38,10 @@ namespace Cunity\Core\View;
 
 use Cunity\Core\Cunity;
 use Cunity\Core\Exception;
+use Cunity\Core\Models\Db\Row\Setting;
 use Cunity\Core\Models\Db\Table\Announcements;
 use Cunity\Core\Models\Db\Table\Menu;
+use Cunity\Core\Models\Db\Table\Settings;
 use Cunity\Core\Models\Generator\Url;
 use Cunity\Register\Models\Login;
 use Smarty;
@@ -387,13 +389,16 @@ class View extends Smarty
      */
     public static function initTranslator()
     {
+        Cunity::init();
+        $locale = new Zend_Locale(Cunity::get('settings')->getSetting('core.language'));
+
         if (null === self::$zt) {
-            $locale = new Zend_Locale();
             self::$zt = new Zend_Translate(
                 [
                     'adapter' => 'csv',
                     'content' => __DIR__ . '/../languages/' . $locale->getLanguage() . '.csv',
-                    'scan' => Zend_Translate::LOCALE_FILENAME
+                    'scan' => Zend_Translate::LOCALE_FILENAME,
+                    'locale' => $locale->getLanguage()
                 ]
             );
 

@@ -122,8 +122,8 @@ class Settings extends PageAbstract
         }
 
         foreach ($langIterator as $lang) {
-            if ($lang->isReadable() && $lang->getExtension() == "php") {
-                $this->assignments['availableLanguages'][] = explode("-", $lang->getBasename(".php"));
+            if ($lang->isReadable() && $lang->getExtension() == "csv") {
+                $this->assignments['availableLanguages'][] = $lang->getBasename('.csv');
             }
         }
         $this->assignments["config"] = Cunity::get("config");

@@ -87,10 +87,10 @@
                         <div class="col-sm-8">
                             <select class="form-control" name="settings-core.language">
                                 {-foreach $availableLanguages AS $language}
-                                    {-if {-"core.language"|setting} eq $language[1]}
-                                    <option value="{-$language[1]}" selected>{-$language[0]|translate}</option>
+                                    {-if {-"core.language"|setting} eq $language}
+                                    <option value="{-$language}" selected>{-$language|translate}</option>
                                     {-else}
-                                        <option value="{-$language[1]}">{-$language[0]|translate}</option>
+                                        <option value="{-$language}">{-$language|translate}</option>
                                         {-/if}
                                             {-/foreach}
                                             </select>
