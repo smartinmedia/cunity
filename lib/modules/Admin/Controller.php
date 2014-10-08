@@ -52,12 +52,14 @@ class Controller extends ModuleController
      */
     public function __construct()
     {
-        if (isset($_GET['action']) && $_GET['action'] !== '') {
-            if ($_GET['action'] != "update") {
+        $action = $_GET['action'];
+
+        if (isset($action) && $action !== '') {
+            if ($action != "update") {
                 Login::loginRequired();
             }
 
-            switch ($_GET['action']) {
+            switch ($action) {
                 case 'login':
                     new Models\Login("login");
                     break;
@@ -68,7 +70,7 @@ class Controller extends ModuleController
                     new Models\Updater\DatabaseUpdater();
                     break;
                 default:
-                    $model = "\Cunity\Admin\Models\\Pages\\" . ucfirst($_GET['action']);
+                    $model = "\Cunity\Admin\Models\\Pages\\" . ucfirst($action);
                     if (!Models\Login::loggedIn()) {
                         new View\Login();
                     } elseif (Request::isAjaxRequest()) {
