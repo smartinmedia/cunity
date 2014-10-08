@@ -26,7 +26,7 @@
                 <tbody id="moduletable">
                 {-foreach $installedModules AS $i => $module}
                 <tr>
-                    <td style="vertical-align:middle">{-$i}</td>
+                    <td style="vertical-align:middle">{-$i+1}</td>
                     <td width="30px" style="vertical-align:middle"><i class="fa fa-{-$module.iconClass}"
                                                                       style="font-size:30px"></i></td>
                     <td><p><strong>{-$module.name|translate}</strong></p><i>{-"core.siteurl"|setting}{-$module.namespace}</i>
