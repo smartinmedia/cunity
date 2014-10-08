@@ -1,6 +1,5 @@
 <?php
 
-
 /**
  * ########################################################################################
  * ## CUNITY(R) V2.0 - An open source social network / "your private social network"     ##
@@ -325,18 +324,6 @@ $installer = new Install();
                                     <div class="list-group">                                        
                                         <li class="list-group-item"><i class="fa <?php if (version_compare(PHP_VERSION, '5.5.0', '>=')) { ?> fa-check-circle-o text-success <?php } else { ?>fa-times-circle-o text-danger <?php } ?> fa-fw fa-lg"></i>&nbsp;PHP Version 5.5+</li>
                                         <li class="list-group-item"><i class="fa fa-question text-muted fa-fw fa-lg"></i>&nbsp;MySQL Version 5+ (<?php __("Will be checked in the next step"); ?>)</li>
-                                        <li class="list-group-item">
-                                            <i class="fa <?php if (class_exists("Zend_Version") && Zend_Version::compareVersion('1.12') < 1 && Zend_Version::compareVersion('2.0.0') == 1) { ?> fa-check-circle-o text-success <?php } else { ?>fa-times-circle-o text-danger <?php } ?> fa-fw fa-lg"></i>&nbsp;Zend Framework 1.12
-                                            <?php if (!class_exists("Zend_Version") || true) { ?>
-                                                <a href="#" class="pull-right"><i class="fa fa-download"></i>&nbsp;<?php __("Install"); ?></a>
-                                            <?php } ?>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <i class="fa <?php if (class_exists("Smarty") && is_subclass_of("Smarty", "Smarty_Internal_TemplateBase")) { ?> fa-check-circle-o text-success <?php } else { ?>fa-times-circle-o text-danger <?php } ?> fa-fw fa-lg"></i>&nbsp;Smarty 3
-                                            <?php if (!class_exists("Smarty") || true) { ?>
-                                                <a href="#" class="pull-right"><i class="fa fa-download"></i>&nbsp;<?php __("Install"); ?></a>
-                                            <?php } ?>
-                                        </li>                                        
                                     </div>
                                 </div>                                
                                 <div class="item" id="database">
@@ -560,8 +547,8 @@ $installer = new Install();
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-2 clearfix"><a role="button" href="#installCarousel" id="installNextButton" data-slide="next" class="btn btn-primary pull-right"><?php __("Next"); ?>&nbsp;<i class="fa fa-chevron-right"></i></a></div>
-                            <div class="col-lg-2 clearfix"><a role="button" href=".." id="installFinishButton" class="btn btn-success pull-right hidden"><i class="fa fa-check"></i>&nbsp;<?php __("Finish"); ?></a></div>
+                            <div class="col-lg-2 clearfix"><a role="button" href="#installCarousel" id="installNextButton" data-slide="next" disabled class="btn btn-primary pull-right"><?php __("Next"); ?>&nbsp;<i class="fa fa-chevron-right"></i></a></div>
+                            <div class="col-lg-2 clearfix"><a role="button" href=".." id="installFinishButton" disabled class="btn btn-success pull-right hidden"><i class="fa fa-check"></i>&nbsp;<?php __("Finish"); ?></a></div>
                         </div>                    
                     </div>
                 </div>                          

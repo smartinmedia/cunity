@@ -51,8 +51,8 @@
                                 <li><a href="#"><i class="fa fa-power-off"></i>&nbsp;{-"Activate"|translate}</a></li>
                                 {-/if}
                                 <li><a href="#"><i class="fa fa-pencil"></i>&nbsp;{-"Change Icon"|translate}</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#"><i class="fa fa-trash-o"></i>&nbsp;{-"Uninstall"|translate}</a></li>
+                                {-*<li class="divider"></li>*}
+                                {-*<li><a href="#"><i class="fa fa-trash-o"></i>&nbsp;{-"Uninstall"|translate}</a></li>*}
                             </ul>
                         </div>
                     </td>
