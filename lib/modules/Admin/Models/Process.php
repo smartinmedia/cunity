@@ -38,6 +38,7 @@ namespace Cunity\Admin\Models;
 
 use Cunity\Core\Cunity;
 use Cunity\Core\Models\Db\Table\Modules;
+use Cunity\Core\Models\Db\Table\Users;
 use Cunity\Core\View\Ajax\View;
 
 /**
@@ -49,7 +50,7 @@ class Process
     /**
      * @var array
      */
-    private $validForms = ["config", "settings", "mailtemplates", "modules"];
+    private $validForms = ['config', 'settings', 'mailtemplates', 'modules', 'users'];
 
     /**
      * @param $form
@@ -94,8 +95,12 @@ class Process
             case 'modules':
                 Cunity::set('modules', new Modules());
                 $modules = Cunity::get("modules");
-                fb($_POST);
                 $modules->update(['status' => $_POST['status']], 'id = '.$_POST['id']);
+                break;
+            case 'users':
+                Cunity::set('users', new Users());
+                $users = Cunity::get("users");
+                $users->update(['groupid' => $_POST['groupid']], 'userid = '.$_POST['userid']);
                 break;
         }
         $view = new View(!in_array(false, $res));
