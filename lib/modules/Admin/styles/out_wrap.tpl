@@ -95,9 +95,9 @@
                         <li>
                             <a data-cat="appearance" data-page="menus">{-"Menus"|translate}</a>
                         </li>
-                        <li>
-                            <a data-cat="appearance" data-page="sidebar">{-"Right Sidebar"|translate}</a>
-                        </li>
+                        {-*<li>*}
+                            {-*<a data-cat="appearance" data-page="sidebar">{-"Right Sidebar"|translate}</a>*}
+                        {-*</li>*}
                         <li>
                             <a data-cat="appearance" data-page="layout">{-"Layout"|translate}</a>
                         </li>
