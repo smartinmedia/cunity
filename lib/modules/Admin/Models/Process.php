@@ -103,10 +103,13 @@ class Process
                 $users = Cunity::get("users");
 
                 if (null !== $_REQUEST['userid']) {
-                    $users->update(['groupid' => $_REQUEST['groupid']], 'userid = '.$_REQUEST['userid']);
+                    if ('' !== $_REQUEST['groupid']) {
+                        $users->update(['groupid' => $_REQUEST['groupid']], 'userid = '.$_REQUEST['userid']);
+                    } else {
+                        $users->delete('userid = '.$_REQUEST['userid']);
+                    }
                 } else {
                     $users->registerNewUser($_REQUEST);
-                    exit;
                 }
                 break;
         }

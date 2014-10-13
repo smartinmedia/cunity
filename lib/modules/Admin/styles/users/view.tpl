@@ -37,7 +37,7 @@
                 {-foreach $users AS $i => $userItem}
                     <tr class="user-{-$userItem.groupid}">
                         <td>{-$i+1}</td>
-                        <td><a href="{-"index.php?m=profile&action="|URL}{-$userItem.username}">{-$userItem.name}</a>
+                        <td><a href="{-"index.php?m=profile&action="|URL}{-$userItem.username}" target="_blank">{-$userItem.name}</a>
                         </td>
                         <td>{-$userItem.email}</td>
                         <td>{-$userItem.registered}</td>
@@ -65,21 +65,23 @@
                                     <li><a href="javascript: changeUserStatus(null, {-$userItem.userid});"><i
                                                     class="fa fa-trash-o"></i>&nbsp;{-"Delete this user"|translate}</a>
                                     </li>
+                                    {-if $user.groupid <= 3 and $userItem.groupid != 4}
                                     <li><a href="javascript: changeUserStatus(4, {-$userItem.userid});"><i
                                                     class="fa fa-ban"></i>&nbsp;{-"Block this user"|translate}</a></li>
-                                    {-if $user.groupid eq 0}
+                                    {-/if}
+                                    {-if $user.groupid <= 3 and $userItem.groupid == 4}
                                         <li><a href="javascript: changeUserStatus(1, {-$userItem.userid});"><i
                                                         class="fa fa-check"></i>&nbsp;{-"Activate this user"|translate}
                                             </a></li>
                                     {-/if}
-                                    {-if $userItem.groupid < 2}
+                                    {-if $userItem.groupid <= 2}
                                         <li class="divider"></li>
-                                        {-if $userItem.groupid == 1}
-                                            <li><a href="javascript: changeUserStatus('groupid',2);"><i
+                                        {-if $userItem.groupid eq 1}
+                                            <li><a href="javascript: changeUserStatus(2, {-$userItem.userid});"><i
                                                             class="fa fa-wrench"></i>&nbsp;{-"Make Administrator"|translate}
                                                 </a></li>
                                         {-elseif $userItem.groupid eq 2}
-                                            <li><a href="javascript: changeUserStatus('groupid',1);"><i
+                                            <li><a href="javascript: changeUserStatus(1, {-$userItem.userid});"><i
                                                             class="fa fa-ban"></i>&nbsp;{-"Remove Administrator"|translate}
                                                 </a></li>
                                         {-/if}

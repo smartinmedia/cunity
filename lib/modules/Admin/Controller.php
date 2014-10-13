@@ -69,6 +69,9 @@ class Controller extends ModuleController
                 case 'update':
                     new Models\Updater\DatabaseUpdater();
                     break;
+                case 'delete':
+//                    new Models\Process()
+                    break;
                 default:
                     $model = "\Cunity\Admin\Models\\Pages\\" . ucfirst($action);
                     if (!Models\Login::loggedIn()) {
