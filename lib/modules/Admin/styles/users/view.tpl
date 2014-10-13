@@ -122,15 +122,18 @@
     </div>
 </div>
 <div class="modal fade" id="addusermodal" tabindex="-1" role="dialog" aria-labelledby="addusermodal" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">{-"Add User"|translate}</h4>
-            </div>
-            <div class="modal-body">
-                <form class="login-form form-horizontal" action="{-"index.php?m=register&action=login"|URL}"
-                      method="post" style="margin:10px;">
+    <form class="login-form form-horizontal ajaxform" action="{-"index.php?m=admin&action=save"|URL}"
+          style="margin:10px;" name="users">
+        <input type="hidden" name="action" value="save">
+        <input type="hidden" class="ajaxform-callback" value="addUser">
+        <input type="hidden" name="form" value="users">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">{-"Add User"|translate}</h4>
+                </div>
+                <div class="modal-body">
                     <div class="form-group">
                         <label for="cunity-name"
                                class="col-sm-4 control-label">{-"Firstname"|translate}</label>
@@ -149,6 +152,16 @@
                             <input type="text" class="form-control" value="" id="lastname"
                                    name="lastname" required data-bv-stringlength data-bv-stringlength-min="3"
                                    data-bv-stringlength-message="{-"Lastname is too short (min. 3 chars)"|translate}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="cunity-name"
+                               class="col-sm-4 control-label">{-"Username"|translate}</label>
+
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" value="" id="username"
+                                   name="username" required data-bv-stringlength data-bv-stringlength-min="3"
+                                   data-bv-stringlength-message="{-"Username is too short (min. 3 chars)"|translate}">
                         </div>
                     </div>
                     <div class="form-group">
@@ -179,7 +192,18 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="Pass"
+                        <label for="sex"
+                               class="col-sm-4 control-label">{-"Sex"|translate}</label>
+
+                        <div class="col-sm-8">
+                            <select class="form-control" name="settings-core.language">
+                                <option value="f" selected>{-"Female"|translate}</option>
+                                <option value="m">{-"Male"|translate}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="group"
                                class="col-sm-4 control-label">{-"Group"|translate}</label>
 
                         <div class="col-sm-8">
@@ -190,14 +214,14 @@
                             </select>
                         </div>
                     </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" data-bb-handler="confirm" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
             </div>
         </div>
-    </div>
+    </form>
 </div>
 <script id="usertable-row" type="text/html">
     <tr>

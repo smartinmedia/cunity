@@ -99,8 +99,15 @@ class Process
                 break;
             case 'users':
                 Cunity::set('users', new Users());
+                /** @var Users $users */
                 $users = Cunity::get("users");
-                $users->update(['groupid' => $_POST['groupid']], 'userid = '.$_POST['userid']);
+
+                if (null !== $_REQUEST['userid']) {
+                    $users->update(['groupid' => $_REQUEST['groupid']], 'userid = '.$_REQUEST['userid']);
+                } else {
+                    $users->registerNewUser($_REQUEST);
+                    exit;
+                }
                 break;
         }
         $view = new View(!in_array(false, $res));

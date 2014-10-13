@@ -64,7 +64,7 @@ class Controller extends ModuleController
                     new Models\Login("login");
                     break;
                 case 'save':
-                    new Models\Process($_POST['form']);
+                    new Models\Process($_REQUEST['form']);
                     break;
                 case 'update':
                     new Models\Updater\DatabaseUpdater();
