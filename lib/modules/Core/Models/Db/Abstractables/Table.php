@@ -75,10 +75,21 @@ abstract class Table extends \Zend_Db_Table_Abstract
      */
     public function insert(array $data)
     {
-        if (in_array("time", $this->info(\Zend_Db_Table_Abstract::COLS))) {
+        $info = $this->info(\Zend_Db_Table_Abstract::COLS);
+
+        if (in_array("time", $info)) {
             $data['time'] = new \Zend_Db_Expr("UTC_TIMESTAMP()");
         }
-        return parent::insert($data);
+
+        $dataToStore = [];
+
+        foreach ($data as $_key => $_value) {
+            if (in_array($_key, $info)) {
+                $dataToStore[$_key] = $_value;
+            }
+        }
+
+        return parent::insert($dataToStore);
     }
 
     /**
