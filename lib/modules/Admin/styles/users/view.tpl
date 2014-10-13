@@ -196,7 +196,7 @@
                                class="col-sm-4 control-label">{-"Sex"|translate}</label>
 
                         <div class="col-sm-8">
-                            <select class="form-control" name="settings-core.language">
+                            <select class="form-control" name="sex">
                                 <option value="f" selected>{-"Female"|translate}</option>
                                 <option value="m">{-"Male"|translate}</option>
                             </select>
@@ -207,7 +207,7 @@
                                class="col-sm-4 control-label">{-"Group"|translate}</label>
 
                         <div class="col-sm-8">
-                            <select class="form-control" name="settings-core.language">
+                            <select class="form-control" name="groupid">
                                 <option value="1" selected>{-"User"|translate}</option>
                                 <option value="2">{-"Admin"|translate}</option>
                                 <option value="3">{-"Cunity-Owner"|translate}</option>
