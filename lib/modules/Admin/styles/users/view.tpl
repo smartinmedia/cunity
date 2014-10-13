@@ -138,7 +138,7 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="cunity-name"
-                               class="col-sm-4 control-label">{-"Firstname"|translate}</label>
+                               class="col-sm-4 control-label">{-"Firstname"|translate}*</label>
 
                         <div class="col-sm-8">
                             <input type="text" class="form-control" value="" id="firstname"
@@ -148,7 +148,7 @@
                     </div>
                     <div class="form-group">
                         <label for="cunity-name"
-                               class="col-sm-4 control-label">{-"Lastname"|translate}</label>
+                               class="col-sm-4 control-label">{-"Lastname"|translate}*</label>
 
                         <div class="col-sm-8">
                             <input type="text" class="form-control" value="" id="lastname"
@@ -158,7 +158,7 @@
                     </div>
                     <div class="form-group">
                         <label for="cunity-name"
-                               class="col-sm-4 control-label">{-"Username"|translate}</label>
+                               class="col-sm-4 control-label">{-"Username"|translate}*</label>
 
                         <div class="col-sm-8">
                             <input type="text" class="form-control" value="" id="username"
@@ -168,7 +168,7 @@
                     </div>
                     <div class="form-group">
                         <label for="password"
-                               class="col-sm-4 control-label">{-"Password"|translate}</label>
+                               class="col-sm-4 control-label">{-"Password"|translate}*</label>
 
                         <div class="col-sm-8">
                             <input type="password" class="form-control" value="" id="password"
@@ -177,7 +177,7 @@
                     </div>
                     <div class="form-group">
                         <label for="email"
-                               class="col-sm-4 control-label">{-"Password repeated"|translate}</label>
+                               class="col-sm-4 control-label">{-"Password repeated"|translate}*</label>
 
                         <div class="col-sm-8">
                             <input type="password" class="form-control" value="" id="password-repeated"
@@ -186,7 +186,7 @@
                     </div>
                     <div class="form-group">
                         <label for="email"
-                               class="col-sm-4 control-label">{-"E-Mail"|translate}</label>
+                               class="col-sm-4 control-label">{-"E-Mail"|translate}*</label>
 
                         <div class="col-sm-8">
                             <input type="email" class="form-control" value="" id="cunity-name"
@@ -195,7 +195,7 @@
                     </div>
                     <div class="form-group">
                         <label for="sex"
-                               class="col-sm-4 control-label">{-"Sex"|translate}</label>
+                               class="col-sm-4 control-label">{-"Sex"|translate}*</label>
 
                         <div class="col-sm-8">
                             <select class="form-control" name="sex">
@@ -206,7 +206,7 @@
                     </div>
                     <div class="form-group">
                         <label for="group"
-                               class="col-sm-4 control-label">{-"Group"|translate}</label>
+                               class="col-sm-4 control-label">{-"Group"|translate}*</label>
 
                         <div class="col-sm-8">
                             <select class="form-control" name="groupid">
