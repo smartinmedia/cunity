@@ -75,7 +75,8 @@
                                     {-if $userItem.groupid < 2}
                                         <li class="divider"></li>
                                         {-if $userItem.groupid == 1}
-                                            <li><a href="javascript: changeUserStatus('groupid',2);"><i class="fa fa-wrench"></i>&nbsp;{-"Make Administrator"|translate}
+                                            <li><a href="javascript: changeUserStatus('groupid',2);"><i
+                                                            class="fa fa-wrench"></i>&nbsp;{-"Make Administrator"|translate}
                                                 </a></li>
                                         {-elseif $userItem.groupid eq 2}
                                             <li><a href="javascript: changeUserStatus('groupid',1);"><i
@@ -125,10 +126,71 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                <h4 class="modal-title" id="myModalLabel">{-"Add User"|translate}</h4>
             </div>
             <div class="modal-body">
-                ...
+                <form class="login-form form-horizontal" action="{-"index.php?m=register&action=login"|URL}"
+                      method="post" style="margin:10px;">
+                    <div class="form-group">
+                        <label for="cunity-name"
+                               class="col-sm-4 control-label">{-"Firstname"|translate}</label>
+
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" value="" id="firstname"
+                                   name="firstname" required data-bv-stringlength data-bv-stringlength-min="3"
+                                   data-bv-stringlength-message="{-"Firstname is too short (min. 3 chars)"|translate}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="cunity-name"
+                               class="col-sm-4 control-label">{-"Lastname"|translate}</label>
+
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" value="" id="lastname"
+                                   name="lastname" required data-bv-stringlength data-bv-stringlength-min="3"
+                                   data-bv-stringlength-message="{-"Lastname is too short (min. 3 chars)"|translate}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="password"
+                               class="col-sm-4 control-label">{-"Password"|translate}</label>
+
+                        <div class="col-sm-8">
+                            <input type="password" class="form-control" value="" id="password"
+                                   name="password" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email"
+                               class="col-sm-4 control-label">{-"Password repeated"|translate}</label>
+
+                        <div class="col-sm-8">
+                            <input type="password" class="form-control" value="" id="password-repeated"
+                                   name="password-repeated" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email"
+                               class="col-sm-4 control-label">{-"E-Mail"|translate}</label>
+
+                        <div class="col-sm-8">
+                            <input type="email" class="form-control" value="" id="cunity-name"
+                                   name="email" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Pass"
+                               class="col-sm-4 control-label">{-"Group"|translate}</label>
+
+                        <div class="col-sm-8">
+                            <select class="form-control" name="settings-core.language">
+                                <option value="1" selected>{-"User"|translate}</option>
+                                <option value="2">{-"Admin"|translate}</option>
+                                <option value="3">{-"Cunity-Owner"|translate}</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
