@@ -64,13 +64,11 @@ class Controller extends ModuleController
                     new Models\Login("login");
                     break;
                 case 'save':
-                    new Models\Process($_REQUEST['form']);
+                case 'delete':
+                    new Models\Process($_REQUEST['form'], $action);
                     break;
                 case 'update':
                     new Models\Updater\DatabaseUpdater();
-                    break;
-                case 'delete':
-//                    new Models\Process()
                     break;
                 default:
                     $model = "\Cunity\Admin\Models\\Pages\\" . ucfirst($action);
