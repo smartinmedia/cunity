@@ -80,6 +80,9 @@
                             <a data-cat="settings" data-page="users">{-"Users & Registration"|translate}</a>
                         </li>
                         <li>
+                            <a data-cat="settings" data-page="profilefields">{-"Profile fields"|translate}</a>
+                        </li>
+                        <li>
                             <a data-cat="settings" data-page="mail">{-"Mail"|translate}</a>
                         </li>
                         <li>
