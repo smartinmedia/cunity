@@ -65,14 +65,10 @@ class Version_1413270764 extends DbUpdateVersion implements DbCommandInterface
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;");
 
         $this->_db->query("INSERT INTO " . $this->_db->get_dbprefix() . "profilefields (id, value, type_id, registration, required, deleteable, sorting) VALUES
-    (1, 'Sex', 1, 1, 1, 1, 7),
+    (1, 'Sex', 1, 1, 1, 1, 3),
 (2, 'Firstname', 4, 0, 1, 1, 1),
 (3, 'Lastname', 4, 0, 1, 1, 2),
-(4, 'Username', 4, 1, 1, 0, 3),
-(5, 'Password', 7, 1, 1, 0, 4),
-(6, 'Password repeated', 7, 1, 1, 0, 5),
-(7, 'E-Mail', 4, 1, 1, 0, 6),
-(8, 'Birthdate', 6, 0, 1, 1, 8);");
+(4, 'Birthdate', 6, 0, 1, 1, 4);");
 
         $this->_db->query("DROP TABLE IF EXISTS " . $this->_db->get_dbprefix() . "profilefields_types;
 CREATE TABLE IF NOT EXISTS " . $this->_db->get_dbprefix() . "profilefields_types (
@@ -87,8 +83,7 @@ CREATE TABLE IF NOT EXISTS " . $this->_db->get_dbprefix() . "profilefields_types
 (3, 'text'),
 (4, 'string'),
 (5, 'email'),
-(6, 'date'),
-(7, 'password');");
+(6, 'date');");
 
         $this->_db->query("DROP TABLE IF EXISTS " . $this->_db->get_dbprefix() . "profilefields_users;
 CREATE TABLE IF NOT EXISTS " . $this->_db->get_dbprefix() . "profilefields_users (
