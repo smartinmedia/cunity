@@ -67,8 +67,7 @@ class Version_1413270764 extends DbUpdateVersion implements DbCommandInterface
         $this->_db->query("INSERT INTO " . $this->_db->get_dbprefix() . "profilefields (id, value, type_id, registration, required, deleteable, sorting) VALUES
     (1, 'Sex', 1, 1, 1, 1, 3),
 (2, 'Firstname', 4, 0, 1, 1, 1),
-(3, 'Lastname', 4, 0, 1, 1, 2),
-(4, 'Birthdate', 6, 0, 1, 1, 4);");
+(3, 'Lastname', 4, 0, 1, 1, 2);");
 
         $this->_db->query("DROP TABLE IF EXISTS " . $this->_db->get_dbprefix() . "profilefields_types;
 CREATE TABLE IF NOT EXISTS " . $this->_db->get_dbprefix() . "profilefields_types (
