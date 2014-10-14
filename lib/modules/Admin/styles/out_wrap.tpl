@@ -123,7 +123,7 @@
                             <a data-cat="statistics" data-page="reports">{-"Site Reports"|translate}</a>
                         </li>
                         <li>
-                            <a data-cat="statistics" data-page="events">{-"Events"|translate}</a>
+                            <a data-cat="statistics" data-page="logs">{-"Log"|translate}</a>
                         </li>
                     </ul>
                     <!-- /.nav-second-level -->
