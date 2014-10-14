@@ -129,6 +129,7 @@ class Settings extends PageAbstract
         }
         $profileFields = new ProfileFields();
         $this->assignments['profileFields'] = $profileFields->getRegistrationFields();
+        $this->assignments['fieldTypes'] = ProfileFields::$types;
         $this->assignments["config"] = Cunity::get("config");
     }
 }
