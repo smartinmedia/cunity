@@ -30,7 +30,7 @@
                     {-foreach $modules AS $module}
                     <div class="col-sm-2">
                         <i class="fa fa-{-$module.iconClass} fa-fw fa-5x {-if $module.status == 0}text-muted{-/if}"></i>
-                        <a>{-$module.name|translate}</a>
+                        <a href="{-"core.siteurl"|setting}{-$module.namespace}" target="_blank">{-$module.name|translate}</a>
                     </div>
                     {-/foreach}
                 </div>
