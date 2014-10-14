@@ -46,6 +46,7 @@ use Cunity\Core\View\Message;
 use Cunity\Core\View\PageNotFound;
 use Cunity\Gallery\Models\Db\Table\Gallery_Images;
 use Cunity\Notifications\Models\Db\Table\Notification_Settings;
+use Cunity\Profile\Models\Db\Table\ProfileFields;
 use Cunity\Profile\View\ProfileCrop;
 use Skoch\Filter\File\Crop;
 
@@ -91,6 +92,8 @@ class ProfileEdit
             $privacy = $table->getPrivacy();
             $table = new Notification_Settings();
             $notificationSettings = $table->getSettings();
+            $profileFields = new ProfileFields();
+            $view->assign('profileFields', $profileFields->getAll());
             $view->assign("profile", array_merge($profile, ["privacy" => $privacy, 'notificationSettings' => $notificationSettings]));
             $view->render();
         }

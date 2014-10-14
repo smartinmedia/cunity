@@ -56,16 +56,21 @@
                                 <input type="text" name="username" class="form-control" value="{-$profile.username}">
                             </div>
                         </div>
+                        {-foreach $profileFields AS $i => $field}
                         <div class="form-group">
-                            <label class="control-label col-md-3">{-"I am"|translate}</label>
+                            <label class="control-label col-md-3">{-$field.value|translate}{-if $field.required == 1}*{-/if}</label>
 
                             <div class="col-md-9">
-                                <select class="form-control" name="sex">
-                                    <option value="f">{-"Female"|translate}</option>
-                                    <option value="m" {-if $profile.sex=='m'}selected{-/if}>{-"Male"|translate}</option>
+                                <select class="form-control" name="field[{-$field.id}]" {-if $field.required}required{-/if}>
+                                    <option value="">{-"Make a choice"|translate}</option>
+                                    {-foreach $field.values as $j => $value}
+                                        <option value="{-$value.id}"
+                                                {-if $field.value==$value.id}selected{-/if}>{-$value.value|translate}</option>
+                                    {-/foreach}
                                 </select>
                             </div>
                         </div>
+                        {-/foreach}
                         <div class="form-group">
                             <div class="col-md-offset-3 col-md-9 clearfix">
                                 <input class="ajaxform-callback" value="generalchanged" type="hidden">
