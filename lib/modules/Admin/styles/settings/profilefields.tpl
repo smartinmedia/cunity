@@ -1,8 +1,8 @@
 <div class="row">
     <div class="col-lg-12">
         <h1 class="page-header">{-"Profile fields"|translate}
-            <button class="btn btn-success pull-right saveButton"><i class="fa fa-save"></i>&nbsp;{-"Save"|translate}
-            </button>
+            <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#addusermodal"><i
+                        class="fa fa-plus"></i>&nbsp;{-"Add field"|translate}</button>
         </h1>
         <ol class="breadcrumb">
             <li><a href="{-"core.siteurl"|setting}admin"><i class="fa fa-home"></i></a></li>
@@ -12,7 +12,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-lg-6">
+    <div class="col-lg-12">
         <div class="panel panel-default" id="profilefield-panel">
             <div class="panel-heading">
                 <i class="fa fa-pencil fa-fw"></i>&nbsp;{-"Profile fields"|translate}
@@ -40,7 +40,7 @@
                                 <td>{-$i+1}</td>
                                 <td>{-$field.value}</td>
                                 <td>{-$field.type}</td>
-                                <td>{-$field.required}</td>
+                                <td>{-if $field.required == 1}<span class="label label-danger">{-"required"|translate}</span>{-else}<span class="label label-success">{-"optional"|translate}</span>{-/if}</td>
                                 <td>
                                     <div class="btn-group btn-group-sm">
                                         <button type="button"
