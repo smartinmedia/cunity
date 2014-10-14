@@ -65,18 +65,16 @@ class Version_1413270764 extends DbUpdateVersion implements DbCommandInterface
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;");
 
         $this->_db->query("INSERT INTO " . $this->_db->get_dbprefix() . "profilefields (id, value, type_id, registration, required, deleteable, sorting) VALUES
-    (1, 'Sex', 1, 1, 1, 1, 3),
-(2, 'Firstname', 4, 0, 1, 1, 1),
-(3, 'Lastname', 4, 0, 1, 1, 2);");
+    (1, 'Sex', 1, 1, 1, 1, 1);");
 
         $this->_db->query("DROP TABLE IF EXISTS " . $this->_db->get_dbprefix() . "profilefields_types;
 CREATE TABLE IF NOT EXISTS " . $this->_db->get_dbprefix() . "profilefields_types (
-    identifier int(11) NOT NULL AUTO_INCREMENT,
+    id int(11) NOT NULL AUTO_INCREMENT,
   value varchar(255) DEFAULT NULL,
-  PRIMARY KEY (identifier)
+  PRIMARY KEY (id)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;");
 
-        $this->_db->query("INSERT INTO " . $this->_db->get_dbprefix() . "profilefields_types (identifier, value) VALUES
+        $this->_db->query("INSERT INTO " . $this->_db->get_dbprefix() . "profilefields_types (id, value) VALUES
     (1, 'select'),
 (2, 'radio'),
 (3, 'text'),
@@ -84,8 +82,8 @@ CREATE TABLE IF NOT EXISTS " . $this->_db->get_dbprefix() . "profilefields_types
 (5, 'email'),
 (6, 'date');");
 
-        $this->_db->query("DROP TABLE IF EXISTS " . $this->_db->get_dbprefix() . "profilefields_users;
-CREATE TABLE IF NOT EXISTS " . $this->_db->get_dbprefix() . "profilefields_users (
+        $this->_db->query("DROP TABLE IF EXISTS " . $this->_db->get_dbprefix() . "profilefields_users;");
+        $this->_db->query("CREATE TABLE IF NOT EXISTS " . $this->_db->get_dbprefix() . "profilefields_users (
     id int(11) NOT NULL AUTO_INCREMENT,
   user_id int(11) NOT NULL,
   profilefield_id int(11) NOT NULL,
@@ -93,16 +91,16 @@ CREATE TABLE IF NOT EXISTS " . $this->_db->get_dbprefix() . "profilefields_users
   PRIMARY KEY (id)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;");
 
-        $this->_db->query("DROP TABLE IF EXISTS " . $this->_db->get_dbprefix() . "profilefields_values;
-CREATE TABLE IF NOT EXISTS " . $this->_db->get_dbprefix() . "profilefields_values (
-    identifier int(11) NOT NULL AUTO_INCREMENT,
+        $this->_db->query("DROP TABLE IF EXISTS " . $this->_db->get_dbprefix() . "profilefields_values;");
+        $this->_db->query("CREATE TABLE IF NOT EXISTS " . $this->_db->get_dbprefix() . "profilefields_values (
+    id int(11) NOT NULL AUTO_INCREMENT,
   value text,
   profilefield_id int(11) DEFAULT NULL,
   sorting int(11) NOT NULL,
-  PRIMARY KEY (identifier)
+  PRIMARY KEY (id)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;");
 
-        $this->_db->query("INSERT INTO " . $this->_db->get_dbprefix() . "profilefields_values (identifier, value, profilefield_id, sorting) VALUES
+        $this->_db->query("INSERT INTO " . $this->_db->get_dbprefix() . "profilefields_values (id, value, profilefield_id, sorting) VALUES
     (1, 'Female', 1, 1),
 (2, 'Male', 1, 2);");
     }

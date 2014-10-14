@@ -52,10 +52,16 @@ class User extends \Zend_Db_Table_Row_Abstract
      * @var array
      */
     public $friends = [];
+
     /**
      * @var array
      */
     protected $images = [];
+
+    /**
+     * @var array
+     */
+    public static $fixedProfileFields = ['userhash', 'lang', 'username', 'name', 'email', 'password', 'firstname', 'lastname', 'profileImage', 'titleImage', 'groupid', 'salt', 'registered', 'lastAction', 'onlineStatus', 'chat_available', 'password_token'];
 
     /**
      *

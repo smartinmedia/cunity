@@ -55,9 +55,53 @@ class ProfileFields extends Table
      */
     protected $_primary = 'id';
 
-    public function fetchAll()
+    /**
+     * @var array
+     */
+    public static $types = [1 => 'select', 2 => 'radio', 3 => 'text', 4 => 'string', 5 => 'email', 6 => 'date'];
+
+    /**
+     * @return array
+     */
+    public function getAll()
     {
-        var_dump(parent::fetchAll());exit;
-        return $this->fetchAll();
+        $query = $this->getAdapter()->select()
+            ->from(["pf" => $this->_dbprefix . "profilefields"])
+            ->order("pf.sorting");
+
+        $result = $this->getAdapter()->fetchAll($query);
+
+        foreach ($result as $_key => $_result) {
+            $values = [];
+
+            if (self::$types[$_result['type_id']] === 'select') {
+                $queryValues = $this->getAdapter()->select()
+                    ->from(["pfv" => $this->_dbprefix . "profilefields_values"])
+                    ->where('profilefield_id = ' . $_result['id'])
+                    ->order("pfv.sorting");
+
+                $values = $queryValues->getAdapter()->fetchAll($queryValues);
+            }
+
+            $result[$_key]['values'] = $values;
+            $result[$_key]['type'] = self::$types[$_result['type_id']];
+        }
+
+        return $result;
+    }
+
+    /**
+     * @return array
+     */
+    public function getRegistrationFields()
+    {
+        $query = $this->getAdapter()->select()
+            ->from(["pf" => $this->_dbprefix . "profilefields"])
+            ->where('registration = 1')
+            ->order("pf.sorting");
+
+        $result = $this->getAdapter()->fetchAll($query);
+
+        return $result;
     }
 }

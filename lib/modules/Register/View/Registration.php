@@ -36,7 +36,9 @@
 
 namespace Cunity\Register\View;
 
+use Cunity\Core\Cunity;
 use Cunity\Core\View\View;
+use Cunity\Profile\Models\Db\Table\ProfileFields;
 
 /**
  * Class Registration
@@ -75,6 +77,9 @@ class Registration extends View
             "bootstrap-datepicker",
             ["css/bootstrap-datepicker.css", "js/bootstrap-datepicker.js"]
         );
+
+        $profileFields = new ProfileFields();
+        $this->assign('profileFields', $profileFields->getAll());
         $this->assign('success', false);
     }
 
