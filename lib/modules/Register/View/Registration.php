@@ -79,7 +79,7 @@ class Registration extends View
         );
 
         $profileFields = new ProfileFields();
-        $this->assign('profileFields', $profileFields->getAll());
+        $this->assign('profileFields', $profileFields->getRegistrationFields());
         $this->assign('success', false);
     }
 

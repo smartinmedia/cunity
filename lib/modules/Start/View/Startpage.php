@@ -82,7 +82,7 @@ class Startpage extends View
             ["css/bootstrap-datepicker.css", "js/bootstrap-datepicker.js"]
         );
         $profileFields = new ProfileFields();
-        $this->assign('profileFields', $profileFields->getAll());
+        $this->assign('profileFields', $profileFields->getRegistrationFields());
         $this->render();
     }
 
