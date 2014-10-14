@@ -194,17 +194,6 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="sex"
-                               class="col-sm-4 control-label">{-"Sex"|translate}*</label>
-
-                        <div class="col-sm-8">
-                            <select class="form-control" name="sex">
-                                <option value="f" selected>{-"Female"|translate}</option>
-                                <option value="m">{-"Male"|translate}</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
                         <label for="group"
                                class="col-sm-4 control-label">{-"Group"|translate}*</label>
 
