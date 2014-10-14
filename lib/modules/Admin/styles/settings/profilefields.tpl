@@ -23,13 +23,48 @@
             </div>
             <div class="panel-body ">
                 <form class="form-horizontal ajaxform" method="post" action="{-"index.php?m=admin&action=save"|URL}">
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label">{-"Field 1"|translate}</label>
 
-                        <div class="col-sm-8">
-                            Form 1
-                        </div>
-                    </div>
+                    <table class="table-striped table">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>{-"Field"|translate}</th>
+                            <th>{-"Type"|translate}</th>
+                            <th>{-"Required"|translate}</th>
+                            <th>{-"Actions"|translate}</th>
+                        </tr>
+                        </thead>
+                        <tbody id="profilefieldstable">
+                        {-foreach $profileFields AS $i => $field}
+                            <tr class="profilefield-{-$field.value}">
+                                <td>{-$i+1}</td>
+                                <td>{-$field.value}</td>
+                                <td>{-$field.type}</td>
+                                <td>{-$field.required}</td>
+                                <td>
+                                    <div class="btn-group btn-group-sm">
+                                        <button type="button"
+                                                class="btn btn-primary dropdown-toggle"
+                                                data-toggle="dropdown">{-"Actions"|translate}&nbsp;<span
+                                                    class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="javascript: editProfileField({-$field.id});"><i
+                                                            class="fa fa-pencil"></i>&nbsp;{-"Edit this field"|translate}
+                                                </a>
+                                            </li>
+                                            {-if $field.deleteable == 1}
+                                                <li><a href="javascript: removeProfileField({-$field.id});"><i
+                                                                class="fa fa-trash-o"></i>&nbsp;{-"Delete this field"|translate}
+                                                    </a>
+                                                </li>
+                                            {-/if}
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                        {-/foreach}
+                    </table>
                     <input type="hidden" name="form" value="profilefields">
                     <input type="hidden" name="panel" value="profilefields-panel">
 

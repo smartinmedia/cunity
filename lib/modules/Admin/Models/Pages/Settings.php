@@ -41,6 +41,7 @@ use Cunity\Core\Cunity;
 use Cunity\Core\Models\Mail\Mail;
 use Cunity\Core\View\Ajax\View;
 use Cunity\Pages\Models\Db\Table\Pages;
+use Cunity\Profile\Models\Db\Table\ProfileFields;
 
 /**
  * Class Settings
@@ -126,6 +127,8 @@ class Settings extends PageAbstract
                 $this->assignments['availableLanguages'][] = $lang->getBasename('.csv');
             }
         }
+        $profileFields = new ProfileFields();
+        $this->assignments['profileFields'] = $profileFields->getRegistrationFields();
         $this->assignments["config"] = Cunity::get("config");
     }
 }
