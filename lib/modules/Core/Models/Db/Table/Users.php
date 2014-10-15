@@ -94,8 +94,7 @@ class Users extends Table
             "salt" => $salt,
             "name" => $name,
             "firstname" => $data['firstname'],
-            "lastname" => $data['lastname'],
-            "sex" => $data['sex']
+            "lastname" => $data['lastname']
         ]);
         if ($result) {
             new VerifyMail(["name" => $name, "email" => $data['email']], $salt);
