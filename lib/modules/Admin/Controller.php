@@ -65,6 +65,7 @@ class Controller extends ModuleController
                     break;
                 case 'save':
                 case 'delete':
+                case 'insert':
                     new Models\Process($_REQUEST['form'], $action);
                     break;
                 case 'update':

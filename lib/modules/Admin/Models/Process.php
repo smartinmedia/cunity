@@ -60,17 +60,10 @@ class Process
      */
     public function __construct($form, $action = 'save')
     {
-        if (in_array($form, $this->validForms)) {
-            switch ($action) {
-                case 'save':
-                    $this->save($form);
-                    break;
-                case 'delete':
-                    $this->delete($form);
-                    break;
-                default:
-                    break;
-            }
+        if (in_array($form, $this->validForms) &&
+            method_exists($this, $action)
+        ) {
+            $this->$action($form);
         }
     }
 
@@ -167,7 +160,7 @@ class Process
         }
 
         /** @var Table $object */
-        $object->delete($primary.' = '.$_REQUEST['id']);
+        $object->delete($primary . ' = ' . $_REQUEST['id']);
         $this->sendResponse();
     }
 
@@ -179,5 +172,25 @@ class Process
         $view = new View(!in_array(false, $res));
         $view->addData(["panel" => $_POST['panel']]);
         $view->sendResponse();
+    }
+
+    /**
+     * @param $form
+     */
+    private function insert($form)
+    {
+        $primary = 'id';
+
+        switch ($form) {
+            case 'profilefields':
+                $object = new ProfileFields();
+                break;
+            default:
+                break;
+        }
+
+        /** @var Table $object */
+        $object->insert($_REQUEST);
+        $this->sendResponse();
     }
 }

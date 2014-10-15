@@ -78,11 +78,11 @@
 </div>
 <div class="modal fade" id="addprofilefieldmodal" tabindex="-1" role="dialog" aria-labelledby="addprofilefieldmodal"
      aria-hidden="true">
-    <form class="login-form form-horizontal ajaxform" action="{-"index.php?m=admin&action=save"|URL}"
+    <form class="login-form form-horizontal ajaxform" action="{-"index.php?m=admin&action=insert"|URL}"
           style="margin:10px;" name="profilefields">
-        <input type="hidden" name="action" value="save" />
+        <input type="hidden" name="action" value="insert" />
         <input type="hidden" class="ajaxform-callback" value="addProfilefield" />
-        <input type="hidden" name="form" value="profilefield" />
+        <input type="hidden" name="form" value="profilefields" />
         <input type="hidden" name="deleteable" value="1" />
 
         <div class="modal-dialog">
@@ -97,8 +97,8 @@
                                class="col-sm-4 control-label">{-"Name"|translate}*</label>
 
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" value="" id="name"
-                                   name="name" required="required" data-bv-stringlength data-bv-stringlength-min="3"
+                            <input type="text" class="form-control" value="" id="value"
+                                   name="value" required="required" data-bv-stringlength data-bv-stringlength-min="3"
                                    data-bv-stringlength-message="{-"Name is too short (min. 3 chars)"|translate}">
                         </div>
                     </div>
@@ -107,7 +107,7 @@
                                class="col-sm-4 control-label">{-"Type"|translate}*</label>
 
                         <div class="col-sm-8">
-                            <select class="form-control" name="type" required="required">
+                            <select class="form-control" name="type_id" required="required">
                                 <option value="">{-"Make a choice"|translate}</option>
                                 {-foreach $fieldTypes as $i => $value}
                                     <option value="{-$i}">{-$value|translate}</option>
