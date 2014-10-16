@@ -133,8 +133,6 @@ class Resize implements \Zend_Filter_Interface
      *
      * Resizes the file $value according to the defined settings
      *
-     * @todo julian: check if method is used
-     *
      * @param  string $value Full path of file to change
      * @return string|bool Filename or false when there were errors
      */
