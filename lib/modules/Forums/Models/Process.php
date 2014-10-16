@@ -115,7 +115,8 @@ class Process
         $topics = new Boards;
         $res = $forums->loadForums();
         if ($res !== null && $res !== false) {
-            for ($i = 0; $i < count($res); $i++) {
+            $resCount = count($res);
+            for ($i = 0; $i < $resCount; $i++) {
                 $res[$i]["boards"] = $topics->loadBoards($res[$i]["id"]);
             }
         }

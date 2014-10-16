@@ -150,7 +150,8 @@ class Users extends Table
         }
         // echo $query->__toString();
         $res = $this->fetchAll($query);
-        for ($i = 0; $i < count($res); $i++) {
+        $resCount = count($res);
+        for ($i = 0; $i < $resCount; $i++) {
             $res[$i]->privacy = Privacy::parse($res[$i]->privacy);
         }
 
@@ -178,7 +179,8 @@ class Users extends Table
             ->where("u." . $keyIn . " IN(?)", $in)
             ->group("u.userid");
         $res = $this->fetchAll($query);
-        for ($i = 0; $i < count($res); $i++) {
+        $resCount = count($res);
+        for ($i = 0; $i < $resCount; $i++) {
             $res[$i]->privacy = Privacy::parse($res[$i]->privacy);
         }
 

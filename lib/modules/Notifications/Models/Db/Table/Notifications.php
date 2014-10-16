@@ -85,7 +85,8 @@ class Notifications extends Table
             ->order("n.unread DESC")
             ->limit(5);
         $res = $this->getAdapter()->fetchAll($query);
-        for ($i = 0; $i < count($res); $i++) {
+        $resCount = count($res);
+        for ($i = 0; $i < $resCount; $i++) {
             $d = Notifier::getNotificationData($res[$i]["type"]);
             $res[$i]["message"] = \sprintf($d, $res[$i]["name"]);
             $res[$i]["target"] = Url::convertUrl($res[$i]["target"]);
