@@ -111,9 +111,9 @@ class Controller
     }
 
     /**
-     * @param $exception
+     * @param Exception $exception
      */
-    public static function handleAjaxException($exception)
+    public static function handleAjaxException(Exception $exception)
     {
         /** @noinspection PhpUnnecessaryFullyQualifiedNameInspection */
         $view = new \Cunity\Core\View\Ajax\View();
