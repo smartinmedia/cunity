@@ -86,47 +86,53 @@
                 <div class="col-lg-8">
                     <input type="text" {-if $field.required == 1}required="required"{-/if} class="form-control"
                            id="input-{-$field.id}"
-                           placeholder="{-"Repeat password"|translate}" name="field[{-$field.id}]"
+                           placeholder="{-$field.value|translate}" name="field[{-$field.id}]"
                            value="{-$field.value}">
-                    {-elseif $field.type == 'text'}
+                    {-elseif $field.type == 'email'}
                     <div class="col-lg-8">
-                        <textarea {-if $field.required == 1}required="required"{-/if} class="form-control"
-                                  id="input-password-repeat"
-                                  placeholder="{-"Repeat password"|translate}"
-                                  name="{-$field.id}">{-$field.value}</textarea>
-                        {-elseif $field.type == 'date'}
-                        <div class="col-lg-7">
-                            <div class="input-group date" id="datepicker">
-                                <input type="text" class="form-control" name="$field.id"
-                                       readonly="readonly">
-                        <span class="input-group-addon">
-                            <span class="fa fa-calendar"></span>
-                        </span>
-                            </div>
-                            {-/if}
-                        </div>
-                    </div>
-                    {-/foreach}
-                    {-if "register.min_age"|setting > 0}
-                        <div class="form-group" style="margin-bottom:10px">
-                            <label class="control-label col-lg-4">{-"Birthday"|translate}</label>
-
+                        <input type="email" {-if $field.required == 1}required="required"{-/if} class="form-control"
+                               id="input-{-$field.id}"
+                               placeholder="{-$field.value|translate}" name="field[{-$field.id}]"
+                               value="{-$field.value}">
+                        {-elseif $field.type == 'text'}
+                        <div class="col-lg-8">
+                            <textarea {-if $field.required == 1}required="required"{-/if} class="form-control"
+                                      id="input-password-repeat"
+                                      placeholder="{-$field.value|translate}"
+                                      name="{-$field.id}"></textarea>
+                            {-elseif $field.type == 'date'}
                             <div class="col-lg-7">
                                 <div class="input-group date" id="datepicker">
-                                    <input type="text" class="form-control" name="birthday" required="required"
+                                    <input type="text" class="form-control" name="field[{-$field.id}]"
                                            readonly="readonly">
                         <span class="input-group-addon">
                             <span class="fa fa-calendar"></span>
                         </span>
                                 </div>
+                                {-/if}
                             </div>
                         </div>
-                    {-/if}
-                    <div class="form-group" style="margin-bottom:0">
-                        <div class="col-lg-offset-4 col-lg-8">
-                            <button class="btn btn-primary btn-block pull-right"
-                                    type="submit" {-*data-loading-text="{-"Checking..."|translate}"*}>{-"Register"|translate}</button>
+                        {-/foreach}
+                        {-if "register.min_age"|setting > 0}
+                            <div class="form-group" style="margin-bottom:10px">
+                                <label class="control-label col-lg-4">{-"Birthday"|translate}</label>
+
+                                <div class="col-lg-7">
+                                    <div class="input-group date" id="datepicker">
+                                        <input type="text" class="form-control" name="birthday" required="required"
+                                               readonly="readonly">
+                        <span class="input-group-addon">
+                            <span class="fa fa-calendar"></span>
+                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        {-/if}
+                        <div class="form-group" style="margin-bottom:0">
+                            <div class="col-lg-offset-4 col-lg-8">
+                                <button class="btn btn-primary btn-block pull-right"
+                                        type="submit" {-*data-loading-text="{-"Checking..."|translate}"*}>{-"Register"|translate}</button>
+                            </div>
                         </div>
-                    </div>
     </form>
 {-/if}
