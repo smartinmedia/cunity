@@ -1,6 +1,5 @@
 /composer.phar
 /atlassian-ide-plugin.xml
-.idea
 vendor
 /src/bin/phpunit.bat
 /src/bin/behat
