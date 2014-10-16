@@ -92,7 +92,7 @@ class Privacy extends Table
         if ($userid == 0) {
             $userid = $_SESSION['user']->userid;
         }
-        if ($type == false) {
+        if ($type === false) {
             $res = $this->fetchAll($this->select()->where("userid=?", $userid));
             $result = [];
             foreach ($res as $p) {
@@ -101,7 +101,7 @@ class Privacy extends Table
             return $result;
         } else {
             $res = $this->fetchAll($this->select()->where("userid=?", $userid)->where("type=?", $type));
-            if ($res == null || $res == false) {
+            if ($res === null || $res === false) {
                 return self::$privacies[$type];
             }
             return $res->value;

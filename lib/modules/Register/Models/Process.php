@@ -89,7 +89,7 @@ class Process
         $users = new Users;
         $res = $users->search($_POST['field'], $_POST['val']);
         $view = new View(true);
-        $view->addData(["valid" => ($res == null)]);
+        $view->addData(["valid" => ($res === null)]);
         $view->sendResponse();
     }
 

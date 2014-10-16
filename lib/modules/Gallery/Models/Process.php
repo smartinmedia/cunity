@@ -225,7 +225,7 @@ class Process
             $view = new Album();
             $view->setMetaData(["title" => $album['title'], "description" => $album['description']]);
             $view->assign("album", $album);
-            if ($album->owner_id == $_SESSION['userid'] && $album->owner_type == null) {
+            if ($album->owner_id == $_SESSION['userid'] && $album->owner_type === null) {
                 $view->registerScript("gallery", "album-edit");
             }
             $view->show();

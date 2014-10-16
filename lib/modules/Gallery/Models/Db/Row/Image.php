@@ -56,7 +56,7 @@ class Image extends \Zend_Db_Table_Row_Abstract
      */
     public function deleteImage()
     {
-        if ($this->owner_id == $_SESSION['user']->userid && $this->owner_type == null) {
+        if ($this->owner_id == $_SESSION['user']->userid && $this->owner_type === null) {
             $albums = new Gallery_Albums();
             $album = $albums->find($this->albumid);
             $album->current()->removeImage($this->id);

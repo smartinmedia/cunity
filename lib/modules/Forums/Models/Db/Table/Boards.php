@@ -95,7 +95,7 @@ class Boards extends Table
     {
         $res = $this->getAdapter()->fetchRow($this->getAdapter()->select()->from(["b" => $this->_name])
             ->joinLeft(["f" => $this->_dbprefix . "forums"], "f.id=b.forum_id", [new \Zend_Db_Expr("f.title as parenttitle")])->where("b.id=?", $id));
-        if ($res == null || $res["id"] == null) {
+        if ($res === null || $res["id"] === null) {
             return false;
         }
         return $res;

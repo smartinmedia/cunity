@@ -58,7 +58,7 @@ class Privacy
      */
     public static function parse($privacyString)
     {
-        if (!is_string($privacyString) || empty($privacyString) || $privacyString == null) {
+        if (!is_string($privacyString) || empty($privacyString) || $privacyString === null) {
             return self::$privacies;
         }
         $privacy = explode(',', $privacyString);

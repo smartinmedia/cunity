@@ -131,7 +131,7 @@ class Threads extends Table
                 ->joinLeft(["f" => $this->_dbprefix . "forums"], "f.id=b.forum_id", [new \Zend_Db_Expr("f.title as forumtitle")])
                 ->where("t.id=?", $id)
         );
-        if ($res == null || $res["id"] == null) {
+        if ($res === null || $res["id"] === null) {
             return false;
         }
         return $res;

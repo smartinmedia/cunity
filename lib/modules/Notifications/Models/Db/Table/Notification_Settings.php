@@ -65,7 +65,7 @@ class Notification_Settings extends Table
     public function getSetting($name, $userid)
     {
         $res = $this->fetchRow($this->select()->from($this, "value")->where("userid=?", $userid)->where("name=?", $name));
-        if ($res == null || $res == false) {
+        if ($res === null || $res === false) {
             return 3;
         }
         return $res->value;

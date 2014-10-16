@@ -183,7 +183,7 @@ class Process
     {
         $boards = new Forums;
         $data = $boards->loadForumData($_GET['x']);
-        if ($data == false) {
+        if ($data === false) {
             new PageNotFound;
         }
         $view = new Forum();
@@ -200,7 +200,7 @@ class Process
         $boards = new Boards;
         $cat = new Categories;
         $data = $boards->loadBoardData($_GET['x']);
-        if ($data == false) {
+        if ($data === false) {
             new PageNotFound;
         }
         $view = new Board();
@@ -219,7 +219,7 @@ class Process
         $threads = new Threads;
         $cat = new Categories;
         $data = $threads->loadThreadData($_GET['x']);
-        if ($data == false) {
+        if ($data === false) {
             new PageNotFound;
         }
         $view = new Thread();
@@ -239,7 +239,7 @@ class Process
         }
         $cat = new Categories;
         $data = $cat->getCategoryData($_GET['x']);
-        if ($data == false) {
+        if ($data === false) {
             new PageNotFound;
         }
         $view = new Category();

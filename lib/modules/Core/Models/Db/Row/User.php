@@ -179,7 +179,7 @@ class User extends \Zend_Db_Table_Row_Abstract
 
         $rel = new Relationships();
         $result = $rel->getRelation($this->userid, $user);
-        if ($result == null) {
+        if ($result === null) {
             return [];
         } else {
             return $result->toArray();
@@ -215,7 +215,7 @@ class User extends \Zend_Db_Table_Row_Abstract
      */
     public function __wakeup()
     {
-        if ($this->_table == null) {
+        if ($this->_table === null) {
             $this->setTable(new Users());
         }
         $this->lastAction = new \Zend_Db_Expr("UTC_TIMESTAMP()");

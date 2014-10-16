@@ -193,7 +193,7 @@ class Process
         $conversations = $table->loadConversations($_SESSION['user']->userid);
         $view = new View(true);
         foreach ($conversations as $i => $conv) {
-            if ($conv['users'] !== null && strpos($conv['users'], ",") == false) {
+            if ($conv['users'] !== null && strpos($conv['users'], ",") === false) {
                 $userid = explode("|", $conv['users']);
                 $conversations[$i]['users'] = $_SESSION['user']->getTable()->get($userid[1])->toArray(["pimg", "name"]);
             }

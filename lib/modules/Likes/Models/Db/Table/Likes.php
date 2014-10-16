@@ -81,7 +81,7 @@ class Likes extends Table
     public function like($referenceId, $referenceName)
     {
         $res = $this->getLike($referenceId, $referenceName);
-        if ($res != null && $res->dislike == 1) {
+        if ($res !== null && $res->dislike == 1) {
             $res->dislike = 0;
             if ($res->save()) {
                 return $this->countLikes($referenceId, $referenceName);
@@ -122,7 +122,7 @@ class Likes extends Table
     public function dislike($referenceId, $referenceName)
     {
         $res = $this->getLike($referenceId, $referenceName);
-        if ($res != null && $res->dislike == 0) {
+        if ($res !== null && $res->dislike == 0) {
             $res->dislike = 1;
             if ($res->save()) {
                 return $this->countLikes($referenceId, $referenceName);

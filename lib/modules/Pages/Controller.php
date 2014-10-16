@@ -54,7 +54,7 @@ class Controller extends ModuleController
     {
         $pages = new Pages();
         $page = $pages->getPage($_GET['action']);
-        if ($page == null) {
+        if ($page === null) {
             new PageNotFound();
         }
         $page->displayPage();

@@ -97,7 +97,7 @@ class Relationships extends Table
     public function updateRelation($user, $secondUser, array $updates)
     {
         $rel = $this->getRelation($user, $secondUser);
-        if ($rel == null) {
+        if ($rel === null) {
             return $this->addRelation($user, $secondUser, 0);
         } else {
             return $rel->setFromArray($updates)->save();

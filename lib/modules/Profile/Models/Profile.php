@@ -97,7 +97,7 @@ class Profile
         $users = $_SESSION['user']->getTable();
         if (isset($_GET['action']) && !empty($_GET['action'])) {
             $result = $users->get($_GET['action'], "username");
-            if (!$result instanceof User || $result['name'] == null) {
+            if (!$result instanceof User || $result['name'] === null) {
                 new PageNotFound();
             }
         } else {

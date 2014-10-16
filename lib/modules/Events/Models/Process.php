@@ -153,7 +153,7 @@ class Process
             $id = explode("-", $_GET['action']);
             $view = new Event;
             $data = $events->getEventData($id[0]);
-            if ($data == null || $data == false) {
+            if ($data === null || $data === false) {
                 new PageNotFound();
             }
             $data['date'] = new DateTime($data['start']);

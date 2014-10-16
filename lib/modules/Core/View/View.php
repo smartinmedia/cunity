@@ -197,7 +197,7 @@ class View extends Smarty
      */
     public function convertImage($filename, $type, $prefix = "")
     {
-        if ($filename == null || empty($filename)) {
+        if ($filename === null || empty($filename)) {
             return $this->getSetting("core.siteurl")
             . "style/"
             . $this->getSetting("core.design")
