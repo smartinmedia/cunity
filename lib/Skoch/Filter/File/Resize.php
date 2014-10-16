@@ -66,7 +66,6 @@ class Resize implements \Zend_Filter_Interface
         if ($options instanceof Zend_Config) {
             $options = $options->toArray();
         } elseif (!is_array($options)) {
-            require_once 'Zend/Filter/Exception.php';
             throw new Zend_Filter_Exception(
                 'Invalid options argument provided to filter'
             );
