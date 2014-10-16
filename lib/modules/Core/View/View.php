@@ -137,7 +137,6 @@ class View extends Smarty
             $this->getSetting("core.design"),
             $this->_coreRoot
         );
-        // $this->use_include_path = true;
         $this->setTemplateDir([$this->_coreRoot, $this->_templateRoot]);
         $this->setCompileDir($this->_templateCompiled);
         $this->setCacheDir($this->_templateCache);

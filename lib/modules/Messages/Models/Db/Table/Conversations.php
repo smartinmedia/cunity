@@ -195,7 +195,6 @@ class Conversations extends Table
         } else {
             $query->where($this->getAdapter()->quoteInto("c.`status` = 1", intval($status)));
         }
-        //var_dump($query->__toString());
         $result = $this->getAdapter()->fetchAll($query);
         return $result;
     }

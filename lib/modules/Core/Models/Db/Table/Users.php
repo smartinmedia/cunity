@@ -148,7 +148,6 @@ class Users extends Table
         if (!empty($userids)) {
             $query->where($key . " IN(?)", $userids);
         }
-        // echo $query->__toString();
         $res = $this->fetchAll($query);
         $resCount = count($res);
         for ($i = 0; $i < $resCount; $i++) {

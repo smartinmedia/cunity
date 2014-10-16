@@ -72,7 +72,6 @@ class Resize implements \Zend_Filter_Interface
         }
 
         if (!isset($options['width']) && !isset($options['height'])) {
-//            require_once 'Zend/Filter/Exception.php';
             throw new Zend_Filter_Exception(
                 'At least one of width or height must be defined'
             );

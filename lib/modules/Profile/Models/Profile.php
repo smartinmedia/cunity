@@ -105,7 +105,6 @@ class Profile
         }
         // Get a new user Object with all image-data
         $result = $result->toArray();
-        //$result['privacy'] = \Core\Models\Generator\Privacy::parse($result['privacy']);
         $this->profileData = $result;
         if (isset($this->profileData['status']) && $this->profileData['status'] === 0 && $this->profileData['receiver'] == $_SESSION['user']->userid) {
             new PageNotFound();

@@ -77,9 +77,9 @@ class Install {
      * @throws Exception
      */
     private function init() {
-//        if (file_exists("data/config.xml")) {
-//            throw new Exception("Cunity aready installed!");
-//        }
+        if (file_exists("data/config.xml")) {
+            throw new Exception("Cunity aready installed!");
+        }
         if (!file_exists("data/config-example.xml")) {
             throw new Exception("config-example.xml missing!");
         }

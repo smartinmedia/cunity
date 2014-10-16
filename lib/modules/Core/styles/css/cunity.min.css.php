@@ -13,7 +13,6 @@ foreach ($cssFiles as $cssFile) {
         $buffer .= $file;
 }
 
-//$buffer = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $buffer);
 // Remove whitespace
 $buffer = str_replace(
     [

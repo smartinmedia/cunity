@@ -112,7 +112,6 @@ class Posts extends Table
             ->joinLeft(["pi" => $this->_dbprefix . "gallery_images"], "pi.id = u.profileImage", "filename AS pimg")
             ->where("p.id=?", $postid)
             ->where("p.userid = ? OR (w.owner_id=? AND w.owner_type = 'profile') OR p.privacy = 0 OR (p.privacy = 1 AND p.userid IN (" . new \Zend_Db_Expr($this->friendslistQuery) . "))", $_SESSION['user']->userid);
-        //var_dump($query->__toString());
         return $this->getAdapter()->fetchRow($query);
     }
 
