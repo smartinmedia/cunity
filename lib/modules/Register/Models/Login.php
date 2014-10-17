@@ -67,10 +67,10 @@ class Login
                     $view->sendResponse();
                 }
             }
+            exit();
         } else {
             return;
         }
-        exit();
     }
 
     /**

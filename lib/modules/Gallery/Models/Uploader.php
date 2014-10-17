@@ -46,15 +46,6 @@ use Skoch\Filter\File\Resize;
  */
 class Uploader
 {
-
-    /**
-     *
-     */
-    public function __construct()
-    {
-
-    }
-
     /**
      * @param $filename
      * @return string
@@ -64,7 +55,8 @@ class Uploader
     {
 
         if (empty($_FILES) || $_FILES['file']['error']) {
-            die('{"OK": 0, "info": "Failed to move uploaded file."}');
+            echo('{"OK": 0, "info": "Failed to move uploaded file."}');
+            exit();
         }
 
         $chunk = isset($_REQUEST["chunk"]) ? intval($_REQUEST["chunk"]) : 0;
@@ -85,7 +77,8 @@ class Uploader
                     fwrite($out, $buff);
                 }
             } else {
-                die('{"OK": 0, "info": "Failed to open input stream."}');
+                echo('{"OK": 0, "info": "Failed to open input stream."}');
+                exit();
             }
 
             fclose($in);
@@ -93,7 +86,8 @@ class Uploader
 
             unlink($_FILES['file']['tmp_name']);
         } else {
-            die('{"OK": 0, "info": "Failed to open output stream."}');
+            echo('{"OK": 0, "info": "Failed to open output stream."}');
+            exit();
         }
 
         if ($chunks == 0 || $chunk == $chunks - 1) {

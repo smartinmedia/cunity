@@ -38,6 +38,7 @@ namespace Cunity\Core\Models\Db\Table;
 
 use Cunity\Core\Cunity;
 use Cunity\Core\Models\Db\Abstractables\Table;
+use Cunity\Core\Models\Db\Row\User;
 use Cunity\Core\Models\Generator\Privacy;
 use Cunity\Core\Models\Generator\Unique;
 use Cunity\Register\View\VerifyMail;
@@ -119,7 +120,7 @@ class Users extends Table
     /**
      * @param $key
      * @param $value
-     * @return null|\Zend_Db_Table_Row_Abstract
+     * @return User
      */
     public function search($key, $value)
     {

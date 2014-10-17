@@ -83,7 +83,7 @@ class View extends \Cunity\Core\View\View
         header('Content-type: application/json');
         header("Cache-Control: no-cache, must-revalidate"); // Disable Cache
         header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
-        exit(
+        echo(
         json_encode(
             array_merge(
                 ["status" => $this->_status],
@@ -91,5 +91,6 @@ class View extends \Cunity\Core\View\View
             )
         )
         );
+        exit();
     }
 }
