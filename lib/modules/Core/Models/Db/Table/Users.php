@@ -136,13 +136,7 @@ class Users extends Table
      */
     public function getSet(array $userids, $key = "u.userid", array $fields = ["*"], $includeOwn = false)
     {
-        $query = $this->select()->setIntegrityCheck(false)->from(["u" => $this->_dbprefix . "users"], $fields)
-            ->joinLeft(["r" => $this->_dbprefix . "relations"], "(r.receiver = " . $this->getAdapter()->quote($_SESSION['user']->userid) . " AND r.sender = u.userid) OR (r.sender = " . $this->getAdapter()->quote($_SESSION['user']->userid) . " AND r.receiver = u.userid)")
-            ->joinLeft(["pi" => $this->_dbprefix . "gallery_images"], "pi.id = u.profileImage", ['filename AS pimg', 'albumid AS palbumid'])
-            ->joinLeft(["ti" => $this->_dbprefix . "gallery_images"], "ti.id = u.titleImage", ["filename AS timg", "albumid AS talbumid"])
-            ->joinLeft(["p" => $this->_dbprefix . "privacy"], "p.userid=u.userid", new \Zend_Db_Expr("GROUP_CONCAT(CONCAT(p.type,':',p.value)) AS privacy"))
-            ->group("u.userid")
-            ->where("u.groupid > 0");
+        $query = $this->getGallery($fields);
         if (!$includeOwn) {
             $query->where("u.userid != ?", $_SESSION['user']->userid);
         }
@@ -159,25 +153,16 @@ class Users extends Table
     }
 
     /**
-     * @param array $userids
-     * @param array $in
-     * @param string $key
-     * @param string $keyIn
      * @param array $fields
+     * @internal param array $in
+     * @internal param string $key
+     * @internal param string $keyIn
+     * @internal param array $userids
      * @return \Zend_Db_Table_Rowset_Abstract
      */
-    public function getSetIn(array $userids, array $in, $key = "userid", $keyIn = "userid", array $fields = ["*"])
+    public function getSetIn(array $fields = ["*"])
     {
-        $query = $this->select()->setIntegrityCheck(false)
-            ->from(["u" => $this->_dbprefix . "users"], $fields)
-            ->joinLeft(["r" => $this->_dbprefix . "relations"], "(r.receiver = " . $this->getAdapter()->quote($_SESSION['user']->userid) . " AND r.sender = u.userid) OR (r.sender = " . $this->getAdapter()->quote($_SESSION['user']->userid) . " AND r.receiver = u.userid)")
-            ->joinLeft(["pi" => $this->_dbprefix . "gallery_images"], "pi.id = u.profileImage", ['filename AS pimg', 'albumid AS palbumid'])
-            ->joinLeft(["ti" => $this->_dbprefix . "gallery_images"], "ti.id = u.titleImage", ["filename AS timg", "albumid AS talbumid"])
-            ->joinLeft(["p" => $this->_dbprefix . "privacy"], "p.userid=u.userid", new \Zend_Db_Expr("GROUP_CONCAT(CONCAT(p.type,':',p.value)) AS privacy"))
-            ->where("u." . $key . " IN(?)", $userids)
-            ->where("u.groupid > 0")
-            ->where("u." . $keyIn . " IN(?)", $in)
-            ->group("u.userid");
+        $query = $this->getGallery($fields);
         $res = $this->fetchAll($query);
         $resCount = count($res);
         for ($i = 0; $i < $resCount; $i++) {
@@ -217,5 +202,21 @@ class Users extends Table
         );
         $res->privacy = Privacy::parse($res->privacy);
         return $res;
+    }
+
+    /**
+     * @param array $fields
+     * @return \Zend_Db_Select
+     */
+    protected function getGallery(array $fields)
+    {
+        $query = $this->select()->setIntegrityCheck(false)->from(["u" => $this->_dbprefix . "users"], $fields)
+            ->joinLeft(["r" => $this->_dbprefix . "relations"], "(r.receiver = " . $this->getAdapter()->quote($_SESSION['user']->userid) . " AND r.sender = u.userid) OR (r.sender = " . $this->getAdapter()->quote($_SESSION['user']->userid) . " AND r.receiver = u.userid)")
+            ->joinLeft(["pi" => $this->_dbprefix . "gallery_images"], "pi.id = u.profileImage", ['filename AS pimg', 'albumid AS palbumid'])
+            ->joinLeft(["ti" => $this->_dbprefix . "gallery_images"], "ti.id = u.titleImage", ["filename AS timg", "albumid AS talbumid"])
+            ->joinLeft(["p" => $this->_dbprefix . "privacy"], "p.userid=u.userid", new \Zend_Db_Expr("GROUP_CONCAT(CONCAT(p.type,':',p.value)) AS privacy"))
+            ->group("u.userid")
+            ->where("u.groupid > 0");
+        return $query;
     }
 }
