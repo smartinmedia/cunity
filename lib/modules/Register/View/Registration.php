@@ -36,7 +36,6 @@
 
 namespace Cunity\Register\View;
 
-use Cunity\Core\Cunity;
 use Cunity\Core\View\View;
 use Cunity\Profile\Models\Db\Table\ProfileFields;
 

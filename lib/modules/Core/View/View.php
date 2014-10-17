@@ -38,10 +38,8 @@ namespace Cunity\Core\View;
 
 use Cunity\Core\Cunity;
 use Cunity\Core\Exception;
-use Cunity\Core\Models\Db\Row\Setting;
 use Cunity\Core\Models\Db\Table\Announcements;
 use Cunity\Core\Models\Db\Table\Menu;
-use Cunity\Core\Models\Db\Table\Settings;
 use Cunity\Core\Models\Generator\Url;
 use Cunity\Register\Models\Login;
 use Smarty;
@@ -172,11 +170,12 @@ class View extends Smarty
 
     /**
      * @param $string
-     * @param array $replaces
+     * @internal param array $replaces
      * @return string
      */
-    public static function translate($string, $replaces = [])
+    public static function translate($string)
     {
+        /** @noinspection PhpUndefinedMethodInspection */
         return self::$zt->_($string);
     }
 
@@ -401,6 +400,7 @@ class View extends Smarty
                 ]
             );
 
+            /** @noinspection PhpUndefinedMethodInspection */
             self::$zt->addTranslation(
                 array(
                     'content' => __DIR__ . '/../languages/' . $locale->getLanguage() . '.csv',
