@@ -108,7 +108,7 @@ class Controller extends ModuleController
     public static function onRegister($user)
     {
         parent::onRegister($user);
-        $albums = new Models\Db\Table\Gallery_Albums();
+        $albums = new Models\Db\Table\GalleryAlbums();
         $albums->newProfileAlbums($user->userid);
     }
 
@@ -119,7 +119,7 @@ class Controller extends ModuleController
     public static function onUnregister($user)
     {
         parent::onUnregister($user);
-        $albums = new Models\Db\Table\Gallery_Albums();
+        $albums = new Models\Db\Table\GalleryAlbums();
         $albums->deleteAlbumsByUser($user->userid);
     }
 }

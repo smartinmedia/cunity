@@ -44,8 +44,8 @@ use Cunity\Core\Models\Validation\Username;
 use Cunity\Core\View\Ajax\View;
 use Cunity\Core\View\Message;
 use Cunity\Core\View\PageNotFound;
-use Cunity\Gallery\Models\Db\Table\Gallery_Images;
-use Cunity\Notifications\Models\Db\Table\Notification_Settings;
+use Cunity\Gallery\Models\Db\Table\GalleryImages;
+use Cunity\Notifications\Models\Db\Table\NotificationSettings;
 use Cunity\Profile\Models\Db\Table\ProfileFields;
 use Cunity\Profile\View\ProfileCrop;
 use Skoch\Filter\File\Crop;
@@ -90,7 +90,7 @@ class ProfileEdit
             $profile = $user->toArray(["userid", "username", "email", "firstname", "lastname", "registered", "sex", "pimg", "timg", "palbumid", "talbumid"]);
             $table = new Db\Table\Privacy();
             $privacy = $table->getPrivacy();
-            $table = new Notification_Settings();
+            $table = new NotificationSettings();
             $notificationSettings = $table->getSettings();
             $profileFields = new ProfileFields();
             $view->assign('profileFields', $profileFields->getAll());
@@ -108,7 +108,7 @@ class ProfileEdit
             new PageNotFound();
         }
         /** @noinspection PhpUnnecessaryFullyQualifiedNameInspection */
-        $images = new \Cunity\Gallery\Models\Db\Table\Gallery_Images();
+        $images = new \Cunity\Gallery\Models\Db\Table\GalleryImages();
         $result = $images->getImageData($_GET['x']);
         $view = new ProfileCrop();
         /** @noinspection PhpUndefinedMethodInspection */
@@ -205,7 +205,7 @@ class ProfileEdit
                     $result[$key] = 0;
                 }
             }
-            $settings = new Notification_Settings();
+            $settings = new NotificationSettings();
             $res = $settings->updateSettings($result);
             $view = new View($res);
 
@@ -325,7 +325,7 @@ class ProfileEdit
     /** @noinspection PhpUnusedPrivateMethodInspection */
     private function changeimage()
     {
-        $gimg = new Gallery_Images();
+        $gimg = new GalleryImages();
         $result = $gimg->uploadProfileImage();
         if ($result !== false) {
             $view = new View(true);

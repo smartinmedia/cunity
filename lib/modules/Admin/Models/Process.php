@@ -89,7 +89,7 @@ class Process
                 break;
             case "config":
                 $config = new \Zend_Config_Xml("../data/config.xml");
-                $configWriter = new \Zend_Config_Writer_Xml(["config" => new \Zend_Config(self::array_merge_recursive_distinct($config->toArray(), $_POST['config'])), "filename" => "../data/config.xml"]);
+                $configWriter = new \Zend_Config_Writer_Xml(["config" => new \Zend_Config(self::arrayMergeRecursiveDistinct($config->toArray(), $_POST['config'])), "filename" => "../data/config.xml"]);
                 $configWriter->write();
                 break;
             case "mailtemplates":
@@ -129,13 +129,13 @@ class Process
      * @author Daniel <daniel (at) danielsmedegaardbuus (dot) dk>
      * @author Gabriel Sobrinho <gabriel (dot) sobrinho (at) gmail (dot) com>
      */
-    public static function array_merge_recursive_distinct(array $array1, array $array2)
+    public static function arrayMergeRecursiveDistinct(array $array1, array $array2)
     {
         $merged = $array1;
 
         foreach ($array2 as $key => &$value) {
             if (is_array($value) && isset($merged [$key]) && is_array($merged [$key])) {
-                $merged [$key] = self::array_merge_recursive_distinct($merged [$key], $value);
+                $merged [$key] = self::arrayMergeRecursiveDistinct($merged [$key], $value);
             } else {
                 $merged [$key] = $value;
             }

@@ -46,8 +46,8 @@ use Cunity\Events\Models\Db\Table\Guests;
 use Cunity\Events\View\Event;
 use Cunity\Events\View\EventCrop;
 use Cunity\Events\View\EventEdit;
-use Cunity\Gallery\Models\Db\Table\Gallery_Albums;
-use Cunity\Gallery\Models\Db\Table\Gallery_Images;
+use Cunity\Gallery\Models\Db\Table\GalleryAlbums;
+use Cunity\Gallery\Models\Db\Table\GalleryImages;
 use Cunity\Newsfeed\Models\Db\Table\Walls;
 use DateTime;
 
@@ -88,7 +88,7 @@ class Process
         if ($res > 0) {
             $guests = new Guests;
             $walls = new Walls;
-            $gallery_albums = new Gallery_Albums;
+            $gallery_albums = new GalleryAlbums;
             $guests->addGuests($res, $_SESSION['user']->userid, 2, false);
             $result = $walls->createWall($res, "event") && $gallery_albums->insert([
                     "title" => "",
@@ -215,7 +215,7 @@ class Process
             $view->addData(["msg" => $msg]);
             $view->sendResponse();
         } elseif ($_POST['edit'] == "editPhoto") {
-            $gimg = new Gallery_Images();
+            $gimg = new GalleryImages();
             $result = $gimg->uploadEventImage($_POST['eventid']);
             if ($result !== false) {
                 $view->setStatus(true);
@@ -237,7 +237,7 @@ class Process
         }
         $imageid = $_GET['x'];
         $eventid = $_GET['y'];
-        $images = new Gallery_Images();
+        $images = new GalleryImages();
         $events = new Events;
         $eventData = $events->getEventData($eventid);
         $result = $images->getImageData($imageid);

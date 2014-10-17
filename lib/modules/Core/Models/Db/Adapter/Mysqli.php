@@ -49,7 +49,7 @@ class Mysqli extends \Zend_Db_Adapter_Mysqli
     protected $_dbprefix = "cunity";
 
     /**
-     * @param \Zend_Config_Abstract|\Zend_Config_Xml $config
+     * @param \Zend_Config_Xml $config
      * @throws \Zend_Db_Adapter_Exception
      */
     public function __construct(\Zend_Config_Xml $config)
@@ -62,7 +62,7 @@ class Mysqli extends \Zend_Db_Adapter_Mysqli
      *
      * @return String
      */
-    public function get_dbprefix()
+    public function getDbprefix()
     {
         return $this->_dbprefix . '_';
     }

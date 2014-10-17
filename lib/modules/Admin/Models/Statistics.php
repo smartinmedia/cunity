@@ -37,7 +37,7 @@
 namespace Cunity\Admin\Models;
 
 use Cunity\Comments\Models\Db\Table\Comments;
-use Cunity\Gallery\Models\Db\Table\Gallery_Images;
+use Cunity\Gallery\Models\Db\Table\GalleryImages;
 use Cunity\Likes\Models\Db\Table\Likes;
 use Cunity\Messages\Models\Db\Table\Messages;
 use Cunity\Newsfeed\Models\Db\Table\Posts;
@@ -63,7 +63,7 @@ class Statistics
         $this->tables['comments'] = new Comments();
         $this->tables['likes'] = new Likes();
         $this->tables['post'] = new Posts();
-        $this->tables['images'] = new Gallery_Images();
+        $this->tables['images'] = new GalleryImages();
     }
 
     /**

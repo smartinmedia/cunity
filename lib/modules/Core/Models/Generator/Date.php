@@ -46,8 +46,9 @@ class Date
      * @param $since
      * @return string
      */
-    public static function time_since($since)
+    public static function timeSince($since)
     {
+        $count = 0;
         $chunks = [
             [22896000, 'year'],
             [2592000, 'month'],

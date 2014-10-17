@@ -54,7 +54,7 @@ class Gd extends
 
         if (!$keepSmaller || $oldWidth > $width || $oldHeight > $height) {
             if ($keepRatio) {
-                list($width, $height) = $this->_calculateWidth(
+                list($width, $height) = $this->calculateWidth(
                     $oldWidth,
                     $oldHeight,
                     $width,

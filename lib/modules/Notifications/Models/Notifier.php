@@ -54,7 +54,7 @@ class Notifier
      */
     private $db = null;
     /**
-     * @var Db\Table\Notification_Settings|null
+     * @var Db\Table\NotificationSettings|null
      */
     private $settings = null;
     /**
@@ -68,7 +68,7 @@ class Notifier
     public function __construct()
     {
         $this->db = new Db\Table\Notifications();
-        $this->settings = new Db\Table\Notification_Settings();
+        $this->settings = new Db\Table\NotificationSettings();
         $data = new \Zend_Config_Xml("modules/Notifications/lang/types.xml");
         $this->types = $data->types;
     }

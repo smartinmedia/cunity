@@ -41,7 +41,7 @@ abstract class AbstractAdapter
      * @param $height
      * @return array
      */
-    protected function _calculateWidth($oldWidth, $oldHeight, $width, $height)
+    protected function calculateWidth($oldWidth, $oldHeight, $width, $height)
     {
         // now we need the resize factor
         // use the bigger one of both and apply them on both

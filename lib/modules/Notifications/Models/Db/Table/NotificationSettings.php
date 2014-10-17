@@ -39,10 +39,10 @@ namespace Cunity\Notifications\Models\Db\Table;
 use Cunity\Core\Models\Db\Abstractables\Table;
 
 /**
- * Class Notification_Settings
+ * Class NotificationSettings
  * @package Cunity\Notifications\Models\Db\Table
  */
-class Notification_Settings extends Table
+class NotificationSettings extends Table
 {
     /**
      * @var string

@@ -41,10 +41,10 @@ use Cunity\Core\View\View;
 use Zend_Db_Table_Row_Abstract;
 
 /**
- * Class Gallery_Albums
+ * Class GalleryAlbums
  * @package Cunity\Gallery\Models\Db\Table
  */
-class Gallery_Albums extends Table
+class GalleryAlbums extends Table
 {
 
     /**

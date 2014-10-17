@@ -38,7 +38,7 @@ namespace Cunity\Gallery\Models\Db\Row;
 
 use Cunity\Comments\Models\Db\Table\Comments;
 use Cunity\Core\Cunity;
-use Cunity\Gallery\Models\Db\Table\Gallery_Images;
+use Cunity\Gallery\Models\Db\Table\GalleryImages;
 use Cunity\Likes\Models\Db\Table\Likes;
 
 /**
@@ -55,7 +55,7 @@ class Album extends \Zend_Db_Table_Row_Abstract
      */
     public function deleteAlbum()
     {
-        $images = new Gallery_Images();
+        $images = new GalleryImages();
         $imageslist = $images->getImages($this->id);
         $settings = Cunity::get("settings");
         foreach ($imageslist as $image) {
@@ -94,7 +94,7 @@ class Album extends \Zend_Db_Table_Row_Abstract
      */
     public function getImages()
     {
-        $images = new Gallery_Images();
+        $images = new GalleryImages();
         return $images->getImages($this->id);
     }
 
@@ -128,7 +128,7 @@ class Album extends \Zend_Db_Table_Row_Abstract
      */
     private function getLastImageId()
     {
-        $images = new Gallery_Images();
+        $images = new GalleryImages();
         $res = $images->fetchRow($images->select()->where("albumid=?", $this->id)->order("time")->limit(1));
         if ($res === null) {
             return 0;

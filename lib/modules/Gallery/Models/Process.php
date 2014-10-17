@@ -41,8 +41,8 @@ use Cunity\Core\Models\Generator\Url;
 use Cunity\Core\View\Ajax\View;
 use Cunity\Core\View\Message;
 use Cunity\Core\View\PageNotFound;
-use Cunity\Gallery\Models\Db\Table\Gallery_Albums;
-use Cunity\Gallery\Models\Db\Table\Gallery_Images;
+use Cunity\Gallery\Models\Db\Table\GalleryAlbums;
+use Cunity\Gallery\Models\Db\Table\GalleryImages;
 use Cunity\Gallery\View\Album;
 use Cunity\Likes\Models\Db\Table\Likes;
 
@@ -68,7 +68,7 @@ class Process
      */
     public function deleteAlbum()
     {
-        $albums = new Gallery_Albums();
+        $albums = new GalleryAlbums();
         $album = $albums->find($_POST['albumid'])->current();
         $view = new View($album->deleteAlbum());
         $view->sendResponse();
@@ -79,7 +79,7 @@ class Process
      */
     private function overview()
     {
-        $table = new Gallery_Albums();
+        $table = new GalleryAlbums();
         $albums = $table->loadAlbums($_POST['userid']);
         if ($albums !== null) {
             $view = new View(true);
@@ -95,7 +95,7 @@ class Process
      */
     private function create()
     {
-        $table = new Gallery_Albums();
+        $table = new GalleryAlbums();
         if (($_POST['privacy'] == 0)) {
             $result = $table->insert([
                 "title" => $_POST['title'],
@@ -125,7 +125,7 @@ class Process
      */
     private function edit()
     {
-        $table = new Gallery_Albums();
+        $table = new GalleryAlbums();
         $album = $table->find($_POST['albumid'])->current();
         $result = $album->update($_POST);
         $view = new View();
@@ -138,8 +138,8 @@ class Process
      */
     private function upload()
     {
-        $albums = new Gallery_Albums();
-        $images = new Gallery_Images();
+        $albums = new GalleryAlbums();
+        $images = new GalleryImages();
         if (isset($_POST['newsfeed_post'])) {
             $album = $albums->fetchRow($albums->select()->where("type=?", "newsfeed")->where("owner_id=?", $_SESSION['user']->userid)->where("owner_type IS NULL"));
             if ($album === null) {
@@ -161,7 +161,7 @@ class Process
      */
     private function deleteImage()
     {
-        $images = new Gallery_Images();
+        $images = new GalleryImages();
         $image = $images->find($_POST['imageid'])->current();
         $view = new View();
         if (($image !== null)) {
@@ -178,8 +178,8 @@ class Process
     private function loadImage()
     {
         $id = $_POST['id'];
-        $images = new Gallery_Images();
-        $albums = new Gallery_Albums();
+        $images = new GalleryImages();
+        $albums = new GalleryAlbums();
         $result = $images->getImageData($id);
         $view = new View(true);
         if ($result !== null) {
@@ -207,7 +207,7 @@ class Process
      */
     private function loadImages()
     {
-        $images = new Gallery_Images();
+        $images = new GalleryImages();
         $result = $images->getImages($_POST['albumid'], ["limit" => $_POST['limit'], "offset" => $_POST['offset']]);
         $view = new View($result !== false);
         $view->addData(["result" => $result]);
@@ -219,7 +219,7 @@ class Process
      */
     private function loadAlbum()
     {
-        $albums = new Gallery_Albums();
+        $albums = new GalleryAlbums();
         $album = $albums->getAlbumData($_GET['action']);
         if ($album !== false) {
             $view = new Album();

@@ -39,7 +39,7 @@ namespace Cunity\Core\Models\Db\Row;
 use Cunity\Core\Cunity;
 use Cunity\Core\Models\Db\Table\Users;
 use Cunity\Friends\Models\Db\Table\Relationships;
-use Cunity\Gallery\Models\Db\Table\Gallery_Images;
+use Cunity\Gallery\Models\Db\Table\GalleryImages;
 use Cunity\Search\Models\Process;
 
 /**
@@ -140,7 +140,7 @@ class User extends \Zend_Db_Table_Row_Abstract
         if ($this->images !== null) {
             return $this->images;
         }
-        $images = new Gallery_Images();
+        $images = new GalleryImages();
         $this->images = $images->fetchAll($images->select()->where("id=?", $this->profileImage)->orWhere("id=?", $this->titleImage));
         return $this->images;
     }

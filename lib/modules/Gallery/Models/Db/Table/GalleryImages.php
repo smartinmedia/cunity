@@ -41,10 +41,10 @@ use Cunity\Gallery\Models\Uploader;
 use Cunity\Newsfeed\Models\Db\Table\Posts;
 
 /**
- * Class Gallery_Images
+ * Class GalleryImages
  * @package Cunity\Gallery\Models\Db\Table
  */
-class Gallery_Images extends Table
+class GalleryImages extends Table
 {
 
     /**
@@ -115,7 +115,7 @@ class Gallery_Images extends Table
      */
     public function uploadProfileImage()
     {
-        $albums = new Gallery_Albums();
+        $albums = new GalleryAlbums();
         $res = $albums->fetchRow($albums->select()->where("type=?", "profile")->where("owner_type IS NULL")->where("owner_id=?", $_SESSION['user']->userid));
         if ($res === null) {
             $albumid = $albums->newProfileAlbums($_SESSION['user']->userid);
@@ -171,7 +171,7 @@ class Gallery_Images extends Table
      */
     public function uploadEventImage($eventid)
     {
-        $albums = new Gallery_Albums();
+        $albums = new GalleryAlbums();
         $res = $albums->fetchRow($albums->select()->where("type=?", "event")->where("owner_type = 'event'")->where("owner_id=?", $eventid));
         $result = $this->uploadImage($res->id, false, [$eventid, "event"]);
         $res->addImage($result['imageid']);

@@ -109,7 +109,7 @@ class Resize implements \Zend_Filter_Interface
             }
         }
 
-        $this->_prepareAdapter();
+        $this->prepareAdapter();
     }
 
     /**
@@ -117,7 +117,7 @@ class Resize implements \Zend_Filter_Interface
      *
      * @return void
      */
-    protected function _prepareAdapter()
+    protected function prepareAdapter()
     {
         if ($this->_adapter instanceof AbstractAdapter) {
             return;
