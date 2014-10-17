@@ -95,7 +95,7 @@ class DatabaseUpdater
                 if ($fileinfo->getExtension() == "php") {
                     include_once $this->_directory . DIRECTORY_SEPARATOR . $fileinfo->getFilename();
                     $classname = $fileinfo->getBasename(".php");
-                    $classnameParts = explode('_', $classname);
+                    $classnameParts = explode('Version', $classname);
                     if (class_exists($classname) && !$this->versionInstalled($classnameParts[1])) {
                         $dbCmd = new $classname(Cunity::get("db"));
                         if ($dbCmd instanceof DbCommandInterface) {

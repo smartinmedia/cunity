@@ -1,5 +1,6 @@
 <?php
 
+
 /**
  * ########################################################################################
  * ## CUNITY(R) V2.0 - An open source social network / "your private social network"     ##
@@ -42,19 +43,16 @@ use Cunity\Admin\Models\Updater\DbUpdateVersion;
  * Class Version 1231231231
  * @package Admin\Models\Updater\DatabaseUpdates
  */
-class Version_1413361683 extends DbUpdateVersion implements DbCommandInterface
+class Version1413270654 extends DbUpdateVersion implements DbCommandInterface
 {
 
-    /**
-     * @var int
-     */
-    protected $_timestamp = 1413361683;
+    protected $_timestamp = 1413270654;
 
     /**
      *
      */
     public function execute()
     {
-        $this->_db->query("ALTER TABLE ".$this->_db->get_dbprefix()."users DROP sex");
+        $this->_db->query("ALTER TABLE  " . $this->_db->getDbprefix() . "profilefields_types CHANGE  value  value VARCHAR( 255 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL ;");
     }
 }

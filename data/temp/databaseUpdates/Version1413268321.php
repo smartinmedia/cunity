@@ -43,16 +43,52 @@ use Cunity\Admin\Models\Updater\DbUpdateVersion;
  * Class Version 1231231231
  * @package Admin\Models\Updater\DatabaseUpdates
  */
-class Version_1413270654 extends DbUpdateVersion implements DbCommandInterface
+class Version1413268321 extends DbUpdateVersion implements DbCommandInterface
 {
 
-    protected $_timestamp = 1413270654;
+    protected $_timestamp = 1413268321;
 
     /**
      *
      */
     public function execute()
     {
-        $this->_db->query("ALTER TABLE  " . $this->_db->get_dbprefix() . "profilefields_types CHANGE  value  value VARCHAR( 255 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL ;");
+
+        $this->_db->query("CREATE TABLE IF NOT EXISTS " . $this->_db->getDbprefix() . "profilefields_users (
+        id INT(11) NOT NULL AUTO_INCREMENT,
+  user_id INT(11) NOT NULL,
+  profilefield_id INT(11) NOT NULL,
+  value TEXT NULL DEFAULT NULL,
+  PRIMARY KEY (id))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1
+COLLATE = latin1_swedish_ci;");
+
+        $this->_db->query("CREATE TABLE IF NOT EXISTS " . $this->_db->getDbprefix() . "profilefields (
+        id INT(11) NOT NULL AUTO_INCREMENT,
+  value VARCHAR(255) NULL DEFAULT NULL,
+  type_id INT(11) NULL DEFAULT NULL,
+  PRIMARY KEY (id))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1
+COLLATE = latin1_swedish_ci;");
+
+        $this->_db->query("CREATE TABLE IF NOT EXISTS " . $this->_db->getDbprefix() . "profilefields_values (
+        identifier INT(11) NOT NULL AUTO_INCREMENT,
+  value VARCHAR(255) NULL DEFAULT NULL,
+  profilefield_id INT(11) NULL DEFAULT NULL,
+  PRIMARY KEY (identifier))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1
+COLLATE = latin1_swedish_ci;");
+
+        $this->_db->query("CREATE TABLE IF NOT EXISTS " . $this->_db->getDbprefix() . "profilefields_types (
+        identifier INT(11) NOT NULL,
+  value ENUM('select','radio','text','string','email','date') NULL DEFAULT NULL,
+  PRIMARY KEY (identifier))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1
+COLLATE = latin1_swedish_ci;");
+
     }
 }

@@ -1,6 +1,5 @@
 <?php
 
-
 /**
  * ########################################################################################
  * ## CUNITY(R) V2.0 - An open source social network / "your private social network"     ##
@@ -43,52 +42,19 @@ use Cunity\Admin\Models\Updater\DbUpdateVersion;
  * Class Version 1231231231
  * @package Admin\Models\Updater\DatabaseUpdates
  */
-class Version_1413268321 extends DbUpdateVersion implements DbCommandInterface
+class Version1413361683 extends DbUpdateVersion implements DbCommandInterface
 {
 
-    protected $_timestamp = 1413268321;
+    /**
+     * @var int
+     */
+    protected $_timestamp = 1413361683;
 
     /**
      *
      */
     public function execute()
     {
-
-        $this->_db->query("CREATE TABLE IF NOT EXISTS " . $this->_db->get_dbprefix() . "profilefields_users (
-        id INT(11) NOT NULL AUTO_INCREMENT,
-  user_id INT(11) NOT NULL,
-  profilefield_id INT(11) NOT NULL,
-  value TEXT NULL DEFAULT NULL,
-  PRIMARY KEY (id))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1
-COLLATE = latin1_swedish_ci;");
-
-        $this->_db->query("CREATE TABLE IF NOT EXISTS " . $this->_db->get_dbprefix() . "profilefields (
-        id INT(11) NOT NULL AUTO_INCREMENT,
-  value VARCHAR(255) NULL DEFAULT NULL,
-  type_id INT(11) NULL DEFAULT NULL,
-  PRIMARY KEY (id))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1
-COLLATE = latin1_swedish_ci;");
-
-        $this->_db->query("CREATE TABLE IF NOT EXISTS " . $this->_db->get_dbprefix() . "profilefields_values (
-        identifier INT(11) NOT NULL AUTO_INCREMENT,
-  value VARCHAR(255) NULL DEFAULT NULL,
-  profilefield_id INT(11) NULL DEFAULT NULL,
-  PRIMARY KEY (identifier))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1
-COLLATE = latin1_swedish_ci;");
-
-        $this->_db->query("CREATE TABLE IF NOT EXISTS " . $this->_db->get_dbprefix() . "profilefields_types (
-        identifier INT(11) NOT NULL,
-  value ENUM('select','radio','text','string','email','date') NULL DEFAULT NULL,
-  PRIMARY KEY (identifier))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1
-COLLATE = latin1_swedish_ci;");
-
+        $this->_db->query("ALTER TABLE ".$this->_db->getDbprefix()."users DROP sex");
     }
 }
