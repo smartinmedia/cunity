@@ -42,6 +42,7 @@ use Cunity\Core\Models\Db\Table\Modules;
 use Cunity\Core\Models\Db\Table\Users;
 use Cunity\Core\View\Ajax\View;
 use Cunity\Profile\Models\Db\Table\ProfileFields;
+use Cunity\Profile\Models\Db\Table\ProfileFieldsValues;
 
 /**
  * Class Process
@@ -179,18 +180,25 @@ class Process
      */
     private function insert($form)
     {
-        $primary = 'id';
-
         switch ($form) {
             case 'profilefields':
                 $object = new ProfileFields();
+                $newId = $object->insert($_REQUEST);
+                $possibleValues = explode(',', $_REQUEST['possiblevalues']);
+                $sorting = 1;
+
+                foreach ($possibleValues as $_value) {
+                    $value = new ProfileFieldsValues();
+                    $value->insert(['value' => $_value, 'profilefield_id' => $newId]);
+                    $sorting++;
+                }
+
                 break;
             default:
                 break;
         }
 
         /** @var Table $object */
-        $object->insert($_REQUEST);
         $this->sendResponse();
     }
 }

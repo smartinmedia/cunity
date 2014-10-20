@@ -80,10 +80,10 @@
      aria-hidden="true">
     <form class="login-form form-horizontal ajaxform" action="{-"index.php?m=admin&action=insert"|URL}"
           style="margin:10px;" name="profilefields">
-        <input type="hidden" name="action" value="insert" />
-        <input type="hidden" class="ajaxform-callback" value="addProfilefield" />
-        <input type="hidden" name="form" value="profilefields" />
-        <input type="hidden" name="deleteable" value="1" />
+        <input type="hidden" name="action" value="insert"/>
+        <input type="hidden" class="ajaxform-callback" value="addProfilefield"/>
+        <input type="hidden" name="form" value="profilefields"/>
+        <input type="hidden" name="deleteable" value="1"/>
 
         <div class="modal-dialog">
             <div class="modal-content">
@@ -93,7 +93,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="cunity-name"
+                        <label for="value"
                                class="col-sm-4 control-label">{-"Name"|translate}*</label>
 
                         <div class="col-sm-8">
@@ -103,11 +103,12 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="cunity-name"
+                        <label for="type_id"
                                class="col-sm-4 control-label">{-"Type"|translate}*</label>
 
                         <div class="col-sm-8">
-                            <select class="form-control" name="type_id" required="required">
+                            <select class="form-control" name="type_id" required="required"
+                                    onchange="showProfileValues();" id="type">
                                 <option value="">{-"Make a choice"|translate}</option>
                                 {-foreach $fieldTypes as $i => $value}
                                     <option value="{-$i}">{-$value|translate}</option>
@@ -115,12 +116,21 @@
                             </select>
                         </div>
                     </div>
+                    <div class="form-group" id="possiblevalues" style="display: none">
+                        <label for="possiblevalues"
+                               class="col-sm-4 control-label">{-"Possible values (comma separated)"|translate}*</label>
+
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" value="" id="value"
+                                   name="possiblevalues">
+                        </div>
+                    </div>
                     <div class="form-group">
                         <label for="cunity-name"
                                class="col-sm-4 control-label">{-"Required"|translate}</label>
 
                         <div class="col-sm-8">
-                            <input type="checkbox" name="required" value="1" />
+                            <input type="checkbox" name="required" value="1"/>
                         </div>
                     </div>
                     <div class="form-group">
@@ -128,7 +138,7 @@
                                class="col-sm-4 control-label">{-"Show in registration"|translate}</label>
 
                         <div class="col-sm-8">
-                            <input type="checkbox" name="registration" value="1" />
+                            <input type="checkbox" name="registration" value="1"/>
                         </div>
                     </div>
                     <div class="modal-footer">
