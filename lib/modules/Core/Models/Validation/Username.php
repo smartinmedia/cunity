@@ -80,8 +80,8 @@ class Username extends \Zend_Validate_Alnum
         }
         $users = new Users();
         $user = $users->search("username", $value);
-        if (($user !== null && !Login::loggedIn()) ||
-            (Login::loggedIn() && ($user->userid === $_SESSION['user']->userid))
+        if ($user !== null &&
+            (Login::loggedIn() && ($user->userid !== $_SESSION['user']->userid))
         ) {
             $this->_error(self::USED);
             return false;
