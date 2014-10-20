@@ -87,7 +87,7 @@ class ProfileEdit
             /** @noinspection PhpUndefinedMethodInspection */
             $user = $this->user->getTable()->get($_SESSION['user']->userid);
             /** @var User $user */
-            $profile = $user->toArray(["userid", "username", "email", "firstname", "lastname", "registered", "sex", "pimg", "timg", "palbumid", "talbumid"]);
+            $profile = $user->toArray(["userid", "username", "email", "firstname", "lastname", "registered", "pimg", "timg", "palbumid", "talbumid"]);
             $table = new Db\Table\Privacy();
             $privacy = $table->getPrivacy();
             $table = new NotificationSettings();
@@ -256,8 +256,6 @@ class ProfileEdit
             } else {
                 $message[] = implode(",", $validateMail->getMessages());
             }
-            $this->user->sex = $_POST['sex'];
-
             $res = $this->user->save();
             if (!$res) {
                 $message[] = $view->translate("Something went wrong! Please try again later!");
