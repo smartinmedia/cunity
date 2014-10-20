@@ -465,46 +465,46 @@
                         <tr>
                             <td>{-"Someone posted on your Wall"|translate}<input type="hidden" name="types[wall_post]" value="1"></td>
                             <td><input type="checkbox" name="alert[wall_post]" value="1"
-                                       {-if $profile.notificationSettings.wall_post >= 1}checked="checked"{-/if}></td>
+                                       {-if $profile.notificationSettings.wall_post == 1 or $profile.notificationSettings.wall_post == 3}checked="checked"{-/if}></td>
                             <td><input type="checkbox" name="mail[wall_post]" value="1"
-                                       {-if $profile.notificationSettings.wall_post >= 2}checked="checked"{-/if}></td>
+                                       {-if $profile.notificationSettings.wall_post == 2 or $profile.notificationSettings.wall_post == 3}checked="checked"{-/if}></td>
                         </tr>
                         <tr>
                             <td>{-"Someone sent you a message"|translate}<input type="hidden" name="types[message]" value="1">
                             </td>
                             <td><input type="checkbox" name="alert[message]" value="1"
-                                       {-if $profile.notificationSettings.message >= 1}checked="checked"{-/if}></td>
+                                       {-if $profile.notificationSettings.message == 1 or $profile.notificationSettings.message == 3}checked="checked"{-/if}></td>
                             <td><input type="checkbox" name="mail[message]" value="1"
-                                       {-if $profile.notificationSettings.message >= 2}checked="checked"{-/if}></td>
+                                       {-if $profile.notificationSettings.message == 2 or $profile.notificationSettings.message == 3}checked="checked"{-/if}></td>
                         </tr>
                         <tr>
                             <td>{-"Someone add you to a conversation"|translate}<input type="hidden"
                                                                                        name="types[addconversation]" value="1">
                             </td>
                             <td><input type="checkbox" name="alert[addconversation]" value="1"
-                                       {-if $profile.notificationSettings.addconversation >= 1}checked="checked"{-/if}>
+                                       {-if $profile.notificationSettings.addconversation == 1 or $profile.notificationSettings.addconversation == 3}checked="checked"{-/if}>
                             </td>
                             <td><input type="checkbox" name="mail[addconversation]" value="1"
-                                       {-if $profile.notificationSettings.addconversation >= 2}checked="checked"{-/if}>
+                                       {-if $profile.notificationSettings.addconversation == 2 or $profile.notificationSettings.addconversation == 3}checked="checked"{-/if}>
                             </td>
                         </tr>
                         <tr>
                             <td>{-"Someone add you as a friend"|translate}<input type="hidden" name="types[addfriend]"
                                                                                  value="1"></td>
                             <td><input type="checkbox" name="alert[addfriend]" value="1"
-                                       {-if $profile.notificationSettings.addfriend >= 1}checked="checked"{-/if}></td>
+                                       {-if $profile.notificationSettings.addfriend == 1 or $profile.notificationSettings.addfriend == 3}checked="checked"{-/if}></td>
                             <td><input type="checkbox" name="mail[addfriend]" value="1"
-                                       {-if $profile.notificationSettings.addfriend >= 2}checked="checked"{-/if}></td>
+                                       {-if $profile.notificationSettings.addfriend == 2 or $profile.notificationSettings.addfriend == 3}checked="checked"{-/if}></td>
                         </tr>
                         <tr>
                             <td>{-"Someone confirms your friend-request"|translate}<input type="hidden"
                                                                                           name="types[confirmfriend]" value="1">
                             </td>
                             <td><input type="checkbox" name="alert[confirmfriend]" value="1"
-                                       {-if $profile.notificationSettings.confirmfriend >= 1}checked="checked"{-/if}>
+                                       {-if $profile.notificationSettings.confirmfriend == 1 or $profile.notificationSettings.confirmfriend == 3}checked="checked"{-/if}>
                             </td>
                             <td><input type="checkbox" name="mail[confirmfriend]" value="1"
-                                       {-if $profile.notificationSettings.confirmfriend >= 2}checked="checked"{-/if}>
+                                       {-if $profile.notificationSettings.confirmfriend == 2 or $profile.notificationSettings.confirmfriend == 3}checked="checked"{-/if}>
                             </td>
                         </tr>
                         {-*<tr>
