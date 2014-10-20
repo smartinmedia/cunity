@@ -48,7 +48,16 @@ class Process
     /**
      * @var string
      */
-    private $indexfile = "../data/searchindex";
+    private $indexfile = "../../../data/searchindex";
+
+    /**
+     *
+     */
+    public function __construct()
+    {
+        $this->indexfile = __DIR__.'/'.$this->indexfile;
+    }
+
 
     /**
      * @param $queryString
