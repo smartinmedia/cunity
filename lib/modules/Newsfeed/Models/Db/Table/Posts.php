@@ -103,7 +103,7 @@ class Posts extends Table
      */
     private function getPostData($postid)
     {
-        $query = $this->getAdapter()->select()->from(["p" => $this->_dbprefix . "posts"])
+        $query = $this->getAdapter()->select()->from(["p" => $this->getTableName()])
             ->join(["u" => $this->_dbprefix . "users"], "u.userid=p.userid", ["name", "username"])
             ->join(["w" => $this->_dbprefix . "walls"], "w.wall_id=p.wall_id")
             ->joinLeft(["img" => $this->_dbprefix . "gallery_images"], "img.id=p.content AND p.type = 'image'", ["filename", "caption", "id AS refid"])
@@ -121,7 +121,8 @@ class Posts extends Table
      */
     public function loadPost($postid)
     {
-        $query = $this->getAdapter()->select()->from(["p" => $this->_dbprefix . "posts"])
+        $refid = null;
+        $query = $this->getAdapter()->select()->from(["p" => $this->getTableName()])
             ->join(["u" => $this->_dbprefix . "users"], "u.userid=p.userid", ["name", "username"])
             ->join(["w" => $this->_dbprefix . "walls"], "w.wall_id=p.wall_id")
             ->joinLeft(["img" => $this->_dbprefix . "gallery_images"], "img.id=p.content AND p.type = 'image'", ["filename", "caption"])

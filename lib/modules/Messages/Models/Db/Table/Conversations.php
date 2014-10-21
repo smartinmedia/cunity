@@ -77,8 +77,8 @@ class Conversations extends Table
      */
     public function getConversationId($userid)
     {
-        $query = $this->getAdapter()->select()->from(["a" => $this->_dbprefix . "conversations"])->where("userid=?", $userid)->where(new \Zend_Db_Expr("(" . $this->getAdapter()->select()->from(["b" => $this->_dbprefix . "conversations"], new \Zend_Db_Expr("COUNT(*) AS count"))->where("a.conversation_id=b.conversation_id") . ")") . "=2");
-        if (!empty($this->getConversationIds())) {
+        $query = $this->getAdapter()->select()->from(["a" => $this->getTableName()])->where("userid=?", $userid)->where(new \Zend_Db_Expr("(" . $this->getAdapter()->select()->from(["b" => $this->getTableName()], new \Zend_Db_Expr("COUNT(*) AS count"))->where("a.conversation_id=b.conversation_id") . ")") . "=2");
+        if ($this->getConversationIds() != '') {
             $query->where("conversation_id IN (" . $this->getConversationIds() . ")");
         }
         $res = $this->getAdapter()->fetchRow($query);
@@ -161,12 +161,12 @@ class Conversations extends Table
     {
         $result = $this->getAdapter()->fetchRow(
             $this->getAdapter()->select()
-                ->from(["c" => $this->_dbprefix . "conversations"], ["(" .
+                ->from(["c" => $this->getTableName()], ["(" .
                     new \Zend_Db_Expr($this->getAdapter()->select()
                         ->from(["u" => $this->_dbprefix . "users"], new \Zend_Db_Expr("GROUP_CONCAT(u.userid)"))
                         ->where("u.userid IN (" .
                             new \Zend_Db_Expr($this->getAdapter()->select()
-                                ->from(["uc" => $this->_dbprefix . "conversations"], "uc.userid")
+                                ->from(["uc" => $this->getTableName()], "uc.userid")
                                 ->where("uc.conversation_id = c.conversation_id")) . ")")) . ") AS users", "c.conversation_id", "(" .
                     new \Zend_Db_Expr($this->getAdapter()->select()->from($this->_dbprefix . "messages AS cm", [new \Zend_Db_Expr("COUNT(*)")])->where("cm.conversation = c.conversation_id")) . ") AS count"
                 ])
@@ -184,7 +184,7 @@ class Conversations extends Table
     {
         $query = $this->getAdapter()->select()
             ->from(
-                ["c" => $this->_dbprefix . "conversations"])
+                ["c" => $this->getTableName()])
             ->where("c.userid=?", $userid)
             ->joinLeft(["m" => $this->_dbprefix . "messages"], "m.conversation=c.conversation_id")
             ->join(["su" => $this->_dbprefix . "users"], "m.sender = su.userid", "su.name AS sendername")

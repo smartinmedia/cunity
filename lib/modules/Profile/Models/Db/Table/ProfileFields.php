@@ -66,7 +66,7 @@ class ProfileFields extends Table
     public function getAll()
     {
         $query = $this->getAdapter()->select()
-            ->from(["pf" => $this->_dbprefix . "profilefields"])
+            ->from(["pf" => $this->getTableName()])
             ->order("pf.sorting");
 
         $result = $this->getAdapter()->fetchAll($query);
@@ -96,7 +96,7 @@ class ProfileFields extends Table
     public function getRegistrationFields()
     {
         $query = $this->getAdapter()->select()
-            ->from(["pf" => $this->_dbprefix . "profilefields"])
+            ->from(["pf" => $this->getTableName()])
             ->where('registration = 1')
             ->order("pf.sorting");
 

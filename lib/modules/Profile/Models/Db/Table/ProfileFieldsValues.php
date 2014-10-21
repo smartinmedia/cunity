@@ -39,7 +39,7 @@ namespace Cunity\Profile\Models\Db\Table;
 use Cunity\Core\Models\Db\Abstractables\Table;
 
 /**
- * Class ProfileFields
+ * Class ProfileFieldsValues
  * @package Profile\Models\Db\Table
  */
 class ProfileFieldsValues extends Table
@@ -61,7 +61,7 @@ class ProfileFieldsValues extends Table
     public function getAll()
     {
         $query = $this->getAdapter()->select()
-            ->from(["pf" => $this->_dbprefix . "profilefields"])
+            ->from(["pf" => $this->getTableName()])
             ->order("pf.sorting");
 
         $result = $this->getAdapter()->fetchAll($query);

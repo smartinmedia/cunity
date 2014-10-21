@@ -70,7 +70,7 @@ class Likes extends Table
      */
     public function getLikes($referenceId, $referenceName, $dislike = 0)
     {
-        return $this->getAdapter()->fetchAll($this->getAdapter()->select()->from(["l" => $this->_dbprefix . "likes"])->joinLeft(["u" => $this->_dbprefix . "users"], "u.userid=l.userid", ["username", "name"])->joinLeft(["i" => $this->_dbprefix . "gallery_images"], "i.id=u.profileImage", "filename")->where("ref_name=?", $referenceName)->where("ref_id=?", $referenceId)->where("dislike=?", $dislike));
+        return $this->getAdapter()->fetchAll($this->getAdapter()->select()->from(["l" => $this->getTableName()])->joinLeft(["u" => $this->_dbprefix . "users"], "u.userid=l.userid", ["username", "name"])->joinLeft(["i" => $this->_dbprefix . "gallery_images"], "i.id=u.profileImage", "filename")->where("ref_name=?", $referenceName)->where("ref_id=?", $referenceId)->where("dislike=?", $dislike));
     }
 
     /**

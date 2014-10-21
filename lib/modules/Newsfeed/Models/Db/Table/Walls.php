@@ -85,7 +85,7 @@ class Walls extends Table
         $subquery = new \Zend_Db_Expr($this->select()->from($this, "wall_id")->where("(owner_id IN (" . $this->friendslistQuery . ") OR owner_id = ?) AND owner_type = 'profile'", $_SESSION['user']->userid)
             ->orWhere("owner_type = 'event' AND owner_id IN (" . $this->eventslistQuery . ")"));
         $query = $this->getAdapter()->select()->from(["p" => $this->_dbprefix . "posts"])
-            ->join(["w" => $this->_dbprefix . "walls"], "w.wall_id=p.wall_id")
+            ->join(["w" => $this->getTableName()], "w.wall_id=p.wall_id")
             ->join(["u" => $this->_dbprefix . "users"], "u.userid=p.userid", ["name", "username"])
             ->joinLeft(["img" => $this->_dbprefix . "gallery_images"], "img.id=p.content AND p.type = 'image'", ["filename", "caption", "id AS refid"])
             ->joinLeft(["rus" => $this->_dbprefix . "users"], "rus.userid=w.owner_id AND p.userid != w.owner_id AND w.owner_type = 'profile'", ["name AS receivername", "username AS receiverusername"])
@@ -129,7 +129,7 @@ class Walls extends Table
     public function getWall($ownerid, $ownertype, $offset, $refresh = 0, $filter = [])
     {
         $query = $this->getAdapter()->select()->from(["p" => $this->_dbprefix . "posts"])
-            ->join(["w" => $this->_dbprefix . "walls"], "w.wall_id=p.wall_id")
+            ->join(["w" => $this->getTableName()], "w.wall_id=p.wall_id")
             ->join(["u" => $this->_dbprefix . "users"], "u.userid=p.userid", ["name", "username"])
             ->joinLeft(["img" => $this->_dbprefix . "gallery_images"], "img.id=p.content AND p.type = 'image'", ["filename", "caption", "id AS refid"])
             ->joinLeft(["rus" => $this->_dbprefix . "users"], "w.owner_type = 'profile' AND rus.userid=w.owner_id AND p.userid != w.owner_id AND w.owner_id != " . $ownerid, ["name AS receivername", "username AS receiverusername"])

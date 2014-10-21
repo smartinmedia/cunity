@@ -73,7 +73,7 @@ class Posts extends Table
         $query = $this->getAdapter()->select()->from(["p" => $this->_name])
             ->joinLeft(["u" => $this->_dbprefix . "users"], "u.userid=.p.userid", ["name", "username"])
             ->joinLeft(["pi" => $this->_dbprefix . "gallery_images"], "pi.id=u.profileImage", ["filename"])
-            ->joinLeft(["pc" => $this->_dbprefix . "forums_posts"], "pc.thread_id=p.thread_id", new \Zend_Db_Expr("COUNT(DISTINCT pc.id) AS postcount"))
+            ->joinLeft(["pc" => $this->getTableName()], "pc.thread_id=p.thread_id", new \Zend_Db_Expr("COUNT(DISTINCT pc.id) AS postcount"))
             ->where("p.thread_id=?", $thread_id)
             ->group("p.id")
             ->order("time")
@@ -103,7 +103,7 @@ class Posts extends Table
         $query = $this->getAdapter()->select()->from(["p" => $this->_name])
             ->joinLeft(["u" => $this->_dbprefix . "users"], "u.userid=.p.userid", ["name", "username"])
             ->joinLeft(["pi" => $this->_dbprefix . "gallery_images"], "pi.id=u.profileImage", ["filename"])
-            ->joinLeft(["pc" => $this->_dbprefix . "forums_posts"], "pc.thread_id=p.thread_id", new \Zend_Db_Expr("COUNT(DISTINCT pc.id) AS postcount"))
+            ->joinLeft(["pc" => $this->getTableName()], "pc.thread_id=p.thread_id", new \Zend_Db_Expr("COUNT(DISTINCT pc.id) AS postcount"))
             ->where("p.id=?", $postid);
         return $this->getAdapter()->fetchRow($query);
     }

@@ -40,6 +40,7 @@ use Cunity\Core\Cunity;
 use Cunity\Core\Models\Db\Table\Users;
 use Cunity\Friends\Models\Db\Table\Relationships;
 use Cunity\Gallery\Models\Db\Table\GalleryImages;
+use Cunity\Profile\Models\Db\Table\ProfileFieldsUsers;
 use Cunity\Search\Models\Process;
 
 /**
@@ -117,6 +118,9 @@ class User extends \Zend_Db_Table_Row_Abstract
             $result = parent::save();
             $searchindex = new Process();
             return $result && $searchindex->updateUser($currentUsername, $this->username, $this->firstname . " " . $this->lastname);
+        } elseif (array_key_exists('field', $_POST)) {
+            $profileFieldsUser = new ProfileFieldsUsers([], $this);
+            return $profileFieldsUser->update($_POST['field'], '');
         } else {
             return parent::save();
         }

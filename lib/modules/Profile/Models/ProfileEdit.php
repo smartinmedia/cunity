@@ -240,33 +240,31 @@ class ProfileEdit
     /** @noinspection PhpUnusedPrivateMethodInspection */
     private function general()
     {
-        if (isset($_POST['email']) || isset($_POST['username']) || $_POST['sex']) {
-            $view = new View();
-            $message = [];
-            $validateMail = new Email();
-            $validateUsername = new Username();
+        $view = new View();
+        $message = [];
+        $validateMail = new Email();
+        $validateUsername = new Username();
 
-            if ($validateUsername->isValid($_POST['username'])) {
-                $this->user->username = $_POST['username'];
-            } else {
-                $message[] = implode(",", $validateUsername->getMessages());
-            }
-            if ($validateMail->isValid($_POST['email'])) {
-                $this->user->email = $_POST['email'];
-            } else {
-                $message[] = implode(",", $validateMail->getMessages());
-            }
-            $res = $this->user->save();
-            if (!$res) {
-                $message[] = $view->translate("Something went wrong! Please try again later!");
-            }
-            $view->setStatus(empty($message));
-            if (empty($message)) {
-                $message[] = $view->translate("Your changes were saved successfully!");
-            }
-            $view->addData(["msg" => implode(',', $message)]);
-            $view->sendResponse();
+        if ($validateUsername->isValid($_POST['username'])) {
+            $this->user->username = $_POST['username'];
+        } else {
+            $message[] = implode(",", $validateUsername->getMessages());
         }
+        if ($validateMail->isValid($_POST['email'])) {
+            $this->user->email = $_POST['email'];
+        } else {
+            $message[] = implode(",", $validateMail->getMessages());
+        }
+        $res = $this->user->save();
+        if (!$res) {
+            $message[] = $view->translate("Something went wrong! Please try again later!");
+        }
+        $view->setStatus(empty($message));
+        if (empty($message)) {
+            $message[] = $view->translate("Your changes were saved successfully!");
+        }
+        $view->addData(["msg" => implode(',', $message)]);
+        $view->sendResponse();
     }
 
     /**

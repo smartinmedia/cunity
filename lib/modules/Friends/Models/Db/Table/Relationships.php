@@ -37,6 +37,7 @@
 namespace Cunity\Friends\Models\Db\Table;
 
 use Cunity\Core\Models\Db\Abstractables\Table;
+use Cunity\Core\Models\Db\Row\User;
 use Cunity\Core\Models\Db\Table\Users;
 
 /**
@@ -124,7 +125,9 @@ class Relationships extends Table
     {
         $friends = $this->getFriendList($status, $userid);
         if (!empty($friends)) {
+            /** @noinspection PhpUndefinedMethodInspection */
             $users = $_SESSION['user']->getTable();
+            /** @noinspection PhpUndefinedMethodInspection */
             return $users->getSet($friends, "u.userid", ["u.userid", "u.username", "u.name"], true)->toArray();
         }
         return null;
@@ -144,10 +147,10 @@ class Relationships extends Table
         }
         // Only user, who blocked another people is allowed to get this list
         if (!is_string($status) && $status == 0) {
-            $query = $this->getAdapter()->query("SELECT receiver AS friend FROM " . $this->_dbprefix . "relations WHERE " . $this->getAdapter()->quoteInto("sender=?", $userid) . " AND status = 0");
+            $query = $this->getAdapter()->query("SELECT receiver AS friend FROM " . $this->getTableName() . " WHERE " . $this->getAdapter()->quoteInto("sender=?", $userid) . " AND STATUS = 0");
         } else {
             $query = $this->getAdapter()->select()
-                ->from($this->_dbprefix . "relations", new \Zend_Db_Expr("(CASE WHEN sender = " . $userid . " THEN receiver WHEN receiver = " . $userid . " THEN sender END) AS friend"))
+                ->from($this->getTableName(), new \Zend_Db_Expr("(CASE WHEN sender = " . $userid . " THEN receiver WHEN receiver = " . $userid . " THEN sender END) AS friend"))
                 ->where("status " . $status)
                 ->where("sender=? OR receiver = ? ", $userid);
         }
@@ -202,10 +205,10 @@ class Relationships extends Table
                         $this
                             ->getAdapter()
                             ->select()
-                            ->from($this->_dbprefix . "relations", new \Zend_Db_Expr("(CASE WHEN sender = " . $userid . " THEN receiver WHEN receiver = " . $userid . " THEN sender END)"))
+                            ->from($this->getTableName(), new \Zend_Db_Expr("(CASE WHEN sender = " . $userid . " THEN receiver WHEN receiver = " . $userid . " THEN sender END)"))
                             ->where("status > 1")
                             ->where("sender=? OR receiver = ? ", $userid)) . ")")
-                            ->order("u.name DESC")
+                ->order("u.name DESC")
         );
     }
 }

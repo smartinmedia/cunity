@@ -37,6 +37,7 @@
 namespace Cunity\Gallery\Models\Db\Table;
 
 use Cunity\Core\Models\Db\Abstractables\Table;
+use Cunity\Gallery\Models\Db\Row\Album;
 use Cunity\Gallery\Models\Uploader;
 use Cunity\Newsfeed\Models\Db\Table\Posts;
 
@@ -77,7 +78,7 @@ class GalleryImages extends Table
      */
     public function getImages($albumid, array $limit = [])
     {
-        $query = $this->getAdapter()->select()->from(["i" => $this->_dbprefix . "gallery_images"])
+        $query = $this->getAdapter()->select()->from(["i" => $this->getTableName()])
             ->joinLeft(["co" => $this->_dbprefix . "comments"], "co.ref_id = i.id AND co.ref_name = 'image'", "COUNT(DISTINCT co.id) AS comments")
             ->joinLeft(["li" => $this->_dbprefix . "likes"], "li.ref_id = i.id AND li.ref_name = 'image' AND li.dislike = 0", "COUNT(DISTINCT li.id) AS likes")
             ->joinLeft(["di" => $this->_dbprefix . "likes"], "di.ref_id = i.id AND di.ref_name = 'image' AND di.dislike = 1", "COUNT(DISTINCT di.id) AS dislikes")
@@ -98,9 +99,9 @@ class GalleryImages extends Table
     public function getImageData($imageid)
     {
         return $this->getAdapter()->fetchAll(
-            $this->getAdapter()->select()->from(["i" => $this->_dbprefix . "gallery_images"])
+            $this->getAdapter()->select()->from(["i" => $this->getTableName()])
                 ->joinLeft(["u" => $this->_dbprefix . "users"], "u.userid=i.owner_id AND i.owner_type IS NULL", ["username", "name"])
-                ->joinLeft(["ci" => $this->_dbprefix . "gallery_images"], "ci.id=u.profileImage", ["profileImage" => "filename"])
+                ->joinLeft(["ci" => $this->getTableName()], "ci.id=u.profileImage", ["profileImage" => "filename"])
                 ->joinLeft(["co" => $this->_dbprefix . "comments"], "co.ref_id = i.id AND co.ref_name = 'image'", "COUNT(DISTINCT co.id) AS commentcount")
                 ->joinLeft(["li" => $this->_dbprefix . "likes"], "li.ref_id = i.id AND li.ref_name = 'image' AND li.dislike = 0", "COUNT(DISTINCT li.id) AS likescount")
                 ->joinLeft(["di" => $this->_dbprefix . "likes"], "di.ref_id = i.id AND di.ref_name = 'image' AND di.dislike = 1", "COUNT(DISTINCT di.id) AS dislikescount")
@@ -124,6 +125,7 @@ class GalleryImages extends Table
             $albumid = $res->id;
         }
         $result = $this->uploadImage($albumid);
+        /** @var Album $res */
         $res->addImage($result['imageid']);
         if (is_array($result)) {
             return $result;
@@ -174,6 +176,7 @@ class GalleryImages extends Table
         $albums = new GalleryAlbums();
         $res = $albums->fetchRow($albums->select()->where("type=?", "event")->where("owner_type = 'event'")->where("owner_id=?", $eventid));
         $result = $this->uploadImage($res->id, false, [$eventid, "event"]);
+        /** @var Album $res */
         $res->addImage($result['imageid']);
         if (is_array($result)) {
             return $result;

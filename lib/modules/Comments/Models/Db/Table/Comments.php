@@ -83,7 +83,7 @@ class Comments extends Table
      */
     public function getComment($commentid)
     {
-        return $this->getAdapter()->fetchRow($this->getAdapter()->select()->from(["c" => $this->_dbprefix . "comments"], ["id", "content", "time", "userid"])->joinLeft(["u" => $this->_dbprefix . "users"], "u.userid = c.userid", ["username", "name"])->joinLeft(["i" => $this->_dbprefix . "gallery_images"], "u.profileImage = i.id", ["filename"])->where("c.id = ?", $commentid));
+        return $this->getAdapter()->fetchRow($this->getAdapter()->select()->from(["c" => $this->getTableName()], ["id", "content", "time", "userid"])->joinLeft(["u" => $this->_dbprefix . "users"], "u.userid = c.userid", ["username", "name"])->joinLeft(["i" => $this->_dbprefix . "gallery_images"], "u.profileImage = i.id", ["filename"])->where("c.id = ?", $commentid));
     }
 
     /**

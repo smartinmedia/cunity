@@ -72,7 +72,7 @@ class Threads extends Table
             $this
                 ->getAdapter()
                 ->select()
-                ->from(["t" => $this->_dbprefix . "forums_threads"])
+                ->from(["t" => $this->getTableName()])
                 ->joinLeft(["p" => $this->_dbprefix . "forums_posts"], "p.thread_id=t.id", ["time"])
                 ->joinLeft(["pc" => $this->_dbprefix . "forums_posts"], "pc.thread_id=t.id", new \Zend_Db_Expr("COUNT(DISTINCT pc.id) AS postcount"))
                 ->joinLeft(["u" => $this->_dbprefix . "users"], "u.userid=p.userid", ["name", "username"])
@@ -99,7 +99,7 @@ class Threads extends Table
             $this
                 ->getAdapter()
                 ->select()
-                ->from(["t" => $this->_dbprefix . "forums_threads"])
+                ->from(["t" => $this->getTableName()])
                 ->joinLeft(["p" => $this->_dbprefix . "forums_posts"], "p.thread_id=t.id", ["time"])
                 ->joinLeft(["pc" => $this->_dbprefix . "forums_posts"], "pc.thread_id=t.id", new \Zend_Db_Expr("COUNT(DISTINCT pc.id) AS postcount"))
                 ->joinLeft(["u" => $this->_dbprefix . "users"], "u.userid=p.userid", ["name", "username"])

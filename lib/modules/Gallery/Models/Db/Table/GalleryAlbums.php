@@ -38,6 +38,7 @@ namespace Cunity\Gallery\Models\Db\Table;
 
 use Cunity\Core\Models\Db\Abstractables\Table;
 use Cunity\Core\View\View;
+use Cunity\Gallery\Models\Db\Row\Album;
 use Zend_Db_Table_Row_Abstract;
 
 /**
@@ -112,7 +113,7 @@ class GalleryAlbums extends Table
      */
     public function getAlbumData($albumid)
     {
-        $result = $this->fetchRow($this->select()->setIntegrityCheck(false)->from(["a" => $this->_dbprefix . "gallery_albums"])
+        $result = $this->fetchRow($this->select()->setIntegrityCheck(false)->from(["a" => $this->getTableName()])
             ->joinLeft(["u" => $this->_dbprefix . "users"], "a.owner_type IS NULL AND a.owner_id=u.userid", ["name", "username"])
             ->joinLeft(["e" => $this->_dbprefix . "events"], "a.owner_type = 'event' AND a.owner_id=e.id", ["title AS eventTitle"])
             ->joinLeft(["i" => $this->_dbprefix . "gallery_images"], "i.id=u.profileImage AND a.owner_type IS NULL", "filename")
@@ -167,6 +168,7 @@ class GalleryAlbums extends Table
     public function deleteAlbumsByUser($userid)
     {
         $albums = $this->fetchAll($this->select()->where("userid=?", $userid));
+        /** @var Album $album */
         foreach ($albums as $album) {
             $album->deleteAlbum();
         }

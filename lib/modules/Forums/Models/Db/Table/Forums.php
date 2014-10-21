@@ -67,7 +67,7 @@ class Forums extends Table
      */
     public function loadForums()
     {
-        $query = $this->getAdapter()->select()->from(["f" => $this->_dbprefix . "forums"])
+        $query = $this->getAdapter()->select()->from(["f" => $this->getTableName()])
             ->joinLeft(["b" => $this->_dbprefix . "forums_boards"], "b.forum_id=f.id", new \Zend_Db_Expr("COUNT(b.id) AS boardcount"))
             ->where("f.owner_id IS NULL")
             ->where("f.owner_type IS NULL")

@@ -77,7 +77,7 @@ class Events extends Table
      */
     public function deleteEvent($eventid)
     {
-        return (0 < $this->delete($this->getAdapter() > quoteInto("id=?", $eventid)));
+        return (0 < $this->delete($this->getAdapter()->quoteInto("id=?", $eventid)));
     }
 
     /**
@@ -91,7 +91,7 @@ class Events extends Table
             $this
                 ->getAdapter()
                 ->select()
-                ->from(["e" => $this->_dbprefix . "events"], ["*"])
+                ->from(["e" => $this->getTableName()], ["*"])
                 ->joinLeft(["g" => $this->_dbprefix . "events_guests"], "g.eventid=e.id AND g.userid=" . $this->getAdapter()->quote($_SESSION['user']->userid), ["guestid", "status"])
                 ->joinLeft(["u" => $this->_dbprefix . "users"], "e.userid = u.userid", ["username", "name"])
                 ->joinLeft(["i" => $this->_dbprefix . "gallery_images"], "i.id=e.imageId", ["filename"])
@@ -113,7 +113,7 @@ class Events extends Table
      */
     public function fetchBetween($start, $end)
     {
-        $query = $this->getAdapter()->select()->from(["e" => $this->_dbprefix . "events"], ["*", new \Zend_Db_Expr("UNIX_TIMESTAMP(start)*1000 AS start"), new \Zend_Db_Expr("UNIX_TIMESTAMP(start)*1000 AS end")])
+        $query = $this->getAdapter()->select()->from(["e" => $this->getTableName()], ["*", new \Zend_Db_Expr("UNIX_TIMESTAMP(start)*1000 AS start"), new \Zend_Db_Expr("UNIX_TIMESTAMP(start)*1000 AS end")])
             ->joinLeft(["g" => $this->_dbprefix . "events_guests"], "g.eventid=e.id AND g.userid=" . $this->getAdapter()->quote($_SESSION['user']->userid), ["guestid", "status"])
             ->joinLeft(["u" => $this->_dbprefix . "users"], "e.userid = u.userid", ["username", "name"])
             ->joinLeft(["pi" => $this->_dbprefix . "gallery_images"], "pi.id = u.profileImage AND e.type = 'birthday'", "filename AS pimg")

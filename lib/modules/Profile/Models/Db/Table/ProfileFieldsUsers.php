@@ -34,62 +34,64 @@
  * #####################################################################################
  */
 
-namespace Cunity\Core\Models\Db\Abstractables;
+namespace Cunity\Profile\Models\Db\Table;
 
-use Cunity\Core\Cunity;
+use Cunity\Core\Models\Db\Abstractables\Table;
+use Cunity\Core\Models\Db\Row\User;
 
 /**
- * abstract Table Class which automatically inserts the database-prefix
- *
- * @package    Core
- * @subpackage Abstractables
- * @copyright  Smart In Media GmbH & Co. KG (www.smartinmedia.com)
+ * Class ProfileFieldsUsers
+ * @package Profile\Models\Db\Table
  */
-abstract class Table extends \Zend_Db_Table_Abstract
+class ProfileFieldsUsers extends Table
 {
-    /**
-     * Stores the config-object
-     *
-     * @var \Zend_Config_Xml
-     */
-    protected $_config;
 
     /**
-     * Stores the Table Prefix as a shortcut variable
-     *
-     * @var String
+     * @var string
      */
-    protected $_dbprefix;
+    protected $_name = 'profilefields_users';
 
     /**
-     * Overwrite the default Rowset-Class
-     *
-     * @var String
+     * @var User
      */
-    protected $_rowsetClass = "Cunity\Core\Models\Db\Rowset\Rowset";
+    protected $user = null;
 
     /**
-     * @param array $data
-     * @return mixed
-     * @throws \Zend_Db_Table_Exception
+     * @var string
      */
-    public function insert(array $data)
+    protected $_primary = 'id';
+
+    /**
+     * @param array $config
+     * @param null $user
+     */
+    public function __construct($config = array(), $user = null)
     {
-        $info = $this->info(\Zend_Db_Table_Abstract::COLS);
-
-        if (in_array("time", $info)) {
-            $data['time'] = new \Zend_Db_Expr("UTC_TIMESTAMP()");
+        if (null !== $user) {
+            $this->user = $user;
         }
 
-        $dataToStore = [];
+        parent::__construct($config);
+    }
 
-        foreach ($data as $_key => $_value) {
-            if (in_array($_key, $info)) {
-                $dataToStore[$_key] = $_value;
-            }
+
+    /**
+     * @param null $userid
+     * @return array
+     */
+    public function getAllByUserId($userid = null)
+    {
+        if (null === $userid) {
+            $userid = $this->user->userid;
         }
 
-        return parent::insert($dataToStore);
+        $query = $this->getAdapter()->select()
+            ->from(["p" => $this->getTableName()])
+            ->where('user_id = ' . $userid);
+
+        $result = $this->getAdapter()->fetchAll($query);
+
+        return $result;
     }
 
     /**
@@ -99,28 +101,14 @@ abstract class Table extends \Zend_Db_Table_Abstract
      */
     public function update(array $data, $where)
     {
-        if (in_array("time", $this->info(\Zend_Db_Table_Abstract::COLS))) {
-            $data['time'] = new \Zend_Db_Expr("UTC_TIMESTAMP()");
+        $results = $this->getAllByUserId();
+
+        foreach ($data as $key => $value) {
+//            $query = $this->getAdapter()->select()->from(['p' => $this->getTableName()])->where('profilefield_id = '.$key.' AND user_id = '.$this->user->userid);
+//            $result = $this->getAdapter()->fetchOne($query);
+//            fb($result);
+//            fb($result->toArray());
+//            parent::update(['value' => $data['value']], 'id = '.$data['id']);
         }
-        return parent::update($data, $where);
-    }
-
-    /**
-     * @throws \Exception
-     */
-    protected function _setupTableName()
-    {
-        $this->_config = Cunity::get("config");
-        $this->_dbprefix = $this->_config->db->params->table_prefix . '_';
-        $this->_name = $this->_dbprefix . $this->_name;
-        parent::_setupTableName();
-    }
-
-    /**
-     * @return string
-     */
-    protected function getTableName()
-    {
-        return $this->_name;
     }
 }
