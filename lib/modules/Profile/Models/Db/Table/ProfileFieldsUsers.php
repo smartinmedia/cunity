@@ -65,7 +65,7 @@ class ProfileFieldsUsers extends Table
      * @param array $config
      * @param null $user
      */
-    public function __construct($config = array(), $user = null)
+    public function __construct($config = [], $user = null)
     {
         if (null !== $user) {
             $this->user = $user;
@@ -74,6 +74,23 @@ class ProfileFieldsUsers extends Table
         parent::__construct($config);
     }
 
+    /**
+     * @param $profileFieldId
+     * @param null|int $userid
+     * @return array
+     */
+    public function getByProfileFieldIdAndUserId($profileFieldId, $userid = null)
+    {
+        $userid = $this->evaluateUserId($userid);
+
+        $query = $this->getAdapter()->select()
+            ->from(["p" => $this->getTableName()])
+            ->where('user_id = ' . $userid . ' AND profilefield_id = ' . $profileFieldId);
+
+        $result = $this->getAdapter()->fetchAll($query);
+
+        return $result[0];
+    }
 
     /**
      * @param null $userid
@@ -81,9 +98,7 @@ class ProfileFieldsUsers extends Table
      */
     public function getAllByUserId($userid = null)
     {
-        if (null === $userid) {
-            $userid = $this->user->userid;
-        }
+        $userid = $this->evaluateUserId($userid);
 
         $query = $this->getAdapter()->select()
             ->from(["p" => $this->getTableName()])
@@ -103,14 +118,27 @@ class ProfileFieldsUsers extends Table
     {
         foreach ($data as $key => $value) {
             $dataToStore = ['user_id' => $this->user->userid, 'profilefield_id' => $key, 'value' => $value];
-            $query = $this->getAdapter()->select()->from(['p' => $this->getTableName()])->where('profilefield_id = '.$key.' AND user_id = '.$this->user->userid);
+            $query = $this->getAdapter()->select()->from(['p' => $this->getTableName()])->where('profilefield_id = ' . $key . ' AND user_id = ' . $this->user->userid);
             $result = $this->getAdapter()->fetchOne($query);
 
             if ($result === false) {
                 $this->insert($dataToStore);
             } else {
-                parent::update($dataToStore, 'profilefield_id = '.$key.' AND user_id = '.$this->user->userid);
+                parent::update($dataToStore, 'profilefield_id = ' . $key . ' AND user_id = ' . $this->user->userid);
             }
         }
+    }
+
+    /**
+     * @param $userid
+     * @return string
+     */
+    protected function evaluateUserId($userid)
+    {
+        if (null === $userid) {
+            $userid = $this->user->userid;
+        }
+
+        return $userid;
     }
 }

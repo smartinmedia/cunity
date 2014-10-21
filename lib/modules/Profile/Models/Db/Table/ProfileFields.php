@@ -74,15 +74,23 @@ class ProfileFields extends Table
         foreach ($result as $_key => $_result) {
             $values = [];
 
-            if (self::$types[$_result['type_id']] === 'select') {
-                $queryValues = $this->getAdapter()->select()
-                    ->from(["pfv" => $this->_dbprefix . "profilefields_values"])
-                    ->where('profilefield_id = ' . $_result['id'])
-                    ->order("pfv.sorting");
+            switch (self::$types[$_result['type_id']]) {
+                case 'select':
+                    $queryValues = $this->getAdapter()->select()
+                        ->from(["pfv" => $this->_dbprefix . "profilefields_values"])
+                        ->where('profilefield_id = ' . $_result['id'])
+                        ->order("pfv.sorting");
 
-                $values = $queryValues->getAdapter()->fetchAll($queryValues);
+                    $values = $queryValues->getAdapter()->fetchAll($queryValues);
+                    break;
+                default:
+                    break;
             }
 
+            $value = new ProfileFieldsUsers([], $_SESSION['user']);
+            $res = $value->getByProfileFieldIdAndUserId($_result['id']);
+            $result[$_key]['label'] = $_result['value'];
+            $result[$_key]['value'] = $res['value'];
             $result[$_key]['values'] = $values;
             $result[$_key]['type'] = self::$types[$_result['type_id']];
         }
