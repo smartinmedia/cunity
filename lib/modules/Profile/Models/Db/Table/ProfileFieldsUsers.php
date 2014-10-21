@@ -101,14 +101,16 @@ class ProfileFieldsUsers extends Table
      */
     public function update(array $data, $where)
     {
-        $results = $this->getAllByUserId();
-
         foreach ($data as $key => $value) {
-//            $query = $this->getAdapter()->select()->from(['p' => $this->getTableName()])->where('profilefield_id = '.$key.' AND user_id = '.$this->user->userid);
-//            $result = $this->getAdapter()->fetchOne($query);
-//            fb($result);
-//            fb($result->toArray());
-//            parent::update(['value' => $data['value']], 'id = '.$data['id']);
+            $dataToStore = ['user_id' => $this->user->userid, 'profilefield_id' => $key, 'value' => $value];
+            $query = $this->getAdapter()->select()->from(['p' => $this->getTableName()])->where('profilefield_id = '.$key.' AND user_id = '.$this->user->userid);
+            $result = $this->getAdapter()->fetchOne($query);
+
+            if ($result === false) {
+                $this->insert($dataToStore);
+            } else {
+                parent::update($dataToStore, 'profilefield_id = '.$key.' AND user_id = '.$this->user->userid);
+            }
         }
     }
 }
