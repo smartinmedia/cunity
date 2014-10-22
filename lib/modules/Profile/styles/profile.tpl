@@ -157,7 +157,7 @@
                     </div>
                     <div class="btn-group pull-right hidden newsfeed-post-buttons">
                         <button class="btn btn-primary tooltip-trigger" type="button" data-title="{-$profile.name}&nbsp;{-"decides who is allowed to see this post!"|translate}"><span class="fa fa-lock"></span></button>
-                        <input type="hidden" name="privacy" value="{-if $profile.privacy.post eq 3}0{-else if $profile.privacy.post eq 1}1{-else}2{-/if}" id="postPrivacy">
+                        <input type="hidden" name="privacy" value="{-if $profile.privacy.post eq 3}0{-elseif $profile.privacy.post eq 1}1{-else}2{-/if}" id="postPrivacy">
                         <button class="btn btn-primary newsfeed-post-button" type="submit" id="newsfeed-post-button"><span class="fa fa-comment"></span>&nbsp;{-"Post"|translate}!</button>
                     </div>
                 </form>

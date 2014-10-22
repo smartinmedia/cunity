@@ -100,7 +100,7 @@
                                 {-foreach $menu->getMainMenu()  AS $menuItem}
                                     {-if $menuItem.type=="module"}
                                         <li class="{-if $meta.module eq $menuItem.content}active {-/if}"><a href="{-"index.php?m={-$menuItem.content}"|URL}" id="main-menu-item-{-$menuItem.content}"><i class="fa fa-{-$menuItem.iconClass} fa-fw"></i> {-$menuItem.title|translate}<span class="badge pull-right"></span></a></li>
-                                            {-else if $menuItem.type == "page"}
+                                            {-elseif $menuItem.type == "page"}
                                         <li class="{-if $meta.module eq $menuItem.content}active {-/if}><a href="{-"index.php?m=pages&action={-$menuItem.content}"|URL}" id="main-menu-item-{-$menuItem.content}"><i class="fa fa-{-$menuItem.iconClass} fa-fw"></i> {-$menuItem.title|translate}<span class="badge pull-right"></span></a></li>
                                             {-else}
                                         <li class=""><a href="{-$menuItem.content}" target="_blank" id="main-menu-item-{-$menuItem.content}"><i class="fa fa-{-$menuItem.iconClass} fa-fw"></i> {-$menuItem.title}<span class="badge pull-right"></span></a></li>
@@ -144,7 +144,7 @@
                             {-foreach $menu->getFooterMenu()  AS $menuItem}
                                 {-if $menuItem.type=="module"}
                                     <li class="footer-menu-item-{-$menuItem.id}" id="footer-menu-item-{-$menuItem.id}"><a href="{-"index.php?m={-$menuItem.content}"|URL}">{-$menuItem.title|translate}</a></li>
-                                    {-else if $menuItem.type == "page"}
+                                    {-elseif $menuItem.type == "page"}
                                     <li class="footer-menu-item-{-$menuItem.id}" id="footer-menu-item-{-$menuItem.id}"><a href="{-"index.php?m=pages&action={-$menuItem.content}"|URL}">{-$menuItem.title|translate}</a></li>
                                     {-else}
                                     <li class="footer-menu-item-{-$menuItem.id}" id="footer-menu-item-{-$menuItem.id}"><a href="{-$menuItem.content}">{-$menuItem.title|translate}</a></li>
