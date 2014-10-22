@@ -226,7 +226,7 @@
                     <div class="form-group">
                         <div class="col-md-offset-5 col-md-7 clearfix">
                             <input class="ajaxform-callback" value="privacychanged" type="hidden">
-                            <button type="submit" class="btn btn-primary pull-right"><i
+                            <button type="submit" class="btn btn-primary pull-right" id="saveprivacy"><i
                                         class="fa fa-save"></i> {-"Save"|translate}</button>
                         </div>
                     </div>
@@ -530,7 +530,7 @@
             </table>
             <div class="panel-footer clearfix">
                 <input type="hidden" class="ajaxform-callback" value="notificationsUpdated">
-                <button type="submit" class="btn btn-primary pull-right"><i
+                <button type="submit" class="btn btn-primary pull-right" id="savenotification"><i
                             class="fa fa-save"></i>&nbsp;{-"Save"|translate}</button>
             </div>
         </form>
