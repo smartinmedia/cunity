@@ -237,7 +237,6 @@ class ProfileEdit
     /**
      *
      */
-    /** @noinspection PhpUnusedPrivateMethodInspection */
     private function general()
     {
         $view = new View();
@@ -270,7 +269,6 @@ class ProfileEdit
     /**
      *
      */
-    /** @noinspection PhpUnusedPrivateMethodInspection */
     private function changePassword()
     {
         $status = false;

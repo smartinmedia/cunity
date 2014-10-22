@@ -41,6 +41,7 @@ use Cunity\Core\Models\Db\Abstractables\Table;
 use Cunity\Core\Models\Db\Row\User;
 use Cunity\Core\Models\Generator\Privacy;
 use Cunity\Core\Models\Generator\Unique;
+use Cunity\Profile\Models\Db\Table\ProfileFieldsUsers;
 use Cunity\Register\View\VerifyMail;
 
 /**
@@ -97,6 +98,10 @@ class Users extends Table
             "firstname" => $data['firstname'],
             "lastname" => $data['lastname']
         ]);
+
+        $profileFieldsUser = new ProfileFieldsUsers([], $this->search('userid', $result));
+        $profileFieldsUser->update($_POST['field'], '');
+
         if ($result) {
             new VerifyMail(["name" => $name, "email" => $data['email']], $salt);
             return true;

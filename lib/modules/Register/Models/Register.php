@@ -153,9 +153,6 @@ class Register
             $this->errors["password"] = implode(',', $validatePassword->getMessages());
             $this->errors["password_repeat"] = "";
         }
-        if (!isset($_POST['sex']) || ($_POST['sex'] != 'm' && $_POST['sex'] != "f")) {
-            $this->errors["sex"] = "Please select a gender";
-        }
         return empty($this->errors);
     }
 }

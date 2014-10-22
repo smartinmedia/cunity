@@ -19,7 +19,7 @@
           action="{-"index.php?m=register&action=sendRegistration"|URL}"
           method="POST">
         <div class="form-group">
-            <label class="control-label col-lg-4" for="input-username">{-"Username"|translate}</label>
+            <label class="control-label col-lg-4" for="input-username">{-"Username"|translate}*</label>
 
             <div class="col-lg-8">
                 <input type="text" autocomplete="off" required class="form-control" id="input-username"
@@ -27,7 +27,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-lg-4" for="input-email">{-"E-Mail"|translate}</label>
+            <label class="control-label col-lg-4" for="input-email">{-"E-Mail"|translate}*</label>
 
             <div class="col-lg-8">
                 <input type="email" required class="form-control" id="input-email" placeholder="{-"E-Mail"|translate}"
@@ -36,7 +36,7 @@
         </div>
         {-if "core.fullname"|setting}
             <div class="form-group">
-                <label class="control-label col-lg-4" for="input-firstname">{-"Firstname"|translate}</label>
+                <label class="control-label col-lg-4" for="input-firstname">{-"Firstname"|translate}*</label>
 
                 <div class="col-lg-8">
                     <input type="text" autocomplete="off" required class="form-control" id="input-firstname"
@@ -44,7 +44,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="control-label col-lg-4" for="input-lastname">{-"Lastname"|translate}</label>
+                <label class="control-label col-lg-4" for="input-lastname">{-"Lastname"|translate}*</label>
 
                 <div class="col-lg-8">
                     <input type="text" autocomplete="off" required class="form-control" id="input-lastname"
@@ -53,7 +53,7 @@
             </div>
         {-/if}
         <div class="form-group">
-            <label class="control-label col-lg-4" for="input-password">{-"Password"|translate}</label>
+            <label class="control-label col-lg-4" for="input-password">{-"Password"|translate}*</label>
 
             <div class="col-lg-8">
                 <input type="password" autocomplete="off" required class="form-control" id="input-password"
@@ -61,7 +61,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-lg-4" for="input-password-repeat">{-"Repeat password"|translate}</label>
+            <label class="control-label col-lg-4" for="input-password-repeat">{-"Repeat password"|translate}*</label>
 
             <div class="col-lg-8">
                 <input type="password" autocomplete="off" required class="form-control" id="input-password-repeat"
@@ -99,11 +99,12 @@
                             <textarea {-if $field.required == 1}required="required"{-/if} class="form-control"
                                       id="input-password-repeat"
                                       placeholder="{-$field.value|translate}"
-                                      name="{-$field.id}"></textarea>
+                                      name="{-$field.id}">{-$field.value}</textarea>
                             {-elseif $field.type == 'date'}
                             <div class="col-lg-7">
                                 <div class="input-group date" id="datepicker">
                                     <input type="text" class="form-control" name="field[{-$field.id}]"
+                                           value="{-$field.value}"
                                            readonly="readonly">
                         <span class="input-group-addon">
                             <span class="fa fa-calendar"></span>
@@ -131,7 +132,8 @@
                         <div class="form-group" style="margin-bottom:0">
                             <div class="col-lg-offset-4 col-lg-8">
                                 <button class="btn btn-primary btn-block pull-right"
-                                        type="submit" id="registerbutton" {-*data-loading-text="{-"Checking..."|translate}"*}>{-"Register"|translate}</button>
+                                        type="submit"
+                                        id="registerbutton" {-*data-loading-text="{-"Checking..."|translate}"*}>{-"Register"|translate}</button>
                             </div>
                         </div>
     </form>
