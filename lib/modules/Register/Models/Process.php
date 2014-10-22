@@ -196,7 +196,7 @@ class Process
         $config = Cunity::get("config");
         $functions = $config->registerFunctions->toArray();
         foreach ($functions["module"] as $module) {
-            call_user_func([ucfirst($module) . "\Controller", "onUnregister"], $_SESSION['user']);
+            call_user_func(["Cunity\\" . ucfirst($module) . "\Controller", "onUnregister"], $_SESSION['user']);
         }
     }
 
