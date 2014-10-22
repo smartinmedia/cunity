@@ -113,15 +113,7 @@
            class="albumlist-item-image"
            style="background-image:url('{%=checkImage(o.filename,'gallery','thumb_')%}');"></a>
         <a href="{%=convertUrl({'module':'gallery','action': o.id,'x':o.title.replace(' ','_')})%}"
-           class="albumlist-item-name">
-            {% if (o.type == 'profile') { %}
-            {-"Profile Images"|translate}
-            {% } else if (o.type == 'newsfeed'){ %}
-            {-"Posted Images"|translate}
-            {% } else { %}
-            {%=o.title%}
-            {% } %}
-        </a>
+           class="albumlist-item-name">{% if (o.type == 'profile') { %}{-"Profile Images"|translate}{% } else if (o.type == 'newsfeed'){ %}{-"Posted Images"|translate}{% } else { %}{%=o.title%}{% } %}</a>
 
         <div class="albumlist-item-ownerbox clearfix">
             <a href="{-"index.php?m=profile&action="|URL}{%=o.username%}"><img
