@@ -98,24 +98,24 @@
                     <input type="hidden" name="edit" value="changepassword">
 
                     <div class="form-group">
-                        <label class="control-label col-md-5">{-"Current Password"|translate}</label>
+                        <label class="control-label col-md-5">{-"Current Password"|translate}*</label>
 
                         <div class="col-md-7">
-                            <input type="password" name="old-password" class="form-control">
+                            <input type="password" name="old-password" class="form-control" required="required">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-md-5">{-"New Password"|translate}</label>
+                        <label class="control-label col-md-5">{-"New Password"|translate}*</label>
 
                         <div class="col-md-7">
-                            <input type="password" name="new-password" class="form-control">
+                            <input type="password" name="new-password" class="form-control" required="required">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-md-5">{-"Repeat new Password"|translate}</label>
+                        <label class="control-label col-md-5">{-"Repeat new Password"|translate}*</label>
 
                         <div class="col-md-7">
-                            <input type="password" name="new-password-rep" class="form-control">
+                            <input type="password" name="new-password-rep" class="form-control" required="required">
                         </div>
                     </div>
                     <div class="form-group">
