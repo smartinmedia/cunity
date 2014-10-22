@@ -71,7 +71,7 @@
                     <li class="options" data-toggle="dropdown" data-postid="{%=o.refid%}"><i class="fa fa-cogs"></i>&nbsp;{-"Options"|translate}
                     </li>
                     <ul class="dropdown-menu newsfeed-post-info-dropdown" role="menu" aria-labelledby="dropdownMenu1">
-                        <li><a href="javascript:deletePost({%=o.id%});"><i
+                        <li><a href="javascript:deletePost({%=o.id%});" class="deletepost"><i
                                         class="fa fa-trash-o fa-fw"></i>&nbsp;{-"Delete post"|translate}</a></li>
                     </ul>
                     {% } %}
@@ -104,7 +104,7 @@
                     <div class="btn-group">
                         <ul class="dropdown-menu newsfeed-post-info-dropdown" role="menu"
                             aria-labelledby="dropdownMenu1">
-                            <li><a href="javascript:deletePost({%=o.id%});"><i
+                            <li><a href="javascript:deletePost({%=o.id%});" class="deletepost"><i
                                             class="fa fa-trash-o fa-fw"></i>&nbsp;{-"Delete post"|translate}</a></li>
                         </ul>
                         <button class="options btn btn-default" data-toggle="dropdown" data-postid="{%=o.id%}"><i

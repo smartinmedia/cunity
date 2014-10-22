@@ -131,7 +131,7 @@
                         <div class="form-group" style="margin-bottom:0">
                             <div class="col-lg-offset-4 col-lg-8">
                                 <button class="btn btn-primary btn-block pull-right"
-                                        type="submit" {-*data-loading-text="{-"Checking..."|translate}"*}>{-"Register"|translate}</button>
+                                        type="submit" id="registerbutton" {-*data-loading-text="{-"Checking..."|translate}"*}>{-"Register"|translate}</button>
                             </div>
                         </div>
     </form>
