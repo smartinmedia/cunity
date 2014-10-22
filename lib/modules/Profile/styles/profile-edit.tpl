@@ -121,7 +121,7 @@
                     <div class="form-group">
                         <div class="col-md-offset-3 col-md-9 clearfix">
                             <input class="ajaxform-callback" type="hidden" value="passwordchanged">
-                            <button type="submit" class="btn btn-primary pull-right"><i
+                            <button type="submit" class="btn btn-primary pull-right" id="updatepassword"><i
                                         class="fa fa-save"></i> {-"Save"|translate}</button>
                         </div>
                     </div>
