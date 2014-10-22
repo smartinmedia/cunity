@@ -75,7 +75,6 @@ class Process
      */
     private function save($form)
     {
-
         $res = [];
         switch ($form) {
             case "settings":
