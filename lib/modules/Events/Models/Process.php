@@ -50,6 +50,7 @@ use Cunity\Gallery\Models\Db\Table\GalleryAlbums;
 use Cunity\Gallery\Models\Db\Table\GalleryImages;
 use Cunity\Newsfeed\Models\Db\Table\Walls;
 use DateTime;
+use Skoch\Filter\File\Crop;
 
 /**
  * Class Process
@@ -256,7 +257,7 @@ class Process
      */
     private function crop()
     {
-        $file = new \Skoch_Filter_File_Crop([
+        $file = new Crop([
             "x" => $_POST['crop-x'],
             "y" => $_POST['crop-y'],
             "x1" => $_POST['crop-x1'],
