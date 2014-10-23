@@ -36,9 +36,7 @@
 
 namespace Cunity\Friends\Models;
 
-use Cunity\Admin\Models\Pages\Users;
 use Cunity\Core\Exception;
-use Cunity\Core\Models\Db\Row\User;
 use Cunity\Core\View\Ajax\View;
 
 /**
