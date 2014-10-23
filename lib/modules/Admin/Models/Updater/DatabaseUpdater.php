@@ -97,8 +97,10 @@ class DatabaseUpdater
                     $classname = $fileinfo->getBasename(".php");
                     $classnameParts = explode('Version', $classname);
                     if (class_exists($classname) && !$this->versionInstalled($classnameParts[1])) {
+                        /** @var DbUpdateVersion $dbCmd */
                         $dbCmd = new $classname(Cunity::get("db"));
                         if ($dbCmd instanceof DbCommandInterface) {
+                            /** @noinspection PhpUndefinedMethodInspection */
                             $dbCmd->execute();
                             $dbCmd->updateDatabaseTimestamp($this->versionDb);
                         }
