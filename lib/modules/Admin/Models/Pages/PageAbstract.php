@@ -36,6 +36,7 @@
  */
 
 namespace Cunity\Admin\Models\Pages;
+use Cunity\Core\View\View;
 
 /**
  * Class PageAbstract
@@ -54,7 +55,10 @@ abstract class PageAbstract
      */
     public function render($class)
     {
+        /** @var View $class */
         $class = "\\Cunity\\Admin\\View\\" . ucfirst($class);
+
+        /** @var View $view */
         $view = new $class;
         $view->assign($this->assignments);
         $view->show();
