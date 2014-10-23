@@ -21,7 +21,7 @@
                         class="fa fa-plus"></span> {-"Add as friend"|translate}</button>
             <button class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
             <ul class="dropdown-menu">
-                <li><a href="javascript:sendMessage('{%=o.name%}',{%=o.userid%});"><i
+                <li><a href="javascript:sendMessage('{%=o.name%}',{%=o.userid%})"><i
                                 class="fa fa-envelope-o"></i> {-"Send message"|translate}</a></li>
                 <li class="divider"></li>
                 <li><a href="#" data-userid="{%=o.userid%}" data-parent="#searchresult-item-{%=o.userid%}"
@@ -46,7 +46,7 @@
                         class="fa fa-question"></span> {-"Answer Request"|translate}</button>
             <button class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
             <ul class="dropdown-menu">
-                <li><a href="javascript:sendMessage('{%=o.name%}',{%=o.userid%});"><i
+                <li><a href="javascript:sendMessage('{%=o.name%}',{%=o.userid%})"><i
                                 class="fa fa-envelope-o"></i> {-"Send message"|translate}</a></li>
                 <li><a href="#" data-userid="{%=o.userid%}" data-parent="#searchresult-item-{%=o.userid%}"
                        data-action="blockperson" data-toggle="modal" data-target="#relationship-modal"><i
@@ -58,7 +58,7 @@
             <button class="btn btn-default dropdown-toggle" data-parent="#searchresult-item-{%=o.userid%}"
                     data-toggle="dropdown"><span class="caret"></span></button>
             <ul class="dropdown-menu">
-                <li><a href="javascript:sendMessage('{%=o.name%}',{%=o.userid%});"><i
+                <li><a href="javascript:sendMessage('{%=o.name%}',{%=o.userid%})"><i
                                 class="fa fa-envelope-o"></i> {-"Send message"|translate}</a></li>
                 <li><a href="#" data-userid="{%=o.userid%}" data-parent="#searchresult-item-{%=o.userid%}"
                        data-action="blockperson" data-toggle="modal" data-target="#relationship-modal"><i
@@ -73,7 +73,7 @@
             <button class="btn btn-default"><span class="fa fa-check"></span> {-"Friends"|translate}</button>
             <button class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
             <ul class="dropdown-menu">
-                <li><a href="javascript:sendMessage('{%=o.name%}',{%=o.userid%});"><i
+                <li><a href="javascript:sendMessage('{%=o.name%}',{%=o.userid%})"><i
                                 class="fa fa-envelope-o"></i> {-"Send message"|translate}</a></li>
                 <li><a href="#" data-userid="{%=o.userid%}" data-parent="#searchresult-item-{%=o.userid%}"
                        data-action="blockperson" data-toggle="modal" data-target="#relationship-modal"><i

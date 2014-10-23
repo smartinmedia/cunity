@@ -29,7 +29,7 @@
             <div class="newsfeed-post-video" style="margin-top:10px">
                 <div class="playable" id="newsfeed-post-playable-{%=o.refid%}">
                     <img src="{%=o.content.video.thumbnail%}" class="newsfeed-post-video-thumbnail thumbnail">
-                    <a class="overlay" href="javascript:play({%=o.refid%});"><i class="fa fa-play-circle-o"></i></a>
+                    <a class="overlay" href="javascript:play({%=o.refid%})"><i class="fa fa-play-circle-o"></i></a>
                 </div>
                 <iframe height="360" width="480" src="" frameborder="0" allowfullscreen
                         class="newsfeed-post-video-frame hidden"
@@ -71,7 +71,7 @@
                     <li class="options" data-toggle="dropdown" data-postid="{%=o.refid%}"><i class="fa fa-cogs"></i>&nbsp;{-"Options"|translate}
                     </li>
                     <ul class="dropdown-menu newsfeed-post-info-dropdown" role="menu" aria-labelledby="dropdownMenu1">
-                        <li><a href="javascript:deletePost({%=o.id%});" class="deletepost"><i
+                        <li><a href="javascript:deletePost({%=o.id%})" class="deletepost"><i
                                         class="fa fa-trash-o fa-fw"></i>&nbsp;{-"Delete post"|translate}</a></li>
                     </ul>
                     {% } %}
@@ -104,7 +104,7 @@
                     <div class="btn-group">
                         <ul class="dropdown-menu newsfeed-post-info-dropdown" role="menu"
                             aria-labelledby="dropdownMenu1">
-                            <li><a href="javascript:deletePost({%=o.id%});" class="deletepost"><i
+                            <li><a href="javascript:deletePost({%=o.id%})" class="deletepost"><i
                                             class="fa fa-trash-o fa-fw"></i>&nbsp;{-"Delete post"|translate}</a></li>
                         </ul>
                         <button class="options btn btn-default" data-toggle="dropdown" data-postid="{%=o.id%}"><i
@@ -117,7 +117,7 @@
         <div class="newsfeed-post-detail hidden" id="newsfeed-post-detail-{%=o.id%}">
             <div class="newsfeed-post-detail-likebox hidden clearfix">
                 <div class="newsfeed-post-detail-likes pull-left">
-                    <a href="javascript:getLikes('{%=o.type%}',{%=o.refid%},0,'{-"Likes"|translate}');"><i
+                    <a href="javascript:getLikes('{%=o.type%}',{%=o.refid%},0,'{-"Likes"|translate}')"><i
                                 class="fa fa-smile-o"></i></a>
 
                     <div id="likes-{%=o.id%}" class="clearfix">
@@ -125,7 +125,7 @@
                         <span class="label label-danger">{-"No Likes yet"|translate}</span></div>
                 </div>
                 <div class="newsfeed-post-detail-dislikes pull-right">
-                    <a href="javascript:getLikes('{%=o.type%}',{%=o.refid%},1,'{-"Dislikes"|translate}');"><i
+                    <a href="javascript:getLikes('{%=o.type%}',{%=o.refid%},1,'{-"Dislikes"|translate}')"><i
                                 class="fa fa-frown-o"></i></a>
 
                     <div id="dislikes-{%=o.id%}" class="clearfix">
@@ -160,7 +160,7 @@
 
         <div class="content-box pull-left">
             {% if (o.userid == {-$user.userid} || o.ref.owner_id == {-$user.userid} || o.ref.userid == {-$user.userid}) { %}
-            <a href="javascript:deleteComment({%=o.id%});" class="close tooltip-trigger"
+            <a href="javascript:deleteComment({%=o.id%})" class="close tooltip-trigger"
                title="{-"Delete this comment"|translate}">&times</a>
             {% } %}
             <a href="{-"index.php?m=profile&action="|URL}{%=o.username%}">{%=o.name%}</a>

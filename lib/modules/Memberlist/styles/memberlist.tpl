@@ -22,7 +22,7 @@
             <button class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
             <ul class="dropdown-menu">
                 {% if (o.privacy.message == 3){ %}
-                <li><a href="javascript:sendMessage('{%=o.name%}',{%=o.userid%});"><i
+                <li><a href="javascript:sendMessage('{%=o.name%}',{%=o.userid%})"><i
                                 class="fa fa-envelope-o"></i> {-"Send message"|translate}</a></li>
                 {% } %}
                 <li class="divider"></li>
@@ -50,7 +50,7 @@
                     data-toggle="dropdown"><span class="caret"></span></button>
             <ul class="dropdown-menu">
                 {% if (o.privacy.message == 3){ %}
-                <li><a href="javascript:sendMessage('{%=o.name%}',{%=o.userid%});"><i
+                <li><a href="javascript:sendMessage('{%=o.name%}',{%=o.userid%})"><i
                                 class="fa fa-envelope-o"></i> {-"Send message"|translate}</a></li>
                 {% } %}
                 <li><a href="#" data-userid="{%=o.userid%}" data-parent="#searchresult-item-{%=o.userid%}"
@@ -63,7 +63,7 @@
             <button class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
             <ul class="dropdown-menu">
                 {% if (o.privacy.message == 3){ %}
-                <li><a href="javascript:sendMessage('{%=o.name%}',{%=o.userid%});"><i
+                <li><a href="javascript:sendMessage('{%=o.name%}',{%=o.userid%})"><i
                                 class="fa fa-envelope-o"></i> {-"Send message"|translate}</a></li>
                 {% } %}
                 <li><a href="#" data-userid="{%=o.userid%}" data-parent="#searchresult-item-{%=o.userid%}"
@@ -80,7 +80,7 @@
             <button class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
             <ul class="dropdown-menu">
                 {% if (o.privacy.message > 0){ %}
-                <li><a href="javascript:sendMessage('{%=o.name%}',{%=o.userid%});"><i
+                <li><a href="javascript:sendMessage('{%=o.name%}',{%=o.userid%})"><i
                                 class="fa fa-envelope-o"></i> {-"Send message"|translate}</a></li>
                 {% } %}
                 <li><a href="#" data-userid="{%=o.userid%}" data-parent="#searchresult-item-{%=o.userid%}"

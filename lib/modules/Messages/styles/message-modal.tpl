@@ -65,7 +65,7 @@
 </script>
 <script type="text/html" id="message-modal-result">
     <li role="presentation" class="message-searchresult-item">
-        <a role="menuitem" tabindex="-1" href="javascript:addReceiver({%=o.userid%},'{%=o.name%}');">
+        <a role="menuitem" tabindex="-1" href="javascript:addReceiver({%=o.userid%},'{%=o.name%}')">
             <img src="{%=o.profileImage%}" class="img-rounded">
             <span>{%=o.name%}</span>
         </a>

@@ -27,7 +27,7 @@
 </div>
 <script id="onlinefriends" type="text/html">
     <li role="presentation" class="online-friend-item">
-        <a role="menuitem" tabindex="-1" href="javascript:chat({%=o.userid%});" class="clearfix chat-user"
+        <a role="menuitem" tabindex="-1" href="javascript:chat({%=o.userid%})" class="clearfix chat-user"
            id="chat-user-{%=o.userid%}">
             <img src="{%=checkImage(o.pimg,'user','cr_')%}" class="img-rounded pull-left">
             <span class="pull-left online-friend-item-name">{%=o.name%}</span>

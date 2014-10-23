@@ -168,7 +168,7 @@
                 <i class="fa fa-chevron-down"></i>
             </button>
             <ul class="dropdown-menu" role="menu">
-                <li><a href="javascript:removeItem({%=o.id%});"><i
+                <li><a href="javascript:removeItem({%=o.id%})"><i
                                 class="fa fa-trash-o"></i>&nbsp;{-"Remove Item"|translate}</a></li>
             </ul>
         </div>
