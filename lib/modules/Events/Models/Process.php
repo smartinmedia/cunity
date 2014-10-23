@@ -185,7 +185,7 @@ class Process
             $conv = new Guests;
             $result = $conv->addGuests($_POST['eventid'], $_POST['receiver'], true);
             /** @noinspection PhpUnnecessaryFullyQualifiedNameInspection */
-            $view = new \Core\View\Ajax\View($result);
+            $view = new \Cunity\Core\View\Ajax\View($result);
             $view->sendResponse();
         }
     }
