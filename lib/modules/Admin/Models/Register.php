@@ -53,7 +53,7 @@ class Register
 {
 
     /**
-     * @var null
+     * @var Users
      */
     protected $_users = null;
     /**
