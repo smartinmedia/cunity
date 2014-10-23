@@ -38,6 +38,7 @@ namespace Cunity\Pages;
 
 use Cunity\Core\ModuleController;
 use Cunity\Core\View\PageNotFound;
+use Cunity\Pages\Models\Db\Row\Page;
 use Cunity\Pages\Models\Db\Table\Pages;
 
 /**
@@ -53,6 +54,7 @@ class Controller extends ModuleController
     public function __construct()
     {
         $pages = new Pages();
+        /** @var Page $page */
         $page = $pages->getPage($_GET['action']);
         if ($page === null) {
             new PageNotFound();

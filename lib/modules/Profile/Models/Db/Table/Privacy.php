@@ -75,7 +75,7 @@ class Privacy extends Table
         $pri = $this->getPrivacy($type, $userid);
         if ($pri == 3) {
             return true;
-        } elseif ($pri == 1 && $_SESSION['user']->isFriend($userid)) {
+        } /** @noinspection PhpUndefinedMethodInspection */ elseif ($pri == 1 && $_SESSION['user']->isFriend($userid)) {
             return true;
         }
 

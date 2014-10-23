@@ -74,6 +74,7 @@ class Process
     {
         $forums = new Forums;
         $view = new View(false);
+        /** @noinspection PhpUndefinedMethodInspection */
         if ($_SESSION['user']->isAdmin()) {
             $view->setStatus($forums->deleteForum($_POST['id']));
         }
@@ -87,6 +88,7 @@ class Process
     {
         $boards = new Boards;
         $view = new View(false);
+        /** @noinspection PhpUndefinedMethodInspection */
         if ($_SESSION['user']->isAdmin()) {
             $view->setStatus($boards->deleteBoard($_POST['id']));
         }
@@ -100,6 +102,7 @@ class Process
     {
         $threads = new Threads;
         $view = new View(false);
+        /** @noinspection PhpUndefinedMethodInspection */
         if ($_SESSION['user']->isAdmin()) {
             $view->setStatus($threads->deleteThread($_POST['id']));
         }

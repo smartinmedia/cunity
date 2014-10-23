@@ -58,6 +58,7 @@ class Process
     /**
      *
      */
+    /** @noinspection PhpUnusedPrivateMethodInspection */
     private function send()
     {
         $view = new View();

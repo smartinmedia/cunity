@@ -59,6 +59,7 @@ class Image extends \Zend_Db_Table_Row_Abstract
         if ($this->owner_id == $_SESSION['user']->userid && $this->owner_type === null) {
             $albums = new GalleryAlbums();
             $album = $albums->find($this->albumid);
+            /** @noinspection PhpUndefinedMethodInspection */
             $album->current()->removeImage($this->id);
             $settings = Cunity::get("settings");
             $likes = new Likes();

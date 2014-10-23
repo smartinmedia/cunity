@@ -61,6 +61,7 @@ class Process
     /**
      *
      */
+    /** @noinspection PhpUnusedPrivateMethodInspection */
     private function add()
     {
         if (!isset($_POST['userid'])) {
@@ -154,6 +155,7 @@ class Process
     private function loadData()
     {
         $userid = $_POST['userid'];
+        /** @noinspection PhpUndefinedMethodInspection */
         $users = $_SESSION['user']->getTable();
         $result = $users->get($userid);
         if ($result === null) {

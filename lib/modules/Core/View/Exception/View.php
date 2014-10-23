@@ -66,7 +66,7 @@ class View extends \Cunity\Core\View\View
      * @param $e
      * @throws \Exception
      */
-    public function __construct($e)
+    public function __construct(\Exception $e)
     {
         parent::__construct();
         $this->assign('MESSAGE', $e->getMessage());

@@ -48,6 +48,7 @@ class Date
      */
     public static function timeSince($since)
     {
+        $name = '';
         $count = 0;
         $chunks = [
             [22896000, 'year'],

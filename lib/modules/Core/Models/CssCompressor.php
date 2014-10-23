@@ -43,10 +43,10 @@ namespace Cunity\Core\Models;
 class CssCompressor
 {
     /**
-     * @internal param $input
+     * @param string $buffer
      * @return mixed
      */
-    public static function compress()
+    public static function compress($buffer = '')
     {
         // Remove comments
         $buffer = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $buffer);

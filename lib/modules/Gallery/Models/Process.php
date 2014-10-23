@@ -69,6 +69,7 @@ class Process
     public function deleteAlbum()
     {
         $albums = new GalleryAlbums();
+        /** @var \Cunity\Gallery\Models\Db\Row\Album $album */
         $album = $albums->find($_POST['albumid'])->current();
         $view = new View($album->deleteAlbum());
         $view->sendResponse();
@@ -126,6 +127,7 @@ class Process
     private function edit()
     {
         $table = new GalleryAlbums();
+        /** @var \Cunity\Gallery\Models\Db\Row\Album $album */
         $album = $table->find($_POST['albumid'])->current();
         $result = $album->update($_POST);
         $view = new View();
@@ -141,6 +143,7 @@ class Process
         $albums = new GalleryAlbums();
         $images = new GalleryImages();
         if (isset($_POST['newsfeed_post'])) {
+            /** @var \Cunity\Gallery\Models\Db\Row\Album $album */
             $album = $albums->fetchRow($albums->select()->where("type=?", "newsfeed")->where("owner_id=?", $_SESSION['user']->userid)->where("owner_type IS NULL"));
             if ($album === null) {
                 $albumid = $albums->newNewsfeedAlbums($_SESSION['user']->userid);

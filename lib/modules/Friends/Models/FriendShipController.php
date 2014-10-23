@@ -36,7 +36,9 @@
 
 namespace Cunity\Friends\Models;
 
+use Cunity\Admin\Models\Pages\Users;
 use Cunity\Core\Exception;
+use Cunity\Core\Models\Db\Row\User;
 use Cunity\Core\View\Ajax\View;
 
 /**
@@ -150,7 +152,9 @@ class FriendShipController
     private function loadData()
     {
         $userid = $_POST['userid'];
+        /** @noinspection PhpUndefinedMethodInspection */
         $users = $_SESSION['user']->getTable();
+        /** @noinspection PhpUndefinedMethodInspection */
         $result = $users->get($userid);
         if ($result === null) {
             throw new Exception("No User found with the given ID!");

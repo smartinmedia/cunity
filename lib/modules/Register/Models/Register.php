@@ -63,6 +63,7 @@ class Register
      */
     public function reset()
     {
+        $error_messages = [];
         $view = new ResetPassword();
         if (!empty($_POST)) {
             $users = new Users();

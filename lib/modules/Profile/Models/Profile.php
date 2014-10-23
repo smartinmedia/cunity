@@ -37,6 +37,7 @@
 namespace Cunity\Profile\Models;
 
 use Cunity\Core\Models\Db\Row\User;
+use Cunity\Core\Models\Db\Table\Users;
 use Cunity\Core\Models\Request;
 use Cunity\Core\View\Ajax\View;
 use Cunity\Core\View\PageNotFound;
@@ -94,6 +95,8 @@ class Profile
      */
     private function checkUser()
     {
+        /** @var Users $users */
+        /** @noinspection PhpUndefinedMethodInspection */
         $users = $_SESSION['user']->getTable();
         if (isset($_GET['action']) && !empty($_GET['action'])) {
             $result = $users->get($_GET['action'], "username");
