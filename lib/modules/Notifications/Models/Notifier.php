@@ -87,6 +87,7 @@ class Notifier
                 self::notify($user['userid'], $sender, $type, $target, $ways);
             }
         } else {
+            /** @var Notifier $obj */
             $obj = self::getInstance();
             $st = $obj->settings->getSetting($type, $receiver);
             if (($st == 1 || $st == 3) && in_array("alert", $ways)) {
