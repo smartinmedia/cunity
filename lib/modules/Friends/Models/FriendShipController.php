@@ -118,12 +118,7 @@ class FriendShipController
         if (!isset($_POST['userid'])) {
             new Exception("No userid given!");
         } else {
-            $relations = new Db\Table\Relationships();
-            $res = $relations->deleteRelation($_SESSION['user']->userid, $_POST['userid']);
-            if ($res) {
-                $view = new View($res !== false);
-                $view->sendResponse();
-            }
+            RelationShipHelper::remove();
         }
     }
 
