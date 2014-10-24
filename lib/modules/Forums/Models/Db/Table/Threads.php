@@ -69,16 +69,7 @@ class Threads extends Table
     public function loadThreads($boardid)
     {
         $res = $this->getAdapter()->fetchAll(
-            $this
-                ->getAdapter()
-                ->select()
-                ->from(["t" => $this->getTableName()])
-                ->joinLeft(["p" => $this->_dbprefix . "forums_posts"], "p.thread_id=t.id", ["time"])
-                ->joinLeft(["pc" => $this->_dbprefix . "forums_posts"], "pc.thread_id=t.id", new \Zend_Db_Expr("COUNT(DISTINCT pc.id) AS postcount"))
-                ->joinLeft(["u" => $this->_dbprefix . "users"], "u.userid=p.userid", ["name", "username"])
-                ->joinLeft(["c" => $this->_dbprefix . "forums_categories"], "c.id=t.category", ["name AS categoryName", "tag AS categoryTag"])
-                ->order("t.important DESC")
-                ->order("p.time DESC")
+            $this->getWhere()
                 ->where("pc.id IS NOT NULL")
                 ->where("t.board_id=?", $boardid)
                 ->group("t.id")
@@ -97,15 +88,7 @@ class Threads extends Table
     {
         $res = $this->getAdapter()->fetchAll(
             $this
-                ->getAdapter()
-                ->select()
-                ->from(["t" => $this->getTableName()])
-                ->joinLeft(["p" => $this->_dbprefix . "forums_posts"], "p.thread_id=t.id", ["time"])
-                ->joinLeft(["pc" => $this->_dbprefix . "forums_posts"], "pc.thread_id=t.id", new \Zend_Db_Expr("COUNT(DISTINCT pc.id) AS postcount"))
-                ->joinLeft(["u" => $this->_dbprefix . "users"], "u.userid=p.userid", ["name", "username"])
-                ->joinLeft(["c" => $this->_dbprefix . "forums_categories"], "c.id=t.category", ["name AS categoryName", "tag AS categoryTag"])
-                ->order("t.important DESC")
-                ->order("p.time DESC")
+                ->getWhere()
                 ->where("t.category=?", $category)
                 ->group("t.id")
         );
@@ -164,5 +147,22 @@ class Threads extends Table
         } else {
             return false;
         }
+    }
+
+    /**
+     * @return \Zend_Db_Select
+     */
+    private function getWhere()
+    {
+        return $this
+            ->getAdapter()
+            ->select()
+            ->from(["t" => $this->getTableName()])
+            ->joinLeft(["p" => $this->_dbprefix . "forums_posts"], "p.thread_id=t.id", ["time"])
+            ->joinLeft(["pc" => $this->_dbprefix . "forums_posts"], "pc.thread_id=t.id", new \Zend_Db_Expr("COUNT(DISTINCT pc.id) AS postcount"))
+            ->joinLeft(["u" => $this->_dbprefix . "users"], "u.userid=p.userid", ["name", "username"])
+            ->joinLeft(["c" => $this->_dbprefix . "forums_categories"], "c.id=t.category", ["name AS categoryName", "tag AS categoryTag"])
+            ->order("t.important DESC")
+            ->order("p.time DESC");
     }
 }
