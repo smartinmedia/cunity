@@ -34,28 +34,75 @@
  * #####################################################################################
  */
 
-namespace Cunity\Comments\Models;
+namespace Cunity\Core\Helper;
 
-use Cunity\Core\Helper\AbstractCommentsHelper;
+use Cunity\Comments\Models\Db;
 use Cunity\Core\View\Ajax\View;
 
 /**
- * Class Comments
- * @package Comments\Models
+ * Class AbstractCommentsHelper
+ * @package Cunity\Core\Helper
  */
-class Comments extends AbstractCommentsHelper
+abstract class AbstractCommentsHelper
 {
+    /**
+     * @var Db\Table\Comments
+     */
+    protected $table;
+    /**
+     * @var View
+     */
+    protected $view;
+
     /**
      * @param $action
      */
     public function __construct($action)
     {
-        if (!isset($_POST['ref_name']) || !isset($_POST['ref_id'])) {
-            $this->view = new View();
-            $this->view->setStatus(false);
-            $this->view->sendResponse();
-        } else {
-            parent::__construct($action);
+        $this->view = new View();
+        $this->table = new Db\Table\Comments();
+        if (method_exists($this, $action)) {
+            call_user_func([$this, $action]);
         }
+
+        $this->view->sendResponse();
+    }
+
+    /**
+     *
+     */
+    protected function add()
+    {
+        $res = $this->table->addComment($_POST['ref_id'], $_POST['ref_name'], $_POST['content']);
+        $this->view->setStatus($res !== false);
+        $this->view->addData($res);
+    }
+
+    /**
+     *
+     */
+    protected function remove()
+    {
+        $res = $this->table->removeComment($_POST['comment_id']);
+        $this->view->setStatus($res !== false);
+    }
+
+    /**
+     *
+     */
+    protected function removeAll()
+    {
+        $res = $this->table->removeAllComments($_POST['ref_id'], $_POST['ref_name']);
+        $this->view->setStatus($res !== false);
+    }
+
+    /**
+     *
+     */
+    protected function get()
+    {
+        $res = $this->table->get($_POST['ref_id'], $_POST['ref_name'], $_POST['last'], $_POST['limit']);
+        $this->view->setStatus($res !== false);
+        $this->view->addData(["comments" => $res]);
     }
 }
