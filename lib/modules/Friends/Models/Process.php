@@ -37,6 +37,7 @@
 namespace Cunity\Friends\Models;
 
 use Cunity\Core\Exception;
+use Cunity\Core\Helper\UserHelper;
 use Cunity\Core\Models\Db\Table\Users;
 use Cunity\Core\View\Ajax\View;
 use Cunity\Friends\Models\Db\Table\Relationships;
@@ -48,7 +49,6 @@ use Cunity\Notifications\Models\Notifier;
  */
 class Process
 {
-
     /**
      * @param $action
      */
@@ -65,16 +65,13 @@ class Process
     /** @noinspection PhpUnusedPrivateMethodInspection */
     private function add()
     {
-        if (!isset($_POST['userid'])) {
-            new Exception("No userid given!");
-        } else {
-            $relations = new Relationships();
-            $res = $relations->insert(["sender" => $_SESSION['user']->userid, "receiver" => $_POST['userid'], "status" => 1]);
-            if ($res) {
-                Notifier::notify($_POST['userid'], $_SESSION['user']->userid, "addfriend", "index.php?m=profile&action=" . $_SESSION['user']->username);
-                $view = new View($res !== false);
-                $view->sendResponse();
-            }
+        UserHelper::breakOnMissingUserId();
+        $relations = new Relationships();
+        $res = $relations->insert(["sender" => $_SESSION['user']->userid, "receiver" => $_POST['userid'], "status" => 1]);
+        if ($res) {
+            Notifier::notify($_POST['userid'], $_SESSION['user']->userid, "addfriend", "index.php?m=profile&action=" . $_SESSION['user']->username);
+            $view = new View($res !== false);
+            $view->sendResponse();
         }
     }
 
@@ -83,15 +80,12 @@ class Process
      */
     private function block()
     {
-        if (!isset($_POST['userid'])) {
-            new Exception("No userid given!");
-        } else {
-            $relations = new Relationships();
-            $res = $relations->updateRelation($_SESSION['user']->userid, $_POST['userid'], ["status" => 0, "sender" => $_SESSION['user']->userid, "receiver" => $_POST['userid']]);
-            if ($res) {
-                $view = new View($res !== false);
-                $view->sendResponse();
-            }
+        UserHelper::breakOnMissingUserId();
+        $relations = new Relationships();
+        $res = $relations->updateRelation($_SESSION['user']->userid, $_POST['userid'], ["status" => 0, "sender" => $_SESSION['user']->userid, "receiver" => $_POST['userid']]);
+        if ($res) {
+            $view = new View($res !== false);
+            $view->sendResponse();
         }
     }
 
@@ -100,12 +94,8 @@ class Process
      */
     private function confirm()
     {
-        // Here the userid is the relation id to make it easier to identify the friendship!
-        if (!isset($_POST['userid'])) {
-            new Exception("No userid given!");
-        } else {
-            RelationShipHelper::confirm();
-        }
+        UserHelper::breakOnMissingUserId();
+        RelationShipHelper::confirm();
     }
 
     /**
@@ -113,12 +103,8 @@ class Process
      */
     private function remove()
     {
-        // Here the userid is the relation id to make it easier to identify the friendship!
-        if (!isset($_POST['userid'])) {
-            new Exception("No userid given!");
-        } else {
-            RelationShipHelper::remove();
-        }
+        UserHelper::breakOnMissingUserId();
+        RelationShipHelper::remove();
     }
 
     /**
@@ -126,12 +112,8 @@ class Process
      */
     private function change()
     {
-        // Here the userid is the relation id to make it easier to identify the friendship!
-        if (!isset($_POST['userid'])) {
-            new Exception("No userid given!");
-        } else {
-            RelationShipHelper::change();
-        }
+        UserHelper::breakOnMissingUserId();
+        RelationShipHelper::change();
     }
 
     /**

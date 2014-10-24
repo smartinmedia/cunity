@@ -37,6 +37,7 @@
 namespace Cunity\Friends\Models;
 
 use Cunity\Core\Exception;
+use Cunity\Core\Helper\UserHelper;
 use Cunity\Core\Models\Db\Row\User;
 use Cunity\Core\View\Ajax\View;
 
@@ -62,15 +63,12 @@ class FriendShipController
      */
     private function add()
     {
-        if (!isset($_POST['userid'])) {
-            new Exception("No userid given!");
-        } else {
-            $relations = new Db\Table\Relationships();
-            $res = $relations->insert(["sender" => $_SESSION['user']->userid, "receiver" => $_POST['userid'], "status" => 1]);
-            if ($res) {
-                $view = new View($res !== false);
-                $view->sendResponse();
-            }
+        UserHelper::breakOnMissingUserId();
+        $relations = new Db\Table\Relationships();
+        $res = $relations->insert(["sender" => $_SESSION['user']->userid, "receiver" => $_POST['userid'], "status" => 1]);
+        if ($res) {
+            $view = new View($res !== false);
+            $view->sendResponse();
         }
     }
 
@@ -79,15 +77,12 @@ class FriendShipController
      */
     private function block()
     {
-        if (!isset($_POST['userid'])) {
-            new Exception("No userid given!");
-        } else {
-            $relations = new Db\Table\Relationships();
-            $res = $relations->updateRelation($_SESSION['user']->userid, $_POST['userid'], ["status" => 0, "sender" => $_SESSION['user']->userid, "receiver" => $_POST['userid']]);
-            if ($res) {
-                $view = new View($res !== false);
-                $view->sendResponse();
-            }
+        UserHelper::breakOnMissingUserId();
+        $relations = new Db\Table\Relationships();
+        $res = $relations->updateRelation($_SESSION['user']->userid, $_POST['userid'], ["status" => 0, "sender" => $_SESSION['user']->userid, "receiver" => $_POST['userid']]);
+        if ($res) {
+            $view = new View($res !== false);
+            $view->sendResponse();
         }
     }
 
@@ -96,31 +91,25 @@ class FriendShipController
      */
     private function confirm()
     {
-        // Here the userid is the relation id to make it easier to identify the friendship!
-        if (!isset($_POST['userid'])) {
-            new Exception("No userid given!");
-        } else {
-            RelationShipHelper::confirm(true);
-        }
+        UserHelper::breakOnMissingUserId();
+        RelationShipHelper::confirm(true);
     }
 
     /**
      *
      */
-    private function remove()
+    private
+    function remove()
     {
-        // Here the userid is the relation id to make it easier to identify the friendship!
-        if (!isset($_POST['userid'])) {
-            new Exception("No userid given!");
-        } else {
-            RelationShipHelper::remove();
-        }
+        UserHelper::breakOnMissingUserId();
+        RelationShipHelper::remove();
     }
 
     /**
      *
      */
-    private function change()
+    private
+    function change()
     {
         // Here the userid is the relation id to make it easier to identify the friendship!
         if (!isset($_POST['userid'])) {
@@ -133,7 +122,8 @@ class FriendShipController
     /**
      * @throws Exception
      */
-    private function loadData()
+    private
+    function loadData()
     {
         $userid = $_POST['userid'];
         /** @noinspection PhpUndefinedMethodInspection */
@@ -153,7 +143,8 @@ class FriendShipController
     /**
      *
      */
-    private function load()
+    private
+    function load()
     {
         $relations = new Db\Table\Relationships();
         $userid = ($_POST['userid'] == 0) ? $_SESSION['user']->userid : $_POST['userid'];
