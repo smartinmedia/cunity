@@ -94,7 +94,6 @@ class Process
      */
     private function confirm()
     {
-        UserHelper::breakOnMissingUserId();
         RelationShipHelper::confirm();
     }
 
@@ -103,7 +102,6 @@ class Process
      */
     private function remove()
     {
-        UserHelper::breakOnMissingUserId();
         RelationShipHelper::remove();
     }
 
@@ -112,7 +110,6 @@ class Process
      */
     private function change()
     {
-        UserHelper::breakOnMissingUserId();
         RelationShipHelper::change();
     }
 

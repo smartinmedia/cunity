@@ -91,7 +91,6 @@ class FriendShipController
      */
     private function confirm()
     {
-        UserHelper::breakOnMissingUserId();
         RelationShipHelper::confirm(true);
     }
 
@@ -100,7 +99,6 @@ class FriendShipController
      */
     private function remove()
     {
-        UserHelper::breakOnMissingUserId();
         RelationShipHelper::remove();
     }
 
@@ -109,7 +107,6 @@ class FriendShipController
      */
     private function change()
     {
-        UserHelper::breakOnMissingUserId();
         RelationShipHelper::change();
     }
 

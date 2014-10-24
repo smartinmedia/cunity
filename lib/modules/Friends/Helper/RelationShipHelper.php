@@ -36,6 +36,7 @@
 
 namespace Cunity\Friends\Models;
 
+use Cunity\Core\Helper\UserHelper;
 use Cunity\Core\View\Ajax\View;
 use Cunity\Friends\Models\Db\Table\Relationships;
 use Cunity\Notifications\Models\Notifier;
@@ -51,6 +52,7 @@ class RelationShipHelper
      */
     public static function change()
     {
+        UserHelper::breakOnMissingUserId();
         $relations = new Relationships();
         $res = $relations->updateRelation($_POST['userid'], $_SESSION['user']->userid, ["status" => $_POST['status']]);
         if ($res) {
@@ -64,6 +66,7 @@ class RelationShipHelper
      */
     public static function remove()
     {
+        UserHelper::breakOnMissingUserId();
         $relations = new Relationships();
         $res = $relations->deleteRelation($_SESSION['user']->userid, $_POST['userid']);
         if ($res) {
@@ -77,6 +80,7 @@ class RelationShipHelper
      */
     public static function confirm($notify = false)
     {
+        UserHelper::breakOnMissingUserId();
         $relations = new Relationships();
         $res = $relations->updateRelation($_SESSION['user']->userid, $_POST['userid'], ["status" => 2]);
         if ($res) {
