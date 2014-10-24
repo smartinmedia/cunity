@@ -104,13 +104,7 @@ class Process
         if (!isset($_POST['userid'])) {
             new Exception("No userid given!");
         } else {
-            $relations = new Relationships();
-            $res = $relations->updateRelation($_SESSION['user']->userid, $_POST['userid'], ["status" => 2]);
-            if ($res) {
-                Notifier::notify($_POST['userid'], $_SESSION['user']->userid, "confirmfriend", "index.php?m=profile&action=" . $_SESSION['user']->username);
-                $view = new View($res !== false);
-                $view->sendResponse();
-            }
+            RelationShipHelper::confirm();
         }
     }
 

@@ -100,12 +100,7 @@ class FriendShipController
         if (!isset($_POST['userid'])) {
             new Exception("No userid given!");
         } else {
-            $relations = new Db\Table\Relationships();
-            $res = $relations->updateRelation($_SESSION['user']->userid, $_POST['userid'], ["status" => 2]);
-            if ($res) {
-                $view = new View($res !== false);
-                $view->sendResponse();
-            }
+            RelationShipHelper::confirm(true);
         }
     }
 

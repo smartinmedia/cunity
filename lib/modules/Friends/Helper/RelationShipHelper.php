@@ -38,6 +38,7 @@ namespace Cunity\Friends\Models;
 
 use Cunity\Core\View\Ajax\View;
 use Cunity\Friends\Models\Db\Table\Relationships;
+use Cunity\Notifications\Models\Notifier;
 
 /**
  * Class RelationShipHelper
@@ -58,11 +59,31 @@ class RelationShipHelper
         }
     }
 
+    /**
+     *
+     */
     public static function remove()
     {
-        $relations = new Db\Table\Relationships();
+        $relations = new Relationships();
         $res = $relations->deleteRelation($_SESSION['user']->userid, $_POST['userid']);
         if ($res) {
+            $view = new View($res !== false);
+            $view->sendResponse();
+        }
+    }
+
+    /**
+     * @param bool $notify
+     */
+    public static function confirm($notify = false)
+    {
+        $relations = new Relationships();
+        $res = $relations->updateRelation($_SESSION['user']->userid, $_POST['userid'], ["status" => 2]);
+        if ($res) {
+            if ($notify) {
+                Notifier::notify($_POST['userid'], $_SESSION['user']->userid, "confirmfriend", "index.php?m=profile&action=" . $_SESSION['user']->username);
+            }
+
             $view = new View($res !== false);
             $view->sendResponse();
         }
