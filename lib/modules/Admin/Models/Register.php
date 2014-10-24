@@ -34,7 +34,7 @@
  * #####################################################################################
  */
 
-namespace Cunity\Register\Models;
+namespace Cunity\Admin\Models;
 
 use Cunity\Core\Models\Db\Table\Users;
 use Cunity\Core\Models\Validation\Email;
