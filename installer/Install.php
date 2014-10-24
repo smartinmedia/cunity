@@ -57,13 +57,13 @@ class Install {
      *
      * @var String
      */
-    private $lang = "en";
+    private static $lang = "en";
 
     /**
      *
      * @var array
      */
-    private $langTexts = [];
+    private static $langTexts = [];
 
     /**
      * 
@@ -92,14 +92,14 @@ class Install {
     private function initTranslator() {
         if (isset($_GET['lang']) && (file_exists("installer/lang/" . $_GET['lang'] . ".php") || $_GET['lang'] == "en")) {
             $this->lang = $_GET['lang'];
-            $_SESSION['lang'] = $this->lang;
+            $_SESSION['lang'] = self::$lang;
         } else if (isset($_SESSION['lang']) && (file_exists("installer/lang/" . $_SESSION['lang'] . ".php") || $_SESSION['lang'] == "en")) {
             $this->lang = $_SESSION['lang'];
         } else {
             $this->lang = "en";
         }
-        if ($this->lang !== "en") {
-            $this->langTexts = include("installer/lang/" . $this->lang . ".php");
+        if (self::$lang !== "en") {
+            $this->langTexts = include("installer/lang/" . self::$lang . ".php");
         }
     }
 
@@ -124,11 +124,11 @@ class Install {
      * @param array $replacements
      * @return String
      */
-    public function translate($input, array $replacements = []) {
-        if ($this->lang == "en" || !(isset($this->langTexts[$input]))) {
+    public static function translate($input, array $replacements = []) {
+        if (self::$lang == "en" || !(isset(self::$langTexts[$input]))) {
             $str = $input;
         } else {
-            $str = $this->langTexts[$input];
+            $str = self::$langTextslangTexts[$input];
         }
 
         if (!empty($replacements)) {
@@ -140,11 +140,6 @@ class Install {
 
 }
 
-function __($string, array $replacements = []) {
-    global $installer;
-    echo $installer->translate($string, $replacements);
-}
-
 $installer = new Install();
 ?>
 <!DOCTYPE html>
@@ -153,7 +148,7 @@ $installer = new Install();
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title><?php __("Install Cunity"); ?></title>
+        <title><?php Install::translate("Install Cunity"); ?></title>
         <link href="../lib/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <link href="../lib/plugins/fontawesome/css/font-awesome.css" rel="stylesheet">
         <!--[if lt IE 9]>
@@ -249,7 +244,7 @@ $installer = new Install();
                 <div class="login-container">                
                     <form>
                         <div class="form-group">           
-                            <label><?php __("Please select your language for the installation-process"); ?></label>
+                            <label><?php Install::translate("Please select your language for the installation-process"); ?></label>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-globe"></i></span>
                                 <select class="form-control" name="lang">
@@ -259,7 +254,7 @@ $installer = new Install();
                             </div>                            
                         </div>
                         <div class="form-group">
-                            <button class="btn btn-primary btn-lg btn-block" type="submit"><?php __("Start Installation"); ?></button>
+                            <button class="btn btn-primary btn-lg btn-block" type="submit"><?php Install::translate("Start Installation"); ?></button>
                         </div>
                     </form>
                 </div>
@@ -269,25 +264,25 @@ $installer = new Install();
                 <div class="row">
                     <div class="col-lg-8 col-lg-offset-2">
                         <div class="page-header">
-                            <h1><?php __("Install Cunity"); ?></h1>                        
+                            <h1><?php Install::translate("Install Cunity"); ?></h1>                        
                         </div>
                         <div id="installCarousel" class="carousel slide">
                             <ol class="breadcrumb" id="steps" role="tablist">
-                                <li><a href="Install.php" title="<?php __("Back to language selection"); ?>"><i class="fa fa-globe"></i></a></li>
-                                <li class="active"><a data-target="#installCarousel" href="#terms" data-slide-to="0"><?php __("Terms"); ?></a></li>
-                                <li><a data-target="#installCarousel" href="#requirements" data-slide-to="1" ><?php __("Requirements"); ?></a></li>
-                                <li><a data-target="#installCarousel" href="#database" data-slide-to="2"><?php __("Database"); ?></a></li>
-                                <li><a data-target="#installCarousel" href="#settings" data-slide-to="3"><?php __("Settings"); ?></a></li>
-                                <li><a data-target="#installCarousel" href="#account" data-slide-to="4"><?php __("Account"); ?></a></li>
-                                <li><a data-target="#installCarousel" href="#finish" data-slide-to="5"><?php __("Finish"); ?></a></li>
+                                <li><a href="Install.php" title="<?php Install::translate("Back to language selection"); ?>"><i class="fa fa-globe"></i></a></li>
+                                <li class="active"><a data-target="#installCarousel" href="#terms" data-slide-to="0"><?php Install::translate("Terms"); ?></a></li>
+                                <li><a data-target="#installCarousel" href="#requirements" data-slide-to="1" ><?php Install::translate("Requirements"); ?></a></li>
+                                <li><a data-target="#installCarousel" href="#database" data-slide-to="2"><?php Install::translate("Database"); ?></a></li>
+                                <li><a data-target="#installCarousel" href="#settings" data-slide-to="3"><?php Install::translate("Settings"); ?></a></li>
+                                <li><a data-target="#installCarousel" href="#account" data-slide-to="4"><?php Install::translate("Account"); ?></a></li>
+                                <li><a data-target="#installCarousel" href="#finish" data-slide-to="5"><?php Install::translate("Finish"); ?></a></li>
                             </ol>
                             <div class="carousel-inner">
                                 <div class="item active" id="terms">
-                                    <span class="title"><?php __("Terms and Conditions"); ?></span>                                
+                                    <span class="title"><?php Install::translate("Terms and Conditions"); ?></span>                                
                                     <div class="terms">
                                         <form>
                                             <div class="form-group">
-                                                <label><?php __("Please agree to our Terms & Conditions first"); ?></label>
+                                                <label><?php Install::translate("Please agree to our Terms & Conditions first"); ?></label>
                                                 <div class="form-control">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.   
 
                                                     Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.   
@@ -313,102 +308,102 @@ $installer = new Install();
                                             <div class="checkbox">
                                                 <label>
                                                     <input type="checkbox" value="1" name="accept-terms" id="accept-terms">
-                                                    <?php __("I accept the Terms and Conditions"); ?>
+                                                    <?php Install::translate("I accept the Terms and Conditions"); ?>
                                                 </label>
                                             </div>
                                         </form>
                                     </div>
                                 </div>
                                 <div class="item" id="requirements">
-                                    <span class="title"><?php __("Check Requirements"); ?></span>
+                                    <span class="title"><?php Install::translate("Check Requirements"); ?></span>
                                     <div class="list-group">                                        
                                         <li class="list-group-item"><i class="fa <?php if (version_compare(PHP_VERSION, '5.5.0', '>=')) { ?> fa-check-circle-o text-success <?php } else { ?>fa-times-circle-o text-danger <?php } ?> fa-fw fa-lg"></i>&nbsp;PHP Version 5.5+</li>
-                                        <li class="list-group-item"><i class="fa fa-question text-muted fa-fw fa-lg"></i>&nbsp;MySQL Version 5+ (<?php __("Will be checked in the next step"); ?>)</li>
+                                        <li class="list-group-item"><i class="fa fa-question text-muted fa-fw fa-lg"></i>&nbsp;MySQL Version 5+ (<?php Install::translate("Will be checked in the next step"); ?>)</li>
                                     </div>
                                 </div>                                
                                 <div class="item" id="database">
-                                    <span class="title"><?php __("Setup Database"); ?></span>
+                                    <span class="title"><?php Install::translate("Setup Database"); ?></span>
                                     <div class="row">
                                         <div class="col-lg-7">
                                             <form>
                                                 <div class="form-group">
-                                                    <label for="db-host"><?php __("Database-Host"); ?></label>
+                                                    <label for="db-host"><?php Install::translate("Database-Host"); ?></label>
                                                     <input type="text" id="db-host" class="form-control" value="localhost" autocomplete="off">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="db-user"><?php __("Database-User"); ?></label>
+                                                    <label for="db-user"><?php Install::translate("Database-User"); ?></label>
                                                     <input type="text" id="db-user" class="form-control" autocomplete="off">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="db-password"><?php __("Database-Password"); ?></label>
+                                                    <label for="db-password"><?php Install::translate("Database-Password"); ?></label>
                                                     <input type="password" id="db-password" class="form-control" autocomplete="off">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="db-name"><?php __("Database-Name"); ?></label>
+                                                    <label for="db-name"><?php Install::translate("Database-Name"); ?></label>
                                                     <input type="text" id="db-name" class="form-control" autocomplete="off">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="db-prefix"><?php __("Database-Prefix"); ?></label>
+                                                    <label for="db-prefix"><?php Install::translate("Database-Prefix"); ?></label>
                                                     <input type="text" id="db-prefix" class="form-control" value="cunity" autocomplete="off">
                                                 </div>
                                                 <div class="form-group">
-                                                    <button class="btn btn-primary btn-block"><i class="fa-check fa"></i>&nbsp;<?php __("Check Connection & copy data to database"); ?></button>
+                                                    <button class="btn btn-primary btn-block"><i class="fa-check fa"></i>&nbsp;<?php Install::translate("Check Connection & copy data to database"); ?></button>
                                                 </div>
                                             </form>  
                                         </div>
                                     </div>                                    
                                 </div>
                                 <div class="item" id="settings">
-                                    <span class="title"><?php __("Enter Cunity-Settings"); ?></span>
-                                    <h4 class="page-header"><?php __("General Settings"); ?></h4>
+                                    <span class="title"><?php Install::translate("Enter Cunity-Settings"); ?></span>
+                                    <h4 class="page-header"><?php Install::translate("General Settings"); ?></h4>
                                     <form class="form-horizontal">
                                         <div class="form-group">
-                                            <label class="col-lg-3 control-label" for="sitename"><?php __("Name of your Cunity"); ?></label>
+                                            <label class="col-lg-3 control-label" for="sitename"><?php Install::translate("Name of your Cunity"); ?></label>
                                             <div class="col-lg-7">
                                                 <input type="text" name="settings_core.sitename" id="sitename" class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-lg-3 control-label" for="siteurl"><?php __("URL of your Cunity"); ?></label>
+                                            <label class="col-lg-3 control-label" for="siteurl"><?php Install::translate("URL of your Cunity"); ?></label>
                                             <div class="col-lg-7">
                                                 <input type="text" name="settings_core.siteurl" id="siteurl" class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-lg-3 control-label" for="description"><?php __("Description"); ?></label>
+                                            <label class="col-lg-3 control-label" for="description"><?php Install::translate("Description"); ?></label>
                                             <div class="col-lg-7">
                                                 <textarea class="form-control" id="description" name="settings_core.description"></textarea>
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-lg-3 control-label" for="contactmail"><?php __("Contact Mail"); ?></label>
+                                            <label class="col-lg-3 control-label" for="contactmail"><?php Install::translate("Contact Mail"); ?></label>
                                             <div class="col-lg-7">
                                                 <input type="text" name="settings_core.contact_mail" id="contactmail" class="form-control">
                                             </div>
                                         </div>
                                     </form>
-                                    <h4 class="page-header"><?php __("Mail Settings"); ?></h4>
+                                    <h4 class="page-header"><?php Install::translate("Mail Settings"); ?></h4>
                                     <form class="form-horizontal">
                                         <div class="form-group">
-                                            <label for="use-smtp" class="col-lg-3 control-label"><?php __("Mailserver"); ?></label>
+                                            <label for="use-smtp" class="col-lg-3 control-label"><?php Install::translate("Mailserver"); ?></label>
                                             <div class="col-lg-7">
                                                 <div class="radio-inline">
                                                     <label>
                                                         <input type="radio" id="connection-type-smtp" required name="config[mail][smtp]"                                                                   
-                                                               class="change-connection-type">&nbsp;<?php __("Use SMTP"); ?>
+                                                               class="change-connection-type">&nbsp;<?php Install::translate("Use SMTP"); ?>
                                                     </label>
                                                 </div>
                                                 <div class="radio-inline">
                                                     <label>
                                                         <input type="radio" id="connection-type-sendmail" required name="config[mail][smtp]"
-                                                               class="change-connection-type">&nbsp;<?php __("Use PHP Sendmail"); ?>
+                                                               class="change-connection-type">&nbsp;<?php Install::translate("Use PHP Sendmail"); ?>
                                                     </label>
                                                 </div>
                                             </div>
                                         </div>
                                         <div id="smtp-settings">
                                             <div class="form-group">
-                                                <label for="smtp-host" class="col-lg-3 control-label"><?php __("SMTP-Host"); ?></label>
+                                                <label for="smtp-host" class="col-lg-3 control-label"><?php Install::translate("SMTP-Host"); ?></label>
 
                                                 <div class="col-lg-7">
                                                     <input type="text" class="form-control"
@@ -416,7 +411,7 @@ $installer = new Install();
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="smtp-port" class="col-lg-3 control-label"><?php __("SMTP-Port"); ?></label>
+                                                <label for="smtp-port" class="col-lg-3 control-label"><?php Install::translate("SMTP-Port"); ?></label>
 
                                                 <div class="col-lg-7">
                                                     <input type="number" class="form-control"
@@ -426,18 +421,18 @@ $installer = new Install();
                                             </div>
                                             <div class="form-group">
                                                 <label for="smtp-auth"
-                                                       class="col-lg-3 control-label"><?php __("SMTP-Authentication"); ?></label>
+                                                       class="col-lg-3 control-label"><?php Install::translate("SMTP-Authentication"); ?></label>
 
                                                 <div class="col-lg-7">
                                                     <select class="form-control" id="smtp-auth" name="config[mail][params][auth]" required>                                                            
-                                                        <option value="login"><?php __("Yes"); ?></option>
-                                                        <option value="plain"><?php __("No"); ?></option>
+                                                        <option value="login"><?php Install::translate("Yes"); ?></option>
+                                                        <option value="plain"><?php Install::translate("No"); ?></option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label for="smtp-username"
-                                                       class="col-lg-3 control-label"><?php __("SMTP-Username"); ?></label>
+                                                       class="col-lg-3 control-label"><?php Install::translate("SMTP-Username"); ?></label>
 
                                                 <div class="col-lg-7">
                                                     <input type="text" required class="form-control"
@@ -447,7 +442,7 @@ $installer = new Install();
                                             </div>
                                             <div class="form-group">
                                                 <label for="smtp-password"
-                                                       class="col-lg-3 control-label"><?php __("SMTP-Password"); ?></label>
+                                                       class="col-lg-3 control-label"><?php Install::translate("SMTP-Password"); ?></label>
 
                                                 <div class="col-lg-7">
                                                     <input type="password" required class="form-control"
@@ -456,13 +451,13 @@ $installer = new Install();
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="smtp-ssl" class="col-lg-3 control-label"><?php __("SMTP-Security"); ?></label>
+                                                <label for="smtp-ssl" class="col-lg-3 control-label"><?php Install::translate("SMTP-Security"); ?></label>
 
                                                 <div class="col-lg-7">
                                                     <div class="checkbox">
                                                         <label>
                                                             <input type="checkbox" name="config[mail][params][ssl]"
-                                                                   value="ssl">&nbsp;<?php __("Use SSL"); ?>
+                                                                   value="ssl">&nbsp;<?php Install::translate("Use SSL"); ?>
                                                         </label>
                                                     </div>
                                                 </div>
@@ -471,75 +466,75 @@ $installer = new Install();
                                     </form>
                                 </div>
                                 <div class="item" id="account">
-                                    <span class="title"><?php __("Create Admin-Account"); ?></span>
+                                    <span class="title"><?php Install::translate("Create Admin-Account"); ?></span>
                                     <form class="form-horizontal">
                                         <div class="form-group">
-                                            <label class="control-label col-lg-3" for="input-username"><?php __("Username"); ?></label>
+                                            <label class="control-label col-lg-3" for="input-username"><?php Install::translate("Username"); ?></label>
 
                                             <div class="col-lg-7">
                                                 <input type="text" autocomplete="off" required class="form-control" id="input-username"
-                                                       placeholder="<?php __("Username"); ?>" name="username">
+                                                       placeholder="<?php Install::translate("Username"); ?>" name="username">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="control-label col-lg-3" for="input-email"><?php __("E-Mail"); ?></label>
+                                            <label class="control-label col-lg-3" for="input-email"><?php Install::translate("E-Mail"); ?></label>
 
                                             <div class="col-lg-7">
-                                                <input type="email" required class="form-control" id="input-email" placeholder="<?php __("E-Mail"); ?>"
+                                                <input type="email" required class="form-control" id="input-email" placeholder="<?php Install::translate("E-Mail"); ?>"
                                                        name="email">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="control-label col-lg-3" for="input-firstname"><?php __("Firstname"); ?></label>
+                                            <label class="control-label col-lg-3" for="input-firstname"><?php Install::translate("Firstname"); ?></label>
 
                                             <div class="col-lg-7">
                                                 <input type="text" autocomplete="off" required class="form-control" id="input-firstname"
-                                                       placeholder="<?php __("Firstname"); ?>" name="firstname">
+                                                       placeholder="<?php Install::translate("Firstname"); ?>" name="firstname">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="control-label col-lg-3" for="input-lastname"><?php __("Lastname"); ?></label>
+                                            <label class="control-label col-lg-3" for="input-lastname"><?php Install::translate("Lastname"); ?></label>
 
                                             <div class="col-lg-7">
                                                 <input type="text" autocomplete="off" required class="form-control" id="input-lastname"
-                                                       placeholder="<?php __("Lastname"); ?>" name="lastname">
+                                                       placeholder="<?php Install::translate("Lastname"); ?>" name="lastname">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="control-label col-lg-3" for="input-password"><?php __("Password"); ?></label>
+                                            <label class="control-label col-lg-3" for="input-password"><?php Install::translate("Password"); ?></label>
 
                                             <div class="col-lg-7">
                                                 <input type="password" autocomplete="off" required class="form-control" id="input-password"
-                                                       placeholder="<?php __("Password"); ?>" name="password">
+                                                       placeholder="<?php Install::translate("Password"); ?>" name="password">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="control-label col-lg-3" for="input-password-repeat"><?php __("Repeat password"); ?></label>
+                                            <label class="control-label col-lg-3" for="input-password-repeat"><?php Install::translate("Repeat password"); ?></label>
 
                                             <div class="col-lg-7">
                                                 <input type="password" autocomplete="off" required class="form-control" id="input-password-repeat"
-                                                       placeholder="<?php __("Repeat password"); ?>" name="password_repeat">
+                                                       placeholder="<?php Install::translate("Repeat password"); ?>" name="password_repeat">
                                             </div>
                                         </div>
                                         <div class="form-group" style="margin-bottom:10px">
-                                            <label class="control-label col-lg-3"><?php __("I am"); ?></label>
+                                            <label class="control-label col-lg-3"><?php Install::translate("I am"); ?></label>
                                             <div class="col-lg-7">
                                                 <select class="form-control" name="sex" required>
-                                                    <option value=""><?php __("Select your gender"); ?></option>
-                                                    <option value="f"><?php __("Female"); ?></option>
-                                                    <option value="m"><?php __("Male"); ?></option>
+                                                    <option value=""><?php Install::translate("Select your gender"); ?></option>
+                                                    <option value="f"><?php Install::translate("Female"); ?></option>
+                                                    <option value="m"><?php Install::translate("Male"); ?></option>
                                                 </select>
                                             </div>
                                         </div>                                        
                                     </form>
                                 </div>
                                 <div class="item" id="finish">
-                                    <span class="title"><?php __("Finish Installation"); ?></span>
+                                    <span class="title"><?php Install::translate("Finish Installation"); ?></span>
                                 </div>
                             </div> 
                         </div>
                         <div class="row">
-                            <div class="col-lg-2 clearfix"><a role="button" href="#installCarousel" id="installPrevButton" data-slide="prev" class="btn btn-default pull-left hidden"><i class="fa fa-chevron-left"></i>&nbsp;<?php __("Prev"); ?></a></div>
+                            <div class="col-lg-2 clearfix"><a role="button" href="#installCarousel" id="installPrevButton" data-slide="prev" class="btn btn-default pull-left hidden"><i class="fa fa-chevron-left"></i>&nbsp;<?php Install::translate("Prev"); ?></a></div>
                             <div class="col-lg-8">
                                 <div class="progress">
                                     <div class="progress-bar" id="installation-progress" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
@@ -547,8 +542,8 @@ $installer = new Install();
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-2 clearfix"><a role="button" href="#installCarousel" id="installNextButton" data-slide="next" disabled class="btn btn-primary pull-right"><?php __("Next"); ?>&nbsp;<i class="fa fa-chevron-right"></i></a></div>
-                            <div class="col-lg-2 clearfix"><a role="button" href=".." id="installFinishButton" disabled class="btn btn-success pull-right hidden"><i class="fa fa-check"></i>&nbsp;<?php __("Finish"); ?></a></div>
+                            <div class="col-lg-2 clearfix"><a role="button" href="#installCarousel" id="installNextButton" data-slide="next" disabled class="btn btn-primary pull-right"><?php Install::translate("Next"); ?>&nbsp;<i class="fa fa-chevron-right"></i></a></div>
+                            <div class="col-lg-2 clearfix"><a role="button" href=".." id="installFinishButton" disabled class="btn btn-success pull-right hidden"><i class="fa fa-check"></i>&nbsp;<?php Install::translate("Finish"); ?></a></div>
                         </div>                    
                     </div>
                 </div>                          
