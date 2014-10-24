@@ -37,6 +37,7 @@
 namespace Cunity\Friends\Models;
 
 use Cunity\Core\Exception;
+use Cunity\Core\Models\Db\Row\User;
 use Cunity\Core\View\Ajax\View;
 
 /**
@@ -135,12 +136,7 @@ class FriendShipController
         if (!isset($_POST['userid'])) {
             new Exception("No userid given!");
         } else {
-            $relations = new Db\Table\Relationships();
-            $res = $relations->updateRelation($_POST['userid'], $_SESSION['user']->userid, ["status" => $_POST['status']]);
-            if ($res) {
-                $view = new View($res !== false);
-                $view->sendResponse();
-            }
+            RelationShipHelper::change();
         }
     }
 
@@ -153,6 +149,7 @@ class FriendShipController
         /** @noinspection PhpUndefinedMethodInspection */
         $users = $_SESSION['user']->getTable();
         /** @noinspection PhpUndefinedMethodInspection */
+        /** @var User $result */
         $result = $users->get($userid);
         if ($result === null) {
             throw new Exception("No User found with the given ID!");

@@ -37,6 +37,7 @@
 namespace Cunity\Friends\Models;
 
 use Cunity\Core\Exception;
+use Cunity\Core\Models\Db\Table\Users;
 use Cunity\Core\View\Ajax\View;
 use Cunity\Friends\Models\Db\Table\Relationships;
 use Cunity\Notifications\Models\Notifier;
@@ -140,12 +141,7 @@ class Process
         if (!isset($_POST['userid'])) {
             new Exception("No userid given!");
         } else {
-            $relations = new Relationships();
-            $res = $relations->updateRelation($_POST['userid'], $_SESSION['user']->userid, ["status" => $_POST['status']]);
-            if ($res) {
-                $view = new View($res !== false);
-                $view->sendResponse();
-            }
+            RelationShipHelper::change();
         }
     }
 
@@ -156,6 +152,7 @@ class Process
     {
         $userid = $_POST['userid'];
         /** @noinspection PhpUndefinedMethodInspection */
+        /** @var Users $users */
         $users = $_SESSION['user']->getTable();
         $result = $users->get($userid);
         if ($result === null) {
@@ -205,6 +202,7 @@ class Process
         $view = new View(false);
         if ($_POST['status'] == 1 || $_POST['status'] == 0) {
             $_SESSION['user']->chat_available = $_POST['status'];
+            /** @noinspection PhpUndefinedMethodInspection */
             $view->setStatus($_SESSION['user']->save() > 0);
         }
         $view->sendResponse();
