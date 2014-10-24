@@ -98,8 +98,7 @@ class FriendShipController
     /**
      *
      */
-    private
-    function remove()
+    private function remove()
     {
         UserHelper::breakOnMissingUserId();
         RelationShipHelper::remove();
@@ -108,22 +107,16 @@ class FriendShipController
     /**
      *
      */
-    private
-    function change()
+    private function change()
     {
-        // Here the userid is the relation id to make it easier to identify the friendship!
-        if (!isset($_POST['userid'])) {
-            new Exception("No userid given!");
-        } else {
-            RelationShipHelper::change();
-        }
+        UserHelper::breakOnMissingUserId();
+        RelationShipHelper::change();
     }
 
     /**
      * @throws Exception
      */
-    private
-    function loadData()
+    private function loadData()
     {
         $userid = $_POST['userid'];
         /** @noinspection PhpUndefinedMethodInspection */
@@ -143,8 +136,7 @@ class FriendShipController
     /**
      *
      */
-    private
-    function load()
+    private function load()
     {
         $relations = new Db\Table\Relationships();
         $userid = ($_POST['userid'] == 0) ? $_SESSION['user']->userid : $_POST['userid'];
