@@ -37,11 +37,8 @@
 namespace Cunity\Friends\Models;
 
 use Cunity\Core\Exception;
-use Cunity\Core\Helper\UserHelper;
-use Cunity\Core\Models\Db\Table\Users;
 use Cunity\Core\View\Ajax\View;
 use Cunity\Friends\Models\Db\Table\Relationships;
-use Cunity\Notifications\Models\Notifier;
 
 /**
  * Class Process
@@ -62,17 +59,9 @@ class Process
     /**
      *
      */
-    /** @noinspection PhpUnusedPrivateMethodInspection */
     private function add()
     {
-        UserHelper::breakOnMissingUserId();
-        $relations = new Relationships();
-        $res = $relations->insert(["sender" => $_SESSION['user']->userid, "receiver" => $_POST['userid'], "status" => 1]);
-        if ($res) {
-            Notifier::notify($_POST['userid'], $_SESSION['user']->userid, "addfriend", "index.php?m=profile&action=" . $_SESSION['user']->username);
-            $view = new View($res !== false);
-            $view->sendResponse();
-        }
+        RelationShipHelper::add(true);
     }
 
     /**
@@ -80,13 +69,7 @@ class Process
      */
     private function block()
     {
-        UserHelper::breakOnMissingUserId();
-        $relations = new Relationships();
-        $res = $relations->updateRelation($_SESSION['user']->userid, $_POST['userid'], ["status" => 0, "sender" => $_SESSION['user']->userid, "receiver" => $_POST['userid']]);
-        if ($res) {
-            $view = new View($res !== false);
-            $view->sendResponse();
-        }
+        RelationShipHelper::block();
     }
 
     /**
@@ -118,18 +101,7 @@ class Process
      */
     private function loadData()
     {
-        $userid = $_POST['userid'];
-        /** @noinspection PhpUndefinedMethodInspection */
-        /** @var Users $users */
-        $users = $_SESSION['user']->getTable();
-        $result = $users->get($userid);
-        if ($result === null) {
-            throw new Exception("No User found with the given ID!");
-        } else {
-            $view = new View(true);
-            $view->addData(["user" => $result->toArray(["pimg", "username", "firstname", "lastname"])]);
-            $view->sendResponse();
-        }
+        RelationShipHelper::loadData();
     }
 
     /**

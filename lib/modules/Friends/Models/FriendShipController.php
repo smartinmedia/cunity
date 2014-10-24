@@ -38,7 +38,6 @@ namespace Cunity\Friends\Models;
 
 use Cunity\Core\Exception;
 use Cunity\Core\Helper\UserHelper;
-use Cunity\Core\Models\Db\Row\User;
 use Cunity\Core\View\Ajax\View;
 
 /**
@@ -77,13 +76,7 @@ class FriendShipController
      */
     private function block()
     {
-        UserHelper::breakOnMissingUserId();
-        $relations = new Db\Table\Relationships();
-        $res = $relations->updateRelation($_SESSION['user']->userid, $_POST['userid'], ["status" => 0, "sender" => $_SESSION['user']->userid, "receiver" => $_POST['userid']]);
-        if ($res) {
-            $view = new View($res !== false);
-            $view->sendResponse();
-        }
+        RelationShipHelper::block();
     }
 
     /**
@@ -115,19 +108,7 @@ class FriendShipController
      */
     private function loadData()
     {
-        $userid = $_POST['userid'];
-        /** @noinspection PhpUndefinedMethodInspection */
-        $users = $_SESSION['user']->getTable();
-        /** @noinspection PhpUndefinedMethodInspection */
-        /** @var User $result */
-        $result = $users->get($userid);
-        if ($result === null) {
-            throw new Exception("No User found with the given ID!");
-        } else {
-            $view = new View(true);
-            $view->addData(["user" => $result->toArray(["pimg", "username", "firstname", "lastname"])]);
-            $view->sendResponse();
-        }
+        RelationShipHelper::loadData();
     }
 
     /**
