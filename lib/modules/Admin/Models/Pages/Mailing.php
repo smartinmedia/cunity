@@ -37,6 +37,7 @@
 
 namespace Cunity\Admin\Models\Pages;
 
+use Cunity\Contact\Models\Db\Table\Contact;
 use Cunity\Core\Cunity;
 use Cunity\Core\Models\Db\Table\Modules;
 
@@ -66,5 +67,8 @@ class Mailing extends PageAbstract
         $config = Cunity::get("config");
         $this->assignments['smtp_check'] = $config->mail->smtp_check;
         $this->assignments['modules'] = $installedModules;
+        $messages = new Contact();
+        $allMessages = $messages->fetchAll();
+        $this->assignments['messages'] = $allMessages;
     }
 }

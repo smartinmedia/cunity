@@ -116,7 +116,7 @@
                 </li>
                 <li>
                     <a data-cat="mailing" data-page="contact"><i
-                                class="fa fa-envelope-o fa-fw"></i>&nbsp;{-"Contact-Form"|translate}</a>
+                                class="fa fa-envelope-o fa-fw"></i>&nbsp;{-"Messages"|translate}</a>
                 </li>
                 {-*<li>*}
                     {-*<a href="#" class="dropdown"><i class="fa fa-bar-chart-o fa-fw"></i> {-"Statistics"|translate}<span*}

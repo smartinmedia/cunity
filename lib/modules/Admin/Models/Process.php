@@ -36,6 +36,7 @@
 
 namespace Cunity\Admin\Models;
 
+use Cunity\Contact\Models\Db\Table\Contact;
 use Cunity\Core\Cunity;
 use Cunity\Core\Models\Db\Abstractables\Table;
 use Cunity\Core\Models\Db\Table\Modules;
@@ -53,7 +54,7 @@ class Process
     /**
      * @var array
      */
-    private $validForms = ['config', 'settings', 'mailtemplates', 'modules', 'users', 'profilefields'];
+    private $validForms = ['config', 'settings', 'mailtemplates', 'modules', 'users', 'profilefields', 'contact'];
 
     /**
      * @param $form
@@ -154,6 +155,10 @@ class Process
         switch ($form) {
             case 'profilefields':
                 $object = new ProfileFields();
+                break;
+            case 'contact':
+                $primary = 'contact_id';
+                $object = new Contact();
                 break;
             default:
                 break;

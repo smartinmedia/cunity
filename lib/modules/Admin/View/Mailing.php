@@ -58,6 +58,5 @@ class Mailing extends View
         parent::__construct();
         $this->_templateFile = "mailing/" . $_GET['x'] . ".tpl";
         $this->registerCss("mailing", $_GET['x']);
-        $this->show();
     }
 }
