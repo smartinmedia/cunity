@@ -38,6 +38,7 @@
 
 namespace Cunity\Admin\Models\Db\Table;
 
+use Cunity\Admin\Models\Updater\DbUpdateVersion;
 use Cunity\Core\Models\Db\Abstractables\Table;
 
 /**
@@ -73,6 +74,7 @@ class Versions extends Table
         $res = $this->fetchAll();
         if ($res !== null) {
             $versions = [];
+            /** @var DbUpdateVersion $version */
             foreach ($res as $version) {
                 $versions[] = $version->timestamp;
             }

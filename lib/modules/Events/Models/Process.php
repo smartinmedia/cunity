@@ -185,7 +185,7 @@ class Process
     {
         if (isset($_POST['receiver']) && !empty($_POST['receiver'])) {
             $conv = new Guests;
-            $result = $conv->addGuests($_POST['eventid'], $_POST['receiver'], true);
+            $result = $conv->addGuests($_POST['eventid'], $_POST['receiver'], 1, true);
             /** @noinspection PhpUnnecessaryFullyQualifiedNameInspection */
             $view = new \Cunity\Core\View\Ajax\View($result);
             $view->sendResponse();

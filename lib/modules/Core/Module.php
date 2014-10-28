@@ -49,7 +49,7 @@ class Module
      */
     protected $_tag;
     /**
-     * @var null|\Zend_Db_Table_Row_Abstract
+     * @var \Zend_Db_Table_Row_Abstract
      */
     private $_data;
 
@@ -59,9 +59,10 @@ class Module
     public function __construct($moduletag)
     {
         $this->_tag = $moduletag;
-        if (!class_exists($this->getClassName()))
+        if (!class_exists($this->getClassName())) {
             new View\PageNotFound;
-        else {
+
+        } else {
             $modules = new Modules();
             $this->_data = $modules->getModuleData($this->_tag);
         }
