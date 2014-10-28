@@ -36,6 +36,7 @@
 
 namespace Cunity\Forums\Models;
 
+use Cunity\Core\Helper\UserHelper;
 use Cunity\Core\Models\Generator\Url;
 use Cunity\Core\View\Ajax\View;
 use Cunity\Core\View\PageNotFound;
@@ -89,7 +90,7 @@ class Process
         $boards = new Boards;
         $view = new View(false);
         /** @noinspection PhpUndefinedMethodInspection */
-        if ($_SESSION['user']->isAdmin()) {
+        if (UserHelper::isAdmin()) {
             $view->setStatus($boards->deleteBoard($_POST['id']));
         }
         $view->sendResponse();
@@ -103,7 +104,7 @@ class Process
         $threads = new Threads;
         $view = new View(false);
         /** @noinspection PhpUndefinedMethodInspection */
-        if ($_SESSION['user']->isAdmin()) {
+        if (UserHelper::isAdmin()) {
             $view->setStatus($threads->deleteThread($_POST['id']));
         }
         $view->sendResponse();
@@ -256,6 +257,7 @@ class Process
      */
     private function loadThreads()
     {
+        $res = null;
         $threads = new Threads;
         if (isset($_POST['id'])) {
             $res = $threads->loadThreads($_POST['id']);
@@ -393,7 +395,7 @@ class Process
         $posts = new Posts;
         $data = $posts->getPost($_POST['id']);
         $view = new View(false);
-        if ($_SESSION['user']->isAdmin() || $data['userid'] == $_SESSION['user']->userid) {
+        if (UserHelper::isAdmin() || $data['userid'] == $_SESSION['user']->userid) {
             $view->setStatus($posts->deletePost($_POST['id']));
         }
         $view->sendResponse();

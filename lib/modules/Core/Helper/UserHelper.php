@@ -52,4 +52,12 @@ class UserHelper
             new Exception("No userid given!");
         }
     }
+
+    /**
+     * @return bool
+     */
+    public static function isAdmin()
+    {
+        return UserHelper::isAdmin();
+    }
 }
