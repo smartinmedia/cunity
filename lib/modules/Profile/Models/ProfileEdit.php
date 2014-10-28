@@ -83,19 +83,7 @@ class ProfileEdit
                 call_user_func([$this, $_POST['edit']]);
             }
         } else {
-            $view = new \Cunity\Profile\View\ProfileEdit();
-            /** @noinspection PhpUndefinedMethodInspection */
-            $user = $this->user->getTable()->get($_SESSION['user']->userid);
-            /** @var User $user */
-            $profile = $user->toArray(["userid", "username", "email", "firstname", "lastname", "registered", "pimg", "timg", "palbumid", "talbumid"]);
-            $table = new Db\Table\Privacy();
-            $privacy = $table->getPrivacy();
-            $table = new NotificationSettings();
-            $notificationSettings = $table->getSettings();
-            $profileFields = new ProfileFields();
-            $view->assign('profileFields', $profileFields->getAll());
-            $view->assign("profile", array_merge($profile, ["privacy" => $privacy, 'notificationSettings' => $notificationSettings]));
-            $view->render();
+            $this->updateProfileFields();
         }
     }
 
@@ -355,5 +343,22 @@ class ProfileEdit
         if ($_SESSION['user']->save()) {
             header("Location: " . Url::convertUrl("index.php?m=profile"));
         }
+    }
+
+    private function updateProfileFields()
+    {
+        $view = new \Cunity\Profile\View\ProfileEdit();
+        /** @noinspection PhpUndefinedMethodInspection */
+        $user = $this->user->getTable()->get($_SESSION['user']->userid);
+        /** @var User $user */
+        $profile = $user->toArray(["userid", "username", "email", "firstname", "lastname", "registered", "pimg", "timg", "palbumid", "talbumid"]);
+        $table = new Db\Table\Privacy();
+        $privacy = $table->getPrivacy();
+        $table = new NotificationSettings();
+        $notificationSettings = $table->getSettings();
+        $profileFields = new ProfileFields();
+        $view->assign('profileFields', $profileFields->getAll());
+        $view->assign("profile", array_merge($profile, ["privacy" => $privacy, 'notificationSettings' => $notificationSettings]));
+        $view->render();
     }
 }
