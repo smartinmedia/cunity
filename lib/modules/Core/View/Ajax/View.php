@@ -68,7 +68,7 @@ class View extends \Cunity\Core\View\View
     }
 
     /**
-     * @param array $values
+     * @param array|bool $values
      */
     public function addData(array $values)
     {
