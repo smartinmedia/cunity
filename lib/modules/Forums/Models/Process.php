@@ -257,7 +257,7 @@ class Process
      */
     private function loadThreads()
     {
-        $res = null;
+        $res = false;
         $threads = new Threads;
         if (isset($_POST['id'])) {
             $res = $threads->loadThreads($_POST['id']);
