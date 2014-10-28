@@ -3,7 +3,7 @@ Cunity V2.0
 
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/d06367f7-725f-4ac9-9db1-ba52cec330b1/big.png)](https://insight.sensiolabs.com/projects/d06367f7-725f-4ac9-9db1-ba52cec330b1)
 
-[![Code Climate](https://codeclimate.com/github/smartinmedia/cunity/badges/gpa.svg)](https://codeclimate.com/github/smartinmedia/cunity)
+[![Code Climate](https://codeclimate.com/github/smartinmedia/cunity/badges/gpa.svg)](https://codeclimate.com/github/smartinmedia/cunity) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/smartinmedia/cunity/badges/quality-score.png?b=develop)](https://scrutinizer-ci.com/g/smartinmedia/cunity/?branch=develop)
 
 Cunity is an open-source social network that was programmed out of the need of having an own social network, which is not controlled by some big internet company. Cunity offers a variety of modules such as friends, forum, pinboard, chat, photo-gallery, messaging, etc.
 
