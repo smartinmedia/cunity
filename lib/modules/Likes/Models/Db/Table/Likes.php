@@ -80,16 +80,7 @@ class Likes extends Table
      */
     public function like($referenceId, $referenceName)
     {
-        $res = $this->getLike($referenceId, $referenceName);
-        if ($res !== null && $res->dislike == 1) {
-            $res->dislike = 0;
-            if ($res->save()) {
-                return $this->countLikes($referenceId, $referenceName);
-            }
-        } elseif ($this->insert(["ref_id" => $referenceId, "ref_name" => $referenceName, "userid" => $_SESSION['user']->userid]) !== null) {
-            return $this->countLikes($referenceId, $referenceName);
-        }
-        return false;
+        return $this->changeLikeState($referenceId, $referenceName, 1);
     }
 
     /**
@@ -121,16 +112,7 @@ class Likes extends Table
      */
     public function dislike($referenceId, $referenceName)
     {
-        $res = $this->getLike($referenceId, $referenceName);
-        if ($res !== null && $res->dislike == 0) {
-            $res->dislike = 1;
-            if ($res->save()) {
-                return $this->countLikes($referenceId, $referenceName);
-            }
-        } elseif ($this->insert(["ref_id" => $referenceId, "ref_name" => $referenceName, "dislike" => 1, "userid" => $_SESSION['user']->userid]) !== null) {
-            return $this->countLikes($referenceId, $referenceName);
-        }
-        return false;
+        return $this->changeLikeState($referenceId, $referenceName, 0);
     }
 
     /**
@@ -145,6 +127,33 @@ class Likes extends Table
         if ($res->delete()) {
             return $this->countLikes($referenceId, $referenceName);
         }
+        return false;
+    }
+
+    /**
+     * @param $referenceId
+     * @param $referenceName
+     * @param $state
+     * @return array|bool
+     */
+    private function changeLikeState($referenceId, $referenceName, $state)
+    {
+        $newState = 1;
+
+        if ($state === 1) {
+            $newState = 0;
+        }
+
+        $res = $this->getLike($referenceId, $referenceName);
+        if ($res !== null && $res->dislike == $state) {
+            $res->dislike = $newState;
+            if ($res->save()) {
+                return $this->countLikes($referenceId, $referenceName);
+            }
+        } elseif ($this->insert(["ref_id" => $referenceId, "ref_name" => $referenceName, "dislike" => $newState, "userid" => $_SESSION['user']->userid]) !== null) {
+            return $this->countLikes($referenceId, $referenceName);
+        }
+
         return false;
     }
 }

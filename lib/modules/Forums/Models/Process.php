@@ -75,7 +75,7 @@ class Process
         $forums = new Forums;
         $view = new View(false);
         /** @noinspection PhpUndefinedMethodInspection */
-        if ($_SESSION['user']->isAdmin()) {
+        if (UserHelper::isAdmin()) {
             $view->setStatus($forums->deleteForum($_POST['id']));
         }
         $view->sendResponse();
@@ -307,13 +307,23 @@ class Process
     {
         $threads = new Threads;
         $posts = new Posts;
-        $res = $threads->insert([
-            "title" => $_POST['title'],
-            "board_id" => $_POST['board_id'],
-            "userid" => $_SESSION['user']->userid,
-            "category" => $_POST['category'],
-            "important" => (isset($_POST['important']) && $_SESSION['user']->isAdmin()) ? $_POST['important'] : 0
-        ]);
+        if ((isset($_POST['important']) && UserHelper::isAdmin())) {
+            $res = $threads->insert([
+                "title" => $_POST['title'],
+                "board_id" => $_POST['board_id'],
+                "userid" => $_SESSION['user']->userid,
+                "category" => $_POST['category'],
+                "important" => $_POST['important']
+            ]);
+        } else {
+            $res = $threads->insert([
+                "title" => $_POST['title'],
+                "board_id" => $_POST['board_id'],
+                "userid" => $_SESSION['user']->userid,
+                "category" => $_POST['category'],
+                "important" => 0
+            ]);
+        }
         $view = new View(false);
         if ($res !== false) {
             $postRes = $posts->post(["content" => $_POST['content'], "thread_id" => $res, "userid" => $_SESSION['user']->userid]);
@@ -395,11 +405,19 @@ class Process
     private function editThread()
     {
         $threads = new Threads;
-        $res = $threads->update([
-            "title" => $_POST['title'],
-            "category" => $_POST['category'],
-            "important" => (isset($_POST['important']) && $_SESSION['user']->isAdmin()) ? $_POST['important'] : 0
-        ], $threads->getAdapter()->quoteInto("id=?", $_POST['thread_id']));
+        if ((isset($_POST['important']) && UserHelper::isAdmin())) {
+            $res = $threads->update([
+                "title" => $_POST['title'],
+                "category" => $_POST['category'],
+                "important" => $_POST['important']
+            ], $threads->getAdapter()->quoteInto("id=?", $_POST['thread_id']));
+        } else {
+            $res = $threads->update([
+                "title" => $_POST['title'],
+                "category" => $_POST['category'],
+                "important" => 0
+            ], $threads->getAdapter()->quoteInto("id=?", $_POST['thread_id']));
+        }
         $view = new View($res !== false);
         $view->sendResponse();
     }

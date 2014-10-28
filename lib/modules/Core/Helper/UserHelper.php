@@ -41,7 +41,8 @@ use Cunity\Core\Exception;
 /**
  * Class UserHelper
  */
-class UserHelper {
+class UserHelper
+{
     /**
      *
      */
