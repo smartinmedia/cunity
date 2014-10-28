@@ -160,5 +160,4 @@ class Crop extends AbstractFile implements \Zend_Filter_Interface
             $this->_thumbwidth
         );
     }
-
 }
