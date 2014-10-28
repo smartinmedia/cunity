@@ -35,6 +35,7 @@
  */
 
 namespace Cunity\Core\View\Mail;
+use Cunity\Core\Helper\UserHelper;
 use Cunity\Core\Models\Db\Row\User;
 
 /**
@@ -65,7 +66,7 @@ class TextMail extends MailView
         ) {
             /** @var User $user */
             /** @noinspection PhpUndefinedMethodInspection */
-            $user = $_SESSION['user']->getTable()->search(
+            $user = UserHelper::$USER->getTable()->search(
                 "userid",
                 $receiver['userid']
             );

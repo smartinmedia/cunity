@@ -38,6 +38,7 @@ namespace Cunity\Contact\Models;
 
 use Cunity\Contact\Models\Db\Table\Contact;
 use Cunity\Contact\View\ContactMail;
+use Cunity\Core\Helper\UserHelper;
 use Cunity\Core\View\Message;
 use Cunity\Register\Models\Login;
 
@@ -62,14 +63,25 @@ class ContactForm
     {
         if (isset($_POST['message'])) {
             $contactDb = new Contact();
-            $res = $contactDb->insert([
-                "userid" => (Login::loggedIn()) ? $_SESSION['user']->userid : 0,
-                "firstname" => $_POST['firstname'],
-                "lastname" => $_POST['lastname'],
-                "email" => $_POST['email'],
-                "subject" => $_POST['subject'],
-                "message" => $_POST['message'],
-            ]);
+            if ((Login::loggedIn())) {
+                $res = $contactDb->insert([
+                    "userid" => UserHelper::$USER->userid,
+                    "firstname" => $_POST['firstname'],
+                    "lastname" => $_POST['lastname'],
+                    "email" => $_POST['email'],
+                    "subject" => $_POST['subject'],
+                    "message" => $_POST['message'],
+                ]);
+            } else {
+                $res = $contactDb->insert([
+                    "userid" => 0,
+                    "firstname" => $_POST['firstname'],
+                    "lastname" => $_POST['lastname'],
+                    "email" => $_POST['email'],
+                    "subject" => $_POST['subject'],
+                    "message" => $_POST['message'],
+                ]);
+            }
             if ($res) {
                 $cc = (isset($_POST['send_copy']) && $_POST['send_copy'] == 1) ? ["email" => $_POST['email'], "name" => $_POST['firstname'] . " " . $_POST['lastname']] : [];
                 new ContactMail([], ["subject" => $_POST['subject'], "message" => $_POST['message']], $cc);

@@ -37,6 +37,7 @@
 namespace Cunity\Events\Models\Generator;
 
 use Cunity\Core\Cunity;
+use Cunity\Core\Helper\UserHelper;
 use Zend_Db_Expr;
 
 /**
@@ -58,7 +59,7 @@ class EventsQuery
                 ->select()
                 ->from(Cunity::get("config")->db->params->table_prefix . "_events_guests", "eventid")
                 ->where("status" . $status)
-                ->where("userid=?", $_SESSION['user']->userid)
+                ->where("userid=?", UserHelper::$USER->userid)
         );
     }
 }

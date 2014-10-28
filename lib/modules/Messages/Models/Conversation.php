@@ -36,6 +36,7 @@
 
 namespace Cunity\Messages\Models;
 
+use Cunity\Core\Helper\UserHelper;
 use Cunity\Core\Models\Db\Table\Users;
 use Cunity\Core\View\PageNotFound;
 
@@ -64,10 +65,10 @@ class Conversation
         $view = new \Cunity\Messages\View\Conversation();
         $conversation = $table->loadConversationDetails($_GET['action']);
         $users = explode(",", $conversation['users']);
-        if (!in_array($_SESSION['user']->userid, $users)) {
+        if (!in_array(UserHelper::$USER->userid, $users)) {
             $view = new PageNotFound();
         } else {
-            unset($users[array_search($_SESSION['user']->userid, $users)]);
+            unset($users[array_search(UserHelper::$USER->userid, $users)]);
         }
         $table->markAsRead($_GET['action']);
         if (!empty($users)) {

@@ -172,7 +172,7 @@ class Process
             }
             array_push($format_search, '#\[quote=(.*?)\](.*?)#is');
             array_push($format_search, '#\[/quote\]#is');
-            $user = $_SESSION['user']->getTable()->get($matches1[0][1], "username");
+            $user = UserHelper::$USER->getTable()->get($matches1[0][1], "username");
             array_push($format_replace, '<div class="quotation well well-sm"><a class="quotation-user" href="' . Url::convertUrl("index.php?m=profile&action=" . $user->username) . '">' . $user->name . ':</a>$2');
             array_push($format_replace, '</div>');
         }
@@ -313,7 +313,7 @@ class Process
             $res = $threads->insert([
                 "title" => $_POST['title'],
                 "board_id" => $_POST['board_id'],
-                "userid" => $_SESSION['user']->userid,
+                "userid" => UserHelper::$USER->userid,
                 "category" => $_POST['category'],
                 "important" => $_POST['important']
             ]);
@@ -321,14 +321,14 @@ class Process
             $res = $threads->insert([
                 "title" => $_POST['title'],
                 "board_id" => $_POST['board_id'],
-                "userid" => $_SESSION['user']->userid,
+                "userid" => UserHelper::$USER->userid,
                 "category" => $_POST['category'],
                 "important" => 0
             ]);
         }
         $view = new View(false);
         if ($res !== false) {
-            $postRes = $posts->post(["content" => $_POST['content'], "thread_id" => $res, "userid" => $_SESSION['user']->userid]);
+            $postRes = $posts->post(["content" => $_POST['content'], "thread_id" => $res, "userid" => UserHelper::$USER->userid]);
             $view->setStatus($postRes !== false);
             $view->addData(["id" => $res]);
         }
@@ -395,7 +395,7 @@ class Process
         $posts = new Posts;
         $data = $posts->getPost($_POST['id']);
         $view = new View(false);
-        if (UserHelper::isAdmin() || $data['userid'] == $_SESSION['user']->userid) {
+        if (UserHelper::isAdmin() || $data['userid'] == UserHelper::$USER->userid) {
             $view->setStatus($posts->deletePost($_POST['id']));
         }
         $view->sendResponse();

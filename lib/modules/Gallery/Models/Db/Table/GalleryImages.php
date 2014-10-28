@@ -36,6 +36,7 @@
 
 namespace Cunity\Gallery\Models\Db\Table;
 
+use Cunity\Core\Helper\UserHelper;
 use Cunity\Core\Models\Db\Abstractables\Table;
 use Cunity\Gallery\Models\Db\Row\Album;
 use Cunity\Gallery\Models\Uploader;
@@ -82,7 +83,7 @@ class GalleryImages extends Table
             ->joinLeft(["co" => $this->_dbprefix . "comments"], "co.ref_id = i.id AND co.ref_name = 'image'", "COUNT(DISTINCT co.id) AS comments")
             ->joinLeft(["li" => $this->_dbprefix . "likes"], "li.ref_id = i.id AND li.ref_name = 'image' AND li.dislike = 0", "COUNT(DISTINCT li.id) AS likes")
             ->joinLeft(["di" => $this->_dbprefix . "likes"], "di.ref_id = i.id AND di.ref_name = 'image' AND di.dislike = 1", "COUNT(DISTINCT di.id) AS dislikes")
-            ->joinLeft(["ld" => $this->_dbprefix . "likes"], "ld.ref_id = i.id AND ld.ref_name = 'image' AND ld.userid = " . $this->getAdapter()->quote($_SESSION['user']->userid), "ld.dislike AS ownlike")
+            ->joinLeft(["ld" => $this->_dbprefix . "likes"], "ld.ref_id = i.id AND ld.ref_name = 'image' AND ld.userid = " . $this->getAdapter()->quote(UserHelper::$USER->userid), "ld.dislike AS ownlike")
             ->where("i.albumid=?", $albumid)
             ->group("i.id");
         if (!empty($limit)) {
@@ -105,7 +106,7 @@ class GalleryImages extends Table
                 ->joinLeft(["co" => $this->_dbprefix . "comments"], "co.ref_id = i.id AND co.ref_name = 'image'", "COUNT(DISTINCT co.id) AS commentcount")
                 ->joinLeft(["li" => $this->_dbprefix . "likes"], "li.ref_id = i.id AND li.ref_name = 'image' AND li.dislike = 0", "COUNT(DISTINCT li.id) AS likescount")
                 ->joinLeft(["di" => $this->_dbprefix . "likes"], "di.ref_id = i.id AND di.ref_name = 'image' AND di.dislike = 1", "COUNT(DISTINCT di.id) AS dislikescount")
-                ->joinLeft(["ld" => $this->_dbprefix . "likes"], "ld.ref_id = i.id AND ld.ref_name = 'image' AND ld.userid = " . $this->getAdapter()->quote($_SESSION['user']->userid), "ld.dislike AS ownlike")
+                ->joinLeft(["ld" => $this->_dbprefix . "likes"], "ld.ref_id = i.id AND ld.ref_name = 'image' AND ld.userid = " . $this->getAdapter()->quote(UserHelper::$USER->userid), "ld.dislike AS ownlike")
                 ->where("i.id=?", $imageid)
                 ->group("i.id")
         );
@@ -117,10 +118,10 @@ class GalleryImages extends Table
     public function uploadProfileImage()
     {
         $albums = new GalleryAlbums();
-        $res = $albums->fetchRow($albums->select()->where("type=?", "profile")->where("owner_type IS NULL")->where("owner_id=?", $_SESSION['user']->userid));
+        $res = $albums->fetchRow($albums->select()->where("type=?", "profile")->where("owner_type IS NULL")->where("owner_id=?", UserHelper::$USER->userid));
         if ($res === null) {
-            $albumid = $albums->newProfileAlbums($_SESSION['user']->userid);
-            $res = $albums->fetchRow($albums->select()->where("type=?", "profile")->where("owner_type IS NULL")->where("owner_id=?", $_SESSION['user']->userid));
+            $albumid = $albums->newProfileAlbums(UserHelper::$USER->userid);
+            $res = $albums->fetchRow($albums->select()->where("type=?", "profile")->where("owner_type IS NULL")->where("owner_id=?", UserHelper::$USER->userid));
         } else {
             $albumid = $res->id;
         }
@@ -143,9 +144,9 @@ class GalleryImages extends Table
     {
         if (isset($_FILES) && isset($_FILES['file']) && $albumid > 0) {
             $uploader = new Uploader();
-            $file = $uploader->upload($albumid . sha1($_SESSION['user']->userhash . time()) . rand());
+            $file = $uploader->upload($albumid . sha1(UserHelper::$USER->userhash . time()) . rand());
             if (empty($uploader_data)) {
-                list($owner_id, $owner_type) = [$_SESSION['user']->userid, null];
+                list($owner_id, $owner_type) = [UserHelper::$USER->userid, null];
             } else {
                 list($owner_id, $owner_type) = $uploader_data;
             }

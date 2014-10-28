@@ -36,6 +36,7 @@
 
 namespace Cunity\Core;
 
+use Cunity\Core\Helper\UserHelper;
 use Cunity\Core\Models\Request;
 use Cunity\Core\View\Exception\View;
 use Cunity\Core\View\PageNotFound;
@@ -91,6 +92,7 @@ class Controller
             }
         }
 
+        UserHelper::$USER = $_SESSION['user'];
         $moduleController = new Module($_GET['m']);
         if (!Request::isAjaxRequest() && !$moduleController->isActive()) {
             new PageNotFound();

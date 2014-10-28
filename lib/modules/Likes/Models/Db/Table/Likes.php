@@ -36,6 +36,7 @@
 
 namespace Cunity\Likes\Models\Db\Table;
 
+use Cunity\Core\Helper\UserHelper;
 use Cunity\Core\Models\Db\Abstractables\Table;
 
 /**
@@ -90,7 +91,7 @@ class Likes extends Table
      */
     public function getLike($referenceId, $referenceName)
     {
-        return $this->fetchRow($this->select()->from($this, ["id", "dislike"])->where("ref_id=?", $referenceId)->where("ref_name=?", $referenceName)->where("userid=?", $_SESSION['user']->userid));
+        return $this->fetchRow($this->select()->from($this, ["id", "dislike"])->where("ref_id=?", $referenceId)->where("ref_name=?", $referenceName)->where("userid=?", UserHelper::$USER->userid));
     }
 
     /**
@@ -150,7 +151,7 @@ class Likes extends Table
             if ($res->save()) {
                 return $this->countLikes($referenceId, $referenceName);
             }
-        } elseif ($this->insert(["ref_id" => $referenceId, "ref_name" => $referenceName, "dislike" => $newState, "userid" => $_SESSION['user']->userid]) !== null) {
+        } elseif ($this->insert(["ref_id" => $referenceId, "ref_name" => $referenceName, "dislike" => $newState, "userid" => UserHelper::$USER->userid]) !== null) {
             return $this->countLikes($referenceId, $referenceName);
         }
 

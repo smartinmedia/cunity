@@ -37,6 +37,7 @@
 namespace Cunity\Profile\Models;
 
 use Cunity\Core\Cunity;
+use Cunity\Core\Helper\UserHelper;
 use Cunity\Core\Models\Db\Row\User;
 use Cunity\Core\Models\Generator\Url;
 use Cunity\Core\Models\Validation\Email;
@@ -67,7 +68,7 @@ class ProfileEdit
      */
     public function __construct()
     {
-        $this->user = $_SESSION['user'];
+        $this->user = UserHelper::$USER;
         $this->handleRequest();
     }
 
@@ -100,7 +101,7 @@ class ProfileEdit
         $result = $images->getImageData($_GET['x']);
         $view = new ProfileCrop();
         /** @noinspection PhpUndefinedMethodInspection */
-        $user = $_SESSION['user']->getTable()->get($_SESSION['user']->userid); // Get a new user Object with all image-data
+        $user = UserHelper::$USER->getTable()->get(UserHelper::$USER->userid); // Get a new user Object with all image-data
         /** @var User $user */
         $profileData = $user->toArray(["userid", "username", "name", "timg", "pimg", "talbumid", "palbumid"]);
         $view->assign(["profile" => $profileData, "result" => $result[0], "type" => $_GET['y'], "image" => getimagesize("../data/uploads/" . Cunity::get("settings")->getSetting("core.filesdir") . "/" . $result[0]['filename'])]);
@@ -113,12 +114,12 @@ class ProfileEdit
     public function deleteImage()
     {
         if ($_POST['type'] == "profile") {
-            $_SESSION['user']->profileImage = 0;
+            UserHelper::$USER->profileImage = 0;
         } else {
-            $_SESSION['user']->titleImage = 0;
+            UserHelper::$USER->titleImage = 0;
         }
         /** @noinspection PhpUndefinedMethodInspection */
-        if ($_SESSION['user']->save()) {
+        if (UserHelper::$USER->save()) {
             $view = new View(true);
             $view->sendResponse();
         }
@@ -286,7 +287,7 @@ class ProfileEdit
     {
         if (isset($_POST['privacy']) && is_array($_POST['privacy'])) {
             $table = new Db\Table\Privacy();
-            $res = $table->updatePrivacy($_SESSION['user']->userid, $_POST['privacy']);
+            $res = $table->updatePrivacy(UserHelper::$USER->userid, $_POST['privacy']);
             $view = new View();
             $view->setStatus($res);
 
@@ -335,12 +336,12 @@ class ProfileEdit
         ]);
         $file->filter($_POST['crop-image']);
         if ($_POST['type'] == "title") {
-            $_SESSION['user']->titleImage = $_POST['imageid'];
+            UserHelper::$USER->titleImage = $_POST['imageid'];
         } else {
-            $_SESSION['user']->profileImage = $_POST['imageid'];
+            UserHelper::$USER->profileImage = $_POST['imageid'];
         }
         /** @noinspection PhpUndefinedMethodInspection */
-        if ($_SESSION['user']->save()) {
+        if (UserHelper::$USER->save()) {
             header("Location: " . Url::convertUrl("index.php?m=profile"));
         }
     }
@@ -349,7 +350,7 @@ class ProfileEdit
     {
         $view = new \Cunity\Profile\View\ProfileEdit();
         /** @noinspection PhpUndefinedMethodInspection */
-        $user = $this->user->getTable()->get($_SESSION['user']->userid);
+        $user = $this->user->getTable()->get(UserHelper::$USER->userid);
         /** @var User $user */
         $profile = $user->toArray(["userid", "username", "email", "firstname", "lastname", "registered", "pimg", "timg", "palbumid", "talbumid"]);
         $table = new Db\Table\Privacy();

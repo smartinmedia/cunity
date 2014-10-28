@@ -56,7 +56,7 @@ class RelationShipHelper
     {
         UserHelper::breakOnMissingUserId();
         $relations = new Relationships();
-        $res = $relations->updateRelation($_POST['userid'], $_SESSION['user']->userid, ["status" => $_POST['status']]);
+        $res = $relations->updateRelation($_POST['userid'], UserHelper::$USER->userid, ["status" => $_POST['status']]);
         if ($res) {
             $view = new View($res !== false);
             $view->sendResponse();
@@ -70,7 +70,7 @@ class RelationShipHelper
     {
         UserHelper::breakOnMissingUserId();
         $relations = new Relationships();
-        $res = $relations->deleteRelation($_SESSION['user']->userid, $_POST['userid']);
+        $res = $relations->deleteRelation(UserHelper::$USER->userid, $_POST['userid']);
         if ($res) {
             $view = new View($res !== false);
             $view->sendResponse();
@@ -84,10 +84,10 @@ class RelationShipHelper
     {
         UserHelper::breakOnMissingUserId();
         $relations = new Relationships();
-        $res = $relations->updateRelation($_SESSION['user']->userid, $_POST['userid'], ["status" => 2]);
+        $res = $relations->updateRelation(UserHelper::$USER->userid, $_POST['userid'], ["status" => 2]);
         if ($res) {
             if ($notify) {
-                Notifier::notify($_POST['userid'], $_SESSION['user']->userid, "confirmfriend", "index.php?m=profile&action=" . $_SESSION['user']->username);
+                Notifier::notify($_POST['userid'], UserHelper::$USER->userid, "confirmfriend", "index.php?m=profile&action=" . UserHelper::$USER->username);
             }
 
             $view = new View($res !== false);
@@ -102,7 +102,7 @@ class RelationShipHelper
     {
         UserHelper::breakOnMissingUserId();
         $relations = new Relationships();
-        $res = $relations->updateRelation($_SESSION['user']->userid, $_POST['userid'], ["status" => 0, "sender" => $_SESSION['user']->userid, "receiver" => $_POST['userid']]);
+        $res = $relations->updateRelation(UserHelper::$USER->userid, $_POST['userid'], ["status" => 0, "sender" => UserHelper::$USER->userid, "receiver" => $_POST['userid']]);
         if ($res) {
             $view = new View($res !== false);
             $view->sendResponse();
@@ -116,10 +116,10 @@ class RelationShipHelper
     {
         UserHelper::breakOnMissingUserId();
         $relations = new Relationships();
-        $res = $relations->insert(["sender" => $_SESSION['user']->userid, "receiver" => $_POST['userid'], "status" => 1]);
+        $res = $relations->insert(["sender" => UserHelper::$USER->userid, "receiver" => $_POST['userid'], "status" => 1]);
         if ($res) {
             if ($notify) {
-                Notifier::notify($_POST['userid'], $_SESSION['user']->userid, "addfriend", "index.php?m=profile&action=" . $_SESSION['user']->username);
+                Notifier::notify($_POST['userid'], UserHelper::$USER->userid, "addfriend", "index.php?m=profile&action=" . UserHelper::$USER->username);
             }
 
             $view = new View($res !== false);
@@ -134,7 +134,7 @@ class RelationShipHelper
     {
         $userid = $_POST['userid'];
         /** @noinspection PhpUndefinedMethodInspection */
-        $users = $_SESSION['user']->getTable();
+        $users = UserHelper::$USER->getTable();
         /** @var Users $users */
         $result = $users->get($userid);
         if ($result === null) {

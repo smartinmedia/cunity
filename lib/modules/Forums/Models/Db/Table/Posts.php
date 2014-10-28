@@ -36,6 +36,7 @@
 
 namespace Cunity\Forums\Models\Db\Table;
 
+use Cunity\Core\Helper\UserHelper;
 use Cunity\Core\Models\Db\Abstractables\Table;
 
 /**
@@ -87,7 +88,7 @@ class Posts extends Table
      */
     public function post(array $data)
     {
-        $res = $this->insert(array_merge($data, ["userid" => $_SESSION['user']->userid]));
+        $res = $this->insert(array_merge($data, ["userid" => UserHelper::$USER->userid]));
         if ($res !== false) {
             return $this->getPost($res);
         }

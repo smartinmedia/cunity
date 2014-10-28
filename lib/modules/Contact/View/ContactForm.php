@@ -36,6 +36,7 @@
 
 namespace Cunity\Contact\View;
 
+use Cunity\Core\Helper\UserHelper;
 use Cunity\Core\View\View;
 use Cunity\Register\Models\Login;
 
@@ -68,7 +69,7 @@ class ContactForm extends View
     {
         parent::__construct();
         if (Login::loggedIn()) {
-            $user = $_SESSION['user'];
+            $user = UserHelper::$USER;
             $userData = [
                 "firstname" => $user->firstname,
                 "lastname" => $user->lastname,

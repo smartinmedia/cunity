@@ -36,6 +36,7 @@
 
 namespace Cunity\Profile\Models\Db\Table;
 
+use Cunity\Core\Helper\UserHelper;
 use Cunity\Core\Models\Db\Abstractables\Table;
 
 /**
@@ -87,7 +88,7 @@ class ProfileFields extends Table
                     break;
             }
 
-            $value = new ProfileFieldsUsers([], $_SESSION['user']);
+            $value = new ProfileFieldsUsers([], UserHelper::$USER);
             $res = $value->getByProfileFieldIdAndUserId($_result['id']);
             $result[$_key]['label'] = $_result['value'];
             $result[$_key]['value'] = $res['value'];

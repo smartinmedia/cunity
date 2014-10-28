@@ -38,6 +38,7 @@ namespace Cunity\Core\View;
 
 use Cunity\Core\Cunity;
 use Cunity\Core\Exception;
+use Cunity\Core\Helper\UserHelper;
 use Cunity\Core\Models\Db\Table\Announcements;
 use Cunity\Core\Models\Db\Table\Menu;
 use Cunity\Core\Models\Generator\Url;
@@ -241,7 +242,7 @@ class View extends Smarty
             /** @noinspection PhpUndefinedMethodInspection */
             $this->assign(
                 'user',
-                $_SESSION['user']->getTable()->get($_SESSION['user']->userid)
+                UserHelper::$USER->getTable()->get(UserHelper::$USER->userid)
             );
         } else {
             $this->assign('user', []);

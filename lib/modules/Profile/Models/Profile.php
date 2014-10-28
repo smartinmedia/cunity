@@ -36,6 +36,7 @@
 
 namespace Cunity\Profile\Models;
 
+use Cunity\Core\Helper\UserHelper;
 use Cunity\Core\Models\Db\Row\User;
 use Cunity\Core\Models\Db\Table\Users;
 use Cunity\Core\Models\Request;
@@ -97,19 +98,19 @@ class Profile
     {
         /** @var Users $users */
         /** @noinspection PhpUndefinedMethodInspection */
-        $users = $_SESSION['user']->getTable();
+        $users = UserHelper::$USER->getTable();
         if (isset($_GET['action']) && !empty($_GET['action'])) {
             $result = $users->get($_GET['action'], "username");
             if (!$result instanceof User || $result['name'] === null) {
                 new PageNotFound();
             }
         } else {
-            $result = $users->get($_SESSION['user']->userid);
+            $result = $users->get(UserHelper::$USER->userid);
         }
         // Get a new user Object with all image-data
         $result = $result->toArray();
         $this->profileData = $result;
-        if (isset($this->profileData['status']) && $this->profileData['status'] === 0 && $this->profileData['receiver'] == $_SESSION['user']->userid) {
+        if (isset($this->profileData['status']) && $this->profileData['status'] === 0 && $this->profileData['receiver'] == UserHelper::$USER->userid) {
             new PageNotFound();
         }
     }

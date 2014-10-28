@@ -37,6 +37,7 @@
 namespace Cunity\Events\Models;
 
 use Cunity\Core\Cunity;
+use Cunity\Core\Helper\UserHelper;
 use Cunity\Core\Models\Generator\Url;
 use Cunity\Core\View\Ajax\View;
 use Cunity\Core\View\Message;
@@ -76,7 +77,7 @@ class Process
         $events = new Events;
         $result = false;
         $res = $events->addEvent([
-            "userid" => $_SESSION['user']->userid,
+            "userid" => UserHelper::$USER->userid,
             "title" => $_POST['title'],
             "description" => $_POST['description'],
             "place" => $_POST['place'],
@@ -90,7 +91,7 @@ class Process
             $guests = new Guests;
             $walls = new Walls;
             $gallery_albums = new GalleryAlbums;
-            $guests->addGuests($res, $_SESSION['user']->userid, 2, false);
+            $guests->addGuests($res, UserHelper::$USER->userid, 2, false);
             $result = $walls->createWall($res, "event") && $gallery_albums->insert([
                     "title" => "",
                     "description" => "",
@@ -142,7 +143,7 @@ class Process
         $events = new Events;
         if (isset($_GET['x']) && $_GET['x'] == "edit") {
             $eventData = $events->getEventData(intval($_GET['action']));
-            if ($eventData['userid'] !== $_SESSION['user']->userid) {
+            if ($eventData['userid'] !== UserHelper::$USER->userid) {
                 new PageNotFound();
             }
             $view = new EventEdit();
@@ -171,7 +172,7 @@ class Process
     {
         if (isset($_POST['eventid']) && isset($_POST['status'])) {
             $guests = new Guests;
-            $res = $guests->changeStatus($_POST['status'], $_SESSION['user']->userid, $_POST['eventid']);
+            $res = $guests->changeStatus($_POST['status'], UserHelper::$USER->userid, $_POST['eventid']);
             $view = new View($res !== false);
             $view->sendResponse();
         }
@@ -209,6 +210,7 @@ class Process
     private function edit()
     {
         $view = new View();
+        $msg = '';
         if (!isset($_POST['edit']) || $_POST['edit'] != "editPhoto") {
             $events = new Events;
             $events->updateEvent(intval($_GET['x']), array_intersect_key($_POST, array_flip(["title", "description", "place", "start", "privacy", "guest_invitation"])));
@@ -238,11 +240,12 @@ class Process
         }
         $imageid = $_GET['x'];
         $eventid = $_GET['y'];
+        $data = [];
         $images = new GalleryImages();
         $events = new Events;
         $eventData = $events->getEventData($eventid);
         $result = $images->getImageData($imageid);
-        if ($eventData['userid'] == $_SESSION['user']->userid) {
+        if ($eventData['userid'] == UserHelper::$USER->userid) {
             $view = new EventCrop();
             $eventData['date'] = new DateTime($data['start']);
             $view->assign(["event" => $eventData, "result" => $result[0], "type" => $_GET['y'], "image" => getimagesize("../data/uploads/" . Cunity::get("settings")->getSetting("core.filesdir") . "/" . $result[0]['filename'])]);

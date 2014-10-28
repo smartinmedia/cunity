@@ -36,6 +36,7 @@
 
 namespace Cunity\Friends\Models\Db\Table;
 
+use Cunity\Core\Helper\UserHelper;
 use Cunity\Core\Models\Db\Abstractables\Table;
 use Cunity\Core\Models\Db\Table\Users;
 
@@ -125,7 +126,7 @@ class Relationships extends Table
         $friends = $this->getFriendList($status, $userid);
         if (!empty($friends)) {
             /** @noinspection PhpUndefinedMethodInspection */
-            $users = $_SESSION['user']->getTable();
+            $users = UserHelper::$USER->getTable();
             /** @noinspection PhpUndefinedMethodInspection */
             return $users->getSet($friends, "u.userid", ["u.userid", "u.username", "u.name"], true)->toArray();
         }
@@ -140,7 +141,7 @@ class Relationships extends Table
     public function getFriendList($status = ">1", $userid = 0)
     {
         if ($userid == 0) {
-            $userid = $_SESSION['user']->userid;
+            $userid = UserHelper::$USER->userid;
         } else {
             $userid = intval($userid);
         }
@@ -182,7 +183,7 @@ class Relationships extends Table
     public function getFriendRequests($userid = 0)
     {
         if ($userid == 0) {
-            $userid = $_SESSION['user']->userid;
+            $userid = UserHelper::$USER->userid;
         }
         $res = $this->fetchAll($this->select()->from($this, ["sender"])->where("receiver=?", $userid)->where("status=1"));
         $result = [];

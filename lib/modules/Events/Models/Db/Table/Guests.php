@@ -36,6 +36,7 @@
 
 namespace Cunity\Events\Models\Db\Table;
 
+use Cunity\Core\Helper\UserHelper;
 use Cunity\Core\Models\Db\Abstractables\Table;
 use Cunity\Notifications\Models\Notifier;
 
@@ -89,12 +90,12 @@ class Guests extends Table
         if (is_array($users) && !empty($users)) {
             foreach ($users as $user) {
                 $this->insert(["userid" => intval($user), "eventid" => intval($eventid), "status" => $status]);
-                Notifier::notify($user, $_SESSION['user']->userid, "eventInvitation", "index.php?m=events&action=" . $eventid);
+                Notifier::notify($user, UserHelper::$USER->userid, "eventInvitation", "index.php?m=events&action=" . $eventid);
             }
         } else {
             $this->insert(["userid" => intval($users), "eventid" => intval($eventid), "status" => $status]);
             if ($invitation) {
-                Notifier::notify($users, $_SESSION['user']->userid, "eventInvitation", "index.php?m=events&action=" . $eventid);
+                Notifier::notify($users, UserHelper::$USER->userid, "eventInvitation", "index.php?m=events&action=" . $eventid);
             }
         }
 

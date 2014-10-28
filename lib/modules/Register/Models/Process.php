@@ -38,6 +38,7 @@ namespace Cunity\Register\Models;
 
 use Cunity\Core\Cunity;
 use Cunity\Core\Exception;
+use Cunity\Core\Helper\UserHelper;
 use Cunity\Core\Models\Db\Table\Users;
 use Cunity\Core\Models\Generator\Url;
 use Cunity\Core\View\Ajax\View;
@@ -132,7 +133,7 @@ class Process
     {
         if (Login::loggedIn()) {
             /** @noinspection PhpUndefinedMethodInspection */
-            $_SESSION['user']->logout();
+            UserHelper::$USER->logout();
         }
 
         header("Location:" . Url::convertUrl("index.php?m=start"));
@@ -197,7 +198,7 @@ class Process
         $config = Cunity::get("config");
         $functions = $config->registerFunctions->toArray();
         foreach ($functions["module"] as $module) {
-            call_user_func(["Cunity\\" . ucfirst($module) . "\Controller", "onUnregister"], $_SESSION['user']);
+            call_user_func(["Cunity\\" . ucfirst($module) . "\Controller", "onUnregister"], UserHelper::$USER);
         }
     }
 

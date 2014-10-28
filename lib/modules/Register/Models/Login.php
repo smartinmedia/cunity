@@ -36,6 +36,7 @@
 
 namespace Cunity\Register\Models;
 
+use Cunity\Core\Helper\UserHelper;
 use Cunity\Core\Models\Db\Row\User;
 use Cunity\Core\Models\Db\Table\Users;
 use Cunity\Core\Models\Generator\Url;
@@ -78,7 +79,7 @@ class Login
      */
     public static function loggedIn()
     {
-        return (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] === true && isset($_SESSION['user']) && $_SESSION['user'] instanceof User);
+        return (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] === true && isset(UserHelper::$USER) && UserHelper::$USER instanceof User);
     }
 
     /**

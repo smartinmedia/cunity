@@ -37,6 +37,7 @@
 namespace Cunity\Gallery\Models;
 
 use Cunity\Comments\Models\Db\Table\Comments;
+use Cunity\Core\Helper\UserHelper;
 use Cunity\Core\Models\Generator\Url;
 use Cunity\Core\View\Ajax\View;
 use Cunity\Core\View\Message;
@@ -101,7 +102,7 @@ class Process
             $result = $table->insert([
                 "title" => $_POST['title'],
                 "description" => $_POST['description'],
-                "owner_id" => $_SESSION['user']->userid,
+                "owner_id" => UserHelper::$USER->userid,
                 "type" => "shared",
                 "user_upload" => isset($_POST['allow_upload']) ? 1 : 0,
                 "privacy" => $_POST['privacy']
@@ -110,7 +111,7 @@ class Process
             $result = $table->insert([
                 "title" => $_POST['title'],
                 "description" => $_POST['description'],
-                "owner_id" => $_SESSION['user']->userid,
+                "owner_id" => UserHelper::$USER->userid,
                 "type" => null,
                 "user_upload" => isset($_POST['allow_upload']) ? 1 : 0,
                 "privacy" => $_POST['privacy']
@@ -144,9 +145,9 @@ class Process
         $images = new GalleryImages();
         if (isset($_POST['newsfeed_post'])) {
             /** @var \Cunity\Gallery\Models\Db\Row\Album $album */
-            $album = $albums->fetchRow($albums->select()->where("type=?", "newsfeed")->where("owner_id=?", $_SESSION['user']->userid)->where("owner_type IS NULL"));
+            $album = $albums->fetchRow($albums->select()->where("type=?", "newsfeed")->where("owner_id=?", UserHelper::$USER->userid)->where("owner_type IS NULL"));
             if ($album === null) {
-                $albumid = $albums->newNewsfeedAlbums($_SESSION['user']->userid);
+                $albumid = $albums->newNewsfeedAlbums(UserHelper::$USER->userid);
                 $album = $albums->fetchRow($albums->select()->where("id=?", $albumid));
             }
         } else {

@@ -37,6 +37,7 @@
 namespace Cunity\Core\Models\Db\Row;
 
 use Cunity\Core\Cunity;
+use Cunity\Core\Helper\UserHelper;
 use Cunity\Core\Models\Db\Table\Users;
 use Cunity\Friends\Models\Db\Table\Relationships;
 use Cunity\Gallery\Models\Db\Table\GalleryImages;
@@ -92,7 +93,7 @@ class User extends \Zend_Db_Table_Row_Abstract
         $this->password_token = NULL;
         $this->save();
         $_SESSION['loggedIn'] = true;
-        $_SESSION['user'] = $this;
+        UserHelper::$USER = $this;
     }
 
     /**
@@ -178,7 +179,7 @@ class User extends \Zend_Db_Table_Row_Abstract
     public function getRelationship($user = 0)
     {
         if ($user == 0) {
-            $user = $_SESSION['user']->userid;
+            $user = UserHelper::$USER->userid;
         }
 
         $rel = new Relationships();

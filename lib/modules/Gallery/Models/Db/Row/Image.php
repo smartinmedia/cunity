@@ -38,6 +38,7 @@ namespace Cunity\Gallery\Models\Db\Row;
 
 use Cunity\Comments\Models\Db\Table\Comments;
 use Cunity\Core\Cunity;
+use Cunity\Core\Helper\UserHelper;
 use Cunity\Gallery\Models\Db\Table\GalleryAlbums;
 use Cunity\Likes\Models\Db\Table\Likes;
 use Cunity\Newsfeed\Models\Db\Table\Posts;
@@ -56,7 +57,7 @@ class Image extends \Zend_Db_Table_Row_Abstract
      */
     public function deleteImage()
     {
-        if ($this->owner_id == $_SESSION['user']->userid && $this->owner_type === null) {
+        if ($this->owner_id == UserHelper::$USER->userid && $this->owner_type === null) {
             $albums = new GalleryAlbums();
             $album = $albums->find($this->albumid);
             /** @noinspection PhpUndefinedMethodInspection */
