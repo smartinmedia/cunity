@@ -285,7 +285,7 @@ class View extends Smarty
      * @param $scriptName
      * @throws Exception
      */
-    protected function registerScript($module, $scriptName)
+    public function registerScript($module, $scriptName)
     {
         if ((!empty($module))) {
             $module = ucfirst($module) . "/styles/javascript/";
