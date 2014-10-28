@@ -58,7 +58,7 @@ class Statistics extends PageAbstract
     /**
      * @throws \Exception
      */
-    private function loadData()
+    protected function loadData()
     {
         $modules = new Modules();
         $installedModules = $modules->getModules()->toArray();

@@ -1,6 +1,5 @@
 <?php
 
-
 /**
  * ########################################################################################
  * ## CUNITY(R) V2.0 - An open source social network / "your private social network"     ##
@@ -37,14 +36,11 @@
 
 namespace Cunity\Admin\Models\Pages;
 
-use Cunity\Core\Cunity;
-use Cunity\Core\Models\Db\Table\Modules;
-
 /**
  * Class Dashboard
  * @package Cunity\Admin\Models\Pages
  */
-class Dashboard extends PageAbstract
+class Dashboard extends Statistics
 {
 
     /**
@@ -54,17 +50,5 @@ class Dashboard extends PageAbstract
     {
         $this->loadData();
         $this->render("dashboard");
-    }
-
-    /**
-     * @throws \Exception
-     */
-    private function loadData()
-    {
-        $modules = new Modules();
-        $installedModules = $modules->getModules()->toArray();
-        $config = Cunity::get("config");
-        $this->assignments['smtp_check'] = $config->mail->smtp_check;
-        $this->assignments['modules'] = $installedModules;
     }
 }
