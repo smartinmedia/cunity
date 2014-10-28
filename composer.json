@@ -12,7 +12,8 @@
         "phpmd/phpmd": "~2",
         "squizlabs/php_codesniffer": "~2",
         "firephp/firephp-core": "dev-master",
-        "raulfraile/ladybug": "*"
+        "raulfraile/ladybug": "*",
+        "codeclimate/php-test-reporter": "dev-master"
     },
     "config": {
         "bin-dir": "bin/"
