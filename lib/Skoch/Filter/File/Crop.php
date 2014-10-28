@@ -24,7 +24,7 @@ use Zend_Filter_Exception;
  * @category   Skoch
  * @package    Skoch_Filter
  */
-class Crop implements \Zend_Filter_Interface
+class Crop extends AbstractFile implements \Zend_Filter_Interface
 {
 
     /**
@@ -72,13 +72,7 @@ class Crop implements \Zend_Filter_Interface
      */
     public function __construct($options = [])
     {
-        if ($options instanceof \Zend_Config) {
-            $options = $options->toArray();
-        } elseif (!is_array($options)) {
-            throw new Zend_Filter_Exception(
-                'Invalid options argument provided to filter'
-            );
-        }
+        $options = parent::__construct($options);
 
         if (isset($options['x1'])) {
             $this->_x1 = $options['x1'];
