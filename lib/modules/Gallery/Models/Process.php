@@ -180,6 +180,7 @@ class Process
      */
     private function loadImage()
     {
+        $socialData = [];
         $id = $_POST['id'];
         $images = new GalleryImages();
         $albums = new GalleryAlbums();
