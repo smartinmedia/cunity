@@ -63,10 +63,9 @@ class Birthday extends \Zend_Validate_Abstract
     ];
 
     /**
-     * @param array $options
-     * @throws \Exception
+     * @throws \Cunity\Core\Exception
      */
-    public function __construct($options = [])
+    public function __construct()
     {
         $this->_messageTemplates[self::TOOYOUNG] .= Cunity::get("settings")->getSetting("register.min_age");
     }

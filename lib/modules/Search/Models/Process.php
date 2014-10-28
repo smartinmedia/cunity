@@ -106,7 +106,7 @@ class Process
                         if (empty($friends)) {
                             return ["queryString" => $queryString, "users" => []];
                         } else {
-                            $userresult = $users->getSetIn($results, $friends, "username", "userid", ["userid", "username", "name"]);
+                            $userresult = $users->getSetIn($results);
                         }
                     } else {
                         $userresult = $users->getSet($results, "u.username", ["u.userid", "u.username", "u.name"]);
