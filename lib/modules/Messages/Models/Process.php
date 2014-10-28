@@ -107,6 +107,7 @@ class Process
      */
     private function getConversation()
     {
+        $conversation = [];
         $conv = new Db\Table\Conversations();
         $conversation_id = $conv->getConversationId(intval($_POST['userid']));
         if ($conversation_id == 0) {
