@@ -61,7 +61,7 @@ class Resize extends AbstractFile implements \Zend_Filter_Interface
      * @throws Zend_Filter_Exception
      * @return \Skoch\Filter\File\Resize An instance of this filter
      */
-    public function __construct($options = [])
+    public function __construct($options)
     {
         $options = parent::__construct($options);
 

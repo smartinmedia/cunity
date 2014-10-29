@@ -12,10 +12,10 @@ use Zend_Filter_Exception;
 abstract class AbstractFile
 {
     /**
-     * @param array $options
      * @throws Zend_Filter_Exception
+     * @param param array|Zend_Config $options
      */
-    public function __construct($options = [])
+    public function __construct($options)
     {
         if ($options instanceof Zend_Config) {
             $options = $options->toArray();
