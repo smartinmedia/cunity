@@ -46,7 +46,7 @@ class Mysqli extends \Zend_Db_Adapter_Mysqli
      *
      * @var String
      */
-    protected $_dbprefix = "cunity";
+    protected $dbprefix = "cunity";
 
     /**
      * @param \Zend_Config_Xml $config
@@ -55,7 +55,7 @@ class Mysqli extends \Zend_Db_Adapter_Mysqli
     public function __construct(\Zend_Config_Xml $config)
     {
         parent::__construct($config->db->params);
-        $this->_dbprefix = $config->db->params->table_prefix;
+        $this->dbprefix = $config->db->params->table_prefix;
     }
 
     /**
@@ -64,6 +64,6 @@ class Mysqli extends \Zend_Db_Adapter_Mysqli
      */
     public function getDbprefix()
     {
-        return $this->_dbprefix . '_';
+        return $this->dbprefix . '_';
     }
 }

@@ -37,6 +37,7 @@
 namespace Cunity\Admin\Models\Updater;
 
 use Cunity\Admin\Models\Db\Table\Versions;
+use Cunity\Core\Models\Db\Adapter\Mysqli;
 use Zend_Db_Adapter_Mysqli;
 
 /**
@@ -49,7 +50,7 @@ abstract class DbUpdateVersion
 
     /**
      *
-     * @var Zend_Db_Adapter_Mysqli
+     * @var Mysqli
      */
     protected $_db;
 
