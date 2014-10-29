@@ -36,9 +36,7 @@
 
 namespace Cunity\Notifications\Models;
 
-use Cunity\Core\Helper\UserHelper;
 use Cunity\Notifications\View\NotificationMail;
-use DateTime;
 
 /**
  * Class Notifier
@@ -102,13 +100,13 @@ class Notifier
             }
             if (($st == 2 || $st == 3) && in_array("mail", $ways)) {
                 /** @noinspection PhpUndefinedMethodInspection */
-                $receiverData = UserHelper::$USER->getTable()->get($receiver);
-                $online = new DateTime($receiverData['lastAction']);
-                $now = new DateTime();
+                $receiverData = $_SESSION['user']->getTable()->get($receiver);
+                $online = new \DateTime($receiverData['lastAction']);
+                $now = new \DateTime();
                 $diff = $now->diff($online, true);
                 if ($diff->i > 3) {
                     $notificationData = self::getNotificationData($type);
-                    new NotificationMail(["email" => $receiverData->email, "name" => $receiverData->name], ["message" => \sprintf($notificationData, UserHelper::$USER->name), "target" => $target]);
+                    new NotificationMail(["email" => $receiverData->email, "name" => $receiverData->name], ["message" => \sprintf($notificationData, $_SESSION['user']->name), "target" => $target]);
                 }
             }
         }

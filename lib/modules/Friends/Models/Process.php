@@ -37,7 +37,6 @@
 namespace Cunity\Friends\Models;
 
 use Cunity\Core\Exception;
-use Cunity\Core\Helper\UserHelper;
 use Cunity\Core\View\Ajax\View;
 use Cunity\Friends\Models\Db\Table\Relationships;
 
@@ -123,9 +122,9 @@ class Process
     private function loadOnline()
     {
         $view = new View(false);
-        if (UserHelper::$USER->chat_available == 1) {
+        if ($_SESSION['user']->chat_available == 1) {
             $relations = new Relationships();
-            $friends = $relations->loadOnlineFriends(UserHelper::$USER->userid);
+            $friends = $relations->loadOnlineFriends($_SESSION['user']->userid);
             $view->addData(["result" => $friends]);
             $view->setStatus(true);
         } else {
@@ -142,9 +141,9 @@ class Process
     {
         $view = new View(false);
         if ($_POST['status'] == 1 || $_POST['status'] == 0) {
-            UserHelper::$USER->chat_available = $_POST['status'];
+            $_SESSION['user']->chat_available = $_POST['status'];
             /** @noinspection PhpUndefinedMethodInspection */
-            $view->setStatus(UserHelper::$USER->save() > 0);
+            $view->setStatus($_SESSION['user']->save() > 0);
         }
         $view->sendResponse();
     }

@@ -37,7 +37,6 @@
 namespace Cunity\Newsfeed\Models\Db\Table;
 
 use Cunity\Comments\Models\Db\Table\Comments;
-use Cunity\Core\Helper\UserHelper;
 use Cunity\Core\Models\Db\Abstractables\Table;
 use Cunity\Likes\Models\Db\Table\Likes;
 
@@ -71,10 +70,10 @@ class Posts extends Table
             $this
                 ->getAdapter()
                 ->select()
-                ->from($this->_dbprefix . "relations", new \Zend_Db_Expr("(CASE WHEN sender = " . UserHelper::$USER->userid . " THEN receiver WHEN receiver = " . UserHelper::$USER->userid . " THEN sender END)"))
+                ->from($this->_dbprefix . "relations", new \Zend_Db_Expr("(CASE WHEN sender = " . $_SESSION['user']->userid . " THEN receiver WHEN receiver = " . $_SESSION['user']->userid . " THEN sender END)"))
                 ->where("status > 0")
-                ->where("sender=?", UserHelper::$USER->userid)
-                ->orWhere("receiver=?", UserHelper::$USER->userid)
+                ->where("sender=?", $_SESSION['user']->userid)
+                ->orWhere("receiver=?", $_SESSION['user']->userid)
         );
     }
 
@@ -112,7 +111,7 @@ class Posts extends Table
             ->joinLeft(["rev" => $this->_dbprefix . "events"], "rev.id=w.owner_id AND w.owner_type = 'event'", ["title", "id AS eventid"])
             ->joinLeft(["pi" => $this->_dbprefix . "gallery_images"], "pi.id = u.profileImage", "filename AS pimg")
             ->where("p.id=?", $postid)
-            ->where("p.userid = ? OR (w.owner_id=? AND w.owner_type = 'profile') OR p.privacy = 0 OR (p.privacy = 1 AND p.userid IN (" . new \Zend_Db_Expr($this->friendslistQuery) . "))", UserHelper::$USER->userid);
+            ->where("p.userid = ? OR (w.owner_id=? AND w.owner_type = 'profile') OR p.privacy = 0 OR (p.privacy = 1 AND p.userid IN (" . new \Zend_Db_Expr($this->friendslistQuery) . "))", $_SESSION['user']->userid);
         return $this->getAdapter()->fetchRow($query);
     }
 
@@ -130,7 +129,7 @@ class Posts extends Table
             ->joinLeft(["co" => $this->_dbprefix . "comments"], "CASE WHEN p.type = 'post' THEN co.ref_id = p.id ELSE co.ref_id = p.content END AND co.ref_name = p.type", "COUNT(DISTINCT co.id) AS commentcount")
             ->joinLeft(["rus" => $this->_dbprefix . "users"], "rus.userid=w.owner_id AND p.userid != w.owner_id", ["name AS receivername", "username AS receiverusername"])
             ->joinLeft(["pi" => $this->_dbprefix . "gallery_images"], "pi.id = u.profileImage", "filename AS pimg")
-            ->where("p.userid = ? OR (w.owner_id=? AND w.owner_type = 'profile') OR p.privacy = 0 OR (p.privacy = 1 AND p.userid IN (" . new \Zend_Db_Expr($this->friendslistQuery) . "))", UserHelper::$USER->userid)
+            ->where("p.userid = ? OR (w.owner_id=? AND w.owner_type = 'profile') OR p.privacy = 0 OR (p.privacy = 1 AND p.userid IN (" . new \Zend_Db_Expr($this->friendslistQuery) . "))", $_SESSION['user']->userid)
             ->where("p.id=?", $postid);
         $post = $this->getAdapter()->fetchRow($query);
         if ($post['type'] != "image") {
@@ -166,7 +165,7 @@ class Posts extends Table
     {
         $res = [];
         $thispost = $this->getPostData($postid);
-        if ($thispost['userid'] == UserHelper::$USER->userid || ($thispost['owner_id'] == UserHelper::$USER->userid && $thispost['owner_type'] == "profile")) {
+        if ($thispost['userid'] == $_SESSION['user']->userid || ($thispost['owner_id'] == $_SESSION['user']->userid && $thispost['owner_type'] == "profile")) {
             $likes = new Likes();
             $comments = new Comments();
 

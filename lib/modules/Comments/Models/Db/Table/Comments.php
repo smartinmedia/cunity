@@ -36,7 +36,6 @@
 
 namespace Cunity\Comments\Models\Db\Table;
 
-use Cunity\Core\Helper\UserHelper;
 use Cunity\Core\Models\Db\Abstractables\Table;
 
 /**
@@ -71,7 +70,7 @@ class Comments extends Table
      */
     public function addComment($referenceId, $referenceName, $content)
     {
-        $res = $this->insert(["ref_id" => $referenceId, "ref_name" => $referenceName, "userid" => UserHelper::$USER->userid, "content" => $content]);
+        $res = $this->insert(["ref_id" => $referenceId, "ref_name" => $referenceName, "userid" => $_SESSION['user']->userid, "content" => $content]);
         if ($res !== NULL)
             return $this->getComment($res);
         else

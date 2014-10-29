@@ -36,7 +36,6 @@
 
 namespace Cunity\Newsfeed\Models\Db\Table;
 
-use Cunity\Core\Helper\UserHelper;
 use Cunity\Core\Models\Db\Abstractables\Table;
 use Cunity\Events\Models\Generator\EventsQuery;
 use Cunity\Friends\Models\Generator\FriendQuery;
@@ -83,7 +82,7 @@ class Walls extends Table
      */
     public function getNewsfeed($offset, $refresh = 0, $filter = [])
     {
-        $subquery = new \Zend_Db_Expr($this->select()->from($this, "wall_id")->where("(owner_id IN (" . $this->friendslistQuery . ") OR owner_id = ?) AND owner_type = 'profile'", UserHelper::$USER->userid)
+        $subquery = new \Zend_Db_Expr($this->select()->from($this, "wall_id")->where("(owner_id IN (" . $this->friendslistQuery . ") OR owner_id = ?) AND owner_type = 'profile'", $_SESSION['user']->userid)
             ->orWhere("owner_type = 'event' AND owner_id IN (" . $this->eventslistQuery . ")"));
         $query = $this->getAdapter()->select()->from(["p" => $this->_dbprefix . "posts"])
             ->join(["w" => $this->getTableName()], "w.wall_id=p.wall_id")
@@ -95,9 +94,9 @@ class Walls extends Table
             ->joinLeft(["co" => $this->_dbprefix . "comments"], "CASE WHEN p.type != 'image' THEN co.ref_id = p.id ELSE co.ref_id = p.content END AND co.ref_name = p.type", "COUNT(DISTINCT co.id) AS commentcount")
             ->joinLeft(["li" => $this->_dbprefix . "likes"], "CASE WHEN p.type != 'image' THEN li.ref_id = p.id ELSE li.ref_id = p.content END AND li.ref_name = p.type AND li.dislike = 0", "COUNT(DISTINCT li.id) AS likecount")
             ->joinLeft(["di" => $this->_dbprefix . "likes"], "CASE WHEN p.type != 'image' THEN di.ref_id = p.id ELSE di.ref_id = p.content END AND di.ref_name = p.type AND di.dislike = 1", "COUNT(DISTINCT di.id) AS dislikecount")
-            ->joinLeft(["ld" => $this->_dbprefix . "likes"], "CASE WHEN p.type != 'image' THEN ld.ref_id = p.id ELSE ld.ref_id = p.content END AND ld.ref_name = p.type AND ld.userid = " . $this->getAdapter()->quote(UserHelper::$USER->userid), "ld.dislike AS liked")
-            ->where("p.wall_id IN (" . $subquery . ") OR p.wall_id IN (" . new \Zend_Db_Expr($this->getAdapter()->select()->from($this->_dbprefix . "walls", "wall_id")->where("owner_id = ?", UserHelper::$USER->userid)->where("owner_type = 'profile'")) . ")")
-            ->where("(w.owner_id=? AND w.owner_type = 'profile') OR p.privacy = 0 OR (p.privacy = 1 AND p.userid IN (" . new \Zend_Db_Expr($this->friendslistQuery) . "))", UserHelper::$USER->userid)
+            ->joinLeft(["ld" => $this->_dbprefix . "likes"], "CASE WHEN p.type != 'image' THEN ld.ref_id = p.id ELSE ld.ref_id = p.content END AND ld.ref_name = p.type AND ld.userid = " . $this->getAdapter()->quote($_SESSION['user']->userid), "ld.dislike AS liked")
+            ->where("p.wall_id IN (" . $subquery . ") OR p.wall_id IN (" . new \Zend_Db_Expr($this->getAdapter()->select()->from($this->_dbprefix . "walls", "wall_id")->where("owner_id = ?", $_SESSION['user']->userid)->where("owner_type = 'profile'")) . ")")
+            ->where("(w.owner_id=? AND w.owner_type = 'profile') OR p.privacy = 0 OR (p.privacy = 1 AND p.userid IN (" . new \Zend_Db_Expr($this->friendslistQuery) . "))", $_SESSION['user']->userid)
             ->group(new \Zend_Db_Expr("p.id"))
             ->order("p.id DESC");
         if (!empty($filter)) {
@@ -138,9 +137,9 @@ class Walls extends Table
             ->joinLeft(["co" => $this->_dbprefix . "comments"], "CASE WHEN p.type != 'image' THEN co.ref_id = p.id ELSE co.ref_id = p.content END AND co.ref_name = p.type", "COUNT(DISTINCT co.id) AS commentcount")
             ->joinLeft(["li" => $this->_dbprefix . "likes"], "CASE WHEN p.type != 'image' THEN li.ref_id = p.id ELSE li.ref_id = p.content END AND li.ref_name = p.type AND li.dislike = 0", "COUNT(DISTINCT li.id) AS likecount")
             ->joinLeft(["di" => $this->_dbprefix . "likes"], "CASE WHEN p.type != 'image' THEN di.ref_id = p.id ELSE di.ref_id = p.content END AND di.ref_name = p.type AND di.dislike = 1", "COUNT(DISTINCT di.id) AS dislikecount")
-            ->joinLeft(["ld" => $this->_dbprefix . "likes"], "CASE WHEN p.type != 'image' THEN ld.ref_id = p.id ELSE ld.ref_id = p.content END AND ld.ref_name = p.type AND ld.userid = " . $this->getAdapter()->quote(UserHelper::$USER->userid), "ld.dislike AS liked")
+            ->joinLeft(["ld" => $this->_dbprefix . "likes"], "CASE WHEN p.type != 'image' THEN ld.ref_id = p.id ELSE ld.ref_id = p.content END AND ld.ref_name = p.type AND ld.userid = " . $this->getAdapter()->quote($_SESSION['user']->userid), "ld.dislike AS liked")
             ->where("(p.wall_id = (" . new \Zend_Db_Expr($this->select()->from($this, "wall_id")->where("owner_id = ?", intval($ownerid))->where("owner_type = ?", $ownertype)) . ")) OR p.userid = ? AND " . $this->getAdapter()->quote($ownertype) . " = 'profile'", $ownerid)
-            ->where("(p.userid = ?) OR (w.owner_id = ? AND w.owner_type = 'profile') OR p.privacy = 0 OR (p.privacy = 1 AND p.userid IN (" . new \Zend_Db_Expr($this->friendslistQuery) . "))", intval(UserHelper::$USER->userid))
+            ->where("(p.userid = ?) OR (w.owner_id = ? AND w.owner_type = 'profile') OR p.privacy = 0 OR (p.privacy = 1 AND p.userid IN (" . new \Zend_Db_Expr($this->friendslistQuery) . "))", intval($_SESSION['user']->userid))
             ->group("p.id")
             ->order("p.id DESC");
         if (!empty($filter)) {

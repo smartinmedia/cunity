@@ -37,18 +37,12 @@
 namespace Cunity\Core\Helper;
 
 use Cunity\Core\Exception;
-use Cunity\Core\Models\Db\Row\User;
 
 /**
  * Class UserHelper
  */
 class UserHelper
 {
-    /**
-     * @var User
-     */
-    public static $USER = null;
-
     /**
      *
      */
@@ -64,6 +58,6 @@ class UserHelper
      */
     public static function isAdmin()
     {
-        return self::$USER->isAdmin();
+        return UserHelper::isAdmin();
     }
 }

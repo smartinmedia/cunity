@@ -64,7 +64,7 @@ class FriendShipController
     {
         UserHelper::breakOnMissingUserId();
         $relations = new Db\Table\Relationships();
-        $res = $relations->insert(["sender" => UserHelper::$USER->userid, "receiver" => $_POST['userid'], "status" => 1]);
+        $res = $relations->insert(["sender" => $_SESSION['user']->userid, "receiver" => $_POST['userid'], "status" => 1]);
         if ($res) {
             $view = new View($res !== false);
             $view->sendResponse();
@@ -117,7 +117,7 @@ class FriendShipController
     private function load()
     {
         $relations = new Db\Table\Relationships();
-        $userid = ($_POST['userid'] == 0) ? UserHelper::$USER->userid : $_POST['userid'];
+        $userid = ($_POST['userid'] == 0) ? $_SESSION['user']->userid : $_POST['userid'];
         $rows = $relations->getFullFriendList(">1", $userid);
         $view = new View(true);
         $view->addData(["result" => $rows]);

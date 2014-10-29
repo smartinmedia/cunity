@@ -36,7 +36,6 @@
 
 namespace Cunity\Core\Models\Validation;
 
-use Cunity\Core\Helper\UserHelper;
 use Cunity\Core\Models\Db\Table\Users;
 use Cunity\Register\Models\Login;
 
@@ -78,7 +77,7 @@ class Email extends \Zend_Validate_EmailAddress
         } else {
             $user = $users->search("email", $value);
             if (($user !== null && !Login::loggedIn()) ||
-                (Login::loggedIn() && $user->userid !== UserHelper::$USER->userid)
+                (Login::loggedIn() && $user->userid !== $_SESSION['user']->userid)
             ) {
                 $this->_error(self::USED);
                 $returnValue = false;

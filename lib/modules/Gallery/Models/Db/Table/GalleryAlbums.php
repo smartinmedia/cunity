@@ -36,7 +36,6 @@
 
 namespace Cunity\Gallery\Models\Db\Table;
 
-use Cunity\Core\Helper\UserHelper;
 use Cunity\Core\Models\Db\Abstractables\Table;
 use Cunity\Core\View\View;
 use Cunity\Gallery\Models\Db\Row\Album;
@@ -146,7 +145,7 @@ class GalleryAlbums extends Table
                     ->joinLeft(["i" => $this->_dbprefix . "gallery_images"], "a.cover=i.id", "filename")
                     ->joinLeft(["u" => $this->_dbprefix . "users"], "a.owner_id=u.userid AND a.owner_type IS NULL", ["u.name", "u.username"])
                     ->joinLeft(["pi" => $this->_dbprefix . "gallery_images"], "pi.id=u.profileImage", "pi.filename as pimg")
-                    ->where("(a.photo_count > 0) AND ((a.type IS NULL OR a.type = 'shared') AND (a.privacy = 2 OR (a.privacy = 1 AND a.owner_id IN (" . new \Zend_Db_Expr($this->getAdapter()->select()->from($this->_dbprefix . "relations", new \Zend_Db_Expr("(CASE WHEN sender = " . UserHelper::$USER->userid . " THEN receiver WHEN receiver = " . UserHelper::$USER->userid . " THEN sender END)"))->where("status > 0")->where("sender=?", UserHelper::$USER->userid)->orWhere("receiver=?", UserHelper::$USER->userid)) . "))) OR (a.owner_type IS NULL AND a.owner_id=?))", UserHelper::$USER->userid)
+                    ->where("(a.photo_count > 0) AND ((a.type IS NULL OR a.type = 'shared') AND (a.privacy = 2 OR (a.privacy = 1 AND a.owner_id IN (" . new \Zend_Db_Expr($this->getAdapter()->select()->from($this->_dbprefix . "relations", new \Zend_Db_Expr("(CASE WHEN sender = " . $_SESSION['user']->userid . " THEN receiver WHEN receiver = " . $_SESSION['user']->userid . " THEN sender END)"))->where("status > 0")->where("sender=?", $_SESSION['user']->userid)->orWhere("receiver=?", $_SESSION['user']->userid)) . "))) OR (a.owner_type IS NULL AND a.owner_id=?))", $_SESSION['user']->userid)
                     ->order("i.time DESC")
             );
         } else {
@@ -156,7 +155,7 @@ class GalleryAlbums extends Table
                     ->joinLeft(["i" => $this->_dbprefix . "gallery_images"], "a.cover=i.id", "filename")
                     ->joinLeft(["u" => $this->_dbprefix . "users"], "a.owner_id=u.userid AND a.owner_type IS NULL", ["u.name", "u.username"])
                     ->joinLeft(["pi" => $this->_dbprefix . "gallery_images"], "pi.id=u.profileImage", "pi.filename as pimg")
-                    ->where("(a.privacy = 2 OR (a.privacy = 1 AND a.owner_type IS NULL AND a.owner_id IN (" . new \Zend_Db_Expr($this->getAdapter()->select()->from($this->_dbprefix . "relations", new \Zend_Db_Expr("(CASE WHEN sender = " . UserHelper::$USER->userid . " THEN receiver WHEN receiver = " . UserHelper::$USER->userid . " THEN sender END)"))->where("status > 0")->where("sender=?", UserHelper::$USER->userid)->orWhere("receiver=?", UserHelper::$USER->userid)) . ")) OR (a.owner_type IS NULL AND a.owner_id=?))", UserHelper::$USER->userid)
+                    ->where("(a.privacy = 2 OR (a.privacy = 1 AND a.owner_type IS NULL AND a.owner_id IN (" . new \Zend_Db_Expr($this->getAdapter()->select()->from($this->_dbprefix . "relations", new \Zend_Db_Expr("(CASE WHEN sender = " . $_SESSION['user']->userid . " THEN receiver WHEN receiver = " . $_SESSION['user']->userid . " THEN sender END)"))->where("status > 0")->where("sender=?", $_SESSION['user']->userid)->orWhere("receiver=?", $_SESSION['user']->userid)) . ")) OR (a.owner_type IS NULL AND a.owner_id=?))", $_SESSION['user']->userid)
                     ->where("a.owner_id=? AND a.owner_type IS NULL", $userid)
                     ->order("i.time DESC")
             );

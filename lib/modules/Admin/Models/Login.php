@@ -36,7 +36,6 @@
 
 namespace Cunity\Admin\Models;
 
-use Cunity\Core\Helper\UserHelper;
 use Cunity\Core\Models\Generator\Url;
 
 /**
@@ -74,7 +73,7 @@ class Login
      */
     public static function loggedIn()
     {
-        return (isset($_SESSION['admin_loggedIn']) && $_SESSION['admin_loggedIn'] === true && isset(UserHelper::$USER));
+        return (isset($_SESSION['admin_loggedIn']) && $_SESSION['admin_loggedIn'] === true && isset($_SESSION['user']));
     }
 
     /**
@@ -83,7 +82,7 @@ class Login
     public function login()
     {
         if (isset($_POST['email'])) {
-            if (UserHelper::$USER->email == $_POST['email'] && UserHelper::$USER->password == sha1($_POST['password'] . UserHelper::$USER->salt)) {
+            if ($_SESSION['user']->email == $_POST['email'] && $_SESSION['user']->password == sha1($_POST['password'] . $_SESSION['user']->salt)) {
                 $_SESSION['admin_loggedIn'] = true;
                 header("Location:" . Url::convertUrl("index.php?m=admin"));
                 exit();

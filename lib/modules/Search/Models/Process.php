@@ -36,7 +36,6 @@
 
 namespace Cunity\Search\Models;
 
-use Cunity\Core\Helper\UserHelper;
 use Cunity\Core\Models\Db\Table\Users;
 
 /**
@@ -92,17 +91,17 @@ class Process
             if (!empty($hits)) {
                 $results = [];
                 foreach ($hits as $hit) {
-                    if ($hit->username !== UserHelper::$USER->username) {
+                    if ($hit->username !== $_SESSION['user']->username) {
                         $results[] = $hit->username;
                     }
                 }
                 if (!empty($results)) {
                     /** @noinspection PhpUndefinedMethodInspection */
                     /** @var Users $users */
-                    $users = UserHelper::$USER->getTable();
+                    $users = $_SESSION['user']->getTable();
                     if (isset($_POST['friends'])) {
                         /** @noinspection PhpUndefinedMethodInspection */
-                        $friends = UserHelper::$USER->getFriendList();
+                        $friends = $_SESSION['user']->getFriendList();
                         if (empty($friends)) {
                             return ["queryString" => $queryString, "users" => []];
                         } else {

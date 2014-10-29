@@ -36,7 +36,6 @@
 
 namespace Cunity\Profile\Models\Db\Table;
 
-use Cunity\Core\Helper\UserHelper;
 use Cunity\Core\Models\Db\Abstractables\Table;
 
 /**
@@ -72,13 +71,13 @@ class Privacy extends Table
      */
     public function checkPrivacy($type, $userid)
     {
-        if ($userid == UserHelper::$USER->userid) {
+        if ($userid == $_SESSION['user']->userid) {
             return true;
         }
         $pri = $this->getPrivacy($type, $userid);
         if ($pri == 3) {
             return true;
-        } /** @noinspection PhpUndefinedMethodInspection */ elseif ($pri == 1 && UserHelper::$USER->isFriend($userid)) {
+        } /** @noinspection PhpUndefinedMethodInspection */ elseif ($pri == 1 && $_SESSION['user']->isFriend($userid)) {
             return true;
         }
 
@@ -93,7 +92,7 @@ class Privacy extends Table
     public function getPrivacy($type = false, $userid = 0)
     {
         if ($userid == 0) {
-            $userid = UserHelper::$USER->userid;
+            $userid = $_SESSION['user']->userid;
         }
         if ($type === false) {
             $res = $this->fetchAll($this->select()->where("userid=?", $userid));
