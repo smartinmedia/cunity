@@ -38,7 +38,6 @@
 namespace Cunity\Admin\Models\Pages;
 
 use Cunity\Core\Models\Db\Table\Menu;
-use Cunity\Core\Models\Db\Table\Modules;
 use Cunity\Core\View\Ajax\View;
 
 /**
@@ -104,7 +103,7 @@ class Appearance extends PageAbstract
      */
     private function loadData()
     {
-        $modules = new Modules();
+        $modules = new \Cunity\Core\Models\Db\Table\Modules();
         $installedModules = $modules->getModules()->toArray();
         $config = \Cunity\Core\Cunity::get("config");
         $this->assignments['smtp_check'] = $config->mail->smtp_check;
