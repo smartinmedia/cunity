@@ -54,10 +54,7 @@ class Dashboard extends View
      * @var string
      */
     protected $_templateFile = "dashboard/dashboard.tpl";
-    /**
-     * @var bool
-     */
-    protected $_useWrapper = false;
+
 
     /**
      *

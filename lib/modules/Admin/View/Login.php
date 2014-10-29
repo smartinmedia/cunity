@@ -49,10 +49,6 @@ class Login extends View
      * @var string
      */
     protected $_templateFile = "login.tpl";
-    /**
-     * @var bool
-     */
-    protected $_useWrapper = false;
 
     /**
      *

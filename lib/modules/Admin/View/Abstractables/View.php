@@ -42,6 +42,10 @@ namespace Cunity\Admin\View\Abstractables;
  */
 class View extends \Cunity\Core\View\View
 {
+    /**
+     * @var bool
+     */
+    protected $_useWrapper = false;
 
     /**
      * @throws \Exception

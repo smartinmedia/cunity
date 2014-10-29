@@ -46,11 +46,6 @@ class Appearance extends View
 {
 
     /**
-     * @var bool
-     */
-    protected $_useWrapper = false;
-
-    /**
      *
      */
     public function __construct()

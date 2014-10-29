@@ -44,12 +44,6 @@ use Cunity\Admin\View\Abstractables\View;
  */
 class Cunity extends View
 {
-
-    /**
-     * @var bool
-     */
-    protected $_useWrapper = false;
-
     /**
      *
      */

@@ -36,7 +36,6 @@
 
 namespace Cunity\Admin\View;
 
-use Cunity\Admin\Models\Login;
 use Cunity\Core\View\View;
 
 /**
@@ -65,7 +64,7 @@ class Admin extends View
     public function __construct()
     {
         parent::__construct();
-        Login::loginRequired();
+        \Cunity\Admin\Models\Login::loginRequired();
 
         $this->show();
     }
