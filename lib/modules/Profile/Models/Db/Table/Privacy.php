@@ -42,6 +42,8 @@ use Cunity\Core\Models\Db\Abstractables\Table;
 /**
  * Class Privacy
  * @package Cunity\Profile\Models\Db\Table
+ *
+ * @property \Zend_Db_Table_Row_Abstract value
  */
 class Privacy extends Table
 {
