@@ -46,7 +46,7 @@ class Notifier
 {
 
     /**
-     * @var null
+     * @var Notifier
      */
     static private $instance = null;
     /**
