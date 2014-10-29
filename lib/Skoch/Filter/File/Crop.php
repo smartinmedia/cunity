@@ -56,7 +56,7 @@ class Crop extends AbstractFile implements \Zend_Filter_Interface
      */
     protected $_directory = null;
     /**
-     * @var string
+     * @var AbstractAdapter
      */
     protected $_adapter = 'Skoch\Filter\File\Adapter\Gd';
 
