@@ -38,7 +38,6 @@ namespace Cunity\Admin\Models\Updater;
 
 use Cunity\Admin\Models\Db\Table\Versions;
 use Cunity\Core\Models\Db\Adapter\Mysqli;
-use Zend_Db_Adapter_Mysqli;
 
 /**
  * Class DbUpdateVersion
@@ -62,9 +61,9 @@ abstract class DbUpdateVersion
 
     /**
      *
-     * @param Zend_Db_Adapter_Mysqli $database
+     * @param Mysqli $database
      */
-    public function __construct(Zend_Db_Adapter_Mysqli $database)
+    public function __construct(Mysqli $database)
     {
         $this->_db = $database;
     }
