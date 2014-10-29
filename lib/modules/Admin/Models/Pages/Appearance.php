@@ -62,6 +62,9 @@ class Appearance extends PageAbstract
         }
     }
 
+    /**
+     *
+     */
     private function handleRequest()
     {
         $view = new View(true);
