@@ -40,18 +40,21 @@ use Cunity\Admin\Models\Updater\DbCommandInterface;
 use Cunity\Admin\Models\Updater\DbUpdateVersion;
 
 /**
- * Class Version 1231231231
- * @package Admin\Models\Updater\DatabaseUpdates
+ * Class Version1413894154
  */
-class Version1413894154 extends DbUpdateVersion implements DbCommandInterface {
-
+class Version1413894154 extends DbUpdateVersion implements DbCommandInterface
+{
+    /**
+     * @var int
+     */
     protected $_timestamp = 1413894154;
 
     /**
-     * 
+     *
      */
-    public function execute() {
-        $this->_db->query("CREATE TABLE IF NOT EXISTS ".$this->_db->getDbprefix()."log (
+    public function execute()
+    {
+        $this->_db->query("CREATE TABLE IF NOT EXISTS " . $this->_db->getDbprefix() . "log (
   id int(11) NOT NULL AUTO_INCREMENT,
   level varchar(255) NOT NULL,
   message text NOT NULL,

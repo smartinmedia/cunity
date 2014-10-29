@@ -40,12 +40,13 @@ use Cunity\Admin\Models\Updater\DbCommandInterface;
 use Cunity\Admin\Models\Updater\DbUpdateVersion;
 
 /**
- * Class Version 1231231231
- * @package Admin\Models\Updater\DatabaseUpdates
+ * Class Version1413268321
  */
 class Version1413268321 extends DbUpdateVersion implements DbCommandInterface
 {
-
+    /**
+     * @var int
+     */
     protected $_timestamp = 1413268321;
 
     /**

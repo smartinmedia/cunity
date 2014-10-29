@@ -40,32 +40,36 @@ use Cunity\Admin\Models\Updater\DbCommandInterface;
 use Cunity\Admin\Models\Updater\DbUpdateVersion;
 
 /**
- * Class Version 1231231231
- * @package Admin\Models\Updater\DatabaseUpdates
+ * Class Version1406470410
  */
-class Version1406470410 extends DbUpdateVersion implements DbCommandInterface {
+class Version1406470410 extends DbUpdateVersion implements DbCommandInterface
+{
 
+    /**
+     * @var int
+     */
     protected $_timestamp = 1406470410;
 
     /**
-     * 
+     *
      */
-    public function execute() {
-        $this->_db->query("UPDATE `".$this->_db->getDbprefix()."settings` SET `name` = 'core.contact_mail' WHERE `".$this->_db->getDbprefix()."settings`.`name` = 'contact_mail';");
-        $this->_db->query("UPDATE `".$this->_db->getDbprefix()."settings` SET `name` = 'core.design' WHERE `".$this->_db->getDbprefix()."settings`.`name` = 'design';");
-        $this->_db->query("UPDATE `".$this->_db->getDbprefix()."settings` SET `name` = 'core.filesdir' WHERE `".$this->_db->getDbprefix()."settings`.`name` = 'filesdir';");
-        $this->_db->query("UPDATE `".$this->_db->getDbprefix()."settings` SET `name` = 'core.fullname' WHERE `".$this->_db->getDbprefix()."settings`.`name` = 'fullname';");
-        $this->_db->query("UPDATE `".$this->_db->getDbprefix()."settings` SET `name` = 'core.language' WHERE `".$this->_db->getDbprefix()."settings`.`name` = 'language';");
-        $this->_db->query("UPDATE `".$this->_db->getDbprefix()."settings` SET `name` = 'core.siteurl' WHERE `".$this->_db->getDbprefix()."settings`.`name` = 'siteurl';");
-        $this->_db->query("UPDATE `".$this->_db->getDbprefix()."settings` SET `name` = 'core.sitename' WHERE `".$this->_db->getDbprefix()."settings`.`name` = 'sitename';");
-        $this->_db->query("UPDATE `".$this->_db->getDbprefix()."settings` SET `name` = 'core.description' WHERE `".$this->_db->getDbprefix()."settings`.`name` = 'description';");
-        $this->_db->query("UPDATE `".$this->_db->getDbprefix()."settings` SET `name` = 'core.mail_header' WHERE `".$this->_db->getDbprefix()."settings`.`name` = 'mail_header';");
-        $this->_db->query("UPDATE `".$this->_db->getDbprefix()."settings` SET `name` = 'core.mail_footer' WHERE `".$this->_db->getDbprefix()."settings`.`name` = 'mail_footer';");
-        
-        $this->_db->query("UPDATE `".$this->_db->getDbprefix()."settings` SET `name` = 'register.permissions' WHERE `".$this->_db->getDbprefix()."settings`.`name` = 'register_permissions';");
-        $this->_db->query("UPDATE `".$this->_db->getDbprefix()."settings` SET `name` = 'register.notification' WHERE `".$this->_db->getDbprefix()."settings`.`name` = 'register_notification';");
-        $this->_db->query("UPDATE `".$this->_db->getDbprefix()."settings` SET `name` = 'register.min_age' WHERE `".$this->_db->getDbprefix()."settings`.`name` = 'register_min_age';");
-        $this->_db->query("UPDATE `".$this->_db->getDbprefix()."settings` SET `name` = 'messages.chat' WHERE `".$this->_db->getDbprefix()."settings`.`name` = 'chat';");
+    public function execute()
+    {
+        $this->_db->query("UPDATE `" . $this->_db->getDbprefix() . "settings` SET `name` = 'core.contact_mail' WHERE `" . $this->_db->getDbprefix() . "settings`.`name` = 'contact_mail';");
+        $this->_db->query("UPDATE `" . $this->_db->getDbprefix() . "settings` SET `name` = 'core.design' WHERE `" . $this->_db->getDbprefix() . "settings`.`name` = 'design';");
+        $this->_db->query("UPDATE `" . $this->_db->getDbprefix() . "settings` SET `name` = 'core.filesdir' WHERE `" . $this->_db->getDbprefix() . "settings`.`name` = 'filesdir';");
+        $this->_db->query("UPDATE `" . $this->_db->getDbprefix() . "settings` SET `name` = 'core.fullname' WHERE `" . $this->_db->getDbprefix() . "settings`.`name` = 'fullname';");
+        $this->_db->query("UPDATE `" . $this->_db->getDbprefix() . "settings` SET `name` = 'core.language' WHERE `" . $this->_db->getDbprefix() . "settings`.`name` = 'language';");
+        $this->_db->query("UPDATE `" . $this->_db->getDbprefix() . "settings` SET `name` = 'core.siteurl' WHERE `" . $this->_db->getDbprefix() . "settings`.`name` = 'siteurl';");
+        $this->_db->query("UPDATE `" . $this->_db->getDbprefix() . "settings` SET `name` = 'core.sitename' WHERE `" . $this->_db->getDbprefix() . "settings`.`name` = 'sitename';");
+        $this->_db->query("UPDATE `" . $this->_db->getDbprefix() . "settings` SET `name` = 'core.description' WHERE `" . $this->_db->getDbprefix() . "settings`.`name` = 'description';");
+        $this->_db->query("UPDATE `" . $this->_db->getDbprefix() . "settings` SET `name` = 'core.mail_header' WHERE `" . $this->_db->getDbprefix() . "settings`.`name` = 'mail_header';");
+        $this->_db->query("UPDATE `" . $this->_db->getDbprefix() . "settings` SET `name` = 'core.mail_footer' WHERE `" . $this->_db->getDbprefix() . "settings`.`name` = 'mail_footer';");
+
+        $this->_db->query("UPDATE `" . $this->_db->getDbprefix() . "settings` SET `name` = 'register.permissions' WHERE `" . $this->_db->getDbprefix() . "settings`.`name` = 'register_permissions';");
+        $this->_db->query("UPDATE `" . $this->_db->getDbprefix() . "settings` SET `name` = 'register.notification' WHERE `" . $this->_db->getDbprefix() . "settings`.`name` = 'register_notification';");
+        $this->_db->query("UPDATE `" . $this->_db->getDbprefix() . "settings` SET `name` = 'register.min_age' WHERE `" . $this->_db->getDbprefix() . "settings`.`name` = 'register_min_age';");
+        $this->_db->query("UPDATE `" . $this->_db->getDbprefix() . "settings` SET `name` = 'messages.chat' WHERE `" . $this->_db->getDbprefix() . "settings`.`name` = 'chat';");
     }
 
 }

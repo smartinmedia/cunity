@@ -39,12 +39,14 @@ use Cunity\Admin\Models\Updater\DbCommandInterface;
 use Cunity\Admin\Models\Updater\DbUpdateVersion;
 
 /**
- * Class Version 1231231231
- * @package Admin\Models\Updater\DatabaseUpdates
+ * Class Version1413270764
  */
 class Version1413270764 extends DbUpdateVersion implements DbCommandInterface
 {
 
+    /**
+     * @var int
+     */
     protected $_timestamp = 1413270764;
 
     /**
@@ -64,17 +66,17 @@ class Version1413270764 extends DbUpdateVersion implements DbCommandInterface
   PRIMARY KEY (id)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;");
 
-        $this->_db->query("INSERT INTO " . $this->_db->getDbprefix() . "profilefields (id, value, type_id, registration, required, deleteable, sorting) VALUES
+        $this->_db->query("INSERT INTO " . $this->_db->getDbprefix() . "profilefields (id, VALUE, type_id, registration, required, deleteable, sorting) VALUES
     (1, 'Sex', 1, 1, 1, 1, 1);");
 
         $this->_db->query("DROP TABLE IF EXISTS " . $this->_db->getDbprefix() . "profilefields_types;
 CREATE TABLE IF NOT EXISTS " . $this->_db->getDbprefix() . "profilefields_types (
-    id int(11) NOT NULL AUTO_INCREMENT,
-  value varchar(255) DEFAULT NULL,
+    id INT(11) NOT NULL AUTO_INCREMENT,
+  VALUE VARCHAR(255) DEFAULT NULL,
   PRIMARY KEY (id)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;");
 
-        $this->_db->query("INSERT INTO " . $this->_db->getDbprefix() . "profilefields_types (id, value) VALUES
+        $this->_db->query("INSERT INTO " . $this->_db->getDbprefix() . "profilefields_types (id, VALUE) VALUES
     (1, 'select'),
 (2, 'radio'),
 (3, 'text'),
@@ -100,7 +102,7 @@ CREATE TABLE IF NOT EXISTS " . $this->_db->getDbprefix() . "profilefields_types 
   PRIMARY KEY (id)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;");
 
-        $this->_db->query("INSERT INTO " . $this->_db->getDbprefix() . "profilefields_values (id, value, profilefield_id, sorting) VALUES
+        $this->_db->query("INSERT INTO " . $this->_db->getDbprefix() . "profilefields_values (id, VALUE, profilefield_id, sorting) VALUES
     (1, 'Female', 1, 1),
 (2, 'Male', 1, 2);");
     }

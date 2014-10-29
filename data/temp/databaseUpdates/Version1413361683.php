@@ -39,8 +39,7 @@ use Cunity\Admin\Models\Updater\DbCommandInterface;
 use Cunity\Admin\Models\Updater\DbUpdateVersion;
 
 /**
- * Class Version 1231231231
- * @package Admin\Models\Updater\DatabaseUpdates
+ * Class Version1413361683
  */
 class Version1413361683 extends DbUpdateVersion implements DbCommandInterface
 {
@@ -55,6 +54,6 @@ class Version1413361683 extends DbUpdateVersion implements DbCommandInterface
      */
     public function execute()
     {
-        $this->_db->query("ALTER TABLE ".$this->_db->getDbprefix()."users DROP sex");
+        $this->_db->query("ALTER TABLE " . $this->_db->getDbprefix() . "users DROP sex");
     }
 }

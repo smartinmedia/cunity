@@ -40,12 +40,14 @@ use Cunity\Admin\Models\Updater\DbCommandInterface;
 use Cunity\Admin\Models\Updater\DbUpdateVersion;
 
 /**
- * Class Version 1231231231
- * @package Admin\Models\Updater\DatabaseUpdates
+ * Class Version1413269001
  */
 class Version1413269001 extends DbUpdateVersion implements DbCommandInterface
 {
 
+    /**
+     * @var int
+     */
     protected $_timestamp = 1413269001;
 
     /**
@@ -53,7 +55,7 @@ class Version1413269001 extends DbUpdateVersion implements DbCommandInterface
      */
     public function execute()
     {
-        $this->_db->query("ALTER TABLE " . $this->_db->getDbprefix() . "profilefields_values CHANGE  value  value TEXT CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL ;");
+        $this->_db->query("ALTER TABLE " . $this->_db->getDbprefix() . "profilefields_values CHANGE  VALUE  VALUE TEXT CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL ;");
         $this->_db->query("ALTER TABLE " . $this->_db->getDbprefix() . "profilefields_values ADD  sorting INT NOT NULL ;");
     }
 }
