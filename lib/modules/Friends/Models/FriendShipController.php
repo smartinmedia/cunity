@@ -118,9 +118,8 @@ class FriendShipController
     {
         $relations = new Db\Table\Relationships();
         $userid = ($_POST['userid'] == 0) ? $_SESSION['user']->userid : $_POST['userid'];
-        $rows = $relations->getFullFriendList(">1", $userid);
         $view = new View(true);
-        $view->addData(["result" => $rows]);
+        $view->addData(["result" => $relations->getFullFriendList(">1", $userid)]);
         $view->sendResponse();
     }
 }
