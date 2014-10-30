@@ -110,9 +110,8 @@ class Process
     private function load()
     {
         $relations = new Relationships();
-        $rows = $relations->getFullFriendList(">1", $_POST['userid']);
         $view = new View(true);
-        $view->addData(["result" => $rows]);
+        $view->addData(["result" => $relations->getFullFriendList(">1", $_POST['userid'])]);
         $view->sendResponse();
     }
 
