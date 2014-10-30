@@ -42,6 +42,7 @@ use Cunity\Core\Models\Validation\Email;
 use Cunity\Core\Models\Validation\Password;
 use Cunity\Core\Models\Validation\Username;
 use Cunity\Core\View\Message;
+use Cunity\Core\View\View;
 use Cunity\Register\View\Registration;
 use Cunity\Register\View\ResetPassword;
 use Zend_Validate_Date;
@@ -92,16 +93,8 @@ class Register
             } else {
                 $this->errors["email"] = "Email was not found in our system!";
             }
-            if (!empty($this->errors)) {
-                foreach ($this->errors as $error => $message) {
-                    if (!empty($message)) {
-                        $error_messages[$error] = $view->translate($message);
-                    }
-                }
-                $view->assign("error_messages", $error_messages);
-                $view->assign('success', false);
-                $view->assign("values", $_POST);
-            }
+
+            $this->assignErrors($view, $error_messages);
             $view->show();
         } else {
             $view->show();
@@ -115,16 +108,7 @@ class Register
     {
         $view = new Registration();
         $error_messages = [];
-        if (!empty($this->errors)) {
-            foreach ($this->errors as $error => $message) {
-                if (!empty($message)) {
-                    $error_messages[$error] = $view->translate($message);
-                }
-            }
-            $view->assign("error_messages", $error_messages);
-            $view->assign('success', false);
-            $view->assign("values", $_POST);
-        }
+        $this->assignErrors($view, $error_messages);
         $view->render();
     }
 
@@ -155,5 +139,23 @@ class Register
             $this->errors["password_repeat"] = "";
         }
         return empty($this->errors);
+    }
+
+    /**
+     * @param View $view
+     * @param $error_messages
+     */
+    private function assignErrors(View $view, $error_messages)
+    {
+        if (!empty($this->errors)) {
+            foreach ($this->errors as $error => $message) {
+                if (!empty($message)) {
+                    $error_messages[$error] = $view->translate($message);
+                }
+            }
+            $view->assign("error_messages", $error_messages);
+            $view->assign('success', false);
+            $view->assign("values", $_POST);
+        }
     }
 }
