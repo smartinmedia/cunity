@@ -1,6 +1,6 @@
 <div class="page-buttonbar clearfix">
     <h1 class="page-header pull-left">{-"Forums"|translate}</h1>
-    {-if $user.groupid > 1}
+    {-if $user.groupid == 3}
     <button class="pull-right btn btn-primary" data-toggle="modal" data-target="#addForum" data-forumid="{%=o.id%}" id="addForum"><i
                 class="fa fa-plus"></i>&nbsp;{-"New Forum"|translate}</button>{-/if}
 </div>
