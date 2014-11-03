@@ -4,8 +4,8 @@
     </div>
     {-if $user.groupid > 2}
     <button class="btn btn-default pull-right tooltip-trigger" data-toggle="modal" data-target="#editBoard"
-            data-title="{-"Edit this board"|translate}" id="editBoard"><i class="fa fa-pencil"></i></button>{-/if}
-    <button class="pull-right btn btn-primary" data-toggle="modal" data-target="#startThread" id="startThread"><i
+            data-title="{-"Edit this board"|translate}" ><i class="fa fa-pencil"></i></button>{-/if}
+    <button class="pull-right btn btn-primary" data-toggle="modal" data-target="#startThread"><i
                 class="fa fa-pencil"></i>&nbsp;{-"Start a new Thread"|translate}</button>
     <ul class="breadcrumb">
         <li class="tooltip-trigger" data-title="{-"Forums"|translate}"><a href="{-"index.php?m=forums"|URL}"><i
