@@ -66,8 +66,8 @@
 </div>
 <div class="login-buttons clearfix">
     <a href="{-"index.php?m=register"|URL}" class="btn btn-primary pull-left btn-large">{-"Register now!"|translate}</a>
-    <button class="btn btn-default pull-right btn-large info-button" data-toggle="dropdown" data-href="infomenu"><i
-                class="fa fa-info"></i></button>
+    {-*<button class="btn btn-default pull-right btn-large info-button" data-toggle="dropdown" data-href="infomenu"><i*}
+                {-*class="fa fa-info"></i></button>*}
     <button class="btn btn-default pull-right btn-large" data-toggle="modal"
             data-target="#loginModal">{-"Login"|translate}</button>
     <ul class="dropdown-menu" role="menu" aria-labelledby="infomenu" id="infomenu">
