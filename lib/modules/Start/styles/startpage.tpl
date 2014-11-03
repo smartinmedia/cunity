@@ -125,6 +125,5 @@
     <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
-<script src="{-"core.siteurl"|setting}lib/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 </body>
 </html>
