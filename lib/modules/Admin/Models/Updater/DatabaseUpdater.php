@@ -39,6 +39,7 @@ namespace Cunity\Admin\Models\Updater;
 use Cunity\Admin\Models\Db\Table\Versions;
 use Cunity\Core\Cunity;
 use Cunity\Core\View\Message;
+use Cunity\Search\Models\Process;
 
 /**
  * Class DatabaseUpdater
@@ -108,6 +109,10 @@ class DatabaseUpdater
                 }
             }
         }
+
+        $process = new Process();
+        $process->recreateSearchIndex();
+
         new Message("Done!", "The Database updated has finished!", "success");
     }
 
