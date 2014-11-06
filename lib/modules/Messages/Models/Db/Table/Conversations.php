@@ -52,14 +52,6 @@ class Conversations extends Table
     protected $_name = 'conversations';
 
     /**
-     *
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * @return int|string
      */
     public function getNewConversationId()
@@ -159,19 +151,16 @@ class Conversations extends Table
      */
     public function loadConversationDetails($conversationid)
     {
-        $result = $this->getAdapter()->fetchRow(
-            $this->getAdapter()->select()
-                ->from(["c" => $this->getTableName()], ["(" .
-                    new \Zend_Db_Expr($this->getAdapter()->select()
-                        ->from(["u" => $this->_dbprefix . "users"], new \Zend_Db_Expr("GROUP_CONCAT(u.userid)"))
-                        ->where("u.userid IN (" .
-                            new \Zend_Db_Expr($this->getAdapter()->select()
-                                ->from(["uc" => $this->getTableName()], "uc.userid")
-                                ->where("uc.conversation_id = c.conversation_id")) . ")")) . ") AS users", "c.conversation_id", "(" .
-                    new \Zend_Db_Expr($this->getAdapter()->select()->from($this->_dbprefix . "messages AS cm", [new \Zend_Db_Expr("COUNT(*)")])->where("cm.conversation = c.conversation_id")) . ") AS count"
-                ])
-                ->where("c.conversation_id=?", intval($conversationid))->where("status < 2")->limit(1)
-        );
+        $users = [];
+        $result = $this->getAdapter()->fetchAll($this->getAdapter()->select()->from($this->getTableName())->where('conversation_id = ?', $conversationid));
+
+        foreach ($result as $_result) {
+            $users[] = $_result['userid'];
+        }
+
+        $result[0]['users'] = implode(',', $users);
+        $result = $result[0];
+
         return $result;
     }
 
