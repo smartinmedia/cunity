@@ -36,8 +36,6 @@
 
 namespace Cunity\Admin\Models\Pages;
 
-use Cunity\Core\Models\Db\Table\Modules;
-
 /**
  * Class Statistics
  * @package Cunity\Admin\Models\Pages
@@ -59,10 +57,17 @@ class Statistics extends PageAbstract
      */
     protected function loadData()
     {
-        $modules = new Modules();
-        $installedModules = $modules->getModules()->toArray();
-        $config = \Cunity\Core\Cunity::get("config");
-        $this->assignments['smtp_check'] = $config->mail->smtp_check;
-        $this->assignments['modules'] = $installedModules;
+        $statisticData = [];
+        $statistics = new \Cunity\Admin\Models\Db\Table\Statistics();
+        $data = $statistics->getLastMonths();
+        $counter = 0;
+
+        foreach ($data as $date => $numbers) {
+            $statisticData[$counter] = $numbers;
+            $statisticData[$counter]['period'] = $date;
+            $counter++;
+        }
+
+        $this->assignments['statisticdata'] = json_encode($statisticData);
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+
 /**
  * ########################################################################################
  * ## CUNITY(R) V2.0 - An open source social network / "your private social network"     ##
@@ -34,105 +35,60 @@
  * #####################################################################################
  */
 
-namespace Cunity\Core\Models\Db\Abstractables;
 
-use Cunity\Core\Cunity;
+namespace Cunity\Admin\Models\Db\Table;
+
+use Cunity\Core\Models\Db\Abstractables\Table;
 
 /**
- * abstract Table Class which automatically inserts the database-prefix
- *
- * @package    Core
- * @subpackage Abstractables
- * @copyright  Smart In Media GmbH & Co. KG (www.smartinmedia.com)
+ * Class Version
+ * @package Cunity\Admin\Models\Db\Table
  */
-abstract class Table extends \Zend_Db_Table_Abstract
+class Statistics extends Table
 {
     /**
-     * Stores the config-object
-     *
-     * @var \Zend_Config_Xml
+     * @param int $numberOfMonths
+     * @return array|bool
      */
-    protected $_config;
-
-    /**
-     * Stores the Table Prefix as a shortcut variable
-     *
-     * @var String
-     */
-    protected $_dbprefix;
-
-    /**
-     * Overwrite the default Rowset-Class
-     *
-     * @var String
-     */
-    protected $_rowsetClass = "Cunity\Core\Models\Db\Rowset\Rowset";
-
-    /**
-     * @param array $data
-     * @return mixed
-     * @throws \Zend_Db_Table_Exception
-     */
-    public function insert(array $data)
+    public function getLastMonths($numberOfMonths = 12)
     {
-        $info = $this->info(\Zend_Db_Table_Abstract::COLS);
+        $statistics = [];
+        $date = new \DateTime();
+        $startDate = time() - ($numberOfMonths * 60 * 60 * 24 * 30);
 
-        if (in_array("time", $info)) {
-            $data['time'] = new \Zend_Db_Expr("UTC_TIMESTAMP()");
+        $this->setTableName('comments');
+        $rows = $this->fetchAll('time >= "'.date('Y-m-01 H:i:s', $startDate).'"')->toArray();
+
+        foreach ($rows as $row) {
+            $row['time'] = $date->createFromFormat('Y-m-d H:i:s', $row['time'])->format('Y'). ' Q'.floor(date("m", $date->createFromFormat('Y-m-d H:i:s', $row['time'])->getTimestamp()) / 3);
+            $statistics[$row['time']]['comments']++;
         }
 
-        $dataToStore = [];
+        $this->setTableName('posts');
+        $rows = $this->fetchAll('time >= "'.date('Y-m-01 H:i:s', $startDate).'"')->toArray();
 
-        foreach ($data as $_key => $_value) {
-            if (in_array($_key, $info)) {
-                $dataToStore[$_key] = $_value;
-            }
+        foreach ($rows as $row) {
+            $row['time'] = $date->createFromFormat('Y-m-d H:i:s', $row['time'])->format('Y'). ' Q'.floor(date("m", $date->createFromFormat('Y-m-d H:i:s', $row['time'])->getTimestamp()) / 3);
+            $statistics[$row['time']]['posts']++;
         }
 
-        return parent::insert($dataToStore);
-    }
+        $this->setTableName('notifications');
+        $rows = $this->fetchAll('time >= "'.date('Y-m-01 H:i:s', $startDate).'"')->toArray();
 
-    /**
-     * @param array $data
-     * @param String $where
-     * @return int
-     */
-    public function update(array $data, $where)
-    {
-        if (in_array("time", $this->info(\Zend_Db_Table_Abstract::COLS))) {
-            $data['time'] = new \Zend_Db_Expr("UTC_TIMESTAMP()");
+        foreach ($rows as $row) {
+            $row['time'] = $date->createFromFormat('Y-m-d H:i:s', $row['time'])->format('Y'). ' Q'.floor(date("m", $date->createFromFormat('Y-m-d H:i:s', $row['time'])->getTimestamp()) / 3);
+            $statistics[$row['time']]['notifications']++;
         }
-        return parent::update($data, $where);
-    }
 
-    /**
-     * @throws \Exception
-     */
-    protected function _setupTableName()
-    {
-        $this->_config = Cunity::get("config");
-        $this->_dbprefix = $this->_config->db->params->table_prefix . '_';
-        $this->_name = $this->_dbprefix . $this->_name;
-        parent::_setupTableName();
-    }
+        $this->setTableName('users');
+        $rows = $this->fetchAll('registered >= "'.date('Y-m-01 H:i:s', $startDate).'"')->toArray();
 
-    /**
-     * @return string
-     */
-    protected function getTableName()
-    {
-        return $this->_name;
-    }
+        foreach ($rows as $row) {
+            $row['time'] = $row['registered'];
+            $row['time'] = $date->createFromFormat('Y-m-d H:i:s', $row['time'])->format('Y'). ' Q'.floor(date("m", $date->createFromFormat('Y-m-d H:i:s', $row['time'])->getTimestamp()) / 3);
+            $statistics[$row['time']]['users']++;
+        }
 
-    /**
-     * @param $tablename
-     * @return $this
-     */
-    protected function setTableName($tablename)
-    {
-        $this->_name = $tablename;
-        $this->_setupTableName();
-
-        return $this;
+        return $statistics;
     }
 }

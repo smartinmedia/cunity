@@ -36,6 +36,8 @@
 
 namespace Cunity\Admin\Models\Pages;
 
+use Cunity\Core\Models\Db\Table\Modules;
+
 /**
  * Class Dashboard
  * @package Cunity\Admin\Models\Pages
@@ -49,6 +51,13 @@ class Dashboard extends Statistics
     public function __construct()
     {
         $this->loadData();
+
+        $modules = new Modules();
+        $installedModules = $modules->getModules()->toArray();
+        $config = \Cunity\Core\Cunity::get("config");
+        $this->assignments['smtp_check'] = $config->mail->smtp_check;
+        $this->assignments['modules'] = $installedModules;
+
         $this->render("dashboard");
     }
 }

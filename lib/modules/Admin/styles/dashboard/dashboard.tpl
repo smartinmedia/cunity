@@ -1,3 +1,17 @@
+<script type="text/javascript">
+    var testObject = {
+        element: 'userstatistics',
+        data: {-$statisticdata},
+        xkey: 'period',
+        ykeys: ['comments', 'posts', 'notifications', 'users'],
+        labels: ['{-"Comments"|translate}', '{-"Posts"|translate}', '{-"Notifications"|translate}', '{-"Users"|translate}'],
+        pointSize: 2,
+        hideHover: 'auto',
+        resize: true
+    };
+
+</script>
+
 <link rel="stylesheet" href="http://cdn.oesmith.co.uk/morris-0.4.3.min.css">
 <link href="{-"core.siteurl"|setting}lib/plugins/morris/css/morris-0.4.3.min.css" rel="stylesheet">
 <script src="{-"core.siteurl"|setting}lib/plugins/raphael/js/raphael-min.js" type="text/javascript"></script>
