@@ -124,7 +124,7 @@ class Conversations extends Table
      */
     public function markAsRead($conversation_id)
     {
-        return (0 < $this->update(["status" => 0], [$this->getAdapter()->quoteInto("conversation_id=?", $conversation_id), $this->getAdapter()->quoteInto("userid = ?", $_SESSION['user']->userid)]));
+        return (0 <= $this->update(["status" => 0], [$this->getAdapter()->quoteInto("conversation_id=?", $conversation_id), $this->getAdapter()->quoteInto("userid = ?", $_SESSION['user']->userid)]));
     }
 
     /**
