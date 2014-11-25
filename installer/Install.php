@@ -34,6 +34,9 @@
  * #####################################################################################
  */
 
+use Cunity\Admin\Models\Process;
+
+require_once(__DIR__ . '/../vendor/autoload.php');
 
 ob_start("ob_gzhandler");
 error_reporting(-1);
@@ -124,6 +127,9 @@ class Install
         } else {
             $this->executeSql($connection);
         }
+
+        $this->writeDatabaseConfig();
+        $this->outputAjaxResponse('');
     }
 
     /**
@@ -175,8 +181,50 @@ class Install
                 mysqli_query($connection, $query);
             }
         }
+    }
 
-        $this->outputAjaxResponse('');
+    /**
+     * @throws Zend_Config_Exception
+     */
+    private function writeDatabaseConfig()
+    {
+        $databaseConfig = [];
+        $databaseConfig['db'] = [];
+        $databaseConfig['db']['params'] = [];
+        $databaseConfig['db']['params']['host'] = $_REQUEST['db-host'];
+        $databaseConfig['db']['params']['username'] = $_REQUEST['db-user'];
+        $databaseConfig['db']['params']['password'] = $_REQUEST['db-password'];
+        $databaseConfig['db']['params']['dbname'] = $_REQUEST['db-name'];
+        $databaseConfig['db']['params']['table_prefix'] = $_REQUEST['db-prefix'];
+
+        $this->writeConfigToFile($databaseConfig, false);
+    }
+
+    /**
+     * @param $newConfiguration
+     * @param bool $update
+     * @throws Zend_Config_Exception
+     */
+    private function writeConfigToFile($newConfiguration, $update = true)
+    {
+        $configFile = __DIR__ . "/../data/config-example.xml";
+
+        if ($update) {
+            $configFile = __DIR__ . "/../data/config.xml";
+        }
+
+        $config = new Zend_Config_Xml($configFile);
+        $configWriter = new Zend_Config_Writer_Xml(["config" => new Zend_Config(Process::arrayMergeRecursiveDistinct($config->toArray(), $newConfiguration)), "filename" => __DIR__ . "/../data/config.xml"]);
+        $configWriter->write();
+    }
+
+    /**
+     * @param $field
+     * @param $value
+     */
+    private function writeConfigToDatabase($field, $value)
+    {
+
     }
 }
 
