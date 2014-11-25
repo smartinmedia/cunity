@@ -390,7 +390,7 @@ $installer = new Install();
                     <div class="checkbox">
                         <label>
                             <input type="checkbox" value="1" name="accept-terms" id="accept-terms"
-                                   onclick="$('#installNextButton').attr('disabled', '');">
+                                   onclick="checkStepOne();">
                             <?php echo Install::translate("I accept the Terms and Conditions"); ?>
                         </label>
                     </div>
@@ -697,19 +697,18 @@ $installer = new Install();
             });
 
             $('#installCarousel').on('slide.bs.carousel', function (e) {
-                console.log(e);
-                var c = $(this).data('bs.carousel')
+                var c = $(this).data('bs.carousel');
                 index = $("#installCarousel .item").index($(e.relatedTarget)) + 1;
-                //index = (e.direction === "left") ? c.getItemIndex(c.$element.find(".item.active")) + 1 : c.getItemIndex(c.$element.find(".item.active")) - 1;
 
                 $("#steps > li.active").removeClass("active");
                 $("#steps > li:eq(" + index + ")").addClass("active");
-                console.log(index);
                 var percentage = (100 / ($("#steps > li").length - 1)) * index;
-                if (percentage == 100)
+                if (percentage == 100) {
                     $("#installation-progress").addClass("progress-bar-success");
-                else
+                }
+                else {
                     $("#installation-progress").removeClass("progress-bar-success");
+                }
                 $("#installation-progress").width(percentage + "%").attr("aria-valuenow", percentage).children(".progress-status").text(Math.round(percentage));
                 $("#installNextButton, #installPrevButton, #installFinishButton").hide();
                 if (index > 1) {
