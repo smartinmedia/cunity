@@ -144,6 +144,7 @@ class Install
 }
 
 $installer = new Install();
+
 ?>
     <!DOCTYPE html>
     <html lang="en">
@@ -388,7 +389,8 @@ $installer = new Install();
                     </div>
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" value="1" name="accept-terms" id="accept-terms" onclick="$('#installNextButton').attr('disabled', '');">
+                            <input type="checkbox" value="1" name="accept-terms" id="accept-terms"
+                                   onclick="$('#installNextButton').attr('disabled', '');">
                             <?php echo Install::translate("I accept the Terms and Conditions"); ?>
                         </label>
                     </div>
@@ -627,7 +629,8 @@ $installer = new Install();
                     <div class="col-lg-7">
                         <input type="password" autocomplete="off" required class="form-control"
                                id="input-password-repeat"
-                               placeholder="<?php echo Install::translate("Repeat password"); ?>" name="password_repeat">
+                               placeholder="<?php echo Install::translate("Repeat password"); ?>"
+                               name="password_repeat">
                     </div>
                 </div>
                 <div class="form-group" style="margin-bottom:10px">
@@ -723,5 +726,7 @@ $installer = new Install();
     </script>
     </body>
     </html>
+
 <?php
+
 ob_end_flush();
