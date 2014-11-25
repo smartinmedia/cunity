@@ -155,6 +155,8 @@ $installer = new Install();
         <title><?php echo Install::translate("Install Cunity"); ?></title>
         <link href="../lib/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <link href="../lib/plugins/fontawesome/css/font-awesome.css" rel="stylesheet">
+        <link href="../lib/plugins/bootstrap-validator/css/bootstrapValidator.min.css"
+        rel="stylesheet">
         <!--[if lt IE 9]>
         <script src="../lib/plugins/js/html5shiv.min.js"></script>
         <script src="../lib/plugins/js/respond.min.js"></script>
@@ -281,17 +283,16 @@ $installer = new Install();
                         class="fa fa-globe"></i></a></li>
             <li class="active"><a data-target="#installCarousel" href="#terms"
                                   data-slide-to="0"><?php echo Install::translate("Terms"); ?></a></li>
-            <li><a data-target="#installCarousel" href="#requirements"
-                   data-slide-to="1"><?php echo Install::translate("Requirements"); ?></a></li>
             <li><a data-target="#installCarousel" href="#database"
-                   data-slide-to="2"><?php echo Install::translate("Database"); ?></a></li>
+                   data-slide-to="1"><?php echo Install::translate("Database"); ?></a></li>
             <li><a data-target="#installCarousel" href="#settings"
-                   data-slide-to="3"><?php echo Install::translate("Settings"); ?></a></li>
+                   data-slide-to="2"><?php echo Install::translate("Settings"); ?></a></li>
             <li><a data-target="#installCarousel" href="#account"
-                   data-slide-to="4"><?php echo Install::translate("Account"); ?></a></li>
+                   data-slide-to="3"><?php echo Install::translate("Account"); ?></a></li>
             <li><a data-target="#installCarousel" href="#finish"
-                   data-slide-to="5"><?php echo Install::translate("Finish"); ?></a></li>
+                   data-slide-to="4"><?php echo Install::translate("Finish"); ?></a></li>
         </ol>
+
         <div class="carousel-inner">
         <div class="item active" id="terms">
             <span class="title"><?php echo Install::translate("Terms and Conditions"); ?></span>
@@ -389,25 +390,11 @@ $installer = new Install();
                     </div>
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" value="1" name="accept-terms" id="accept-terms"
-                                   onclick="checkStepOne();">
+                            <input type="checkbox" value="1" name="accept-terms" id="accept-terms" required="required">
                             <?php echo Install::translate("I accept the Terms and Conditions"); ?>
                         </label>
                     </div>
                 </form>
-            </div>
-        </div>
-        <div class="item" id="requirements">
-            <span class="title"><?php echo Install::translate("Check Requirements"); ?></span>
-
-            <div class="list-group">
-                <li class="list-group-item"><i
-                        class="fa <?php if (version_compare(PHP_VERSION, '5.5.0', '>=')) { ?> fa-check-circle-o text-success <?php } else { ?>fa-times-circle-o text-danger <?php } ?> fa-fw fa-lg"></i>&nbsp;PHP
-                    Version 5.5+
-                </li>
-                <li class="list-group-item"><i class="fa fa-question text-muted fa-fw fa-lg"></i>&nbsp;MySQL Version 5+
-                    (<?php echo Install::translate("Will be checked in the next step"); ?>)
-                </li>
             </div>
         </div>
         <div class="item" id="database">
@@ -681,6 +668,7 @@ $installer = new Install();
     </footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="../lib/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../lib/plugins/bootstrap-validator/js/bootstrapValidator.min.js" type="text/javascript"></script>
     <script>
         var origShow = jQuery.fn.show, origHide = jQuery.fn.hide;
         jQuery.fn.show = function () {
@@ -695,9 +683,17 @@ $installer = new Install();
             $('#installCarousel').carousel({
                 interval: false
             });
-
+            $('#accept-terms').change(function () {
+                if ($('#accept-terms').is(':checked')) {
+                    $('#installNextButton').removeAttr('disabled');
+                } else {
+                    $('#installNextButton').attr('disabled', 'disabled');
+                }
+            });
+            index = 1;
             $('#installCarousel').on('slide.bs.carousel', function (e) {
                 var c = $(this).data('bs.carousel');
+                var oldIndex = index;
                 index = $("#installCarousel .item").index($(e.relatedTarget)) + 1;
 
                 $("#steps > li.active").removeClass("active");
@@ -719,6 +715,12 @@ $installer = new Install();
                 }
                 if (index == $("#steps > li").length - 1) {
                     $("#installFinishButton").show();
+                }
+
+                if (index > oldIndex) {
+                    $('#installNextButton').attr('disabled', 'disabled');
+                } else {
+                    $('#installNextButton').removeAttr('disabled');
                 }
             });
         });
