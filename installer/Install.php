@@ -47,13 +47,6 @@ session_start();
  */
 class Install
 {
-
-    /**
-     *
-     * @var array
-     */
-    private $steps = [];
-
     /**
      *
      * @var String
