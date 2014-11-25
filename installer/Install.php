@@ -112,16 +112,38 @@ class Install
      */
     private function handleRequest()
     {
-        if (isset($_GET['action']) &&
-            in_array($_GET['action'], $this->steps) &&
-            method_exists($this, $_GET['action'])
+        if (isset($_REQUEST['action']) &&
+            method_exists($this, $_REQUEST['action'])
         ) {
-
-        } else if (!isset($_GET['action']) || empty($_GET['action'])) {
-
-        } else {
-            throw new Exception("Invalid or not allowed action!");
+            call_user_func([$this, $_REQUEST['action']]);
         }
+    }
+
+    /**
+     *
+     */
+    private function prepareDatabase()
+    {
+        $connection = @mysqli_connect($_REQUEST['db-host'], $_REQUEST['db-user'], $_REQUEST['db-password'], $_REQUEST['db-name']);
+
+        if ($connection === false) {
+            $this->outputAjaxResponse('could not connect to database', false);
+        } else {
+            $this->executeSql($connection);
+        }
+    }
+
+    /**
+     * @param $response
+     * @param bool $isSuccess
+     */
+    private function outputAjaxResponse($response, $isSuccess = true)
+    {
+        $responseObject = new stdClass();
+        $responseObject->success = $isSuccess;
+        $responseObject->response = $response;
+        echo json_encode($responseObject);
+        exit;
     }
 
     /**
@@ -141,6 +163,28 @@ class Install
         return $str;
     }
 
+    /**
+     * @param $connection
+     */
+    private function executeSql($connection)
+    {
+        $dbPrefix = $_REQUEST['db-prefix'];
+
+        if ($dbPrefix !== '') {
+            $dbPrefix .= '_';
+        }
+
+        $sqlData = file_get_contents(__DIR__ . '/../resources/database/newcunity.sql');
+        $sqlData = explode(';', str_replace('TABLEPREFIX', $dbPrefix, $sqlData));
+
+        foreach ($sqlData as $query) {
+            if ($query !== '') {
+                mysqli_query($connection, $query);
+            }
+        }
+
+        $this->outputAjaxResponse('');
+    }
 }
 
 $installer = new Install();
@@ -156,7 +200,7 @@ $installer = new Install();
         <link href="../lib/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <link href="../lib/plugins/fontawesome/css/font-awesome.css" rel="stylesheet">
         <link href="../lib/plugins/bootstrap-validator/css/bootstrapValidator.min.css"
-        rel="stylesheet">
+              rel="stylesheet">
         <!--[if lt IE 9]>
         <script src="../lib/plugins/js/html5shiv.min.js"></script>
         <script src="../lib/plugins/js/respond.min.js"></script>
@@ -402,29 +446,35 @@ $installer = new Install();
 
             <div class="row">
                 <div class="col-lg-7">
-                    <form>
+                    <form id="databaseForm">
+                        <input type="hidden" name="action" value="prepareDatabase"/>
+                        <input type="hidden" name="type" value="ajax"/>
+
                         <div class="form-group">
                             <label for="db-host"><?php echo Install::translate("Database-Host"); ?></label>
-                            <input type="text" id="db-host" class="form-control" value="localhost" autocomplete="off">
+                            <input type="text" id="db-host" class="form-control" value="localhost" autocomplete="off"
+                                   name="db-host">
                         </div>
                         <div class="form-group">
                             <label for="db-user"><?php echo Install::translate("Database-User"); ?></label>
-                            <input type="text" id="db-user" class="form-control" autocomplete="off">
+                            <input type="text" id="db-user" class="form-control" autocomplete="off" name="db-user">
                         </div>
                         <div class="form-group">
                             <label for="db-password"><?php echo Install::translate("Database-Password"); ?></label>
-                            <input type="password" id="db-password" class="form-control" autocomplete="off">
+                            <input type="password" id="db-password" class="form-control" autocomplete="off"
+                                   name="db-password">
                         </div>
                         <div class="form-group">
                             <label for="db-name"><?php echo Install::translate("Database-Name"); ?></label>
-                            <input type="text" id="db-name" class="form-control" autocomplete="off">
+                            <input type="text" id="db-name" class="form-control" autocomplete="off" name="db-name">
                         </div>
                         <div class="form-group">
                             <label for="db-prefix"><?php echo Install::translate("Database-Prefix"); ?></label>
-                            <input type="text" id="db-prefix" class="form-control" value="cunity" autocomplete="off">
+                            <input type="text" id="db-prefix" class="form-control" value="cunity" autocomplete="off"
+                                   name="db-prefix">
                         </div>
                         <div class="form-group">
-                            <button class="btn btn-primary btn-block"><i
+                            <button class="btn btn-primary btn-block" id="checkDatabase"><i
                                     class="fa-check fa"></i>&nbsp;<?php echo Install::translate("Check Connection & copy data to database"); ?>
                             </button>
                         </div>
@@ -639,10 +689,7 @@ $installer = new Install();
         </div>
         </div>
         <div class="row">
-            <div class="col-lg-2 clearfix"><a role="button" href="#installCarousel" id="installPrevButton"
-                                              data-slide="prev" class="btn btn-default pull-left hidden"><i
-                        class="fa fa-chevron-left"></i>&nbsp;<?php echo Install::translate("Prev"); ?></a></div>
-            <div class="col-lg-8">
+            <div class="col-lg-10">
                 <div class="progress">
                     <div class="progress-bar" id="installation-progress" role="progressbar" aria-valuenow="0"
                          aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
@@ -691,6 +738,22 @@ $installer = new Install();
                 }
             });
             index = 1;
+
+            $('#checkDatabase').click(function () {
+                $.ajax({
+                    type: "GET",
+                    url: '<?php echo $_SERVER["PHP_SELF"] ?>',
+                    data: $('#databaseForm').serialize()
+                }).done(function (data) {
+                    data = $.parseJSON(data);
+                    if (data.success) {
+                        $('#installCarousel').carousel('next');
+                    }
+                });
+
+                return false;
+            });
+
             $('#installCarousel').on('slide.bs.carousel', function (e) {
                 var c = $(this).data('bs.carousel');
                 var oldIndex = index;

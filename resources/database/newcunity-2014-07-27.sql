@@ -1,7 +1,7 @@
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
-CREATE TABLE IF NOT EXISTS `cunity_announcements` (
+CREATE TABLE IF NOT EXISTS `TABLEPREFIXannouncements` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `type` varchar(10) NOT NULL,
   `title` varchar(100) NOT NULL,
@@ -11,10 +11,10 @@ CREATE TABLE IF NOT EXISTS `cunity_announcements` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
-INSERT INTO `cunity_announcements` (`id`, `type`, `title`, `content`, `active`, `time`) VALUES
+INSERT INTO `TABLEPREFIXannouncements` (`id`, `type`, `title`, `content`, `active`, `time`) VALUES
 (1, 'danger', 'Test Announcement', 'Just testing a dangerous announcement', 1, '2014-06-03 02:38:27');
 
-CREATE TABLE IF NOT EXISTS `cunity_comments` (
+CREATE TABLE IF NOT EXISTS `TABLEPREFIXcomments` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `userid` int(11) NOT NULL,
   `ref_id` int(11) NOT NULL,
@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS `cunity_comments` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=135 ;
 
-CREATE TABLE IF NOT EXISTS `cunity_contact` (
+CREATE TABLE IF NOT EXISTS `TABLEPREFIXcontact` (
   `contact_id` int(11) NOT NULL AUTO_INCREMENT,
   `userid` int(11) NOT NULL,
   `firstname` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
@@ -36,14 +36,14 @@ CREATE TABLE IF NOT EXISTS `cunity_contact` (
   PRIMARY KEY (`contact_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=29 ;
 
-CREATE TABLE IF NOT EXISTS `cunity_conversations` (
+CREATE TABLE IF NOT EXISTS `TABLEPREFIXconversations` (
   `userid` int(11) NOT NULL,
   `conversation_id` int(11) NOT NULL,
   `status` tinyint(1) NOT NULL COMMENT '0=read,1=unread,2=inactive',
   UNIQUE KEY `userid` (`userid`,`conversation_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
-CREATE TABLE IF NOT EXISTS `cunity_events` (
+CREATE TABLE IF NOT EXISTS `TABLEPREFIXevents` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `userid` int(11) NOT NULL,
   `title` varchar(150) NOT NULL,
@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS `cunity_events` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
-CREATE TABLE IF NOT EXISTS `cunity_events_guests` (
+CREATE TABLE IF NOT EXISTS `TABLEPREFIXevents_guests` (
   `guestid` int(11) NOT NULL AUTO_INCREMENT,
   `userid` int(11) NOT NULL,
   `eventid` int(11) NOT NULL,
@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `cunity_events_guests` (
   PRIMARY KEY (`guestid`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=25 ;
 
-CREATE TABLE IF NOT EXISTS `cunity_forums` (
+CREATE TABLE IF NOT EXISTS `TABLEPREFIXforums` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(50) NOT NULL,
   `description` varchar(100) NOT NULL,
@@ -75,7 +75,7 @@ CREATE TABLE IF NOT EXISTS `cunity_forums` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=36 ;
 
-CREATE TABLE IF NOT EXISTS `cunity_forums_boards` (
+CREATE TABLE IF NOT EXISTS `TABLEPREFIXforums_boards` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `forum_id` int(11) NOT NULL,
   `title` varchar(70) NOT NULL,
@@ -84,14 +84,14 @@ CREATE TABLE IF NOT EXISTS `cunity_forums_boards` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
 
 
-CREATE TABLE IF NOT EXISTS `cunity_forums_categories` (
+CREATE TABLE IF NOT EXISTS `TABLEPREFIXforums_categories` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `tag` varchar(50) NOT NULL,
   `name` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
-CREATE TABLE IF NOT EXISTS `cunity_forums_posts` (
+CREATE TABLE IF NOT EXISTS `TABLEPREFIXforums_posts` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `userid` int(11) NOT NULL,
   `content` varchar(1000) NOT NULL,
@@ -103,10 +103,10 @@ CREATE TABLE IF NOT EXISTS `cunity_forums_posts` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `cunity_forums_threads`
+-- Tabellenstruktur für Tabelle `TABLEPREFIXforums_threads`
 --
 
-CREATE TABLE IF NOT EXISTS `cunity_forums_threads` (
+CREATE TABLE IF NOT EXISTS `TABLEPREFIXforums_threads` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(100) CHARACTER SET latin1 NOT NULL,
   `board_id` int(11) NOT NULL,
@@ -120,10 +120,10 @@ CREATE TABLE IF NOT EXISTS `cunity_forums_threads` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `cunity_gallery_albums`
+-- Tabellenstruktur für Tabelle `TABLEPREFIXgallery_albums`
 --
 
-CREATE TABLE IF NOT EXISTS `cunity_gallery_albums` (
+CREATE TABLE IF NOT EXISTS `TABLEPREFIXgallery_albums` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `owner_id` int(11) NOT NULL,
   `owner_type` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -138,7 +138,7 @@ CREATE TABLE IF NOT EXISTS `cunity_gallery_albums` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=34 ;
 
-CREATE TABLE IF NOT EXISTS `cunity_gallery_images` (
+CREATE TABLE IF NOT EXISTS `TABLEPREFIXgallery_images` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `albumid` int(11) NOT NULL,
   `caption` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
@@ -150,7 +150,7 @@ CREATE TABLE IF NOT EXISTS `cunity_gallery_images` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=125 ;
 
-CREATE TABLE IF NOT EXISTS `cunity_likes` (
+CREATE TABLE IF NOT EXISTS `TABLEPREFIXlikes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `userid` int(11) NOT NULL,
   `ref_id` int(11) NOT NULL,
@@ -162,7 +162,7 @@ CREATE TABLE IF NOT EXISTS `cunity_likes` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=181 ;
 
 
-CREATE TABLE IF NOT EXISTS `cunity_menu` (
+CREATE TABLE IF NOT EXISTS `TABLEPREFIXmenu` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `pos` int(11) NOT NULL,
   `menu` enum('main','footer') COLLATE utf8_unicode_ci NOT NULL,
@@ -174,10 +174,10 @@ CREATE TABLE IF NOT EXISTS `cunity_menu` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=13 ;
 
 --
--- Daten für Tabelle `cunity_menu`
+-- Daten für Tabelle `TABLEPREFIXmenu`
 --
 
-INSERT INTO `cunity_menu` (`id`, `pos`, `menu`, `type`, `title`, `content`, `iconClass`) VALUES
+INSERT INTO `TABLEPREFIXmenu` (`id`, `pos`, `menu`, `type`, `title`, `content`, `iconClass`) VALUES
 (1, 0, 'main', 'module', 'Newsfeed', 'newsfeed', 'rss'),
 (2, 1, 'main', 'module', 'Profile', 'profile', 'user'),
 (3, 2, 'main', 'module', 'Gallery', 'gallery', 'picture-o'),
@@ -192,10 +192,10 @@ INSERT INTO `cunity_menu` (`id`, `pos`, `menu`, `type`, `title`, `content`, `ico
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `cunity_messages`
+-- Tabellenstruktur für Tabelle `TABLEPREFIXmessages`
 --
 
-CREATE TABLE IF NOT EXISTS `cunity_messages` (
+CREATE TABLE IF NOT EXISTS `TABLEPREFIXmessages` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `sender` int(11) NOT NULL,
   `source` enum('messages','chat') NOT NULL DEFAULT 'messages',
@@ -205,7 +205,7 @@ CREATE TABLE IF NOT EXISTS `cunity_messages` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=361 ;
 
-CREATE TABLE IF NOT EXISTS `cunity_modules` (
+CREATE TABLE IF NOT EXISTS `TABLEPREFIXmodules` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `namespace` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `name` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
@@ -215,10 +215,10 @@ CREATE TABLE IF NOT EXISTS `cunity_modules` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=8 ;
 
 --
--- Daten für Tabelle `cunity_modules`
+-- Daten für Tabelle `TABLEPREFIXmodules`
 --
 
-INSERT INTO `cunity_modules` (`id`, `namespace`, `name`, `iconClass`, `status`) VALUES
+INSERT INTO `TABLEPREFIXmodules` (`id`, `namespace`, `name`, `iconClass`, `status`) VALUES
 (1, 'profile', 'Profile', 'user', 1),
 (2, 'friends', 'Friends', 'users', 1),
 (3, 'newsfeed', 'Newsfeed', 'rss', 1),
@@ -229,10 +229,10 @@ INSERT INTO `cunity_modules` (`id`, `namespace`, `name`, `iconClass`, `status`) 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `cunity_notifications`
+-- Tabellenstruktur für Tabelle `TABLEPREFIXnotifications`
 --
 
-CREATE TABLE IF NOT EXISTS `cunity_notifications` (
+CREATE TABLE IF NOT EXISTS `TABLEPREFIXnotifications` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `userid` int(11) NOT NULL,
   `ref_userid` int(11) NOT NULL,
@@ -243,14 +243,14 @@ CREATE TABLE IF NOT EXISTS `cunity_notifications` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=163 ;
 
-CREATE TABLE IF NOT EXISTS `cunity_notification_settings` (
+CREATE TABLE IF NOT EXISTS `TABLEPREFIXnotification_settings` (
   `userid` int(11) NOT NULL,
   `name` varchar(15) NOT NULL,
   `value` tinyint(4) NOT NULL,
   UNIQUE KEY `userid` (`userid`,`name`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
-CREATE TABLE IF NOT EXISTS `cunity_pages` (
+CREATE TABLE IF NOT EXISTS `TABLEPREFIXpages` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `shortlink` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `title` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
@@ -261,10 +261,10 @@ CREATE TABLE IF NOT EXISTS `cunity_pages` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=12 ;
 
 --
--- Daten für Tabelle `cunity_pages`
+-- Daten für Tabelle `TABLEPREFIXpages`
 --
 
-INSERT INTO `cunity_pages` (`id`, `shortlink`, `title`, `content`, `comments`, `time`) VALUES
+INSERT INTO `TABLEPREFIXpages` (`id`, `shortlink`, `title`, `content`, `comments`, `time`) VALUES
 (1, 'legalnotice', 'Imprint', 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.   \n\nDuis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.   \n\nUt wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.   \n\nNam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.   \n\nDuis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis.   \n\nAt vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, At accusam aliquyam diam diam dolore dolores duo eirmod eos erat, et nonumy sed tempor et et invidunt justo labore Stet clita ea et gubergren, kasd magna no rebum. sanctus sea sed takimata ut vero voluptua. est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat.   \n\nConsetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus.   \n\nLorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.   \n\nDuis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.   \n\nUt wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.   \n\nNam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo', 0, '2014-02-24 04:48:10'),
 (2, 'privacy', 'Privacy Policy', 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.   \r\n\r\nDuis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.   \r\n\r\nUt wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.   \r\n\r\nNam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.   \r\n\r\nDuis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis.   \r\n\r\nAt vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, At accusam aliquyam diam diam dolore dolores duo eirmod eos erat, et nonumy sed tempor et et invidunt justo labore Stet clita ea et gubergren, kasd magna no rebum. sanctus sea sed takimata ut vero voluptua. est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat.   \r\n\r\nConsetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus.   \r\n\r\nLorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.   \r\n\r\nDuis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.   \r\n\r\nUt wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.   \r\n\r\nNam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo', 0, '2014-03-29 14:18:52'),
 (3, 'terms', 'Terms &amp; Conditions', 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.', 1, '2014-03-29 14:18:47');
@@ -272,10 +272,10 @@ INSERT INTO `cunity_pages` (`id`, `shortlink`, `title`, `content`, `comments`, `
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `cunity_posts`
+-- Tabellenstruktur für Tabelle `TABLEPREFIXposts`
 --
 
-CREATE TABLE IF NOT EXISTS `cunity_posts` (
+CREATE TABLE IF NOT EXISTS `TABLEPREFIXposts` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `userid` int(11) NOT NULL,
   `wall_id` int(11) NOT NULL,
@@ -286,7 +286,7 @@ CREATE TABLE IF NOT EXISTS `cunity_posts` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=158 ;
 
-CREATE TABLE IF NOT EXISTS `cunity_privacy` (
+CREATE TABLE IF NOT EXISTS `TABLEPREFIXprivacy` (
   `userid` int(11) NOT NULL,
   `type` varchar(20) NOT NULL,
   `value` enum('0','1','3') NOT NULL,
@@ -296,10 +296,10 @@ CREATE TABLE IF NOT EXISTS `cunity_privacy` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `cunity_profile_pins`
+-- Tabellenstruktur für Tabelle `TABLEPREFIXprofile_pins`
 --
 
-CREATE TABLE IF NOT EXISTS `cunity_profile_pins` (
+CREATE TABLE IF NOT EXISTS `TABLEPREFIXprofile_pins` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `userid` int(11) NOT NULL,
   `type` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
@@ -312,7 +312,7 @@ CREATE TABLE IF NOT EXISTS `cunity_profile_pins` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=27 ;
 
 
-CREATE TABLE IF NOT EXISTS `cunity_relations` (
+CREATE TABLE IF NOT EXISTS `TABLEPREFIXrelations` (
   `relation_id` int(11) NOT NULL AUTO_INCREMENT,
   `sender` int(11) NOT NULL,
   `receiver` int(11) NOT NULL,
@@ -320,17 +320,17 @@ CREATE TABLE IF NOT EXISTS `cunity_relations` (
   PRIMARY KEY (`relation_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=59 ;
 
-CREATE TABLE IF NOT EXISTS `cunity_settings` (
+CREATE TABLE IF NOT EXISTS `TABLEPREFIXsettings` (
   `name` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `value` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`name`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Daten für Tabelle `cunity_settings`
+-- Daten für Tabelle `TABLEPREFIXsettings`
 --
 
-INSERT INTO `cunity_settings` (`name`, `value`) VALUES
+INSERT INTO `TABLEPREFIXsettings` (`name`, `value`) VALUES
 ('core.contact_mail', ''),
 ('core.design', 'CunityRefreshed'),
 ('core.filesdir', '9n5s66h14xo3'),
@@ -349,10 +349,10 @@ INSERT INTO `cunity_settings` (`name`, `value`) VALUES
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `cunity_users`
+-- Tabellenstruktur für Tabelle `TABLEPREFIXusers`
 --
 
-CREATE TABLE IF NOT EXISTS `cunity_users` (
+CREATE TABLE IF NOT EXISTS `TABLEPREFIXusers` (
   `userid` int(11) NOT NULL AUTO_INCREMENT,
   `userhash` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `lang` varchar(2) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -377,18 +377,18 @@ CREATE TABLE IF NOT EXISTS `cunity_users` (
   UNIQUE KEY `username` (`username`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=28 ;
 
-CREATE TABLE IF NOT EXISTS `cunity_versions` (
+CREATE TABLE IF NOT EXISTS `TABLEPREFIXversions` (
   `timestamp` bigint(20) NOT NULL,
   PRIMARY KEY (`timestamp`),
   UNIQUE KEY `timestamp` (`timestamp`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 
-INSERT INTO `cunity_versions` (`timestamp`) VALUES
+INSERT INTO `TABLEPREFIXversions` (`timestamp`) VALUES
 (1406470410);
 
 
-CREATE TABLE IF NOT EXISTS `cunity_walls` (
+CREATE TABLE IF NOT EXISTS `TABLEPREFIXwalls` (
   `wall_id` int(11) NOT NULL AUTO_INCREMENT,
   `owner_id` int(11) NOT NULL,
   `owner_type` enum('profile','group','event','') NOT NULL,
