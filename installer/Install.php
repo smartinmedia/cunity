@@ -68,6 +68,7 @@ class Install
     public function __construct()
     {
         $this->init();
+        \Cunity\Core\Cunity::init();
         $this->handleRequest();
     }
 
@@ -184,6 +185,18 @@ class Install
     }
 
     /**
+     *
+     */
+    private function prepareConfig()
+    {
+        foreach ($_REQUEST['general'] as $setting => $value) {
+            $this->writeConfigToDatabase($setting, $value);
+        }
+
+        $this->writeConfigToFile($_REQUEST['config']);
+    }
+
+    /**
      * @throws Zend_Config_Exception
      */
     private function writeDatabaseConfig()
@@ -224,7 +237,8 @@ class Install
      */
     private function writeConfigToDatabase($field, $value)
     {
-
+        $settings = new \Cunity\Core\Models\Db\Table\Settings();
+        $settings->setSetting($field, $value);
     }
 }
 
@@ -527,13 +541,15 @@ $installer = new Install();
             <span class="title"><?php echo Install::translate("Enter Cunity-Settings"); ?></span>
             <h4 class="page-header"><?php echo Install::translate("General Settings"); ?></h4>
 
-            <form class="form-horizontal">
+            <form class="form-horizontal" id="configForm">
+                <input type="hidden" name="action" value="prepareConfig"/>
+                <input type="hidden" name="type" value="ajax"/>
                 <div class="form-group">
                     <label class="col-lg-3 control-label"
                            for="sitename"><?php echo Install::translate("Name of your Cunity"); ?></label>
 
                     <div class="col-lg-7">
-                        <input type="text" name="settings_core.sitename" id="sitename" class="form-control">
+                        <input type="text" name="general[core.sitename]" id="sitename" class="form-control">
                     </div>
                 </div>
                 <div class="form-group">
@@ -541,7 +557,7 @@ $installer = new Install();
                            for="siteurl"><?php echo Install::translate("URL of your Cunity"); ?></label>
 
                     <div class="col-lg-7">
-                        <input type="text" name="settings_core.siteurl" id="siteurl" class="form-control">
+                        <input type="text" name="general[core.siteurl]" id="siteurl" class="form-control">
                     </div>
                 </div>
                 <div class="form-group">
@@ -549,7 +565,7 @@ $installer = new Install();
                            for="description"><?php echo Install::translate("Description"); ?></label>
 
                     <div class="col-lg-7">
-                        <textarea class="form-control" id="description" name="settings_core.description"></textarea>
+                        <textarea class="form-control" id="description" name="general[core.description]"></textarea>
                     </div>
                 </div>
                 <div class="form-group">
@@ -557,13 +573,11 @@ $installer = new Install();
                            for="contactmail"><?php echo Install::translate("Contact Mail"); ?></label>
 
                     <div class="col-lg-7">
-                        <input type="text" name="settings_core.contact_mail" id="contactmail" class="form-control">
+                        <input type="text" name="general[core.contact_mail]" id="contactmail" class="form-control">
                     </div>
                 </div>
-            </form>
             <h4 class="page-header"><?php echo Install::translate("Mail Settings"); ?></h4>
 
-            <form class="form-horizontal">
                 <div class="form-group">
                     <label for="use-smtp"
                            class="col-lg-3 control-label"><?php echo Install::translate("Mailserver"); ?></label>
@@ -795,6 +809,17 @@ $installer = new Install();
                 return false;
             });
 
+            $('#installNextButton').click(function() {
+                console.log(index);
+                if (index == 3) {
+                    $.ajax({
+                        type: "GET",
+                        url: '<?php echo $_SERVER["PHP_SELF"] ?>',
+                        data: $('#configForm').serialize()
+                    });
+                }
+            });
+
             $('#installCarousel').on('slide.bs.carousel', function (e) {
                 var c = $(this).data('bs.carousel');
                 var oldIndex = index;
@@ -811,6 +836,7 @@ $installer = new Install();
                 }
                 $("#installation-progress").width(percentage + "%").attr("aria-valuenow", percentage).children(".progress-status").text(Math.round(percentage));
                 $("#installNextButton, #installPrevButton, #installFinishButton").hide();
+
                 if (index > 1) {
                     $("#installPrevButton").show();
                 }
@@ -821,7 +847,7 @@ $installer = new Install();
                     $("#installFinishButton").show();
                 }
 
-                if (index > oldIndex) {
+                if (index > oldIndex && index != 3) {
                     $('#installNextButton').attr('disabled', 'disabled');
                 } else {
                     $('#installNextButton').removeAttr('disabled');

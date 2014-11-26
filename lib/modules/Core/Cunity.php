@@ -56,7 +56,7 @@ class Cunity
      */
     public static function init()
     {
-        self::set("config", new \Zend_Config_Xml("../data/config.xml"));
+        self::set("config", new \Zend_Config_Xml(__DIR__."/../../../data/config.xml"));
         self::set(
             "db",
             new Mysqli(self::get("config"))
