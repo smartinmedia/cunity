@@ -130,14 +130,14 @@ class Install
         }
 
         $this->writeDatabaseConfig();
-        $this->outputAjaxResponse('');
+        $this->outputAjaxResponse();
     }
 
     /**
      * @param $response
      * @param bool $isSuccess
      */
-    private function outputAjaxResponse($response, $isSuccess = true)
+    private function outputAjaxResponse($response = '', $isSuccess = true)
     {
         $responseObject = new stdClass();
         $responseObject->success = $isSuccess;
@@ -239,6 +239,17 @@ class Install
     {
         $settings = new \Cunity\Core\Models\Db\Table\Settings();
         $settings->setSetting($field, $value);
+    }
+
+    /**
+     *
+     */
+    private function prepareAdmin()
+    {
+        $user = new \Cunity\Core\Models\Db\Table\Users();
+        $user->registerNewUser($_REQUEST, 3, false);
+
+        $this->outputAjaxResponse();
     }
 }
 
@@ -544,6 +555,7 @@ $installer = new Install();
             <form class="form-horizontal" id="configForm">
                 <input type="hidden" name="action" value="prepareConfig"/>
                 <input type="hidden" name="type" value="ajax"/>
+
                 <div class="form-group">
                     <label class="col-lg-3 control-label"
                            for="sitename"><?php echo Install::translate("Name of your Cunity"); ?></label>
@@ -576,7 +588,7 @@ $installer = new Install();
                         <input type="text" name="general[core.contact_mail]" id="contactmail" class="form-control">
                     </div>
                 </div>
-            <h4 class="page-header"><?php echo Install::translate("Mail Settings"); ?></h4>
+                <h4 class="page-header"><?php echo Install::translate("Mail Settings"); ?></h4>
 
                 <div class="form-group">
                     <label for="use-smtp"
@@ -667,7 +679,10 @@ $installer = new Install();
         <div class="item" id="account">
             <span class="title"><?php echo Install::translate("Create Admin-Account"); ?></span>
 
-            <form class="form-horizontal">
+            <form class="form-horizontal" id="adminForm">
+                <input type="hidden" name="type" value="ajax"/>
+                <input type="hidden" name="action" value="prepareAdmin"/>
+
                 <div class="form-group">
                     <label class="control-label col-lg-3"
                            for="input-username"><?php echo Install::translate("Username"); ?></label>
@@ -723,17 +738,6 @@ $installer = new Install();
                                id="input-password-repeat"
                                placeholder="<?php echo Install::translate("Repeat password"); ?>"
                                name="password_repeat">
-                    </div>
-                </div>
-                <div class="form-group" style="margin-bottom:10px">
-                    <label class="control-label col-lg-3"><?php echo Install::translate("I am"); ?></label>
-
-                    <div class="col-lg-7">
-                        <select class="form-control" name="sex" required>
-                            <option value=""><?php echo Install::translate("Select your gender"); ?></option>
-                            <option value="f"><?php echo Install::translate("Female"); ?></option>
-                            <option value="m"><?php echo Install::translate("Male"); ?></option>
-                        </select>
                     </div>
                 </div>
             </form>
@@ -809,15 +813,21 @@ $installer = new Install();
                 return false;
             });
 
-            $('#installNextButton').click(function() {
-                console.log(index);
+            $('#installNextButton').click(function () {
+                var formId = '';
+
                 if (index == 3) {
-                    $.ajax({
-                        type: "GET",
-                        url: '<?php echo $_SERVER["PHP_SELF"] ?>',
-                        data: $('#configForm').serialize()
-                    });
+                    formId = 'configForm';
                 }
+                else if (index == 4) {
+                    formId = 'adminForm';
+                }
+
+                $.ajax({
+                    type: "GET",
+                    url: '<?php echo $_SERVER["PHP_SELF"] ?>',
+                    data: $('#' + formId).serialize()
+                });
             });
 
             $('#installCarousel').on('slide.bs.carousel', function (e) {
@@ -847,7 +857,7 @@ $installer = new Install();
                     $("#installFinishButton").show();
                 }
 
-                if (index > oldIndex && index != 3) {
+                if (index > oldIndex && index < 3) {
                     $('#installNextButton').attr('disabled', 'disabled');
                 } else {
                     $('#installNextButton').removeAttr('disabled');

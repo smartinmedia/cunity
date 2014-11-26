@@ -451,8 +451,6 @@ CREATE TABLE IF NOT EXISTS `TABLEPREFIXusers` (
                    COLLATE utf8_unicode_ci NOT NULL,
   `password`       VARCHAR(200)
                    COLLATE utf8_unicode_ci NOT NULL,
-  `sex`            VARCHAR(1)
-                   COLLATE utf8_unicode_ci NOT NULL,
   `firstname`      VARCHAR(50)
                    COLLATE utf8_unicode_ci NOT NULL,
   `lastname`       VARCHAR(50)

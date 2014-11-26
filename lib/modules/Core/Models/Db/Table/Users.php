@@ -77,7 +77,7 @@ class Users extends Table
      * @return bool
      * @throws \Exception
      */
-    public function registerNewUser(array $data)
+    public function registerNewUser(array $data, $groupId = 0, $sendVerfificationMail = true)
     {
         $salt = Unique::createSalt(25);
 
@@ -91,7 +91,7 @@ class Users extends Table
             "email" => trim($data['email']),
             "userhash" => $this->createUniqueHash(),
             "username" => $data['username'],
-            "groupid" => 0,
+            "groupid" => $groupId,
             "password" => sha1(trim($data['password']) . $salt),
             "salt" => $salt,
             "name" => $name,
@@ -99,10 +99,12 @@ class Users extends Table
             "lastname" => $data['lastname']
         ]);
 
-        $profileFieldsUser = new ProfileFieldsUsers([], $this->search('userid', $result));
-        $profileFieldsUser->update($_POST['field'], '');
+        if (array_key_exists('field', $_POST)) {
+            $profileFieldsUser = new ProfileFieldsUsers([], $this->search('userid', $result));
+            $profileFieldsUser->update($_REQUEST['field'], '');
+        }
 
-        if ($result) {
+        if ($result && $sendVerfificationMail) {
             new VerifyMail(["name" => $name, "email" => $data['email']], $salt);
             return true;
         }
