@@ -412,7 +412,7 @@ $installer = new Install();
                     <div class="form-group">
                         <label><?php echo Install::translate("Please agree to our Terms & Conditions first"); ?></label>
 
-                        <div class="form-control">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
+                        <div class="form-control"><?php echo Install::translate('Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
                             nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At
                             vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
                             takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur
@@ -495,7 +495,7 @@ $installer = new Install();
                             mazim placerat facer possim assum. Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
                             sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut
                             wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut
-                            aliquip ex ea commodo
+                            aliquip ex ea commodo'); ?>
                         </div>
                     </div>
                     <div class="checkbox">
@@ -744,6 +744,13 @@ $installer = new Install();
         </div>
         <div class="item" id="finish">
             <span class="title"><?php echo Install::translate("Finish Installation"); ?></span>
+    <div class="terms">
+    <form>
+    <div class="form-group">
+    <div class="form-control"><?php echo Install::translate('This, of course, is not the real copy for this advertisement. The real words will be written once you have approved the headline. Rest assured, the words will expand the concept. With clarity. Conviction. And even a little wit. Because in today’s competitive marketing environment, the body copy of your advertisment must lead the reader through a series of disarmingly simple thoughts. All your supporting arguments must be communicated with simplicity and charm. And in such a way that the reader will read on. (After all, that’s a reader’s job: to read, isn’t it?) And by the time your readers have reached this point in the finished copy, you will have convinced them that you not only respect their intelligence, but you also understand their needs as consumers. As a result of which, your advertisment will repay your efforts. Take your sales; simply put, they will rise. Likewise your credibility. There’s every chance your competitors will wish they’d placed this advertisement, not you. While your customers will have probably forgotten that your competitors even exist. Which brings us, by a somewhat circuitous route, to another small point, but one which we feel should be raised. As a marketer, you probably don’t even believe in body copy. Let alone long body copy. (Unless you have a long body yourself.) Well, truth is, who‘s to blame you? Fact is, too much long body copy is dotted with such indulgent little phrases like truth is, fact is, and who’s to blame you. Trust us: we guarantee, with a hand over our heart, that no such indulgent rubbish will appear in your advertisement. That’s why God gave us big blue pencils. So we can expunge every expedient example of low-witted waffle. For you, the skies will be blue, the birds will sing, and your copy will be crafted by a dedicated little man whose wife will be sitting at home, knitting, wondering why your advertisement demands more of her husband‘s time than it should. But you will know why, won‘t you? You will have given her husband a chance to immortalise himself in print, writing some of the most persuasive prose on behalf of a truly enlightened purveyor of widgets. And so, while your dedicated reader, enslaved to each mellifluous paragraph, clutches his newspaper with increasing interest and intention to purchase, you can count all your increased profits and take pots of money to your bank. Sadly, this is not the real copy for this advertisement. But it could well be. All you have to do is look at the account executive sitting across your desk (the fellow with the lugubrious face and the calf-like eyes), and say ”Yes! Yes! Yes!“ And anything you want, body copy, dinners, women, will be yours. Couldn’t be fairer than that, could we?'); ?>
+        </div>
+        </div>
+        </form>
         </div>
         </div>
         </div>
@@ -760,7 +767,7 @@ $installer = new Install();
                                               data-slide="next" disabled
                                               class="btn btn-primary pull-right"><?php echo Install::translate("Next"); ?>
                     &nbsp;<i class="fa fa-chevron-right"></i></a></div>
-            <div class="col-lg-2 clearfix"><a role="button" href=".." id="installFinishButton" disabled
+            <div class="col-lg-2 clearfix"><a role="button" href=".." id="installFinishButton"
                                               class="btn btn-success pull-right hidden"><i class="fa fa-check"></i>&nbsp;<?php echo Install::translate("Finish"); ?>
                 </a></div>
         </div>
