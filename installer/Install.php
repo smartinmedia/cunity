@@ -517,25 +517,25 @@ $installer = new Install();
                         <input type="hidden" name="type" value="ajax"/>
 
                         <div class="form-group">
-                            <label for="db-host"><?php echo Install::translate("Database-Host"); ?></label>
+                            <label for="db-host"><?php echo Install::translate("Database Host"); ?></label>
                             <input type="text" id="db-host" class="form-control" value="localhost" autocomplete="off"
                                    name="db-host">
                         </div>
                         <div class="form-group">
-                            <label for="db-user"><?php echo Install::translate("Database-User"); ?></label>
+                            <label for="db-user"><?php echo Install::translate("Database User"); ?></label>
                             <input type="text" id="db-user" class="form-control" autocomplete="off" name="db-user">
                         </div>
                         <div class="form-group">
-                            <label for="db-password"><?php echo Install::translate("Database-Password"); ?></label>
+                            <label for="db-password"><?php echo Install::translate("Database Password"); ?></label>
                             <input type="password" id="db-password" class="form-control" autocomplete="off"
                                    name="db-password">
                         </div>
                         <div class="form-group">
-                            <label for="db-name"><?php echo Install::translate("Database-Name"); ?></label>
+                            <label for="db-name"><?php echo Install::translate("Database Name"); ?></label>
                             <input type="text" id="db-name" class="form-control" autocomplete="off" name="db-name">
                         </div>
                         <div class="form-group">
-                            <label for="db-prefix"><?php echo Install::translate("Database-Prefix"); ?></label>
+                            <label for="db-prefix"><?php echo Install::translate("Database Prefix"); ?></label>
                             <input type="text" id="db-prefix" class="form-control" value="cunity" autocomplete="off"
                                    name="db-prefix">
                         </div>
