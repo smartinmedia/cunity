@@ -68,7 +68,12 @@ class Install
     public function __construct()
     {
         $this->init();
-        \Cunity\Core\Cunity::init();
+        if (array_key_exists('action', $_REQUEST) &&
+            $_REQUEST['type'] === 'ajax' &&
+            $_REQUEST['action'] != 'prepareDatabase') {
+            \Cunity\Core\Cunity::init();
+        }
+
         $this->handleRequest();
     }
 
@@ -875,6 +880,7 @@ $installer = new Install();
                     data = $.parseJSON(data);
                     if (data.success) {
                         $('#databaseForm .has-feedback').removeClass('has-error').addClass('has-success');
+                        $('#installNextButton').removeAttr('disabled');
                     } else {
                         $('#databaseForm .has-feedback').removeClass('has-success').addClass('has-error');
                     }
