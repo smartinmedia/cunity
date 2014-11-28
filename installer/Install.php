@@ -265,12 +265,8 @@ $installer = new Install();
         <title><?php echo Install::translate("Install Cunity"); ?></title>
         <link href="../lib/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <link href="../lib/plugins/fontawesome/css/font-awesome.css" rel="stylesheet">
-        <link href="../lib/plugins/bootstrap-validator/css/bootstrapValidator.min.css"
-              rel="stylesheet">
-        <!--[if lt IE 9]>
         <script src="../lib/plugins/js/html5shiv.min.js"></script>
         <script src="../lib/plugins/js/respond.min.js"></script>
-        <![endif]-->
         <style>
             .breadcrumb > li + li:before {
                 font-family: FontAwesome;
@@ -509,44 +505,72 @@ $installer = new Install();
         </div>
         <div class="item" id="database">
             <span class="title"><?php echo Install::translate("Setup Database"); ?></span>
+            <h4 class="page-header">Database configuration</h4>
 
-            <div class="row">
-                <div class="col-lg-7">
-                    <form id="databaseForm">
-                        <input type="hidden" name="action" value="prepareDatabase"/>
-                        <input type="hidden" name="type" value="ajax"/>
+            <form id="databaseForm" class="form-horizontal">
+                <input type="hidden" name="action" value="prepareDatabase"/>
+                <input type="hidden" name="type" value="ajax"/>
 
-                        <div class="form-group">
-                            <label for="db-host"><?php echo Install::translate("Database Host"); ?></label>
-                            <input type="text" id="db-host" class="form-control" value="localhost" autocomplete="off"
-                                   name="db-host">
-                        </div>
-                        <div class="form-group">
-                            <label for="db-user"><?php echo Install::translate("Database User"); ?></label>
-                            <input type="text" id="db-user" class="form-control" autocomplete="off" name="db-user">
-                        </div>
-                        <div class="form-group">
-                            <label for="db-password"><?php echo Install::translate("Database Password"); ?></label>
-                            <input type="password" id="db-password" class="form-control" autocomplete="off"
-                                   name="db-password">
-                        </div>
-                        <div class="form-group">
-                            <label for="db-name"><?php echo Install::translate("Database Name"); ?></label>
-                            <input type="text" id="db-name" class="form-control" autocomplete="off" name="db-name">
-                        </div>
-                        <div class="form-group">
-                            <label for="db-prefix"><?php echo Install::translate("Database Prefix"); ?></label>
-                            <input type="text" id="db-prefix" class="form-control" value="cunity" autocomplete="off"
-                                   name="db-prefix">
-                        </div>
-                        <div class="form-group">
-                            <button class="btn btn-primary btn-block" id="checkDatabase"><i
-                                    class="fa-check fa"></i>&nbsp;<?php echo Install::translate("Check Connection & copy data to database"); ?>
-                            </button>
-                        </div>
-                    </form>
+                <div class="form-group has-feedback">
+                    <label class="col-lg-3 control-label"
+                           for="db-host"><?php echo Install::translate("Database Host"); ?></label>
+
+                    <div class="col-lg-7 ">
+                        <input type="text" id="db-host" class="form-control" value="localhost"
+                               autocomplete="off"
+                               name="db-host">
+                    </div>
+                    <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
+                          title="<?php echo Install::translate('Hostname where your MySQL database is located'); ?>" data-placement="right"></span>
                 </div>
-            </div>
+                <div class="form-group has-feedback">
+                    <label class="col-lg-3 control-label"
+                           for="db-user"><?php echo Install::translate("Database User"); ?></label>
+
+                    <div class="col-lg-7">
+                        <input type="text" id="db-user" class="form-control" autocomplete="off" name="db-user">
+                    </div>
+                    <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
+                          title="<?php echo Install::translate('Database username to connect'); ?>" data-placement="right"></span>
+                </div>
+                <div class="form-group has-feedback">
+                    <label class="col-lg-3 control-label"
+                           for="db-password"><?php echo Install::translate("Database Password"); ?></label>
+
+                    <div class="col-lg-7">
+                        <input type="password" id="db-password" class="form-control" autocomplete="off"
+                               name="db-password">
+                    </div>
+                    <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
+                          title="<?php echo Install::translate('Password for your database user'); ?>" data-placement="right"></span>
+                </div>
+                <div class="form-group has-feedback">
+                    <label class="col-lg-3 control-label"
+                           for="db-name"><?php echo Install::translate("Database Name"); ?></label>
+
+                    <div class="col-lg-7">
+                        <input type="text" id="db-name" class="form-control" autocomplete="off" name="db-name">
+                    </div>
+                    <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
+                          title="<?php echo Install::translate('Name of your database to install Cunity'); ?>" data-placement="right"></span>
+                </div>
+                <div class="form-group has-feedback">
+                    <label class="col-lg-3 control-label"
+                           for="db-prefix"><?php echo Install::translate("Database Prefix"); ?></label>
+
+                    <div class="col-lg-7">
+                        <input type="text" id="db-prefix" class="form-control" value="cunity" autocomplete="off"
+                               name="db-prefix">
+                    </div>
+                    <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
+                          title="<?php echo Install::translate('Prefix for your tables, leave default value if you have no idea'); ?>" data-placement="right"></span>
+                </div>
+                <div class="form-group has-feedback col-lg-7">
+                    <button class="btn btn-primary btn-block" id="checkDatabase"><i
+                            class="fa-check fa"></i>&nbsp;<?php echo Install::translate("Check Connection & copy data to database"); ?>
+                    </button>
+                </div>
+            </form>
         </div>
         <div class="item" id="settings">
             <span class="title"><?php echo Install::translate("Enter Cunity-Settings"); ?></span>
@@ -563,6 +587,8 @@ $installer = new Install();
                     <div class="col-lg-7">
                         <input type="text" name="general[core.sitename]" id="sitename" class="form-control">
                     </div>
+                    <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
+                          title="<?php echo Install::translate('Your slogan'); ?>" data-placement="right"></span>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-3 control-label"
@@ -571,6 +597,8 @@ $installer = new Install();
                     <div class="col-lg-7">
                         <input type="text" name="general[core.siteurl]" id="siteurl" class="form-control">
                     </div>
+                    <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
+                          title="<?php echo Install::translate('Where to find your installation'); ?>" data-placement="right"></span>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-3 control-label"
@@ -579,6 +607,8 @@ $installer = new Install();
                     <div class="col-lg-7">
                         <textarea class="form-control" id="description" name="general[core.description]"></textarea>
                     </div>
+                    <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
+                          title="<?php echo Install::translate('Give a brief description'); ?>" data-placement="right"></span>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-3 control-label"
@@ -587,6 +617,8 @@ $installer = new Install();
                     <div class="col-lg-7">
                         <input type="text" name="general[core.contact_mail]" id="contactmail" class="form-control">
                     </div>
+                    <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
+                          title="<?php echo Install::translate('Mail adress to contact you'); ?>" data-placement="right"></span>
                 </div>
                 <h4 class="page-header"><?php echo Install::translate("Mail Settings"); ?></h4>
 
@@ -608,6 +640,8 @@ $installer = new Install();
                             </label>
                         </div>
                     </div>
+                    <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
+                          title="<?php echo Install::translate('Use SMTP if your server does not support PHP Sendmail'); ?>" data-placement="right"></span>
                 </div>
                 <div id="smtp-settings">
                     <div class="form-group">
@@ -618,6 +652,8 @@ $installer = new Install();
                             <input type="text" class="form-control"
                                    id="smtp-host" name="config[mail][params][host]" required>
                         </div>
+                        <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
+                              title="<?php echo Install::translate('Hostname of SMTP Server'); ?>" data-placement="right"></span>
                     </div>
                     <div class="form-group">
                         <label for="smtp-port"
@@ -628,6 +664,8 @@ $installer = new Install();
                                    id="smtp-port" name="config[mail][params][port]" required data-bv-greaterthan
                                    data-bv-greaterthan-value="25">
                         </div>
+                        <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
+                              title="<?php echo Install::translate('Port of SMTP Server, usually 25'); ?>" data-placement="right"></span>
                     </div>
                     <div class="form-group">
                         <label for="smtp-auth"
@@ -639,6 +677,8 @@ $installer = new Install();
                                 <option value="plain"><?php echo Install::translate("No"); ?></option>
                             </select>
                         </div>
+                        <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
+                              title="<?php echo Install::translate('Is authentification required'); ?>" data-placement="right"></span>
                     </div>
                     <div class="form-group">
                         <label for="smtp-username"
@@ -649,6 +689,8 @@ $installer = new Install();
                                    id="smtp-username"
                                    name="config[mail][params][username]">
                         </div>
+                        <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
+                              title="<?php echo Install::translate('SMTP username'); ?>" data-placement="right"></span>
                     </div>
                     <div class="form-group">
                         <label for="smtp-password"
@@ -659,6 +701,8 @@ $installer = new Install();
                                    id="smtp-password"
                                    name="config[mail][params][password]">
                         </div>
+                        <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
+                              title="<?php echo Install::translate('SMTP password'); ?>" data-placement="right"></span>
                     </div>
                     <div class="form-group">
                         <label for="smtp-ssl"
@@ -672,6 +716,8 @@ $installer = new Install();
                                 </label>
                             </div>
                         </div>
+                        <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
+                              title="<?php echo Install::translate('Use secure connection'); ?>" data-placement="right"></span>
                     </div>
                 </div>
             </form>
@@ -691,6 +737,8 @@ $installer = new Install();
                         <input type="text" autocomplete="off" required class="form-control" id="input-username"
                                placeholder="<?php echo Install::translate("Username"); ?>" name="username">
                     </div>
+                    <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
+                          title="<?php echo Install::translate('Your username in Cunity'); ?>" data-placement="right"></span>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-lg-3"
@@ -701,6 +749,8 @@ $installer = new Install();
                                placeholder="<?php echo Install::translate("E-Mail"); ?>"
                                name="email">
                     </div>
+                    <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
+                          title="<?php echo Install::translate('Your Mail adress'); ?>" data-placement="right"></span>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-lg-3"
@@ -710,6 +760,8 @@ $installer = new Install();
                         <input type="text" autocomplete="off" required class="form-control" id="input-firstname"
                                placeholder="<?php echo Install::translate("Firstname"); ?>" name="firstname">
                     </div>
+                    <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
+                          title="<?php echo Install::translate('Firstname if you wish to provide'); ?>" data-placement="right"></span>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-lg-3"
@@ -719,6 +771,8 @@ $installer = new Install();
                         <input type="text" autocomplete="off" required class="form-control" id="input-lastname"
                                placeholder="<?php echo Install::translate("Lastname"); ?>" name="lastname">
                     </div>
+                    <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
+                          title="<?php echo Install::translate('Lastname if you wish to provide'); ?>" data-placement="right"></span>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-lg-3"
@@ -728,6 +782,8 @@ $installer = new Install();
                         <input type="password" autocomplete="off" required class="form-control" id="input-password"
                                placeholder="<?php echo Install::translate("Password"); ?>" name="password">
                     </div>
+                    <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
+                          title="<?php echo Install::translate('Your password'); ?>" data-placement="right"></span>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-lg-3"
@@ -739,19 +795,23 @@ $installer = new Install();
                                placeholder="<?php echo Install::translate("Repeat password"); ?>"
                                name="password_repeat">
                     </div>
+                    <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
+                          title="<?php echo Install::translate('Repeat your password'); ?>" data-placement="right"></span>
                 </div>
             </form>
         </div>
         <div class="item" id="finish">
             <span class="title"><?php echo Install::translate("Finish Installation"); ?></span>
-    <div class="terms">
-    <form>
-    <div class="form-group">
-    <div class="form-control"><?php echo Install::translate('This, of course, is not the real copy for this advertisement. The real words will be written once you have approved the headline. Rest assured, the words will expand the concept. With clarity. Conviction. And even a little wit. Because in today’s competitive marketing environment, the body copy of your advertisment must lead the reader through a series of disarmingly simple thoughts. All your supporting arguments must be communicated with simplicity and charm. And in such a way that the reader will read on. (After all, that’s a reader’s job: to read, isn’t it?) And by the time your readers have reached this point in the finished copy, you will have convinced them that you not only respect their intelligence, but you also understand their needs as consumers. As a result of which, your advertisment will repay your efforts. Take your sales; simply put, they will rise. Likewise your credibility. There’s every chance your competitors will wish they’d placed this advertisement, not you. While your customers will have probably forgotten that your competitors even exist. Which brings us, by a somewhat circuitous route, to another small point, but one which we feel should be raised. As a marketer, you probably don’t even believe in body copy. Let alone long body copy. (Unless you have a long body yourself.) Well, truth is, who‘s to blame you? Fact is, too much long body copy is dotted with such indulgent little phrases like truth is, fact is, and who’s to blame you. Trust us: we guarantee, with a hand over our heart, that no such indulgent rubbish will appear in your advertisement. That’s why God gave us big blue pencils. So we can expunge every expedient example of low-witted waffle. For you, the skies will be blue, the birds will sing, and your copy will be crafted by a dedicated little man whose wife will be sitting at home, knitting, wondering why your advertisement demands more of her husband‘s time than it should. But you will know why, won‘t you? You will have given her husband a chance to immortalise himself in print, writing some of the most persuasive prose on behalf of a truly enlightened purveyor of widgets. And so, while your dedicated reader, enslaved to each mellifluous paragraph, clutches his newspaper with increasing interest and intention to purchase, you can count all your increased profits and take pots of money to your bank. Sadly, this is not the real copy for this advertisement. But it could well be. All you have to do is look at the account executive sitting across your desk (the fellow with the lugubrious face and the calf-like eyes), and say ”Yes! Yes! Yes!“ And anything you want, body copy, dinners, women, will be yours. Couldn’t be fairer than that, could we?'); ?>
-        </div>
-        </div>
-        </form>
-        </div>
+
+            <div class="terms">
+                <form>
+                    <div class="form-group">
+                        <div
+                            class="form-control"><?php echo Install::translate('This, of course, is not the real copy for this advertisement. The real words will be written once you have approved the headline. Rest assured, the words will expand the concept. With clarity. Conviction. And even a little wit. Because in today’s competitive marketing environment, the body copy of your advertisment must lead the reader through a series of disarmingly simple thoughts. All your supporting arguments must be communicated with simplicity and charm. And in such a way that the reader will read on. (After all, that’s a reader’s job: to read, isn’t it?) And by the time your readers have reached this point in the finished copy, you will have convinced them that you not only respect their intelligence, but you also understand their needs as consumers. As a result of which, your advertisment will repay your efforts. Take your sales; simply put, they will rise. Likewise your credibility. There’s every chance your competitors will wish they’d placed this advertisement, not you. While your customers will have probably forgotten that your competitors even exist. Which brings us, by a somewhat circuitous route, to another small point, but one which we feel should be raised. As a marketer, you probably don’t even believe in body copy. Let alone long body copy. (Unless you have a long body yourself.) Well, truth is, who‘s to blame you? Fact is, too much long body copy is dotted with such indulgent little phrases like truth is, fact is, and who’s to blame you. Trust us: we guarantee, with a hand over our heart, that no such indulgent rubbish will appear in your advertisement. That’s why God gave us big blue pencils. So we can expunge every expedient example of low-witted waffle. For you, the skies will be blue, the birds will sing, and your copy will be crafted by a dedicated little man whose wife will be sitting at home, knitting, wondering why your advertisement demands more of her husband‘s time than it should. But you will know why, won‘t you? You will have given her husband a chance to immortalise himself in print, writing some of the most persuasive prose on behalf of a truly enlightened purveyor of widgets. And so, while your dedicated reader, enslaved to each mellifluous paragraph, clutches his newspaper with increasing interest and intention to purchase, you can count all your increased profits and take pots of money to your bank. Sadly, this is not the real copy for this advertisement. But it could well be. All you have to do is look at the account executive sitting across your desk (the fellow with the lugubrious face and the calf-like eyes), and say ”Yes! Yes! Yes!“ And anything you want, body copy, dinners, women, will be yours. Couldn’t be fairer than that, could we?'); ?>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
         </div>
         <div class="row">
@@ -781,7 +841,6 @@ $installer = new Install();
     </footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="../lib/plugins/bootstrap/js/bootstrap.min.js"></script>
-    <script src="../lib/plugins/bootstrap-validator/js/bootstrapValidator.min.js" type="text/javascript"></script>
     <script>
         var origShow = jQuery.fn.show, origHide = jQuery.fn.hide;
         jQuery.fn.show = function () {
@@ -793,6 +852,8 @@ $installer = new Install();
             return origHide.apply(this, arguments);
         };
         $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+
             $('#installCarousel').carousel({
                 interval: false
             });
@@ -813,7 +874,9 @@ $installer = new Install();
                 }).done(function (data) {
                     data = $.parseJSON(data);
                     if (data.success) {
-                        $('#installCarousel').carousel('next');
+                        $('#databaseForm .has-feedback').removeClass('has-error').addClass('has-success');
+                    } else {
+                        $('#databaseForm .has-feedback').removeClass('has-success').addClass('has-error');
                     }
                 });
 
