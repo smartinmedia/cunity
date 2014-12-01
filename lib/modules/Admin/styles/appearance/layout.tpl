@@ -40,3 +40,30 @@
         </div>
     </div>
 </div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default" id="headline-panel">
+            <div class="panel-heading">
+                <i class="fa fa-files-o fa-fw"></i>&nbsp;{-"Startpage"|translate}
+                <span class="pull-right text-success hidden panel-feedback-success"><i
+                            class="fa fa-check"></i>&nbsp;{-"Changes Saved"|translate}</span>
+                <span class="pull-right text-danger hidden panel-feedback-error"><i
+                            class="fa fa-warning"></i>&nbsp;{-"An error occurred"|translate}</span>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <strong>{-"Startpage"|translate}</strong>
+
+                        <div id="summernote-startpage-header" class="loaderbox" data-source="{-"core.startpageheader"|setting}"></div>
+                    </div>
+                </div>
+                <form class="form-horizontal ajaxform" method="post" action="{-"index.php?m=admin&action=save"|URL}">
+                    <input type="hidden" name="settings-core.startpageheader">
+                    <input type="hidden" name="form" value="headline">
+                    <input class="ajaxform-callback" type="hidden" value="showPanelResult">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
