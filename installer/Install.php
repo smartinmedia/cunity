@@ -70,7 +70,8 @@ class Install
         $this->init();
         if (array_key_exists('action', $_REQUEST) &&
             $_REQUEST['type'] === 'ajax' &&
-            $_REQUEST['action'] != 'prepareDatabase') {
+            $_REQUEST['action'] != 'prepareDatabase'
+        ) {
             \Cunity\Core\Cunity::init();
         }
 
@@ -83,7 +84,7 @@ class Install
     private function init()
     {
         if (file_exists("data/config.xml")) {
-            throw new Exception("Cunity aready installed!");
+#            throw new Exception("Cunity aready installed!");
         }
         if (!file_exists("data/config-example.xml")) {
             throw new Exception("config-example.xml missing!");
@@ -285,6 +286,10 @@ $installer = new Install();
                 content: "\f0da" !important;
             }
 
+            .breadcrumb li {
+                color: #b80718;
+            }
+
             .progress {
                 margin: 7px 0
             }
@@ -392,16 +397,11 @@ $installer = new Install();
         <ol class="breadcrumb" id="steps" role="tablist">
             <li><a href="Install.php" title="<?php echo Install::translate("Back to language selection"); ?>"><i
                         class="fa fa-globe"></i></a></li>
-            <li class="active"><a data-target="#installCarousel" href="#terms"
-                                  data-slide-to="0"><?php echo Install::translate("Terms"); ?></a></li>
-            <li><a data-target="#installCarousel" href="#database"
-                   data-slide-to="1"><?php echo Install::translate("Database"); ?></a></li>
-            <li><a data-target="#installCarousel" href="#settings"
-                   data-slide-to="2"><?php echo Install::translate("Settings"); ?></a></li>
-            <li><a data-target="#installCarousel" href="#account"
-                   data-slide-to="3"><?php echo Install::translate("Account"); ?></a></li>
-            <li><a data-target="#installCarousel" href="#finish"
-                   data-slide-to="4"><?php echo Install::translate("Finish"); ?></a></li>
+            <li class="active"><?php echo Install::translate("Terms"); ?></li>
+            <li><?php echo Install::translate("Database"); ?></li>
+            <li><?php echo Install::translate("Settings"); ?></li>
+            <li><?php echo Install::translate("Account"); ?></li>
+            <li><?php echo Install::translate("Finish"); ?></li>
         </ol>
 
         <div class="carousel-inner">
@@ -526,7 +526,8 @@ $installer = new Install();
                                name="db-host">
                     </div>
                     <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
-                          title="<?php echo Install::translate('Hostname where your MySQL database is located'); ?>" data-placement="right"></span>
+                          title="<?php echo Install::translate('Hostname where your MySQL database is located'); ?>"
+                          data-placement="right"></span>
                 </div>
                 <div class="form-group has-feedback">
                     <label class="col-lg-3 control-label"
@@ -536,7 +537,8 @@ $installer = new Install();
                         <input type="text" id="db-user" class="form-control" autocomplete="off" name="db-user">
                     </div>
                     <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
-                          title="<?php echo Install::translate('Database username to connect'); ?>" data-placement="right"></span>
+                          title="<?php echo Install::translate('Database username to connect'); ?>"
+                          data-placement="right"></span>
                 </div>
                 <div class="form-group has-feedback">
                     <label class="col-lg-3 control-label"
@@ -547,7 +549,8 @@ $installer = new Install();
                                name="db-password">
                     </div>
                     <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
-                          title="<?php echo Install::translate('Password for your database user'); ?>" data-placement="right"></span>
+                          title="<?php echo Install::translate('Password for your database user'); ?>"
+                          data-placement="right"></span>
                 </div>
                 <div class="form-group has-feedback">
                     <label class="col-lg-3 control-label"
@@ -557,7 +560,8 @@ $installer = new Install();
                         <input type="text" id="db-name" class="form-control" autocomplete="off" name="db-name">
                     </div>
                     <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
-                          title="<?php echo Install::translate('Name of your database to install Cunity'); ?>" data-placement="right"></span>
+                          title="<?php echo Install::translate('Name of your database to install Cunity'); ?>"
+                          data-placement="right"></span>
                 </div>
                 <div class="form-group has-feedback">
                     <label class="col-lg-3 control-label"
@@ -568,7 +572,8 @@ $installer = new Install();
                                name="db-prefix">
                     </div>
                     <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
-                          title="<?php echo Install::translate('Prefix for your tables, leave default value if you have no idea'); ?>" data-placement="right"></span>
+                          title="<?php echo Install::translate('Prefix for your tables, leave default value if you have no idea'); ?>"
+                          data-placement="right"></span>
                 </div>
                 <div class="form-group has-feedback col-lg-7">
                     <button class="btn btn-primary btn-block" id="checkDatabase"><i
@@ -603,7 +608,8 @@ $installer = new Install();
                         <input type="text" name="general[core.siteurl]" id="siteurl" class="form-control">
                     </div>
                     <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
-                          title="<?php echo Install::translate('Where to find your installation'); ?>" data-placement="right"></span>
+                          title="<?php echo Install::translate('Where to find your installation'); ?>"
+                          data-placement="right"></span>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-3 control-label"
@@ -613,7 +619,8 @@ $installer = new Install();
                         <textarea class="form-control" id="description" name="general[core.description]"></textarea>
                     </div>
                     <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
-                          title="<?php echo Install::translate('Give a brief description'); ?>" data-placement="right"></span>
+                          title="<?php echo Install::translate('Give a brief description'); ?>"
+                          data-placement="right"></span>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-3 control-label"
@@ -623,7 +630,8 @@ $installer = new Install();
                         <input type="text" name="general[core.contact_mail]" id="contactmail" class="form-control">
                     </div>
                     <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
-                          title="<?php echo Install::translate('Mail adress to contact you'); ?>" data-placement="right"></span>
+                          title="<?php echo Install::translate('Mail adress to contact you'); ?>"
+                          data-placement="right"></span>
                 </div>
                 <h4 class="page-header"><?php echo Install::translate("Mail Settings"); ?></h4>
 
@@ -646,7 +654,8 @@ $installer = new Install();
                         </div>
                     </div>
                     <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
-                          title="<?php echo Install::translate('Use SMTP if your server does not support PHP Sendmail'); ?>" data-placement="right"></span>
+                          title="<?php echo Install::translate('Use SMTP if your server does not support PHP Sendmail'); ?>"
+                          data-placement="right"></span>
                 </div>
                 <div id="smtp-settings">
                     <div class="form-group">
@@ -658,7 +667,8 @@ $installer = new Install();
                                    id="smtp-host" name="config[mail][params][host]" required>
                         </div>
                         <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
-                              title="<?php echo Install::translate('Hostname of SMTP Server'); ?>" data-placement="right"></span>
+                              title="<?php echo Install::translate('Hostname of SMTP Server'); ?>"
+                              data-placement="right"></span>
                     </div>
                     <div class="form-group">
                         <label for="smtp-port"
@@ -670,7 +680,8 @@ $installer = new Install();
                                    data-bv-greaterthan-value="25">
                         </div>
                         <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
-                              title="<?php echo Install::translate('Port of SMTP Server, usually 25'); ?>" data-placement="right"></span>
+                              title="<?php echo Install::translate('Port of SMTP Server, usually 25'); ?>"
+                              data-placement="right"></span>
                     </div>
                     <div class="form-group">
                         <label for="smtp-auth"
@@ -683,7 +694,8 @@ $installer = new Install();
                             </select>
                         </div>
                         <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
-                              title="<?php echo Install::translate('Is authentification required'); ?>" data-placement="right"></span>
+                              title="<?php echo Install::translate('Is authentification required'); ?>"
+                              data-placement="right"></span>
                     </div>
                     <div class="form-group">
                         <label for="smtp-username"
@@ -722,7 +734,8 @@ $installer = new Install();
                             </div>
                         </div>
                         <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
-                              title="<?php echo Install::translate('Use secure connection'); ?>" data-placement="right"></span>
+                              title="<?php echo Install::translate('Use secure connection'); ?>"
+                              data-placement="right"></span>
                     </div>
                 </div>
             </form>
@@ -743,7 +756,8 @@ $installer = new Install();
                                placeholder="<?php echo Install::translate("Username"); ?>" name="username">
                     </div>
                     <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
-                          title="<?php echo Install::translate('Your username in Cunity'); ?>" data-placement="right"></span>
+                          title="<?php echo Install::translate('Your username in Cunity'); ?>"
+                          data-placement="right"></span>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-lg-3"
@@ -766,7 +780,8 @@ $installer = new Install();
                                placeholder="<?php echo Install::translate("Firstname"); ?>" name="firstname">
                     </div>
                     <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
-                          title="<?php echo Install::translate('Firstname if you wish to provide'); ?>" data-placement="right"></span>
+                          title="<?php echo Install::translate('Firstname if you wish to provide'); ?>"
+                          data-placement="right"></span>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-lg-3"
@@ -777,7 +792,8 @@ $installer = new Install();
                                placeholder="<?php echo Install::translate("Lastname"); ?>" name="lastname">
                     </div>
                     <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
-                          title="<?php echo Install::translate('Lastname if you wish to provide'); ?>" data-placement="right"></span>
+                          title="<?php echo Install::translate('Lastname if you wish to provide'); ?>"
+                          data-placement="right"></span>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-lg-3"
@@ -801,7 +817,8 @@ $installer = new Install();
                                name="password_repeat">
                     </div>
                     <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
-                          title="<?php echo Install::translate('Repeat your password'); ?>" data-placement="right"></span>
+                          title="<?php echo Install::translate('Repeat your password'); ?>"
+                          data-placement="right"></span>
                 </div>
             </form>
         </div>
@@ -820,7 +837,10 @@ $installer = new Install();
         </div>
         </div>
         <div class="row">
-            <div class="col-lg-10">
+            <div class="col-lg-2 clearfix"><a role="button" href="#installCarousel" id="installPrevButton"
+                                              data-slide="prev" class="btn btn-default pull-left hidden"><i
+                        class="fa fa-chevron-left"></i>&nbsp;<?php echo Install::translate("Prev"); ?></a></div>
+            <div class="col-lg-8">
                 <div class="progress">
                     <div class="progress-bar" id="installation-progress" role="progressbar" aria-valuenow="0"
                          aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
@@ -883,6 +903,7 @@ $installer = new Install();
                         $('#installNextButton').removeAttr('disabled');
                     } else {
                         $('#databaseForm .has-feedback').removeClass('has-success').addClass('has-error');
+                        $('#installNextButton').attr('disabled', 'disabled');
                     }
                 });
 
