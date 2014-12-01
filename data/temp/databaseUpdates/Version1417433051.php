@@ -37,6 +37,9 @@
 use Cunity\Admin\Models\Updater\DbCommandInterface;
 use Cunity\Admin\Models\Updater\DbUpdateVersion;
 
+/**
+ * Class Version1417433051
+ */
 class Version1417433051 extends DbUpdateVersion implements DbCommandInterface
 {
     /**
