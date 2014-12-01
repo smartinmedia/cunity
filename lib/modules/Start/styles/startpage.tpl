@@ -28,7 +28,7 @@
 <body>
 <header class="head">
     <div class="content">
-        <div class="headline pull-left"><img src="http://cunity.net/img/logo.gif"></div>
+        <div class="headline pull-left"><a href="{-"core.siteurl"|setting}">{-"core.headline"|setting|html_entity_decode}</a></div>
         <form class="login-form form-inline pull-right" action="{-"index.php?m=register&action=login"|URL}"
               method="post">
             <div class="form-group">

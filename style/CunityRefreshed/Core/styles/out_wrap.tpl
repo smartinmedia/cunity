@@ -33,7 +33,7 @@
     <body>        
         <div class="head">
             <div class="content">
-                <div class="headline"><a href="{-"core.siteurl"|setting}"><img src="http://cunity.net/img/logo.gif"></a></div>
+                <div class="headline"><a href="{-"core.siteurl"|setting}">{-"core.headline"|setting|html_entity_decode}</a></div>
             </div>
         </div>
         <nav id="mobile-slide-nav">

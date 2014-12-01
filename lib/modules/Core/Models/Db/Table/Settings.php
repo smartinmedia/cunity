@@ -122,6 +122,7 @@ class Settings extends Table
     public function setSetting($name, $value)
     {
         $row = $this->fetchRow($this->select()->where("name=?", $name));
+
         if ($row === null) {
             throw new Exception("Try to set undefined setting: \"" . $name . "\"");
         } else {

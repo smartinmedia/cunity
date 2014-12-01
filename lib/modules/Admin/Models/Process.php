@@ -54,7 +54,7 @@ class Process
     /**
      * @var array
      */
-    private $validForms = ['config', 'settings', 'mailtemplates', 'modules', 'users', 'profilefields', 'contact'];
+    private $validForms = ['config', 'settings', 'mailtemplates', 'modules', 'users', 'profilefields', 'contact', 'headline'];
 
     /**
      * @param $form
@@ -79,6 +79,7 @@ class Process
         $res = [];
         switch ($form) {
             case "settings":
+            case "headline":
                 foreach ($_POST as $key => $value) {
                     if (strpos($key, "settings-") !== false) {
                         $setting = explode("-", $key);

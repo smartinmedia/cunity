@@ -2,7 +2,7 @@
     <thead>
         <tr>
             <th style="padding:10px;text-align:left">
-                <img src="http://cunity.net/img/logo.gif">
+                {-"core.headline"|setting|html_entity_decode}
             </th>
             <th style="text-align:left">
                 {-"core.mail_header"|setting}
