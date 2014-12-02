@@ -367,7 +367,7 @@ body:last-child .blueimp-gallery > .slides > .slide-error {
     padding: 2px;
 }
 
-@media screen and (min-width: 768px) {
+@media screen {
     .blueimp-gallery .modal-dialog {
         right: auto;
         left: auto;
