@@ -49,7 +49,7 @@
             {-/if}
             <ul class="nav nav-list mobile-menu"><li><a href="{-"index.php?m=start"|URL}"><i class="fa fa-home fa-fw"></i>&nbsp;{-"Startpage"|translate}</a></li></ul>
             <footer>
-                <small class="copyright">Powered by <a href="http://www.cunity.net" target="_blank">Cunity</a> &copy; {-$smarty.now|date_format:"%Y"} {-*<br>by <a href="http://www.smartinmedia.com" target="_blank">Smart In Media</a>*}</small>
+                <small class="copyright">Cunity &reg; powered by <a href="http://smartinmedia.com/" target="_blank">Smart In Media</a></small>
                 <ul class="footer-menu list-unstyled">
                     <li><a href="{-"index.php?m=pages&action=legalnotice"|URL}">{-"Legal-Notice"|translate}</a></li>
                     <li><a href="{-"index.php?m=pages&action=privacy"|URL}">{-"Privacy"|translate}</a></li>
@@ -139,7 +139,7 @@
                         </section>
                     {-/if}
                     <footer>
-                        <small class="copyright">Powered by <a href="http://www.cunity.net" target="_blank">Cunity</a> &copy; {-$smarty.now|date_format:"%Y"} {-*<br>by <a href="http://www.smartinmedia.com" target="_blank">Smart In Media</a>*}</small>
+                        <small class="copyright">Cunity &reg;<br />powered by <a href="http://smartinmedia.com/" target="_blank">Smart In Media</a></small>
                         <ul class="footer-menu list-unstyled">
                             {-foreach $menu->getFooterMenu()  AS $menuItem}
                                 {-if $menuItem.type=="module"}

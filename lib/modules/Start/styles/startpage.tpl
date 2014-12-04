@@ -69,7 +69,7 @@
     <button class="btn btn-default pull-right btn-large" data-toggle="modal"
             data-target="#loginModal">{-"Login"|translate}</button>
     <ul class="dropdown-menu" role="menu" aria-labelledby="infomenu" id="infomenu">
-        <li><a href="http://www.cunity.net">&copy; 2014 - Cunity</a></li>
+        <li><a href="http://www.cunity.net">&reg; 2014 - Cunity</a></li>
         <li class="divider"></li>
         <li><a href="{-"index.php?m=pages&action=legalnotice"|URL}">{-"Legal-Notice"|translate}</a></li>
         <li><a href="{-"index.php?m=pages&action=privacy"|URL}">{-"Privacy"|translate}</a></li>
@@ -86,8 +86,7 @@
         <li><a href="{-"index.php?m=pages&action=terms"|URL}">{-"Terms and Conditions"|translate}</a></li>
         <li>|</li>
         <li><a href="{-"index.php?m=contact"|URL}">{-"Contact"|translate}</a></li>
-        <li class="pull-right copyright-start">Powered by Cunity - &copy; {-$smarty.now|date_format:"%Y"} by Smart In
-            Media
+        <li class="pull-right copyright-start">Cunity &reg; powered by <a href="http://smartinmedia.com/" target="_blank">Smart In Media</a>
         </li>
     </ul>
 </footer>

@@ -150,9 +150,8 @@
                     src="{-"core.siteurl"|setting}style/CunityRefreshed/img/cunity-logo-sm.gif"></a>
 
         <div class="pull-left" style="padding: 4px 10px;font-size: 13px">
-            <small class="copyright">Powered by <a href="http://www.cunity.net" target="_blank">Cunity</a>
-                - &copy; {-$smarty.now|date_format:"%Y"}<br>by <a href="http://www.smartinmedia.com" target="_blank">Smart
-                    In Media</a></small>
+            <small class="copyright">Cunity &reg;<br />
+                powered by <a href="http://smartinmedia.com/" target="_blank">Smart In Media</a></small>
         </div>
     </footer>
 
