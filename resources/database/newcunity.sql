@@ -280,7 +280,7 @@ CREATE TABLE IF NOT EXISTS `TABLEPREFIXmodules` (
   `status`    TINYINT(1)              NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 )
-  ENGINE =MyISAMc
+  ENGINE =MyISAM
   DEFAULT CHARSET =utf8
   COLLATE =utf8_unicode_ci
   AUTO_INCREMENT =8;
