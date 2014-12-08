@@ -34,7 +34,11 @@
  */
 
 namespace Cunity\Admin\Helper;
+
+use Cunity\Admin\Models\Process;
+use Cunity\Admin\Models\Updater\DatabaseUpdater;
 use Cunity\Core\Cunity;
+use ZipArchive;
 
 /**
  * Class UpdateHelper
@@ -59,8 +63,7 @@ class UpdateHelper
      */
     public static function hasUpdates()
     {
-        $version = file_get_contents(self::$UPDATECHECKURL, 'r');
-        return version_compare(self::getVersion(), $version, '<');
+        return version_compare(self::getVersion(), self::getRemoteVersion(), '<');
     }
 
     /**
@@ -74,11 +77,36 @@ class UpdateHelper
         return $config->site->version;
     }
 
+    protected static function getRemoteVersion()
+    {
+        return file_get_contents(self::$UPDATECHECKURL, 'r');
+    }
+
     /**
      *
      */
     public static function update()
     {
+        $ch = curl_init(self::$LATESTURL);
+        $updateFile = __DIR__ . '/../../../../data/temp/latest.zip';
+        $targetFile = fopen($updateFile, 'w+');
+        curl_setopt($ch, CURLOPT_FILE, $targetFile);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 3600);
+        curl_exec($ch);
+        fclose($targetFile);
 
+        $zip = new ZipArchive();
+        $zip->open($updateFile);
+        $zip->extractTo(__DIR__ . '/../../../../');
+        $zip->close();
+
+        $configuration = [];
+        $configuration['site'] = [];
+        $configuration['site']['version'] = self::getRemoteVersion();
+        $config = new \Zend_Config_Xml(__DIR__.'/../../../../data/config.xml');
+        $configWriter = new \Zend_Config_Writer_Xml(["config" => new \Zend_Config(Process::arrayMergeRecursiveDistinct($config->toArray(), $configuration)), "filename" => __DIR__.'/../../../../data/config.xml']);
+        $configWriter->write();
+
+        $dbUpdater = new DatabaseUpdater();
     }
 }
