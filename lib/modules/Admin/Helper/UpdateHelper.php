@@ -94,6 +94,17 @@ class UpdateHelper
      */
     public static function update()
     {
+        $updateFile = self::getUpdateFile();
+        self::unpackUpdateFile($updateFile);
+        self::updateConfigFile();
+        new DatabaseUpdater();
+    }
+
+    /**
+     * @return string
+     */
+    private static function getUpdateFile()
+    {
         $ch = curl_init(self::$LATESTURL);
         $updateFile = __DIR__ . '/../../../../data/temp/latest.zip';
         $targetFile = fopen($updateFile, 'w+');
@@ -101,19 +112,30 @@ class UpdateHelper
         curl_setopt($ch, CURLOPT_TIMEOUT, 3600);
         curl_exec($ch);
         fclose($targetFile);
+        return $updateFile;
+    }
 
+    /**
+     * @param $updateFile
+     */
+    private static function unpackUpdateFile($updateFile)
+    {
         $zip = new ZipArchive();
         $zip->open($updateFile);
         $zip->extractTo(__DIR__ . '/../../../../');
         $zip->close();
+    }
 
+    /**
+     * @throws \Zend_Config_Exception
+     */
+    private static function updateConfigFile()
+    {
         $configuration = [];
         $configuration['site'] = [];
         $configuration['site']['version'] = self::getRemoteVersion();
         $config = new \Zend_Config_Xml(__DIR__ . '/../../../../data/config.xml');
         $configWriter = new \Zend_Config_Writer_Xml(["config" => new \Zend_Config(Process::arrayMergeRecursiveDistinct($config->toArray(), $configuration)), "filename" => __DIR__ . '/../../../../data/config.xml']);
         $configWriter->write();
-
-        new DatabaseUpdater();
     }
 }
