@@ -49,14 +49,14 @@ class UpdateHelper
     /**
      * @var string
      */
-    public static $UPDATECHECKURL = 'http://server.cunity.net/version.php';
-//    public static $UPDATECHECKURL = 'http://10.135.0.52/intra/version.php';
+//    public static $UPDATECHECKURL = 'http://server.cunity.net/version.php';
+    public static $UPDATECHECKURL = 'http://10.135.0.52/intra/version.php';
 
     /**
      * @var string
      */
-    public static $LATESTURL = 'http://server.cunity.net/latest.zip';
-//    public static $LATESTURL = 'http://10.135.0.52/intra/latest.zip';
+//    public static $LATESTURL = 'http://server.cunity.net/latest.zip';
+    public static $LATESTURL = 'http://10.135.0.52/intra/latest.zip';
 
     /**
      * @return mixed
@@ -77,6 +77,9 @@ class UpdateHelper
         return $config->site->version;
     }
 
+    /**
+     * @return string
+     */
     protected static function getRemoteVersion()
     {
         return file_get_contents(self::$UPDATECHECKURL, 'r');
@@ -103,10 +106,10 @@ class UpdateHelper
         $configuration = [];
         $configuration['site'] = [];
         $configuration['site']['version'] = self::getRemoteVersion();
-        $config = new \Zend_Config_Xml(__DIR__.'/../../../../data/config.xml');
-        $configWriter = new \Zend_Config_Writer_Xml(["config" => new \Zend_Config(Process::arrayMergeRecursiveDistinct($config->toArray(), $configuration)), "filename" => __DIR__.'/../../../../data/config.xml']);
+        $config = new \Zend_Config_Xml(__DIR__ . '/../../../../data/config.xml');
+        $configWriter = new \Zend_Config_Writer_Xml(["config" => new \Zend_Config(Process::arrayMergeRecursiveDistinct($config->toArray(), $configuration)), "filename" => __DIR__ . '/../../../../data/config.xml']);
         $configWriter->write();
 
-        $dbUpdater = new DatabaseUpdater();
+        new DatabaseUpdater();
     }
 }

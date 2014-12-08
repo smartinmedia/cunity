@@ -53,11 +53,8 @@ class Controller extends ModuleController
     public function __construct()
     {
         $action = $_GET['action'];
-
         if (isset($action) && $action !== '') {
-            if ($action != "update") {
-                Login::loginRequired();
-            }
+            Login::loginRequired();
 
             switch ($action) {
                 case 'login':

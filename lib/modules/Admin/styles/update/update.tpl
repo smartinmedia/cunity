@@ -11,7 +11,7 @@
                 <div class="panel-heading">{-"Update available"|translate }</div>
                 <div class="panel-body">
                     <p>{-"There is a new Version available. Click on the update button to automatically update your Cunity"|translate }</p>
-                    <button type="button" class="btn btn-danger">Update now</button>
+                    <button type="button" class="btn btn-danger" onclick="update();">Update now</button>
                 </div>
             </div>
         {-else }

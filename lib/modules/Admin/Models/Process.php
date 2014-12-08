@@ -36,6 +36,7 @@
 
 namespace Cunity\Admin\Models;
 
+use Cunity\Admin\Helper\UpdateHelper;
 use Cunity\Contact\Models\Db\Table\Contact;
 use Cunity\Core\Cunity;
 use Cunity\Core\Models\Db\Abstractables\Table;
@@ -54,7 +55,7 @@ class Process
     /**
      * @var array
      */
-    private $validForms = ['config', 'settings', 'mailtemplates', 'modules', 'users', 'profilefields', 'contact', 'headline'];
+    private $validForms = ['config', 'settings', 'mailtemplates', 'modules', 'users', 'profilefields', 'contact', 'headline', 'update'];
 
     /**
      * @param $form
@@ -103,6 +104,9 @@ class Process
                 Cunity::set('modules', new Modules());
                 $modules = Cunity::get("modules");
                 $modules->update(['status' => $_POST['status']], 'id = ' . $_POST['id']);
+                break;
+            case 'update':
+                UpdateHelper::update();
                 break;
             case 'users':
                 Cunity::set('users', new Users());
