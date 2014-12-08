@@ -80,7 +80,14 @@ class UpdateHelper
      */
     protected static function getRemoteVersion()
     {
-        return file_get_contents(self::$UPDATECHECKURL, 'r');
+        $context = array('http' =>
+            array(
+                'header' => 'Referer: http://'.
+                    $_SERVER['HTTP_HOST'].'/'.
+                    $_SERVER['REQUEST_URI']));
+        $xcontext = stream_context_create($context);
+
+        return file_get_contents(self::$UPDATECHECKURL, 'r', $xcontext);
     }
 
     /**
