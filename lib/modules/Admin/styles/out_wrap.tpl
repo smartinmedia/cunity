@@ -62,7 +62,7 @@
 
     </nav>
     <!-- /.navbar-static-top -->
-
+    {-if $isAdmin && $hasUpdate }<div class="alert alert-warning alert-dismissible" role="alert">New Update available</div>{-/if}
     <nav class="navbar-default navbar-static-side" role="navigation">
         <div class="sidebar-collapse">
             <ul class="nav" id="side-menu">

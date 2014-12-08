@@ -45,14 +45,14 @@ class UpdateHelper
     /**
      * @var string
      */
-//    public static $UPDATECHECKURL = 'http://server.cunity.net/version.php';
-    public static $UPDATECHECKURL = 'http://10.135.0.52/intra/version.php';
+    public static $UPDATECHECKURL = 'http://server.cunity.net/version.php';
+//    public static $UPDATECHECKURL = 'http://10.135.0.52/intra/version.php';
 
     /**
      * @var string
      */
-//    public static $LATESTURL = 'http://server.cunity.net/latest.zip';
-    public static $LATESTURL = 'http://10.135.0.52/intra/latest.zip';
+    public static $LATESTURL = 'http://server.cunity.net/latest.zip';
+//    public static $LATESTURL = 'http://10.135.0.52/intra/latest.zip';
 
     /**
      * @return mixed
