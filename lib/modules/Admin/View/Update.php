@@ -34,51 +34,19 @@
  * #####################################################################################
  */
 
-namespace Cunity\Admin;
+namespace Cunity\Admin\View;
 
-use Cunity\Core\Models\Request;
-use Cunity\Core\ModuleController;
-use Cunity\Register\Models\Login;
+use Cunity\Admin\View\Abstractables\View;
 
-/**
- * Class Controller
- * @package Cunity\Admin
- */
-class Controller extends ModuleController
+class Update extends View
 {
-
     /**
      *
      */
     public function __construct()
     {
-        $action = $_GET['action'];
-
-        if (isset($action) && $action !== '') {
-            if ($action != "update") {
-                Login::loginRequired();
-            }
-
-            switch ($action) {
-                case 'login':
-                    new Models\Login("login");
-                    break;
-                case 'save':
-                case 'delete':
-                case 'insert':
-                    new Models\Process($_REQUEST['form'], $action);
-                    break;
-                default:
-                    $model = "\Cunity\Admin\Models\\Pages\\" . ucfirst($action);
-                    if (!Models\Login::loggedIn()) {
-                        new View\Login();
-                    } elseif (Request::isAjaxRequest()) {
-                        new $model;
-                    }
-                    break;
-            }
-        } else {
-            new View\Admin();
-        }
+        parent::__construct();
+        $this->_templateFile = "update/" . $_GET['x'] . ".tpl";
+        $this->registerCss("update", $_GET['x']);
     }
 }

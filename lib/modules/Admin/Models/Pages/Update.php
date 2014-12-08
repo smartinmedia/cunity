@@ -34,51 +34,22 @@
  * #####################################################################################
  */
 
-namespace Cunity\Admin;
+namespace Cunity\Admin\Models\Pages;
 
-use Cunity\Core\Models\Request;
-use Cunity\Core\ModuleController;
-use Cunity\Register\Models\Login;
+use Cunity\Admin\Helper\UpdateHelper;
 
 /**
- * Class Controller
- * @package Cunity\Admin
+ * Class Update
+ * @package Cunity\Admin\Models\Pages
  */
-class Controller extends ModuleController
+class Update extends PageAbstract
 {
-
     /**
      *
      */
     public function __construct()
     {
-        $action = $_GET['action'];
-
-        if (isset($action) && $action !== '') {
-            if ($action != "update") {
-                Login::loginRequired();
-            }
-
-            switch ($action) {
-                case 'login':
-                    new Models\Login("login");
-                    break;
-                case 'save':
-                case 'delete':
-                case 'insert':
-                    new Models\Process($_REQUEST['form'], $action);
-                    break;
-                default:
-                    $model = "\Cunity\Admin\Models\\Pages\\" . ucfirst($action);
-                    if (!Models\Login::loggedIn()) {
-                        new View\Login();
-                    } elseif (Request::isAjaxRequest()) {
-                        new $model;
-                    }
-                    break;
-            }
-        } else {
-            new View\Admin();
-        }
+        $this->assignments['hasUpdate'] = UpdateHelper::hasUpdates();
+        $this->render("update");
     }
 }

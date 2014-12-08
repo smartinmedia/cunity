@@ -118,6 +118,10 @@
                     <a data-cat="mailing" data-page="contact"><i
                                 class="fa fa-envelope-o fa-fw"></i>&nbsp;{-"Messages"|translate}</a>
                 </li>
+                <li>
+                    <a data-cat="update" data-page="update"><i
+                                class="fa fa-undo fa-fw"></i>&nbsp;{-"Update"|translate}</a>
+                </li>
                 {-*<li>*}
                     {-*<a href="#" class="dropdown"><i class="fa fa-bar-chart-o fa-fw"></i> {-"Statistics"|translate}<span*}
                                 {-*class="fa arrow"></span></a>*}

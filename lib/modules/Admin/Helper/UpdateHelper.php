@@ -1,5 +1,4 @@
 <?php
-
 /**
  * ########################################################################################
  * ## CUNITY(R) V2.0 - An open source social network / "your private social network"     ##
@@ -34,51 +33,52 @@
  * #####################################################################################
  */
 
-namespace Cunity\Admin;
-
-use Cunity\Core\Models\Request;
-use Cunity\Core\ModuleController;
-use Cunity\Register\Models\Login;
+namespace Cunity\Admin\Helper;
+use Cunity\Core\Cunity;
 
 /**
- * Class Controller
- * @package Cunity\Admin
+ * Class UpdateHelper
+ * @package Cunity\Admin\Helper
  */
-class Controller extends ModuleController
+class UpdateHelper
 {
+    /**
+     * @var string
+     */
+//    public static $UPDATECHECKURL = 'http://server.cunity.net/version.php';
+    public static $UPDATECHECKURL = 'http://10.135.0.52/intra/version.php';
+
+    /**
+     * @var string
+     */
+//    public static $LATESTURL = 'http://server.cunity.net/latest.zip';
+    public static $LATESTURL = 'http://10.135.0.52/intra/latest.zip';
+
+    /**
+     * @return mixed
+     */
+    public static function hasUpdates()
+    {
+        $version = file_get_contents(self::$UPDATECHECKURL, 'r');
+        return version_compare(self::getVersion(), $version, '<');
+    }
+
+    /**
+     * @return mixed
+     * @throws \Cunity\Core\Exception
+     */
+    public static function getVersion()
+    {
+        $config = Cunity::get("config");
+
+        return $config->site->version;
+    }
 
     /**
      *
      */
-    public function __construct()
+    public static function update()
     {
-        $action = $_GET['action'];
 
-        if (isset($action) && $action !== '') {
-            if ($action != "update") {
-                Login::loginRequired();
-            }
-
-            switch ($action) {
-                case 'login':
-                    new Models\Login("login");
-                    break;
-                case 'save':
-                case 'delete':
-                case 'insert':
-                    new Models\Process($_REQUEST['form'], $action);
-                    break;
-                default:
-                    $model = "\Cunity\Admin\Models\\Pages\\" . ucfirst($action);
-                    if (!Models\Login::loggedIn()) {
-                        new View\Login();
-                    } elseif (Request::isAjaxRequest()) {
-                        new $model;
-                    }
-                    break;
-            }
-        } else {
-            new View\Admin();
-        }
     }
 }
