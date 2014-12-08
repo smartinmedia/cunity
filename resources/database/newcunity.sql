@@ -415,7 +415,7 @@ CREATE TABLE IF NOT EXISTS `TABLEPREFIXrelations` (
 CREATE TABLE IF NOT EXISTS `TABLEPREFIXsettings` (
   `name`  VARCHAR(30)
           COLLATE utf8_unicode_ci NOT NULL,
-  `value` VARCHAR(100)
+  `value` TEXT
           COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`name`)
 )
