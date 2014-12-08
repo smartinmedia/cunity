@@ -82,7 +82,7 @@ class UpdateHelper
     {
         $context = array('http' =>
             array(
-                'header' => 'Referer: http://'.
+                'header' => 'Referer: http://' .
                     $_SERVER['HTTP_HOST']));
         $xcontext = stream_context_create($context);
 
