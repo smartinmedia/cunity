@@ -39,6 +39,7 @@ namespace Cunity\Admin\Helper;
 use Cunity\Admin\Models\Process;
 use Cunity\Admin\Models\Updater\DatabaseUpdater;
 use Cunity\Core\Cunity;
+use Cunity\Core\Helper\UserHelper;
 use ZipArchive;
 
 /**
@@ -62,6 +63,10 @@ class UpdateHelper
      */
     public static function hasUpdates()
     {
+        if (!UserHelper::isAdmin()) {
+            return false;
+        }
+
         return version_compare(self::getVersion(), self::getRemoteVersion(), '<');
     }
 
