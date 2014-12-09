@@ -84,7 +84,7 @@ class UpdateHelper
 
         $context = array('http' =>
             array(
-                'header' => 'Referer: http://' .
+                'header' => 'Referer: ' .
                     $settings->getSetting('core.siteurl')));
         $xcontext = stream_context_create($context);
 
