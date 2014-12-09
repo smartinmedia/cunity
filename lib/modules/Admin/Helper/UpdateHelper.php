@@ -1,4 +1,5 @@
 <?php
+
 /**
  * ########################################################################################
  * ## CUNITY(R) V2.0 - An open source social network / "your private social network"     ##
@@ -78,17 +79,23 @@ class UpdateHelper
     /**
      * @return string
      */
-    protected static function getRemoteVersion()
+    protected static function getRemoteVersion($force = false)
     {
         $settings = Cunity::get("settings");
 
-        $context = array('http' =>
-            array(
-                'header' => 'Referer: ' .
-                    $settings->getSetting('core.siteurl')));
-        $xcontext = stream_context_create($context);
+        if ($settings->getSetting('core.lastupdatecheck') < mktime(0, 0, 1, date('m'), date('d'), date('Y')) ||
+            $force
+        ) {
+            $context = array('http' =>
+                array(
+                    'header' => 'Referer: ' .
+                        $settings->getSetting('core.siteurl')));
+            $xcontext = stream_context_create($context);
+            $settings->setSetting('core.remoteversion', file_get_contents(self::$UPDATECHECKURL, 'r', $xcontext));
+            $settings->setSetting('core.lastupdatecheck', time());
+        }
 
-        return file_get_contents(self::$UPDATECHECKURL, 'r', $xcontext);
+        return $settings->getSetting('core.remoteversion');
     }
 
     /**
@@ -100,6 +107,7 @@ class UpdateHelper
         self::unpackUpdateFile($updateFile);
         self::updateConfigFile();
         new DatabaseUpdater();
+        self::getRemoteVersion(true);
     }
 
     /**
