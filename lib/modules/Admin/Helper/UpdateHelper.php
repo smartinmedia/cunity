@@ -80,10 +80,12 @@ class UpdateHelper
      */
     protected static function getRemoteVersion()
     {
+        $settings = Cunity::get("settings");
+
         $context = array('http' =>
             array(
                 'header' => 'Referer: http://' .
-                    $_SERVER['HTTP_HOST']));
+                    $settings->getSetting('core.siteurl')));
         $xcontext = stream_context_create($context);
 
         return file_get_contents(self::$UPDATECHECKURL, 'r', $xcontext);
