@@ -3,12 +3,13 @@
     <div class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-body" style="padding: 10 !important">
+                <div class="modal-body" style="padding: 0 !important">
                     <div class="modal-body-content">
-                        <button type="button" class="close" aria-hidden="true">&times;</button>
+                        <button type="button" class="close hidden-xs" aria-hidden="true">&times;</button>
                         <div class=" block-loader image-loading"></div>
                         <div class="modal-body-info hidden">
                             <div class="userinfo clearfix">
+                            <button type="button" class="close visible-xs" aria-hidden="true">&times;</button>
                                 <img src="" class="thumbnail pull-left">
 
                                 <div class="userbox pull-right">
@@ -43,9 +44,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="socialbox commentbox">
-                                <div class="comments"><button style="margin-bottom:10px" class="btn btn-xs btn-default btn-block morecomments hidden" data-id="{%=o.id%}" data-type="{%=o.type%}" id="comments-more-{%=o.id%}"><i class="fa fa-clock-o"></i>&nbsp;{-"Load more comments"|translate}</button><div class="list"></div></div>
-                            </div>
                             <div class="newimagebox">
                                 <div class="image-comment clearfix">
                                     <img src="{-$user.pimg|image:"user":"cr_"}" class="avatar thumbnail pull-left">
@@ -55,6 +53,9 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="socialbox commentbox">
+                                <div class="comments"><button style="margin-bottom:10px" class="btn btn-xs btn-default btn-block morecomments hidden" data-id="{%=o.id%}" data-type="{%=o.type%}" id="comments-more-{%=o.id%}"><i class="fa fa-clock-o"></i>&nbsp;{-"Load more comments"|translate}</button><div class="list"></div></div>
+                            </div>                            
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default pull-left prev"><i class="fa fa-chevron-left"></i>&nbsp;{-"Previous"|translate}</button>
