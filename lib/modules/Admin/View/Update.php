@@ -34,30 +34,19 @@
  * #####################################################################################
  */
 
-namespace Cunity\Core\Helper;
+namespace Cunity\Admin\View;
 
-use Cunity\Core\Exception;
+use Cunity\Admin\View\Abstractables\View;
 
-/**
- * Class UserHelper
- */
-class UserHelper
+class Update extends View
 {
     /**
      *
      */
-    public static function breakOnMissingUserId()
+    public function __construct()
     {
-        if (!isset($_POST['userid'])) {
-            new Exception("No userid given!");
-        }
-    }
-
-    /**
-     * @return bool
-     */
-    public static function isAdmin()
-    {
-        return (array_key_exists('user', $_SESSION) && $_SESSION['user']->groupid === 3);
+        parent::__construct();
+        $this->_templateFile = "update/" . $_GET['x'] . ".tpl";
+        $this->registerCss("update", $_GET['x']);
     }
 }

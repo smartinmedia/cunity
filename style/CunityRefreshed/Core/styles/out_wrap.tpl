@@ -70,9 +70,10 @@
                     <ul class="dropdown-menu" role="menu" aria-labelledby="option-drop" id="mobile-option"></ul>
                 {-/if}
             </div>
-            <div class="head-shadow"></div>        
+            <div class="head-shadow"></div>
             <div class="main clearfix">
                 <div class="sidebar pull-left left-sidebar">
+                    {-if $isAdmin && $hasUpdate }<div class="alert alert-warning alert-dismissible" role="alert">New Update available</div>{-/if}
                     {-if !empty($user)}
                         <section class="mini-profile media" title="Your short profile">
                             <div class="pull-left">
@@ -153,7 +154,7 @@
                         </ul>
                     </footer>
                 </div>
-                <div class="content pull-left">                    
+                <div class="content pull-left">
                     {-include file="$tpl_name"}
                     {-if empty($user)}
                         <section title="Login" class="mobile-login">                            
@@ -217,6 +218,5 @@
                 {-include file="Search/styles/livesearch.tpl"}
                 {-include file="Notifications/styles/notification-popover.tpl"}                
                 {-include file="Messages/styles/message-modal.tpl"}
-
     </body>
 </html>

@@ -62,7 +62,7 @@
 
     </nav>
     <!-- /.navbar-static-top -->
-
+    {-if $isAdmin && $hasUpdate }<div class="alert alert-warning alert-dismissible" role="alert">New Update available</div>{-/if}
     <nav class="navbar-default navbar-static-side" role="navigation">
         <div class="sidebar-collapse">
             <ul class="nav" id="side-menu">
@@ -117,6 +117,10 @@
                 <li>
                     <a data-cat="mailing" data-page="contact"><i
                                 class="fa fa-envelope-o fa-fw"></i>&nbsp;{-"Messages"|translate}</a>
+                </li>
+                <li>
+                    <a data-cat="update" data-page="update"><i
+                                class="fa fa-undo fa-fw"></i>&nbsp;{-"Update"|translate}</a>
                 </li>
                 {-*<li>*}
                     {-*<a href="#" class="dropdown"><i class="fa fa-bar-chart-o fa-fw"></i> {-"Statistics"|translate}<span*}

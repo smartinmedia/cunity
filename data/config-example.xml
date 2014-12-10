@@ -37,6 +37,7 @@
     <site>
         <tpl_debug>0</tpl_debug>
         <upload_limit>10MB</upload_limit>
+        <version>2.0.0</version>
     </site>
     <registerFunctions>
         <module>Search</module>

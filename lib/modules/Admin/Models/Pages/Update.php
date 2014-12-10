@@ -34,30 +34,22 @@
  * #####################################################################################
  */
 
-namespace Cunity\Core\Helper;
+namespace Cunity\Admin\Models\Pages;
 
-use Cunity\Core\Exception;
+use Cunity\Admin\Helper\UpdateHelper;
 
 /**
- * Class UserHelper
+ * Class Update
+ * @package Cunity\Admin\Models\Pages
  */
-class UserHelper
+class Update extends PageAbstract
 {
     /**
      *
      */
-    public static function breakOnMissingUserId()
+    public function __construct()
     {
-        if (!isset($_POST['userid'])) {
-            new Exception("No userid given!");
-        }
-    }
-
-    /**
-     * @return bool
-     */
-    public static function isAdmin()
-    {
-        return (array_key_exists('user', $_SESSION) && $_SESSION['user']->groupid === 3);
+        $this->assignments['hasUpdate'] = UpdateHelper::hasUpdates();
+        $this->render("update");
     }
 }
