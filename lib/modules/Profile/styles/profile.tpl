@@ -183,15 +183,22 @@
                     <div class="clearfix newsfeed-post-video-box hidden"></div>
                 </div>
                 <div class="btn-group pull-right hidden newsfeed-post-buttons">
-                    <button class="btn btn-primary tooltip-trigger" type="button"
-                            data-title="{-$profile.name}&nbsp;{-"decides who is allowed to see this post!"|translate}">
-                        <span class="fa fa-lock"></span></button>
-                    <input type="hidden" name="privacy"
-                           value="{-if $profile.privacy.post eq 3}0{-elseif $profile.privacy.post eq 1}1{-else}2{-/if}"
-                           id="postPrivacy">
+                    <button class="btn btn-primary tooltip-trigger"
+                            data-title="{-"Select who will be allowed to see this post"|translate}" data-toggle="dropdown"><span
+                                class="fa fa-lock"></span>&nbsp;<i class="caret"></i></button>
+                    <input type="hidden" name="privacy" value="0" id="postPrivacy">
                     <button class="btn btn-primary newsfeed-post-button" type="submit" id="newsfeed-post-button"><span
                                 class="fa fa-comment"></span>&nbsp;{-"Post"|translate}!
                     </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="privacy-dropdown">
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:selectPostPrivacy(0);"><i
+                                        class="fa fa-globe fa-fw"></i>&nbsp;{-"Public"|translate}</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:selectPostPrivacy(1);"><i
+                                        class="fa fa-users fa-fw"></i>&nbsp;{-"Friends"|translate}</a></li>
+                        <li role="presentation" class="divider"></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:selectPostPrivacy(2);"><i
+                                        class="fa fa-user fa-fw"></i>&nbsp;{-"Only Me"|translate}</a></li>
+                    </ul>
                 </div>
             </form>
             {-include file="Newsfeed/styles/newsfeed-templates.tpl"}
