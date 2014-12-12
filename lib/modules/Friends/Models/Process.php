@@ -38,6 +38,7 @@ namespace Cunity\Friends\Models;
 
 use Cunity\Core\Exception;
 use Cunity\Core\View\Ajax\View;
+use Cunity\Friends\Helper\RelationShipHelper;
 use Cunity\Friends\Models\Db\Table\Relationships;
 
 /**

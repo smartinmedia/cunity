@@ -34,7 +34,7 @@
  * #####################################################################################
  */
 
-namespace Cunity\Friends\Models;
+namespace Cunity\Friends\Helper;
 
 use Cunity\Core\Exception;
 use Cunity\Core\Helper\UserHelper;
