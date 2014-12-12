@@ -86,8 +86,8 @@ class View extends \Cunity\Core\View\View
         echo(
         json_encode(
             array_merge(
-                ["status" => $this->_status],
-                $this->_values
+                $this->_values,
+                ["status" => $this->_status]
             )
         )
         );
