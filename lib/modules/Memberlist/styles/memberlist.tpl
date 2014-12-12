@@ -42,7 +42,7 @@
                                 class="fa fa-eraser"></i> {-"Unblock"|translate}</a></li>
             </ul>
         </div>
-        <div class="pull-right request-buttons btn-group btn-group-sm friend-buttons{% if (o.status != 1 || o.sender != userid){ %} hidden{% } %}">
+        <div class="pull-right request-buttons btn-group btn-group-sm friend-buttons{% if (o.status != 1 && o.sender != userid){ %} hidden{% } %}">
             <button class="btn btn-default" data-userid="{%=o.userid%}" data-parent="#searchresult-item-{%=o.userid%}"
                     data-action="confirmfriend" data-toggle="modal" data-target="#relationship-modal"><span
                         class="fa fa-question"></span> {-"Answer Request"|translate}</button>
@@ -58,7 +58,7 @@
                                 class="fa fa-ban"></i> {-"Block Person"|translate}</a></li>
             </ul>
         </div>
-        <div class="pull-right pending-buttons btn-group btn-group-sm friend-buttons{% if (o.status != 1 || o.sender == userid){ %} hidden{% } %}">
+        <div class="pull-right pending-buttons btn-group btn-group-sm friend-buttons{% if (o.status != 1 && o.sender == userid){ %} hidden{% } %}">
             <button class="btn btn-default"><span class="fa fa-clock-o"></span> {-"Request pending"|translate}</button>
             <button class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
             <ul class="dropdown-menu">
