@@ -40,7 +40,7 @@
             {-if !empty($user)}
                 <ul class="head-menu list-unstyled list-inline">
                     <li><a href="#"><i class="fa fa-search"></i></a></li>
-                    <li class="notification-link-general"><a href="javascript:getNotification('general');"><i class="fa fa-bell"></i></a></li>                    
+                    <li class="notification-link-general"><a href="javascript:getNotification('general');"><i class="fa fa-bell"></i></a></li>
                 </ul>   
                 <section class="mini-profile clearfix" title="Your short profile">
                     <img src="{-$user.pimg|image:"user":"cr_"}" alt="{-"Your Profile"|translate}" class="pull-left img-rounded thumbnail">
