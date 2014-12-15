@@ -217,7 +217,7 @@ class Users extends Table
      */
     protected function getGallery(array $fields)
     {
-        $query = $this->select()->setIntegrityCheck(false)->from(["u" => $this->getTableName()], $fields)
+        $query = $this->select()->setIntegrityCheck(false)->from(["u" => $this->getTableName()])
             ->joinLeft(["r" => $this->_dbprefix . "relations"], "(r.receiver = " . $this->getAdapter()->quote($_SESSION['user']->userid) . " AND r.sender = u.userid) OR (r.sender = " . $this->getAdapter()->quote($_SESSION['user']->userid) . " AND r.receiver = u.userid)")
             ->joinLeft(["pi" => $this->_dbprefix . "gallery_images"], "pi.id = u.profileImage", ['filename AS pimg', 'albumid AS palbumid'])
             ->joinLeft(["ti" => $this->_dbprefix . "gallery_images"], "ti.id = u.titleImage", ["filename AS timg", "albumid AS talbumid"])
