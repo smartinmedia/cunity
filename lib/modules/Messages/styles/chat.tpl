@@ -31,7 +31,7 @@
            id="chat-user-{%=o.userid%}">
             <img src="{%=checkImage(o.pimg,'user','cr_')%}" class="img-rounded pull-left">
             <span class="pull-left online-friend-item-name">{%=o.name%}</span>
-            <i class="fa online-friend-item-status-{% if (o.online == 1 && o.onlineStatus == 1 && o.chat_available == 1) { %}active fa-circle{% } else if (o.online == 1 && o.onlineStatus == 0 && o.chat_available == 1){ %}inactive fa-circle{% } else { %}offline fa-circle-o{% } %} pull-right"></i>
+            <i class="fa online-friend-item-status-{% if (o.onlineStatus == 1 && o.chat_available == 1) { %}active fa-circle{% } else if (o.onlineStatus == 0 && o.chat_available == 1){ %}inactive fa-circle{% } else { %}offline fa-circle-o{% } %} pull-right"></i>
         </a>
     </li>
 </script>
