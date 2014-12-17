@@ -81,7 +81,7 @@
         <img src="{%=checkImage(o.filename,'user','cr_')%}" class="avatar pull-left">
         <div class="content-box pull-right">
             {% if (o.userid == {-$user.userid} || o.ref.userid == {-$user.userid}) { %}
-            <a href="javascript:deleteComment({%=o.id%})" class="close tooltip-trigger" title="{-"Delete this comment"|translate}">&times</a>
+            <a onclick="javascript:deleteComment({%=o.id%});" class="close tooltip-trigger" title="{-"Delete this comment"|translate}">&times</a>
             {% } %}
             <a href="{-"index.php?m=profile&action="|URL}{%=o.username%}">{%=o.name%}</a>
             <span class="message">{%=o.content%}</span>
