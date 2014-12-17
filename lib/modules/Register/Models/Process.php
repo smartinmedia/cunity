@@ -206,6 +206,10 @@ class Process
      */
     private function reset()
     {
+        if (Login::loggedIn()) {
+            header("Location:" . Url::convertUrl("index.php?m=profile"));
+            exit;
+        }
         $register = new Register();
         $register->reset();
     }
