@@ -108,6 +108,7 @@ class UpdateHelper
      */
     public static function update()
     {
+        set_time_limit(0);
         $updateFile = self::getUpdateFile();
         self::unpackUpdateFile($updateFile);
         self::updateConfigFile();
