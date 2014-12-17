@@ -178,7 +178,8 @@
                     <div class="pull-left newsfeed-post-file-input">
                         <span class="loader-small hidden"></span>
                         <button class="btn btn-primary hidden" id="newsfeed-upload" type="button"><i
-                                    class="fa fa-upload"></i>&nbsp;{-"Select Photo"|translate}</button>
+                                    class="fa fa-search"></i>&nbsp;{-"Select Photo"|translate}</button>
+                        <span class="text-muted" id="selected-file"></span>
                     </div>
                     <div class="clearfix newsfeed-post-video-box hidden"></div>
                 </div>
