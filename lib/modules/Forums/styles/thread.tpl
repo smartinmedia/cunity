@@ -115,7 +115,7 @@
                 {%#o.content%}
             </div>
             <div class="media-button-line">
-                {% if (2<{-$user.groupid} || o.userid == {-$user.userid}) { %}
+                {% if (2<{-$user.groupid}) { %}
                 <button class="btn btn-primary btn-xs pull-right deletepost" data-postid="{%=o.id%}"><i
                         class="fa fa-trash-o"></i>&nbsp;{-"Delete post"|translate}</button>{% } %}
                 <button class="btn btn-default btn-xs pull-right" onclick="citePost(Number('{%=o.id%}'));"><i
