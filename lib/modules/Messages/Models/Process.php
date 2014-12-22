@@ -197,17 +197,14 @@ class Process
         $table = new Db\Table\Conversations();
         $conversations = $table->loadConversations($_SESSION['user']->userid);
         $view = new View(true);
+        $userid = false;
         foreach ($conversations as $i => $conv) {
             $details = $table->loadConversationDetails($conv['conversation_id']);
             if ($details['users'] !== null) {
-                if (strpos($details['users'], ',') !== false) {
-                    $userid = explode(",", $details['users']);
-                } elseif (strpos($details['users'], '|') !== false) {
-                    $userid = explode("|", $details['users']);
-                }
+                $userid = $this->findConversationUser($details);
 
                 /** @noinspection PhpUndefinedMethodInspection */
-                $conversations[$i]['users'] = $_SESSION['user']->getTable()->get($userid[1])->toArray(["pimg", "name"]);
+                $conversations[$i]['users'] = $_SESSION['user']->getTable()->get($userid)->toArray(["pimg", "name"]);
             }
         }
         $view->addData(["conversations" => $conversations]);
@@ -259,5 +256,29 @@ class Process
         $conversation = new Db\Table\Conversations();
         $view = new View($conversation->markAsRead($_POST['conversation_id']));
         $view->sendResponse();
+    }
+
+    /**
+     * @param $details
+     * @return array
+     */
+    private function findConversationUser($details)
+    {
+        $userid = 0;
+
+        if (strpos($details['users'], ',') !== false) {
+            $userid = explode(",", $details['users']);
+        } elseif (strpos($details['users'], '|') !== false) {
+            $userid = explode("|", $details['users']);
+        }
+
+        foreach ($userid as $id) {
+            if ($id != $_SESSION['user']->userid) {
+                $userid = $id;
+                break;
+            }
+        }
+
+        return $userid;
     }
 }
