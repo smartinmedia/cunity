@@ -217,7 +217,7 @@
             <section title="upcoming events" style="min-height: 500px;">
                 <h3 class="sidebar-header"><i class="fa fa-filter fa-fw"></i>&nbsp;{-"Filter posts"|translate}</h3>
 
-                <div class="btn-group btn-group-justified" data-toggle="buttons">
+                <div class="btn-group btn-group-justified" data-toggle="buttons" style="z-index: 0">
                     <label class="btn btn-default tooltip-trigger active" data-title="{-"Show posts"|translate}">
                         <input type="checkbox" class="newsfeed-filter" checked value="post"><i
                                 class="fa fa-fw fa-comment"></i>
