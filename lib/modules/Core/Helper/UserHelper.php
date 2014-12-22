@@ -58,6 +58,6 @@ class UserHelper
      */
     public static function isAdmin()
     {
-        return UserHelper::isAdmin();
+        return (array_key_exists('user', $_SESSION) && $_SESSION['user']->groupid === 3);
     }
 }

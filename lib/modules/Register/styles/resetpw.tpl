@@ -46,7 +46,7 @@
     <div class="form-group" style="margin-bottom:0">
         <div class="col-lg-offset-4 col-lg-6">
             <button class="btn btn-primary btn-block pull-right" type="submit"
-                    data-loading-text="{-"Checking..."|translate}">{-"Register"|translate}</button>
+                    data-loading-text="{-"Checking..."|translate}">{-"Reset"|translate}</button>
         </div>
     </div>
 </form>

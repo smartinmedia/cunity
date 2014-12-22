@@ -66,6 +66,7 @@
             <div class="modal-body">
                 <form class="form-horizontal ajaxform" id="startThreadForm" role="form"
                       action="{-"index.php?m=forums&action=startThread"|URL}" method="post">
+                    {-*<input type="hidden" name="category" value="" />*}
                     <div class="form-group">
                         <label for="thread-title" class="col-sm-2 control-label">{-"Title"|translate}</label>
 
@@ -81,18 +82,18 @@
                             <input name="content" type="text" id="startThreadForm-summernote">
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="thread-category" class="col-sm-2 control-label">{-"Category"|translate}</label>
+                    {-*<div class="form-group">*}
+                        {-*<label for="thread-category" class="col-sm-2 control-label">{-"Category"|translate}</label>*}
 
-                        <div class="col-sm-10">
-                            <select class="form-control" id="thread-category" name="category">
-                                <option value="">{-"Select a category"|translate}</option>
-                                {-foreach $categories AS $cat}
-                                <option value="{-$cat.id}">{-$cat.name}</option>
-                                {-/foreach}
-                            </select>
-                        </div>
-                    </div>
+                        {-*<div class="col-sm-10">*}
+                            {-*<select class="form-control" id="thread-category" name="category">*}
+                                {-*<option value="">{-"Select a category"|translate}</option>*}
+                                {-*{-foreach $categories AS $cat}*}
+                                {-*<option value="{-$cat.id}">{-$cat.name}</option>*}
+                                {-*{-/foreach}*}
+                            {-*</select>*}
+                        {-*</div>*}
+                    {-*</div>*}
                     {-if $user.groupid > 2}
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">

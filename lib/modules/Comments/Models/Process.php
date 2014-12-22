@@ -35,8 +35,7 @@
  */
 
 namespace Cunity\Comments\Models;
-
-use Cunity\Core\Helper\AbstractCommentsHelper;
+use Cunity\Comments\Helper\AbstractCommentsHelper;
 
 /**
  * Class Process

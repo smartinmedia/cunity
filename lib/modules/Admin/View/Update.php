@@ -34,25 +34,19 @@
  * #####################################################################################
  */
 
-use Cunity\Admin\Models\Updater\DbCommandInterface;
-use Cunity\Admin\Models\Updater\DbUpdateVersion;
+namespace Cunity\Admin\View;
 
-/**
- * Class Version1413270654
- */
-class Version1413270654 extends DbUpdateVersion implements DbCommandInterface
+use Cunity\Admin\View\Abstractables\View;
+
+class Update extends View
 {
-
-    /**
-     * @var int
-     */
-    protected $_timestamp = 1413270654;
-
     /**
      *
      */
-    public function execute()
+    public function __construct()
     {
-        $this->_db->query("ALTER TABLE  " . $this->_db->getDbprefix() . "profilefields_types CHANGE  VALUE  VALUE VARCHAR( 255 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL ;");
+        parent::__construct();
+        $this->_templateFile = "update/" . $_GET['x'] . ".tpl";
+        $this->registerCss("update", $_GET['x']);
     }
 }

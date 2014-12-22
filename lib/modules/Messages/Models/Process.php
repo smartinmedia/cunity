@@ -36,6 +36,7 @@
 
 namespace Cunity\Messages\Models;
 
+use Cunity\Core\Helper\UserHelper;
 use Cunity\Core\View\Ajax\View;
 use Cunity\Friends\Models\Db\Table\Relationships;
 use Cunity\Messages\Models\Db\Table\Conversations;
@@ -197,10 +198,14 @@ class Process
         $conversations = $table->loadConversations($_SESSION['user']->userid);
         $view = new View(true);
         foreach ($conversations as $i => $conv) {
-            if ($conv['users'] !== null && strpos($conv['users'], ",") === false) {
-                $userid = explode("|", $conv['users']);
-                /** @noinspection PhpUndefinedMethodInspection */
-                $conversations[$i]['users'] = $_SESSION['user']->getTable()->get($userid[1])->toArray(["pimg", "name"]);
+            $details = $table->loadConversationDetails($conv['conversation_id']);
+            if ($details['users'] !== null) {
+                $userid = $this->findConversationUser($details);
+
+                if ($userid !== null) {
+                    /** @noinspection PhpUndefinedMethodInspection */
+                    $conversations[$i]['users'] = $_SESSION['user']->getTable()->get($userid)->toArray(["pimg", "name"]);
+                }
             }
         }
         $view->addData(["conversations" => $conversations]);
@@ -252,5 +257,29 @@ class Process
         $conversation = new Db\Table\Conversations();
         $view = new View($conversation->markAsRead($_POST['conversation_id']));
         $view->sendResponse();
+    }
+
+    /**
+     * @param $details
+     * @return array
+     */
+    private function findConversationUser($details)
+    {
+        $userid = [];
+        $id = null;
+
+        if (strpos($details['users'], ',') !== false) {
+            $userid = explode(",", $details['users']);
+        } elseif (strpos($details['users'], '|') !== false) {
+            $userid = explode("|", $details['users']);
+        }
+
+        foreach ($userid as $id) {
+            if ($id != $_SESSION['user']->userid) {
+                break;
+            }
+        }
+
+        return $id;
     }
 }

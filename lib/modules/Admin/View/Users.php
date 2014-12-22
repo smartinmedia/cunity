@@ -44,7 +44,6 @@ use Cunity\Admin\View\Abstractables\View;
  */
 class Users extends View
 {
-
     /**
      *
      */

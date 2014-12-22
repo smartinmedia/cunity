@@ -16,7 +16,7 @@
             <link rel="stylesheet" type="text/css" href="{-"core.siteurl"|setting}lib/modules/Core/styles/css/cunity.min.css.php?files={-$css_head}">
         {-/if}
         <script src="{-"core.siteurl"|setting}lib/plugins/js/jquery.min.js" type="text/javascript"></script>
-        <script type="text/javascript">var modrewrite = {-$modrewrite}, siteurl = "{-"core.siteurl"|setting}", userid = {-$user.userid}, design = "CunityRefreshed", login = {-if empty($user)}false{-else}true{-/if};</script>
+        <script type="text/javascript">var modrewrite = {-$modrewrite}, siteurl = "{-"core.siteurl"|setting}", userid = parseInt("{-$user.userid}"), design = "CunityRefreshed", login = {-if empty($user)}false{-else}true{-/if};</script>
         {-*<script src="{-"core.siteurl"|setting}style/CunityRefreshed/javascript/jquery.touchSwipe.min.js"></script>*}
         <script src="{-"core.siteurl"|setting}lib/plugins/js/jquery.mousewheel.min.js" type="text/javascript"></script>
         <script src="{-"core.siteurl"|setting}lib/modules/Core/styles/javascript/cunity-core.js" type="text/javascript"></script>                
@@ -33,14 +33,14 @@
     <body>        
         <div class="head">
             <div class="content">
-                <div class="headline"><a href="{-"core.siteurl"|setting}"><img src="http://cunity.net/img/logo.gif"></a></div>
+                <div class="headline"><a href="{-"core.siteurl"|setting}">{-"core.headline"|setting|html_entity_decode}</a></div>
             </div>
         </div>
         <nav id="mobile-slide-nav">
             {-if !empty($user)}
                 <ul class="head-menu list-unstyled list-inline">
                     <li><a href="#"><i class="fa fa-search"></i></a></li>
-                    <li class="notification-link-general"><a href="javascript:getNotification('general');"><i class="fa fa-bell"></i></a></li>                    
+                    <li class="notification-link-general"><a href="javascript:getNotification('general');"><i class="fa fa-bell"></i></a></li>
                 </ul>   
                 <section class="mini-profile clearfix" title="Your short profile">
                     <img src="{-$user.pimg|image:"user":"cr_"}" alt="{-"Your Profile"|translate}" class="pull-left img-rounded thumbnail">
@@ -49,7 +49,7 @@
             {-/if}
             <ul class="nav nav-list mobile-menu"><li><a href="{-"index.php?m=start"|URL}"><i class="fa fa-home fa-fw"></i>&nbsp;{-"Startpage"|translate}</a></li></ul>
             <footer>
-                <small class="copyright">Powered by <a href="http://www.cunity.net" target="_blank">Cunity</a> &copy; {-$smarty.now|date_format:"%Y"} {-*<br>by <a href="http://www.smartinmedia.com" target="_blank">Smart In Media</a>*}</small>
+                <small class="copyright">Cunity &reg; powered by <a href="http://smartinmedia.com/" target="_blank">Smart In Media</a></small>
                 <ul class="footer-menu list-unstyled">
                     <li><a href="{-"index.php?m=pages&action=legalnotice"|URL}">{-"Legal-Notice"|translate}</a></li>
                     <li><a href="{-"index.php?m=pages&action=privacy"|URL}">{-"Privacy"|translate}</a></li>
@@ -70,9 +70,10 @@
                     <ul class="dropdown-menu" role="menu" aria-labelledby="option-drop" id="mobile-option"></ul>
                 {-/if}
             </div>
-            <div class="head-shadow"></div>        
+            <div class="head-shadow"></div>
             <div class="main clearfix">
                 <div class="sidebar pull-left left-sidebar">
+                    {-if $isAdmin && $hasUpdate }<div class="alert alert-warning alert-dismissible" role="alert">New Update available</div>{-/if}
                     {-if !empty($user)}
                         <section class="mini-profile media" title="Your short profile">
                             <div class="pull-left">
@@ -88,7 +89,7 @@
                         <section title="{-"Search"|translate}" class="sidebar-search">
                             <form action="{-"index.php?m=search"|URL}" method="get" onsubmit="return ($('#searchinputfield').val().length > 0);">
                                 <div class="input-group" style="width:199px">
-                                    <input type="text" class="form-control" id="searchinputfield" name="q" placeholder="{-"Search"|translate}" autocomplete="off">
+                                    <input type="text" class="form-control" id="searchinputfield" name="q" placeholder="{-"Search"|translate}" autocomplete="off" style="z-index: 0">
                                     <span class="input-group-btn">
                                         <button class="btn btn-default" type="submit"><i class="fa fa-search fa-fw"></i></button>
                                     </span>
@@ -139,7 +140,7 @@
                         </section>
                     {-/if}
                     <footer>
-                        <small class="copyright">Powered by <a href="http://www.cunity.net" target="_blank">Cunity</a> &copy; {-$smarty.now|date_format:"%Y"} {-*<br>by <a href="http://www.smartinmedia.com" target="_blank">Smart In Media</a>*}</small>
+                        <small class="copyright">Cunity &reg;<br />powered by <a href="http://smartinmedia.com/" target="_blank">Smart In Media</a></small>
                         <ul class="footer-menu list-unstyled">
                             {-foreach $menu->getFooterMenu()  AS $menuItem}
                                 {-if $menuItem.type=="module"}
@@ -153,7 +154,7 @@
                         </ul>
                     </footer>
                 </div>
-                <div class="content pull-left">                    
+                <div class="content pull-left">
                     {-include file="$tpl_name"}
                     {-if empty($user)}
                         <section title="Login" class="mobile-login">                            
@@ -217,6 +218,5 @@
                 {-include file="Search/styles/livesearch.tpl"}
                 {-include file="Notifications/styles/notification-popover.tpl"}                
                 {-include file="Messages/styles/message-modal.tpl"}
-
     </body>
 </html>

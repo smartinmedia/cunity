@@ -309,12 +309,18 @@ class Process
     {
         $threads = new Threads;
         $posts = new Posts;
+        $category = $_POST['category'];
+
+        if ($category === null) {
+            $category = '';
+        }
+
         if ((isset($_POST['important']) && UserHelper::isAdmin())) {
             $res = $threads->insert([
                 "title" => $_POST['title'],
                 "board_id" => $_POST['board_id'],
                 "userid" => $_SESSION['user']->userid,
-                "category" => $_POST['category'],
+                "category" => $category,
                 "important" => $_POST['important']
             ]);
         } else {
@@ -322,7 +328,7 @@ class Process
                 "title" => $_POST['title'],
                 "board_id" => $_POST['board_id'],
                 "userid" => $_SESSION['user']->userid,
-                "category" => $_POST['category'],
+                "category" => $category,
                 "important" => 0
             ]);
         }

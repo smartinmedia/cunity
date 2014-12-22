@@ -1,6 +1,5 @@
 <?php
 
-
 /**
  * ########################################################################################
  * ## CUNITY(R) V2.0 - An open source social network / "your private social network"     ##
@@ -35,27 +34,22 @@
  * #####################################################################################
  */
 
+namespace Cunity\Admin\Models\Pages;
 
-use Cunity\Admin\Models\Updater\DbCommandInterface;
-use Cunity\Admin\Models\Updater\DbUpdateVersion;
+use Cunity\Admin\Helper\UpdateHelper;
 
 /**
- * Class Version1413269001
+ * Class Update
+ * @package Cunity\Admin\Models\Pages
  */
-class Version1413269001 extends DbUpdateVersion implements DbCommandInterface
+class Update extends PageAbstract
 {
-
-    /**
-     * @var int
-     */
-    protected $_timestamp = 1413269001;
-
     /**
      *
      */
-    public function execute()
+    public function __construct()
     {
-        $this->_db->query("ALTER TABLE " . $this->_db->getDbprefix() . "profilefields_values CHANGE  VALUE  VALUE TEXT CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL ;");
-        $this->_db->query("ALTER TABLE " . $this->_db->getDbprefix() . "profilefields_values ADD  sorting INT NOT NULL ;");
+        $this->assignments['hasUpdate'] = UpdateHelper::hasUpdates();
+        $this->render("update");
     }
 }

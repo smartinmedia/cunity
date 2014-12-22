@@ -178,20 +178,28 @@
                     <div class="pull-left newsfeed-post-file-input">
                         <span class="loader-small hidden"></span>
                         <button class="btn btn-primary hidden" id="newsfeed-upload" type="button"><i
-                                    class="fa fa-upload"></i>&nbsp;{-"Select Photo"|translate}</button>
+                                    class="fa fa-search"></i>&nbsp;{-"Select Photo"|translate}</button>
+                        <span class="text-muted" id="selected-file"></span>
                     </div>
                     <div class="clearfix newsfeed-post-video-box hidden"></div>
                 </div>
                 <div class="btn-group pull-right hidden newsfeed-post-buttons">
-                    <button class="btn btn-primary tooltip-trigger" type="button"
-                            data-title="{-$profile.name}&nbsp;{-"decides who is allowed to see this post!"|translate}">
-                        <span class="fa fa-lock"></span></button>
-                    <input type="hidden" name="privacy"
-                           value="{-if $profile.privacy.post eq 3}0{-elseif $profile.privacy.post eq 1}1{-else}2{-/if}"
-                           id="postPrivacy">
+                    <button class="btn btn-primary tooltip-trigger"
+                            data-title="{-"Select who will be allowed to see this post"|translate}" data-toggle="dropdown"><span
+                                class="fa fa-lock"></span>&nbsp;<i class="caret"></i></button>
+                    <input type="hidden" name="privacy" value="0" id="postPrivacy">
                     <button class="btn btn-primary newsfeed-post-button" type="submit" id="newsfeed-post-button"><span
                                 class="fa fa-comment"></span>&nbsp;{-"Post"|translate}!
                     </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="privacy-dropdown">
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:selectPostPrivacy(0);"><i
+                                        class="fa fa-globe fa-fw"></i>&nbsp;{-"Public"|translate}</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:selectPostPrivacy(1);"><i
+                                        class="fa fa-users fa-fw"></i>&nbsp;{-"Friends"|translate}</a></li>
+                        <li role="presentation" class="divider"></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:selectPostPrivacy(2);"><i
+                                        class="fa fa-user fa-fw"></i>&nbsp;{-"Only Me"|translate}</a></li>
+                    </ul>
                 </div>
             </form>
             {-include file="Newsfeed/styles/newsfeed-templates.tpl"}
@@ -209,7 +217,7 @@
             <section title="upcoming events" style="min-height: 500px;">
                 <h3 class="sidebar-header"><i class="fa fa-filter fa-fw"></i>&nbsp;{-"Filter posts"|translate}</h3>
 
-                <div class="btn-group btn-group-justified" data-toggle="buttons">
+                <div class="btn-group btn-group-justified" data-toggle="buttons" style="z-index: 0">
                     <label class="btn btn-default tooltip-trigger active" data-title="{-"Show posts"|translate}">
                         <input type="checkbox" class="newsfeed-filter" checked value="post"><i
                                 class="fa fa-fw fa-comment"></i>

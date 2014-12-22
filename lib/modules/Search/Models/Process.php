@@ -55,7 +55,7 @@ class Process
      */
     public function __construct()
     {
-        $this->indexfile = __DIR__.'/'.$this->indexfile;
+        $this->indexfile = __DIR__ . '/' . $this->indexfile;
     }
 
 

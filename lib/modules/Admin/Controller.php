@@ -53,11 +53,8 @@ class Controller extends ModuleController
     public function __construct()
     {
         $action = $_GET['action'];
-
         if (isset($action) && $action !== '') {
-            if ($action != "update") {
-                Login::loginRequired();
-            }
+            Login::loginRequired();
 
             switch ($action) {
                 case 'login':
@@ -67,9 +64,6 @@ class Controller extends ModuleController
                 case 'delete':
                 case 'insert':
                     new Models\Process($_REQUEST['form'], $action);
-                    break;
-                case 'update':
-                    new Models\Updater\DatabaseUpdater();
                     break;
                 default:
                     $model = "\Cunity\Admin\Models\\Pages\\" . ucfirst($action);

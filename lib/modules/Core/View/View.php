@@ -36,8 +36,10 @@
 
 namespace Cunity\Core\View;
 
+use Cunity\Admin\Helper\UpdateHelper;
 use Cunity\Core\Cunity;
 use Cunity\Core\Exception;
+use Cunity\Core\Helper\UserHelper;
 use Cunity\Core\Models\Db\Table\Announcements;
 use Cunity\Core\Models\Db\Table\Menu;
 use Cunity\Core\Models\Generator\Url;
@@ -246,6 +248,8 @@ class View extends Smarty
         } else {
             $this->assign('user', []);
         }
+        $this->assign('isAdmin', UserHelper::isAdmin());
+        $this->assign('hasUpdate', UpdateHelper::hasUpdates());
         $this->assign('menu', new Menu());
         $this->registerCunityPlugin(
             "jscrollpane",
@@ -262,7 +266,7 @@ class View extends Smarty
         $this->assign("meta", $this->_metadata);
         $this->assign('script_head', implode("\n", $this->_headScripts));
         $this->assign('css_head', base64_encode(implode(",", $this->_headCss)));
-        $this->assign('modrewrite', (boolean)Cunity::get("mod_rewrite"));
+        $this->assign('modrewrite', (boolean)in_array('mod_rewrite', apache_get_modules()));
         if ($this->_useWrapper) {
             $this->assign(
                 'tpl_name',

@@ -38,6 +38,7 @@ namespace Cunity\Friends\Models\Db\Table;
 
 use Cunity\Core\Models\Db\Abstractables\Table;
 use Cunity\Core\Models\Db\Table\Users;
+use DateInterval;
 
 /**
  * Class Relationships
@@ -198,16 +199,23 @@ class Relationships extends Table
      */
     public function loadOnlineFriends($userid)
     {
-        return $this->getAdapter()->fetchAll($this->getAdapter()->select()->from(["u" => $this->_dbprefix . "users"], ["userid", "name", "username", "onlineStatus", "chat_available"])
-                ->joinLeft(["pi" => $this->_dbprefix . "gallery_images"], "pi.id = u.profileImage", "filename AS pimg")
-                ->where("u.userid IN (" . new \Zend_Db_Expr(
-                        $this
-                            ->getAdapter()
-                            ->select()
-                            ->from($this->getTableName(), new \Zend_Db_Expr("(CASE WHEN sender = " . $userid . " THEN receiver WHEN receiver = " . $userid . " THEN sender END)"))
-                            ->where("status > 1")
-                            ->where("sender=? OR receiver = ? ", $userid)) . ")")
-                ->order("u.name DESC")
+        $friendlist = $this->getAdapter()->fetchAll($this->getAdapter()->select()->from(["u" => $this->_dbprefix . "users"])
+            ->joinLeft(["pi" => $this->_dbprefix . "gallery_images"], "pi.id = u.profileImage", "filename AS pimg")
+            ->where("u.userid IN (" . new \Zend_Db_Expr($this->getAdapter()->select()
+                    ->from($this->_dbprefix . "relations", new \Zend_Db_Expr("(CASE WHEN sender = " . $userid . " THEN receiver WHEN receiver = " . $userid . " THEN sender END)"))
+                    ->where("status > 1")
+                    ->where("sender=? OR receiver = ? ", $userid)) . ")")
+            ->order("u.name DESC")
         );
+
+        $date = new \DateTime();
+        for ($i = 0; $i < count($friendlist); $i++) {
+            $lastAction = $date->createFromFormat('Y-m-d H:i:s', $friendlist[$i]['lastAction'])->getTimestamp();
+            if (time() - 60 > $lastAction) {
+                $friendlist[$i]['onlineStatus'] = 0;
+            }
+        }
+
+        return $friendlist;
     }
 }

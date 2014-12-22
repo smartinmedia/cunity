@@ -69,6 +69,7 @@ class Notifications extends Table
      */
     public function insertNotification(array $data)
     {
+        $data['unread'] = 1;
         return (1 == $this->insert($data));
     }
 
