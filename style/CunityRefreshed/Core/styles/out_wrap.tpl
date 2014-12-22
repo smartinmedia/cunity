@@ -89,7 +89,7 @@
                         <section title="{-"Search"|translate}" class="sidebar-search">
                             <form action="{-"index.php?m=search"|URL}" method="get" onsubmit="return ($('#searchinputfield').val().length > 0);">
                                 <div class="input-group" style="width:199px">
-                                    <input type="text" class="form-control" id="searchinputfield" name="q" placeholder="{-"Search"|translate}" autocomplete="off">
+                                    <input type="text" class="form-control" id="searchinputfield" name="q" placeholder="{-"Search"|translate}" autocomplete="off" style="z-index: 0">
                                     <span class="input-group-btn">
                                         <button class="btn btn-default" type="submit"><i class="fa fa-search fa-fw"></i></button>
                                     </span>
