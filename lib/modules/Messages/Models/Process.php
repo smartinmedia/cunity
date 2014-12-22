@@ -36,6 +36,7 @@
 
 namespace Cunity\Messages\Models;
 
+use Cunity\Core\Helper\UserHelper;
 use Cunity\Core\View\Ajax\View;
 use Cunity\Friends\Models\Db\Table\Relationships;
 use Cunity\Messages\Models\Db\Table\Conversations;
@@ -197,8 +198,14 @@ class Process
         $conversations = $table->loadConversations($_SESSION['user']->userid);
         $view = new View(true);
         foreach ($conversations as $i => $conv) {
-            if ($conv['users'] !== null && strpos($conv['users'], ",") === false) {
-                $userid = explode("|", $conv['users']);
+            $details = $table->loadConversationDetails($conv['conversation_id']);
+            if ($details['users'] !== null) {
+                if (strpos($details['users'], ',') !== false) {
+                    $userid = explode(",", $details['users']);
+                } elseif (strpos($details['users'], '|') !== false) {
+                    $userid = explode("|", $details['users']);
+                }
+
                 /** @noinspection PhpUndefinedMethodInspection */
                 $conversations[$i]['users'] = $_SESSION['user']->getTable()->get($userid[1])->toArray(["pimg", "name"]);
             }
