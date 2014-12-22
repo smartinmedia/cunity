@@ -118,7 +118,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default closemodalbutton"
                         data-dismiss="modal">{-"Close"|translate}</button>
-                <button type="button" onclick="$('#inviteForm').submit();" class="btn btn-primary"
+                <button type="button" onclick="$('#inviteForm').submit();" id="inviteButton" class="btn btn-primary"
                         data-loading-text="{-"Please wait.."|translate}">{-"Invite"|translate}</button>
             </div>
         </div>
