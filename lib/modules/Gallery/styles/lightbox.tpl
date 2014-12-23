@@ -58,8 +58,10 @@
                             </div>                            
                         </div>
                         <div class="modal-footer">
+                            {-if $album.photo_count > 1}
                             <button type="button" class="btn btn-default pull-left prev"><i class="fa fa-chevron-left"></i>&nbsp;{-"Previous"|translate}</button>
                             <button type="button" class="btn btn-primary next">{-"Next"|translate}&nbsp;<i class="fa fa-chevron-right"></i></button>
+                            {-/if}
                         </div>
                     </div>
                     <div class="info-overlay clearfix">
