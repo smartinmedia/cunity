@@ -103,6 +103,7 @@ class GalleryImages extends Table
                 ->joinLeft(["u" => $this->_dbprefix . "users"], "u.userid=i.owner_id AND i.owner_type IS NULL", ["username", "name"])
                 ->joinLeft(["ci" => $this->getTableName()], "ci.id=u.profileImage", ["profileImage" => "filename"])
                 ->joinLeft(["co" => $this->_dbprefix . "comments"], "co.ref_id = i.id AND co.ref_name = 'image'", "COUNT(DISTINCT co.id) AS commentcount")
+                ->joinLeft(["po" => $this->_dbprefix."posts"], "po.content = i.id", "po.id as postid")
                 ->joinLeft(["li" => $this->_dbprefix . "likes"], "li.ref_id = i.id AND li.ref_name = 'image' AND li.dislike = 0", "COUNT(DISTINCT li.id) AS likescount")
                 ->joinLeft(["di" => $this->_dbprefix . "likes"], "di.ref_id = i.id AND di.ref_name = 'image' AND di.dislike = 1", "COUNT(DISTINCT di.id) AS dislikescount")
                 ->joinLeft(["ld" => $this->_dbprefix . "likes"], "ld.ref_id = i.id AND ld.ref_name = 'image' AND ld.userid = " . $this->getAdapter()->quote($_SESSION['user']->userid), "ld.dislike AS ownlike")

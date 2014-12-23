@@ -45,6 +45,7 @@ use Cunity\Gallery\Models\Db\Table\GalleryAlbums;
 use Cunity\Gallery\Models\Db\Table\GalleryImages;
 use Cunity\Gallery\View\Album;
 use Cunity\Likes\Models\Db\Table\Likes;
+use Cunity\Newsfeed\Models\Db\Table\Posts;
 
 /**
  * Class Process
