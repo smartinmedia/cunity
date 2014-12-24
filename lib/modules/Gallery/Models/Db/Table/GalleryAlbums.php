@@ -117,7 +117,6 @@ class GalleryAlbums extends Table
             ->joinLeft(["u" => $this->_dbprefix . "users"], "a.owner_type IS NULL AND a.owner_id=u.userid", ["name", "username"])
             ->joinLeft(["e" => $this->_dbprefix . "events"], "a.owner_type = 'event' AND a.owner_id=e.id", ["title AS eventTitle"])
             ->joinLeft(["i" => $this->_dbprefix . "gallery_images"], "i.id=u.profileImage AND a.owner_type IS NULL", "filename")
-            ->joinLeft(["ie" => $this->_dbprefix . "gallery_images"], "ie.id=e.imageId AND a.owner_type = 'event'", "filename")
             ->where("a.id=?", $albumid)
         );
         if ($result instanceof Zend_Db_Table_Row_Abstract) {
