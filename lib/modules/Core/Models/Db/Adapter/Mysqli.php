@@ -63,7 +63,7 @@ class Mysqli extends \Zend_Db_Adapter_Mysqli
      *
      * @return String
      */
-    public function getDbprefix()
+    public static function getDbprefix()
     {
         $dbprefix = '';
         $config = Cunity::get("config");
