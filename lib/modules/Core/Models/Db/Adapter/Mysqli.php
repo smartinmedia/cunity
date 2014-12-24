@@ -65,8 +65,8 @@ class Mysqli extends \Zend_Db_Adapter_Mysqli
      */
     public function getDbprefix()
     {
-        $config = Cunity::get("config");
         $dbprefix = '';
+        $config = Cunity::get("config");
 
         if ($config->db->params->table_prefix !== '') {
             $dbprefix = $config->db->params->table_prefix . '_';
