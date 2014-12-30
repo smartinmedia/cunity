@@ -185,21 +185,21 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-5">{-"Who is allowed to see your profile-pins?"|translate}</label>
+                        {-*<div class="form-group">*}
+                            {-*<label class="control-label col-md-5">{-"Who is allowed to see your profile-pins?"|translate}</label>*}
 
-                            <div class="col-md-7">
-                                <select class="form-control" name="privacy[visit]" id="privacyselect-visit">
-                                    <option value="0"
-                                            {-if $profile.privacy.visit == 0}selected{-/if}>{-"No one"|translate}</option>
-                                    <option value="1"
-                                            {-if $profile.privacy.visit == 1}selected{-/if}>{-"Friends"|translate}</option>
+                            {-*<div class="col-md-7">*}
+                                {-*<select class="form-control" name="privacy[visit]" id="privacyselect-visit">*}
+                                    {-*<option value="0"*}
+                                            {-*{-if $profile.privacy.visit == 0}selected{-/if}>{-"No one"|translate}</option>*}
+                                    {-*<option value="1"*}
+                                            {-*{-if $profile.privacy.visit == 1}selected{-/if}>{-"Friends"|translate}</option>*}
                                     {-*                                <option value="2" {-if $profile.privacy.visit == 2}selected{-/if}>{-"Friends of Friends"|translate}</option>*}
-                                    <option value="3"
-                                            {-if $profile.privacy.visit == 3}selected{-/if}>{-"Everyboy"|translate}</option>
-                                </select>
-                            </div>
-                        </div>
+                                    {-*<option value="3"*}
+                                            {-*{-if $profile.privacy.visit == 3}selected{-/if}>{-"Everyboy"|translate}</option>*}
+                                {-*</select>*}
+                            {-*</div>*}
+                        {-*</div>*}
                         <div class="form-group">
                             <label class="control-label col-md-5">{-"Who is allowed to send you messages?"|translate}</label>
 
