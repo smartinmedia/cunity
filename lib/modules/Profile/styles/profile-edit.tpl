@@ -233,7 +233,7 @@
                         <div class="form-group">
                             <div class="col-md-offset-5 col-md-7 clearfix">
                                 <input class="ajaxform-callback" value="privacychanged" type="hidden">
-                                <button type="submit" class="btn btn-primary pull-right" id="saveprivacy"><i
+                                <button type="submit" class="btn btn-primary pull-right" id="saveprivacy" onclick="$('#privacychangedalert').removeClass('alert-success, alert-danger').hide().html('')"><i
                                             class="fa fa-save"></i> {-"Save"|translate}</button>
                             </div>
                         </div>
