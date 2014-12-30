@@ -26,6 +26,10 @@
     position: relative;
 }
 
+#posts .media-body {
+    word-break: break-all;
+}
+
 #posts .media-body > a {
     font-size: 0.95em;
     font-weight: bold;
@@ -73,3 +77,4 @@
 .post-smiley {
     margin: 0 2px;
 }
+
