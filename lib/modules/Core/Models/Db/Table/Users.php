@@ -135,20 +135,20 @@ class Users extends Table
     }
 
     /**
-     * @param array $userids
+     * @param array $values
      * @param string $key
      * @param array $fields
      * @param bool $includeOwn
      * @return \Zend_Db_Table_Rowset_Abstract
      */
-    public function getSet(array $userids, $key = "u.userid", array $fields = ["*"], $includeOwn = false)
+    public function getSet(array $values, $key = "u.userid", array $fields = ["*"], $includeOwn = false)
     {
         $query = $this->getGallery($fields);
         if (!$includeOwn) {
             $query->where("u.userid != ?", $_SESSION['user']->userid);
         }
-        if (!empty($userids)) {
-            $query->where($key . " IN(?)", $userids);
+        if (!empty($values)) {
+            $query->where($key . " IN(?)", $values);
         }
         $res = $this->fetchAll($query);
         $resCount = count($res);
@@ -161,10 +161,6 @@ class Users extends Table
 
     /**
      * @param array $fields
-     * @internal param array $in
-     * @internal param string $key
-     * @internal param string $keyIn
-     * @internal param array $userids
      * @return \Zend_Db_Table_Rowset_Abstract
      */
     public function getSetIn(array $fields = ["*"])
