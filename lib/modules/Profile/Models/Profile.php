@@ -120,6 +120,7 @@ class Profile
     protected function render()
     {
         $view = new \Cunity\Profile\View\Profile();
+        fb($this->profileData);
         $view->assign('profile', $this->profileData);
         $view->setMetaData(["title" => $this->profileData['name']]);
         $view->render();
