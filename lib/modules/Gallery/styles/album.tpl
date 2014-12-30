@@ -224,7 +224,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group  {-if !$album.privacy eq 0}hidden{-/if}" id="editalbum_shared_options">
+                        <div class="form-group  {-if !$album.privacy eq 0 or $album.owner_id neq $user.userid}hidden{-/if}" id="editalbum_shared_options">
                             <div class="col-sm-offset-2 col-sm-10">
                                 <div class="checkbox">
                                     <label>

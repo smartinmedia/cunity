@@ -46,9 +46,7 @@
                         </select>
                     </div>
                     <div class="col-md-9 blockperson hidden modal-category">
-                        <p>{-"Are You sure You want to add this user as a friend?"|translate}</p>
-
-                        <p>{-"Please send friend requests only to people you really know!"|translate}</p>
+                        <p>{-"Are You sure You want to block this user?"|translate}</p>
                     </div>
                     <div class="col-md-9 unblock hidden modal-category">
                         <p>{-"Are You sure You want to unblock this user?"|translate}</p>

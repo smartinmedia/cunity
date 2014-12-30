@@ -35,6 +35,7 @@
  */
 
 namespace Cunity\Core\Models\Db\Adapter;
+use Cunity\Core\Cunity;
 
 /**
  * Class Mysqli
@@ -62,8 +63,15 @@ class Mysqli extends \Zend_Db_Adapter_Mysqli
      *
      * @return String
      */
-    public function getDbprefix()
+    public static function getDbprefix()
     {
-        return $this->dbprefix . '_';
+        $dbprefix = '';
+        $config = Cunity::get("config");
+
+        if ($config->db->params->table_prefix !== '') {
+            $dbprefix = $config->db->params->table_prefix . '_';
+        }
+
+        return $dbprefix;
     }
 }

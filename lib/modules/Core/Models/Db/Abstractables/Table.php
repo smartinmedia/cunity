@@ -59,7 +59,7 @@ abstract class Table extends \Zend_Db_Table_Abstract
      *
      * @var String
      */
-    protected $_dbprefix;
+    protected $_dbprefix = '';
 
     /**
      * Overwrite the default Rowset-Class
@@ -111,7 +111,11 @@ abstract class Table extends \Zend_Db_Table_Abstract
     protected function _setupTableName()
     {
         $this->_config = Cunity::get("config");
-        $this->_dbprefix = $this->_config->db->params->table_prefix . '_';
+
+        if ($this->_config->db->params->table_prefix !== '') {
+            $this->_dbprefix = $this->_config->db->params->table_prefix . '_';
+        }
+
         $this->_name = $this->_dbprefix . $this->_name;
         parent::_setupTableName();
     }
