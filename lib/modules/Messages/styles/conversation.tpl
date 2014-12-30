@@ -90,7 +90,7 @@
                 <div class="alert alert-success hidden messagesentmessage">
                     <h4>{-"Done!"|translate}</h4>
 
-                    <p>{-"Your message was sent successfully!"|translate}</p>
+                    <p>{-"Your friend has been added to the conversation  successfully!"|translate}</p>
                 </div>
                 <form class="form-horizontal ajaxform" action="{-"index.php?m=messages&action=invite"|URL}" role="form"
                       id="inviteForm" method="POST">
