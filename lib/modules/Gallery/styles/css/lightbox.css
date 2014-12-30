@@ -290,6 +290,7 @@ body:last-child .blueimp-gallery > .slides > .slide-error {
 
 .image-comment .message {
     padding: 10px 0;
+    word-break: break-all;
 }
 
 .image-comment .time {
