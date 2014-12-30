@@ -29,7 +29,7 @@
             </div>
             <input type="hidden" name="thread_id" value="{-$thread.id}">
             <input type="hidden" class="ajaxform-callback" value="replyPosted">
-            <button type="submit" id="reply-button" disabled
+            <button type="submit" id="reply-button"
                     class="pull-right btn btn-primary pull-right">{-"Send reply"|translate}</button>
             <button class="btn btn-default pull-right tooltip-trigger" id="thread-new-emoticon-button"
                     style="margin-right:10px" type="button" data-placement="top"
