@@ -53,12 +53,23 @@ use Cunity\Newsfeed\Models\Db\Table\Posts;
  */
 class Process
 {
+    /**
+     * @var int
+     */
+    protected $id = null;
 
     /**
      * @param $action
+     * @param null $id
      */
-    public function __construct($action)
+    public function __construct($action, $id = null)
     {
+        if (null === $id) {
+            $id = $_POST['id'];
+        }
+
+        $this->id = $id;
+
         if (method_exists($this, $action)) {
             call_user_func([$this, $action]);
         }
@@ -182,21 +193,20 @@ class Process
     private function loadImage()
     {
         $socialData = [];
-        $id = $_POST['id'];
         $images = new GalleryImages();
         $albums = new GalleryAlbums();
-        $result = $images->getImageData($id);
+        $result = $images->getImageData($this->id);
         $view = new View(true);
         if ($result !== null) {
             $result = $result[0];
             $albumData = $albums->getAlbumData($result['albumid']);
             $likeTable = new Likes();
-            $socialData['likes'] = $likeTable->getLikes($id, "image");
-            $socialData['dislikes'] = $likeTable->getLikes($id, "image", 1);
+            $socialData['likes'] = $likeTable->getLikes($this->id, "image");
+            $socialData['dislikes'] = $likeTable->getLikes($this->id, "image", 1);
 
             if ($result['commentcount'] > 0) {
                 $comments = new Comments();
-                $socialData['comments'] = $comments->get($id, "image", false, 13);
+                $socialData['comments'] = $comments->get($this->id, "image", false, 13);
             } else {
                 $socialData['comments'] = [];
             }

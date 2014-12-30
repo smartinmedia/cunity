@@ -37,6 +37,7 @@
 namespace Cunity\Likes\Models;
 
 use Cunity\Core\View\Ajax\View;
+use Cunity\Gallery\Models\Process;
 
 /**
  * Class Likes
@@ -78,7 +79,8 @@ class Likes
     {
         $res = $this->table->like($_POST['ref_id'], $_POST['ref_name']);
         $this->view->setStatus($res !== false);
-        $this->view->addData($res);
+        $process = new Process('loadImage', $_POST['ref_id']);
+//        $this->view->addData($res);
     }
 
     /**
@@ -88,7 +90,8 @@ class Likes
     {
         $res = $this->table->dislike($_POST['ref_id'], $_POST['ref_name']);
         $this->view->setStatus($res !== false);
-        $this->view->addData($res);
+        $process = new Process('loadImage', $_POST['ref_id']);
+//        $this->view->addData($res);
     }
 
     /**
@@ -98,7 +101,8 @@ class Likes
     {
         $res = $this->table->unlike($_POST['ref_id'], $_POST['ref_name']);
         $this->view->setStatus($res !== false);
-        $this->view->addData($res);
+        $process = new Process('loadImage', $_POST['ref_id']);
+//        $this->view->addData($res);
     }
 
     /**
