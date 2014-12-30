@@ -34,7 +34,7 @@
         <form class="login-form form-inline pull-right" action="{-"index.php?m=register&action=login"|URL}"
               method="post">
             <div class="form-group">
-                <input type="email" name="email" placeholder="E-Mail" class="form-control" tabindex="1" id="loginemail">
+                <input type="text" name="email" placeholder="E-Mail" class="form-control" tabindex="1" id="loginemail">
                 <label class="checkbox"><input type="checkbox" name="save-login"> {-"Remember Me"|translate}</label>
             </div>
             <div class="form-group">
