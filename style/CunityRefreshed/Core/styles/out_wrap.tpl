@@ -119,7 +119,7 @@
                             <form class="form-horizontal sidebar-login-form" role="form"  style="margin-bottom:10px" action="{-"index.php?m=register&action=login"|URL}" method="post">
                                 <div class="form-group">
                                     <label for="inputEmail1" class="sr-only">Email</label>
-                                    <input type="email" class="form-control" name="email" placeholder="Email">
+                                    <input type="email" class="form-control" name="email" placeholder="Email" value="{-$smarty.post.email}">
                                 </div>
                                 <div class="form-group" style="margin-bottom:0;">
                                     <label for="inputPassword1" class="sr-only">{-"Password"|translate}</label>

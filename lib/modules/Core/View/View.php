@@ -172,7 +172,6 @@ class View extends Smarty
 
     /**
      * @param $string
-     * @internal param array $replaces
      * @return string
      */
     public static function translate($string)
