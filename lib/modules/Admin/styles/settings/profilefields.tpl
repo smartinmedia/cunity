@@ -69,8 +69,7 @@
                     </table>
                     <input type="hidden" name="form" value="profilefields">
                     <input type="hidden" name="panel" value="profilefields-panel">
-
-                    <input class="ajaxform-callback" type="hidden" value="showPanelResult">
+                    <input name="ajaxform-callback" class="ajaxform-callback" type="hidden" value="showPanelResult">
                 </form>
             </div>
         </div>
@@ -80,7 +79,6 @@
      aria-hidden="true">
     <form class="login-form form-horizontal ajaxform" action="{-"index.php?m=admin&action=insert"|URL}"
           style="margin:10px;" name="profilefields">
-        <input type="hidden" name="action" value="insert"/>
         <input type="hidden" class="ajaxform-callback" value="addProfilefield"/>
         <input type="hidden" name="form" value="profilefields"/>
         <input type="hidden" name="deleteable" value="1"/>
