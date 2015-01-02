@@ -177,7 +177,8 @@ class Process
     {
         $conv = new Db\Table\Conversations();
         $res = false;
-        if ($conv->leave($_SESSION['user']->userid, $_POST['conversation_id'])) {
+        $leaveResult = $conv->leave($_SESSION['user']->userid, $_POST['conversation_id']);
+        if ($leaveResult) {
             if ($_POST['delMsgs'] == "true") {
                 $messages = new Db\Table\Messages();
                 $res = $messages->deleteByUser($_SESSION['user']->userid, $_POST['conversation_id']);
