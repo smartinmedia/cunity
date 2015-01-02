@@ -1,5 +1,5 @@
 <script type="text/javascript">
-    var testObject = {
+    var statisticsObject = {
         element: 'userstatistics',
         data: {-$statisticdata},
         xkey: 'period',
