@@ -37,6 +37,7 @@
 namespace Cunity\Admin\Models\Pages;
 
 use Cunity\Comments\Models\Db\Table\Comments;
+use Cunity\Core\Cunity;
 use Cunity\Core\Models\Mail\Mail;
 use Cunity\Core\View\Ajax\View;
 use Cunity\Pages\Models\Db\Table\Pages;
@@ -129,6 +130,6 @@ class Settings extends PageAbstract
         $profileFields = new ProfileFields();
         $this->assignments['profileFields'] = $profileFields->getAll();
         $this->assignments['fieldTypes'] = ProfileFields::$types;
-        $this->assignments["config"] = \Cunity\Core\Cunity::get("config");
+        $this->assignments["config"] = Cunity::get("config");
     }
 }

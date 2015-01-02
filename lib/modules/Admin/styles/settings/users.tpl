@@ -28,9 +28,9 @@
 
                         <div class="col-sm-8">
                             <select class="form-control" name="settings-core.fullname">
-                                <option {-if "fullname"|setting eq 0} selected{-/if}
+                                <option {-if "core.fullname"|setting eq 0} selected{-/if}
                                                                       value="0">{-"Show only usernames"|translate}</option>
-                                <option {-if "fullname"|setting eq 1} selected{-/if}
+                                <option {-if "core.fullname"|setting eq 1} selected{-/if}
                                                                       value="1">{-"Show full names"|translate}</option>
                             </select>
                         </div>
@@ -61,11 +61,11 @@
                         <div class="col-sm-8">
                             <select class="form-control" id="register-allow" name="settings-register.permissions">
 
-                                <option value="everyone"{-if "register_permissions"|setting eq "everyone"}
+                                <option value="everyone"{-if "register.permissions"|setting eq "everyone"}
                                         selected{-/if}>{-"Everyone"|translate}</option>
-                                <option value="activation"{-if "register_permissions"|setting eq "activation"}
+                                <option value="activation"{-if "register.permissions"|setting eq "activation"}
                                         selected{-/if}>{-"Everyone, but user must be activated by an administrator"|translate}</option>
-                                <option value="invitation" {-if "register_permissions"|setting eq "invitation"}
+                                <option value="invitation" {-if "register.permissions"|setting eq "invitation"}
                                         selected{-/if}>{-"Only users who received an invitation"|translate}</option>
                             </select>
                         </div>
@@ -76,9 +76,9 @@
 
                         <div class="col-sm-8">
                             <select class="form-control" id="register-notify" name="settings-register.notification">
-                                <option value="1" {-if !"register_notification"|setting eq 0}
+                                <option value="1" {-if !"register.notification"|setting eq 0}
                                         selected{-/if}>{-"Send me an email, if a new user registered (and verified the account)"|translate}</option>
-                                <option value="0" {-if "register_notification"|setting eq 0}
+                                <option value="0" {-if "register.notification"|setting eq 0}
                                         selected{-/if}>{-"Do not send me an email"|translate}</option>
                             </select>
                         </div>
@@ -88,7 +88,7 @@
                                class="col-sm-4 control-label">{-"Do you want a minimum age for registration?"|translate}</label>
 
                         <div class="col-sm-8">
-                            <input type="number" value="{-"register_min_age"|setting}" id="min-age" class="form-control"
+                            <input type="number" value="{-"register.min_age"|setting}" id="min-age" class="form-control"
                                    name="settings-register.min_age">
                             <span class="help-block">{-"Set the age to 0 to remove the minimum age!"|translate}</span>
                         </div>
