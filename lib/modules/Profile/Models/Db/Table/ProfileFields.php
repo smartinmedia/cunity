@@ -113,7 +113,8 @@ class ProfileFields extends Table
         foreach ($result as $_key => $_result) {
             $values = [];
 
-            if (self::$types[$_result['type_id']] === 'select') {
+            if (self::$types[$_result['type_id']] === 'select' ||
+                self::$types[$_result['type_id']] === 'radio') {
                 $queryValues = $this->getAdapter()->select()
                     ->from(["pfv" => $this->_dbprefix . "profilefields_values"])
                     ->where('profilefield_id = ' . $_result['id'])

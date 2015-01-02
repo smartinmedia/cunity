@@ -82,6 +82,14 @@
                                 {-if $field.value==$value.id}selected{-/if}>{-$value.value|translate}</option>
                     {-/foreach}
                 </select>
+                {-elseif $field.type == 'radio'}
+                <div class="col-lg-8">
+                {-foreach $field.values as $j => $value}
+                    <div class="radio-inline">
+                        <input type="radio" name="field[{-$field.id}]"
+                               value="{-$value.id}">{-$value.value|translate}
+                    </div>
+                {-/foreach}
                 {-elseif $field.type == 'string'}
                 <div class="col-lg-8">
                     <input type="text" {-if $field.required == 1}required="required"{-/if} class="form-control"
