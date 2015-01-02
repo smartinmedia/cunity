@@ -36,6 +36,7 @@
 
 namespace Cunity\Gallery\Models\Db\Table;
 
+use Cunity\Core\Helper\UserHelper;
 use Cunity\Core\Models\Db\Abstractables\Table;
 use Cunity\Core\View\View;
 use Cunity\Gallery\Models\Db\Row\Album;
@@ -138,27 +139,26 @@ class GalleryAlbums extends Table
     public function loadAlbums($userid)
     {
         if ($userid == 0) {
-            return $this->getAdapter()->fetchAll(
-                $this->getAdapter()->select()
-                    ->from(["a" => $this->info("name")])
-                    ->joinLeft(["i" => $this->_dbprefix . "gallery_images"], "a.cover=i.id", "filename")
-                    ->joinLeft(["u" => $this->_dbprefix . "users"], "a.owner_id=u.userid AND a.owner_type IS NULL", ["u.name", "u.username"])
-                    ->joinLeft(["pi" => $this->_dbprefix . "gallery_images"], "pi.id=u.profileImage", "pi.filename as pimg")
-                    ->where("((a.type IS NULL OR a.type = 'shared') AND (a.privacy = 2 OR (a.privacy = 1 AND a.owner_id IN (" . new \Zend_Db_Expr($this->getAdapter()->select()->from($this->_dbprefix . "relations", new \Zend_Db_Expr("(CASE WHEN sender = " . $_SESSION['user']->userid . " THEN receiver WHEN receiver = " . $_SESSION['user']->userid . " THEN sender END)"))->where("status > 0")->where("sender=?", $_SESSION['user']->userid)->orWhere("receiver=?", $_SESSION['user']->userid)) . "))) OR (a.owner_type IS NULL AND a.owner_id=?))", $_SESSION['user']->userid)
-                    ->order("i.time DESC")
-            );
-        } else {
-            return $this->getAdapter()->fetchAll(
-                $this->getAdapter()->select()
-                    ->from(["a" => $this->info("name")])
-                    ->joinLeft(["i" => $this->_dbprefix . "gallery_images"], "a.cover=i.id", "filename")
-                    ->joinLeft(["u" => $this->_dbprefix . "users"], "a.owner_id=u.userid AND a.owner_type IS NULL", ["u.name", "u.username"])
-                    ->joinLeft(["pi" => $this->_dbprefix . "gallery_images"], "pi.id=u.profileImage", "pi.filename as pimg")
-                    ->where("(a.privacy = 2 OR (a.privacy = 1 AND a.owner_type IS NULL AND a.owner_id IN (" . new \Zend_Db_Expr($this->getAdapter()->select()->from($this->_dbprefix . "relations", new \Zend_Db_Expr("(CASE WHEN sender = " . $_SESSION['user']->userid . " THEN receiver WHEN receiver = " . $_SESSION['user']->userid . " THEN sender END)"))->where("status > 0")->where("sender=?", $_SESSION['user']->userid)->orWhere("receiver=?", $_SESSION['user']->userid)) . ")) OR (a.owner_type IS NULL AND a.owner_id=?))", $_SESSION['user']->userid)
-                    ->where("a.owner_id=? AND a.owner_type IS NULL", $userid)
-                    ->order("i.time DESC")
-            );
+            $userid = $_SESSION['user']->userid;
         }
+
+        $friends = [0];
+
+        if (count($_SESSION['user']->getFriendList()) > 0) {
+            $friends = $_SESSION['user']->getFriendList();
+        }
+
+        return $this->getAdapter()->fetchAll(
+            $this->getAdapter()->select()
+                ->from(["a" => $this->info("name")])
+                ->joinLeft(["i" => $this->_dbprefix . "gallery_images"], "a.cover=i.id", "filename")
+                ->joinLeft(["u" => $this->_dbprefix . "users"], "a.owner_id=u.userid AND a.owner_type IS NULL", ["u.name", "u.username"])
+                ->joinLeft(["pi" => $this->_dbprefix . "gallery_images"], "pi.id=u.profileImage", "pi.filename as pimg")
+                ->where("(a.privacy = 2 OR (a.privacy = 1 AND a.owner_type IS NULL AND a.owner_id IN (" . new \Zend_Db_Expr($this->getAdapter()->select()->from($this->_dbprefix . "relations", new \Zend_Db_Expr("(CASE WHEN sender = " . $_SESSION['user']->userid . " THEN receiver WHEN receiver = " . $_SESSION['user']->userid . " THEN sender END)"))->where("status > 0")->where("sender=?", $_SESSION['user']->userid)->orWhere("receiver=?", $_SESSION['user']->userid)) . ")) OR (a.owner_type IS NULL AND a.owner_id=?))", $_SESSION['user']->userid)
+                ->where("a.owner_id=? AND a.owner_type IS NULL", $userid)
+                ->orWhere('a.privacy = 0 AND a.owner_id IN ('.implode(',', $friends).')')
+                ->order("i.time DESC")
+        );
     }
 
     /**
