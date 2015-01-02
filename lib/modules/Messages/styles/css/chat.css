@@ -195,7 +195,7 @@
     text-align: left;
     position: relative;
     min-width: 50px;
-    word-break: break-word;
+    word-break: break-all;
     box-shadow: -2px 2px 3px #ccc;
 }
 
