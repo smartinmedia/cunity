@@ -156,7 +156,7 @@ class GalleryAlbums extends Table
                 ->joinLeft(["pi" => $this->_dbprefix . "gallery_images"], "pi.id=u.profileImage", "pi.filename as pimg")
                 ->where("(a.privacy = 2 OR (a.privacy = 1 AND a.owner_type IS NULL AND a.owner_id IN (" . new \Zend_Db_Expr($this->getAdapter()->select()->from($this->_dbprefix . "relations", new \Zend_Db_Expr("(CASE WHEN sender = " . $_SESSION['user']->userid . " THEN receiver WHEN receiver = " . $_SESSION['user']->userid . " THEN sender END)"))->where("status > 0")->where("sender=?", $_SESSION['user']->userid)->orWhere("receiver=?", $_SESSION['user']->userid)) . ")) OR (a.owner_type IS NULL AND a.owner_id=?))", $_SESSION['user']->userid)
                 ->where("a.owner_id=? AND a.owner_type IS NULL", $userid)
-                ->orWhere('a.privacy = 0 AND a.owner_id IN ('.implode(',', $friends).')')
+                ->orWhere('(a.privacy = 0 OR a.privacy = 1) AND a.owner_id IN ('.implode(',', $friends).')')
                 ->order("i.time DESC")
         );
     }
