@@ -43,7 +43,7 @@
                 {-*<li><a href="#"><i class="fa fa-bullhorn"></i> {-"Report Person"|translate}</a></li>*}
             </ul>
         </div>
-        <div class="pull-right blocked-buttons btn-group btn-group-sm friend-buttons{% if (o.status != 0){ %} hidden{% } %}">
+        <div class="pull-right blocked-buttons btn-group btn-group-sm friend-buttons{% if (o.status != 0 && o.sender != o.userid){ %} hidden{% } %}">
             <button class="btn btn-default tooltip-trigger" data-title="{-"You have blocked this user"|translate}"
                     data-container="body"><span class="fa fa-ban"></span> {-"Blocked"|translate}</button>
             <button class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
