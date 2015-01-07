@@ -38,7 +38,6 @@ namespace Cunity\Friends\Models\Db\Table;
 
 use Cunity\Core\Models\Db\Abstractables\Table;
 use Cunity\Core\Models\Db\Table\Users;
-use DateInterval;
 
 /**
  * Class Relationships
