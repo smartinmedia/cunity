@@ -66,7 +66,7 @@ class FriendShipController
     {
         UserHelper::breakOnMissingUserId();
         $notification = new Notifier();
-        $notification->notify($_SESSION['user']->userid, $_POST['userid'], 'addfriend', 'index.php?m=addfriend&action=' . $_POST['userid']);
+        $notification->notify($_SESSION['user']->userid, $_POST['userid'], 'confirmfriend', 'index.php?m=confirmfriend&action=' . $_POST['userid']);
         $relations = new Db\Table\Relationships();
         $res = $relations->insert(["sender" => $_SESSION['user']->userid, "receiver" => $_POST['userid'], "status" => 1]);
         if ($res) {

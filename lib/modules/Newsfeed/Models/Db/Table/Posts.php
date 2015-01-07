@@ -39,6 +39,7 @@ namespace Cunity\Newsfeed\Models\Db\Table;
 use Cunity\Comments\Models\Db\Table\Comments;
 use Cunity\Core\Models\Db\Abstractables\Table;
 use Cunity\Likes\Models\Db\Table\Likes;
+use Cunity\Notifications\Models\Notifier;
 
 /**
  * Class Posts
@@ -86,6 +87,8 @@ class Posts extends Table
         if (isset($data['wall_owner_id']) && isset($data['wall_owner_type']) && !empty($data['wall_owner_id']) && !empty($data['wall_owner_type'])) {
             $walls = new Walls();
             $wallid = $walls->getWallId($data['wall_owner_id'], $data['wall_owner_type']);
+            $notification = new Notifier();
+            $notification->notify($data['wall_owner_id'], $_SESSION['user']->userid, 'wall_post', 'index.php?m=wall_post&action=' . $data['wall_owner_id']);
         } else {
             $wallid = $_POST['wallid'];
         }
