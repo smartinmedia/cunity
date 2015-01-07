@@ -36,7 +36,6 @@
 
 namespace Cunity\Messages\Models;
 
-use Cunity\Core\Helper\UserHelper;
 use Cunity\Core\View\Ajax\View;
 use Cunity\Friends\Models\Db\Table\Relationships;
 use Cunity\Messages\Models\Db\Table\Conversations;

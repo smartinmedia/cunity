@@ -37,7 +37,6 @@
 namespace Cunity\Core\Models\Db\Abstractables;
 
 use Cunity\Core\Cunity;
-use Cunity\Notifications\Models\Notifier;
 
 /**
  * abstract Table Class which automatically inserts the database-prefix

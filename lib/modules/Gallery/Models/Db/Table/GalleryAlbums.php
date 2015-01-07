@@ -36,7 +36,6 @@
 
 namespace Cunity\Gallery\Models\Db\Table;
 
-use Cunity\Core\Helper\UserHelper;
 use Cunity\Core\Models\Db\Abstractables\Table;
 use Cunity\Core\View\View;
 use Cunity\Gallery\Models\Db\Row\Album;
