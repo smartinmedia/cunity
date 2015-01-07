@@ -68,6 +68,8 @@ class Relationships extends Table
         parent::__construct();
     }
 
+
+
     /**
      * @param $user
      * @param $secondUser

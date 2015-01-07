@@ -39,6 +39,8 @@ namespace Cunity\Friends\Models;
 use Cunity\Core\Exception;
 use Cunity\Core\Helper\UserHelper;
 use Cunity\Core\View\Ajax\View;
+use Cunity\Friends\Helper\RelationShipHelper;
+use Cunity\Notifications\Models\Notifier;
 
 /**
  * Class FriendShipController
@@ -63,6 +65,8 @@ class FriendShipController
     private function add()
     {
         UserHelper::breakOnMissingUserId();
+        $notification = new Notifier();
+        $notification->notify($_SESSION['user']->userid, $_POST['userid'], 'addfriend', 'index.php?m=addfriend&action=' . $_POST['userid']);
         $relations = new Db\Table\Relationships();
         $res = $relations->insert(["sender" => $_SESSION['user']->userid, "receiver" => $_POST['userid'], "status" => 1]);
         if ($res) {
