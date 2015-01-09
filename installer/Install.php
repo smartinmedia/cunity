@@ -39,7 +39,6 @@ use Cunity\Admin\Models\Process;
 require_once(__DIR__ . '/../vendor/autoload.php');
 
 ob_start("ob_gzhandler");
-error_reporting(-1);
 date_default_timezone_set("UTC");
 chdir("..");
 session_start();
@@ -127,7 +126,7 @@ class Install
      */
     private function prepareDatabase()
     {
-        $connection = @mysqli_connect($_REQUEST['db-host'], $_REQUEST['db-user'], $_REQUEST['db-password'], $_REQUEST['db-name']);
+        $connection = mysqli_connect($_REQUEST['db-host'], $_REQUEST['db-user'], $_REQUEST['db-password'], $_REQUEST['db-name']);
 
         if ($connection === false) {
             $this->outputAjaxResponse('could not connect to database', false);
