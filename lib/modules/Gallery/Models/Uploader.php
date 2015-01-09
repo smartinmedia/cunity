@@ -47,6 +47,15 @@ use Skoch\Filter\File\Resize;
 class Uploader
 {
     /**
+     * @param $message
+     */
+    private function sendResponse($message = '')
+    {
+        echo($message);
+        exit;
+    }
+
+    /**
      * @param $filename
      * @return string
      * @throws \Exception
@@ -55,8 +64,7 @@ class Uploader
     {
 
         if (empty($_FILES) || $_FILES['file']['error']) {
-            echo('{"OK": 0, "info": "Failed to move uploaded file."}');
-            exit();
+            $this->sendResponse('{"OK": 0, "info": "Failed to move uploaded file."}');
         }
 
         $chunk = isset($_REQUEST["chunk"]) ? intval($_REQUEST["chunk"]) : 0;
@@ -69,25 +77,23 @@ class Uploader
         $out = fopen("{$filePath}.part", $chunk == 0 ? "wb" : "ab");
         if ($out) {
             // Read binary input stream and append it to temp file
-            $in = fopen($_FILES['file']['tmp_name'], "rb");
+            $tempFile = fopen($_FILES['file']['tmp_name'], "rb");
 
-            if ($in) {
+            if ($tempFile) {
                 /** @noinspection PhpAssignmentInConditionInspection */
-                while ($buff = fread($in, 4096)) {
+                while ($buff = fread($tempFile, 4096)) {
                     fwrite($out, $buff);
                 }
             } else {
-                echo('{"OK": 0, "info": "Failed to open input stream."}');
-                exit();
+                $this->sendResponse('{"OK": 0, "info": "Failed to open input stream."}');
             }
 
-            fclose($in);
+            fclose($tempFile);
             fclose($out);
 
             unlink($_FILES['file']['tmp_name']);
         } else {
-            echo('{"OK": 0, "info": "Failed to open output stream."}');
-            exit();
+            $this->sendResponse('{"OK": 0, "info": "Failed to open output stream."}');
         }
 
         if ($chunks == 0 || $chunk == $chunks - 1) {
@@ -112,7 +118,7 @@ class Uploader
             $crop->filter($destinationFile);
             return $filename . "." . strtolower($fileinfo['extension']);
         } else {
-            exit();
+            $this->sendResponse();
         }
     }
 }
