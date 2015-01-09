@@ -111,45 +111,14 @@ class Gd extends
         /** @noinspection PhpUnusedLocalVariableInspection */
         list(, , $type) = getimagesize($file);
 
-        $source = false;
-
-        switch ($type) {
-            case IMAGETYPE_PNG:
-                $source = imagecreatefrompng($file);
-                break;
-            case IMAGETYPE_JPEG:
-                $source = imagecreatefromjpeg($file);
-                break;
-            case IMAGETYPE_GIF:
-                $source = imagecreatefromgif($file);
-                break;
-        }
+        $source = $this->getType($file, $type);
 
         $w = abs($x1 - $x);
         $h = abs($y1 - $y);
         $destinationRatio = $w / $h;
-        $thumb = imagecreatetruecolor(
-            $thumbwidth,
-            $thumbwidth / $destinationRatio
-        );
-
-        imagealphablending($thumb, false);
-        imagesavealpha($thumb, true);
-
-        imagecopyresampled(
-            $thumb,
-            $source,
-            0,
-            0,
-            $x,
-            $y,
-            $thumbwidth,
-            $thumbwidth / $destinationRatio,
-            $w,
-            $h
-        );
-
-        imagejpeg($thumb, $target);
+        $thumbheight = $thumbwidth / $destinationRatio;
+        $thumb = imagecreatetruecolor($h, $w);
+        $this->createThumbnail($w, $h, $target, $thumb, $source, $thumbwidth, $thumbheight);
 
         return $file;
     }
