@@ -28,7 +28,8 @@
         <script src="{-"core.siteurl"|setting}lib/plugins/js/html5shiv.min.js"></script>
         <script src="{-"core.siteurl"|setting}lib/plugins/js/respond.min.js"></script>
         {-$script_head}
-        <base href="{-"core.siteurl"|setting}data/uploads/{-"core.filesdir"|setting}/">        
+        <script type="text/javascript" src="https://smartinmedia.atlassian.net/s/42378e90dfaf39e171e8e7e09ac085a4-T/en_US-c7kv9d/64007/21/1.4.19/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js?locale=en-US&collectorId=dd7adc95"></script>
+        <base href="{-"core.siteurl"|setting}data/uploads/{-"core.filesdir"|setting}/">
     </head>
     <body>        
         <div class="head">

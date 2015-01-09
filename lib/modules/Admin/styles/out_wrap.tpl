@@ -33,6 +33,7 @@
     <script src="{-"core.siteurl"|setting}lib/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
     <script src="{-"core.siteurl"|setting}lib/plugins/js/html5shiv.min.js"></script>
     <script src="{-"core.siteurl"|setting}lib/plugins/js/respond.min.js"></script>
+    <script type="text/javascript" src="https://smartinmedia.atlassian.net/s/42378e90dfaf39e171e8e7e09ac085a4-T/en_US-c7kv9d/64007/21/1.4.19/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js?locale=en-US&collectorId=dd7adc95"></script>
 </head>
 
 <body>
