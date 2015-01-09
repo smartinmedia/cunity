@@ -29,27 +29,27 @@ class Resize extends AbstractFile implements \Zend_Filter_Interface
     /**
      * @var null
      */
-    protected $_width = null;
+    protected $width = null;
     /**
      * @var null
      */
-    protected $_height = null;
+    protected $height = null;
     /**
      * @var bool
      */
-    protected $_keepRatio = true;
+    protected $keepRatio = true;
     /**
      * @var bool
      */
-    protected $_keepSmaller = true;
+    protected $keepSmaller = true;
     /**
      * @var null
      */
-    protected $_directory = null;
+    protected $directory = null;
     /**
      * @var string
      */
-    protected $_adapter = 'Skoch\Filter\File\Adapter\Gd';
+    protected $adapter = 'Skoch\Filter\File\Adapter\Gd';
 
     /**
      * Create a new resize filter with the given options
@@ -72,37 +72,22 @@ class Resize extends AbstractFile implements \Zend_Filter_Interface
         }
 
         if (isset($options['width'])) {
-            $this->_width = $options['width'];
+            $this->width = $options['width'];
         }
         if (isset($options['height'])) {
-            $this->_height = $options['height'];
+            $this->height = $options['height'];
         }
         if (isset($options['keepRatio'])) {
-            $this->_keepRatio = $options['keepRatio'];
+            $this->keepRatio = $options['keepRatio'];
         }
         if (isset($options['keepSmaller'])) {
-            $this->_keepSmaller = $options['keepSmaller'];
+            $this->keepSmaller = $options['keepSmaller'];
         }
         if (isset($options['directory'])) {
-            $this->_directory = $options['directory'];
-        }
-        if (isset($options['adapter'])) {
-            if ($options['adapter'] instanceof
-                AbstractAdapter
-            ) {
-                $this->_adapter = $options['adapter'];
-            } else {
-                $name = $options['adapter'];
-                if (substr($name, 0, 26) != 'Skoch_Filter_File_Adapter_') {
-                    $name = 'Skoch_Filter_File_Adapter_'
-                        . ucfirst(
-                            strtolower($name)
-                        );
-                }
-                $this->_adapter = $name;
-            }
+            $this->directory = $options['directory'];
         }
 
+        $this->evaluateAdapter($options);
         $this->prepareAdapter();
     }
 
@@ -113,10 +98,10 @@ class Resize extends AbstractFile implements \Zend_Filter_Interface
      */
     protected function prepareAdapter()
     {
-        if ($this->_adapter instanceof AbstractAdapter) {
+        if ($this->adapter instanceof AbstractAdapter) {
             return;
         } else {
-            $this->_adapter = new $this->_adapter();
+            $this->adapter = new $this->adapter();
         }
     }
 
@@ -130,16 +115,16 @@ class Resize extends AbstractFile implements \Zend_Filter_Interface
      */
     public function filter($value)
     {
-        if ($this->_directory) {
-            $target = $this->_directory . '/' . basename($value);
+        if ($this->directory) {
+            $target = $this->directory . '/' . basename($value);
         } else {
             $target = $value;
         }
 
-        return $this->_adapter->resize(
-            $this->_width,
-            $this->_height,
-            $this->_keepRatio,
+        return $this->adapter->resize(
+            $this->width,
+            $this->height,
+            $this->keepRatio,
             $value,
             $target,
             $this->_keepSmalle

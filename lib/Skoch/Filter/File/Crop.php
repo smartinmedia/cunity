@@ -30,35 +30,35 @@ class Crop extends AbstractFile implements \Zend_Filter_Interface
     /**
      * @var null
      */
-    protected $_x = null;
+    protected $xValue = null;
     /**
      * @var null
      */
-    protected $_y = null;
+    protected $yValue = null;
     /**
      * @var null
      */
-    protected $_x1 = null;
+    protected $xValue1 = null;
     /**
      * @var null
      */
-    protected $_y1 = null;
+    protected $yValue1 = null;
     /**
      * @var null
      */
-    protected $_prefix = null;
+    protected $prefix = null;
     /**
      * @var null
      */
-    protected $_thumbsize = null;
+    protected $thumbsize = null;
     /**
      * @var null
      */
-    protected $_directory = null;
+    protected $directory = null;
     /**
      * @var AbstractAdapter
      */
-    protected $_adapter = 'Skoch\Filter\File\Adapter\Gd';
+    protected $adapter = 'Skoch\Filter\File\Adapter\Gd';
 
     /**
      * Create a new resize filter with the given options
@@ -75,42 +75,27 @@ class Crop extends AbstractFile implements \Zend_Filter_Interface
         $options = parent::__construct($options);
 
         if (isset($options['x1'])) {
-            $this->_x1 = $options['x1'];
+            $this->xValue1 = $options['x1'];
         }
         if (isset($options['y1'])) {
-            $this->_y1 = $options['y1'];
+            $this->yValue1 = $options['y1'];
         }
         if (isset($options['x'])) {
-            $this->_x = $options['x'];
+            $this->xValue = $options['x'];
         }
         if (isset($options['y'])) {
-            $this->_y = $options['y'];
+            $this->yValue = $options['y'];
         }
         if (isset($options['thumbwidth'])) {
             $this->_thumbwidth = $options['thumbwidth'];
         }
         if (isset($options['directory'])) {
-            $this->_directory = $options['directory'];
+            $this->directory = $options['directory'];
         }
         if (isset($options['prefix'])) {
-            $this->_prefix = $options['prefix'];
+            $this->prefix = $options['prefix'];
         }
-        if (isset($options['adapter'])) {
-            if ($options['adapter'] instanceof
-                AbstractAdapter
-            ) {
-                $this->_adapter = $options['adapter'];
-            } else {
-                $name = $options['adapter'];
-                if (substr($name, 0, 26) != 'Skoch_Filter_File_Adapter_') {
-                    $name = 'Skoch_Filter_File_Adapter_'
-                        . ucfirst(
-                            strtolower($name)
-                        );
-                }
-                $this->_adapter = $name;
-            }
-        }
+        $this->evaluateAdapter($options);
 
         $this->prepareAdapter();
     }
@@ -122,10 +107,10 @@ class Crop extends AbstractFile implements \Zend_Filter_Interface
      */
     protected function prepareAdapter()
     {
-        if ($this->_adapter instanceof AbstractAdapter) {
+        if ($this->adapter instanceof AbstractAdapter) {
             return;
         } else {
-            $this->_adapter = new $this->_adapter();
+            $this->adapter = new $this->adapter();
         }
     }
 
@@ -139,22 +124,22 @@ class Crop extends AbstractFile implements \Zend_Filter_Interface
      */
     public function filter($value)
     {
-        if ($this->_directory) {
-            $target = $this->_directory
+        if ($this->directory) {
+            $target = $this->directory
                 . '/'
-                . $this->_prefix
+                . $this->prefix
                 . basename($value);
         } else {
-            $target = $this->_prefix . $value;
+            $target = $this->prefix . $value;
         }
 
         if ($this->_thumbwidth == "thumbnail")
-            return $this->_adapter->thumbnail($value, $target, 180);
-        return $this->_adapter->crop(
-            $this->_x,
-            $this->_y,
-            $this->_x1,
-            $this->_y1,
+            return $this->adapter->thumbnail($value, $target, 180);
+        return $this->adapter->crop(
+            $this->xValue,
+            $this->yValue,
+            $this->xValue1,
+            $this->yValue1,
             $value,
             $target,
             $this->_thumbwidth
