@@ -96,6 +96,20 @@ class Uploader
             $this->sendResponse('{"OK": 0, "info": "Failed to open output stream."}');
         }
 
+        return $this->edit($filename, $chunks, $chunk, $fileName, $filePath);
+    }
+
+    /**
+     * @param $filename
+     * @param $chunks
+     * @param $chunk
+     * @param $fileName
+     * @param $filePath
+     * @return string
+     * @throws \Cunity\Core\Exception
+     */
+    public function edit($filename, $chunks, $chunk, $fileName, $filePath)
+    {
         if ($chunks == 0 || $chunk == $chunks - 1) {
             $settings = Cunity::get("settings");
             $config = Cunity::get("config");
