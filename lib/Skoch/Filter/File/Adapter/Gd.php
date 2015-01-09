@@ -38,65 +38,10 @@ class Gd extends
     {
         list($oldWidth, $oldHeight, $type) = getimagesize($file);
 
-        $source = false;
-
-        switch ($type) {
-            case IMAGETYPE_PNG:
-                $source = imagecreatefrompng($file);
-                break;
-            case IMAGETYPE_JPEG:
-                $source = imagecreatefromjpeg($file);
-                break;
-            case IMAGETYPE_GIF:
-                $source = imagecreatefromgif($file);
-                break;
-        }
-
-        if (!$keepSmaller || $oldWidth > $width || $oldHeight > $height) {
-            if ($keepRatio) {
-                list($width, $height) = $this->calculateWidth(
-                    $oldWidth,
-                    $oldHeight,
-                    $width,
-                    $height
-                );
-            }
-        } else {
-            $width = $oldWidth;
-            $height = $oldHeight;
-        }
-
+        $source = $this->getType($file, $type);
+        list($width, $height) = $this->calculateMetrics($width, $height, $keepRatio, $keepSmaller, $oldWidth, $oldHeight);
         $thumb = imagecreatetruecolor($width, $height);
-
-        imagealphablending($thumb, false);
-        imagesavealpha($thumb, true);
-
-        imagecopyresampled(
-            $thumb,
-            $source,
-            0,
-            0,
-            0,
-            0,
-            $width,
-            $height,
-            $oldWidth,
-            $oldHeight
-        );
-
-        imagecopyresampled(
-            $thumb,
-            $source,
-            0,
-            0,
-            0,
-            0,
-            $width,
-            $height,
-            $oldWidth,
-            $oldHeight
-        );
-        imagejpeg($thumb, $target);
+        $this->createThumbnail($width, $height, $target, $thumb, $source, $oldWidth, $oldHeight);
 
         return $target;
     }
@@ -164,7 +109,7 @@ class Gd extends
     public function crop($x, $y, $x1, $y1, $file, $target, $thumbwidth)
     {
         /** @noinspection PhpUnusedLocalVariableInspection */
-        list(,, $type) = getimagesize($file);
+        list(, , $type) = getimagesize($file);
 
         $source = false;
 
@@ -207,6 +152,98 @@ class Gd extends
         imagejpeg($thumb, $target);
 
         return $file;
+    }
+
+    /**
+     * @param $width
+     * @param $height
+     * @param $target
+     * @param $thumb
+     * @param $source
+     * @param $oldWidth
+     * @param $oldHeight
+     */
+    private function createThumbnail($width, $height, $target, $thumb, $source, $oldWidth, $oldHeight)
+    {
+        imagealphablending($thumb, false);
+        imagesavealpha($thumb, true);
+
+        imagecopyresampled(
+            $thumb,
+            $source,
+            0,
+            0,
+            0,
+            0,
+            $width,
+            $height,
+            $oldWidth,
+            $oldHeight
+        );
+
+        imagecopyresampled(
+            $thumb,
+            $source,
+            0,
+            0,
+            0,
+            0,
+            $width,
+            $height,
+            $oldWidth,
+            $oldHeight
+        );
+        imagejpeg($thumb, $target);
+    }
+
+    /**
+     * @param $file
+     * @param $type
+     * @return resource
+     */
+    private function getType($file, $type)
+    {
+        switch ($type) {
+            case IMAGETYPE_PNG:
+                $source = imagecreatefrompng($file);
+                break;
+            case IMAGETYPE_JPEG:
+                $source = imagecreatefromjpeg($file);
+                break;
+            case IMAGETYPE_GIF:
+                $source = imagecreatefromgif($file);
+                break;
+        }
+        return $source;
+    }
+
+    /**
+     * @param $width
+     * @param $height
+     * @param $keepRatio
+     * @param $keepSmaller
+     * @param $oldWidth
+     * @param $oldHeight
+     * @return array
+     */
+    private function calculateMetrics($width, $height, $keepRatio, $keepSmaller, $oldWidth, $oldHeight)
+    {
+        if (!$keepSmaller || $oldWidth > $width || $oldHeight > $height) {
+            if ($keepRatio) {
+                list($width, $height) = $this->calculateWidth(
+                    $oldWidth,
+                    $oldHeight,
+                    $width,
+                    $height
+                );
+                return array($width, $height);
+            }
+            return array($width, $height);
+        } else {
+            $width = $oldWidth;
+            $height = $oldHeight;
+            return array($width, $height);
+        }
     }
 
 }
