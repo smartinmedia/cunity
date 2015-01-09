@@ -56,6 +56,7 @@ use Skoch\Filter\File\Crop;
  */
 class ProfileEdit
 {
+    private $message;
 
     /**
      * @var User
@@ -182,17 +183,7 @@ class ProfileEdit
     {
         if (!empty($_POST['types'])) {
             $result = [];
-            foreach ($_POST['types'] as $key => $v) {
-                if (isset($_POST['alert'][$key]) && isset($_POST['mail'][$key])) {
-                    $result[$key] = 3;
-                } elseif (isset($_POST['alert'][$key]) && !isset($_POST['mail'][$key])) {
-                    $result[$key] = 1;
-                } elseif (!isset($_POST['alert'][$key]) && isset($_POST['mail'][$key])) {
-                    $result[$key] = 2;
-                } else {
-                    $result[$key] = 0;
-                }
-            }
+            $result = $this->generateResult($result);
             $settings = new NotificationSettings();
             $res = $settings->updateSettings($result);
             $view = new View($res);
@@ -231,26 +222,22 @@ class ProfileEdit
         $message = [];
         $validateMail = new Email();
         $validateUsername = new Username();
-
-        if ($validateUsername->isValid($_POST['username'])) {
-            $this->user->username = $_POST['username'];
-        } else {
-            $message[] = implode(",", $validateUsername->getMessages());
-        }
-        if ($validateMail->isValid($_POST['email'])) {
-            $this->user->email = $_POST['email'];
-        } else {
-            $message[] = implode(",", $validateMail->getMessages());
-        }
+        $this->message = $message;
+        $this->getUserName($validateUsername);
+        $this->validateEmail($validateMail);
         $res = $this->user->save();
+
         if (!$res) {
-            $message[] = $view->translate("Something went wrong! Please try again later!");
+            $this->message[] = $view->translate("Something went wrong! Please try again later!");
         }
-        $view->setStatus(empty($message));
-        if (empty($message)) {
-            $message[] = $view->translate("Your changes were saved successfully!");
+
+        $view->setStatus(empty($this->message));
+
+        if (empty($this->message)) {
+            $this->message[] = $view->translate("Your changes were saved successfully!");
         }
-        $view->addData(["msg" => implode(',', $message)]);
+
+        $view->addData(["msg" => implode(',', $this->message)]);
         $view->sendResponse();
     }
 
@@ -360,5 +347,49 @@ class ProfileEdit
         $view->assign('profileFields', $profileFields->getAll());
         $view->assign("profile", array_merge($profile, ["privacy" => $privacy, 'notificationSettings' => $notificationSettings]));
         $view->render();
+    }
+
+    /**
+     * @param $validateUsername
+     */
+    private function getUserName($validateUsername)
+    {
+        if ($validateUsername->isValid($_POST['username'])) {
+            $this->user->username = $_POST['username'];
+        } else {
+            $this->message[] = implode(",", $validateUsername->getMessages());
+        }
+    }
+
+    /**
+     * @param $validateMail
+     */
+    private function validateEmail($validateMail)
+    {
+        if ($validateMail->isValid($_POST['email'])) {
+            $this->user->email = $_POST['email'];
+        } else {
+            $this->message[] = implode(",", $validateMail->getMessages());
+        }
+    }
+
+    /**
+     * @param $result
+     * @return mixed
+     */
+    private function generateResult($result)
+    {
+        foreach ($_POST['types'] as $key => $v) {
+            if (isset($_POST['alert'][$key]) && isset($_POST['mail'][$key])) {
+                $result[$key] = 3;
+            } elseif (isset($_POST['alert'][$key]) && !isset($_POST['mail'][$key])) {
+                $result[$key] = 1;
+            } elseif (!isset($_POST['alert'][$key]) && isset($_POST['mail'][$key])) {
+                $result[$key] = 2;
+            } else {
+                $result[$key] = 0;
+            }
+        }
+        return $result;
     }
 }
