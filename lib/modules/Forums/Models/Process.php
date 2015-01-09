@@ -201,17 +201,38 @@ class Process
      */
     private function board()
     {
-        $boards = new Boards;
+        $this->showData('board');
+    }
+
+    /**
+     * @param $type
+     */
+    private function showData($type)
+    {
+        $data = false;
         $cat = new Categories;
-        $data = $boards->loadBoardData($_GET['x']);
+        $view = new View();
+        switch($type) {
+            case 'board':
+                $boards = new Boards();
+                $data = $boards->loadBoardData($_GET['x']);
+                $view = new Board();
+                $view->assign("board", $data);
+                break;
+            case 'thread':
+                $threads = new Threads();
+                $data = $threads->loadThreadData($_GET['x']);
+                $view = new Thread();
+                $view->assign("thread", $data);
+                break;
+        }
         if ($data === false) {
             new PageNotFound;
         }
-        $view = new Board();
-        $view->setMetaData(["title" => $data['title']]);
 
+        $view->setMetaData(["title" => $data['title']]);
         $view->assign("categories", $cat->getCategories());
-        $view->assign("board", $data);
+
         $view->show();
     }
 
@@ -220,17 +241,7 @@ class Process
      */
     private function thread()
     {
-        $threads = new Threads;
-        $cat = new Categories;
-        $data = $threads->loadThreadData($_GET['x']);
-        if ($data === false) {
-            new PageNotFound;
-        }
-        $view = new Thread();
-        $view->setMetaData(["title" => $data['title']]);
-        $view->assign("thread", $data);
-        $view->assign("categories", $cat->getCategories());
-        $view->show();
+        $this->showData('thread');
     }
 
     /**
