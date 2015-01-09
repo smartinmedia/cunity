@@ -133,6 +133,7 @@ class Uploader
             return $filename . "." . strtolower($fileinfo['extension']);
         } else {
             $this->sendResponse();
+            return '';
         }
     }
 }
