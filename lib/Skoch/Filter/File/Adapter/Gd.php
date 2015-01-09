@@ -203,6 +203,7 @@ class Gd extends
      */
     private function getType($file, $type)
     {
+        $source = false;
         switch ($type) {
             case IMAGETYPE_PNG:
                 $source = imagecreatefrompng($file);
