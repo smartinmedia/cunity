@@ -69,71 +69,87 @@ class Uploader
 
         $chunk = isset($_REQUEST["chunk"]) ? intval($_REQUEST["chunk"]) : 0;
         $chunks = isset($_REQUEST["chunks"]) ? intval($_REQUEST["chunks"]) : 0;
-
         $fileName = isset($_REQUEST["name"]) ? $_REQUEST["name"] : $_FILES["file"]["name"];
         $filePath = "./$fileName";
 
         // Open temp file
         $out = fopen("{$filePath}.part", $chunk == 0 ? "wb" : "ab");
         if ($out) {
-            // Read binary input stream and append it to temp file
-            $tempFile = fopen($_FILES['file']['tmp_name'], "rb");
-
-            if ($tempFile) {
-                /** @noinspection PhpAssignmentInConditionInspection */
-                while ($buff = fread($tempFile, 4096)) {
-                    fwrite($out, $buff);
-                }
-            } else {
-                $this->sendResponse('{"OK": 0, "info": "Failed to open input stream."}');
-            }
-
-            fclose($tempFile);
-            fclose($out);
-
-            unlink($_FILES['file']['tmp_name']);
+            $this->moveTempFile($out);
         } else {
             $this->sendResponse('{"OK": 0, "info": "Failed to open output stream."}');
         }
 
-        return $this->edit($filename, $chunks, $chunk, $fileName, $filePath);
+        if ($chunks == 0 || $chunk == $chunks - 1) {
+            return $this->edit($filename, $fileName, $filePath);
+        } else {
+            $this->sendResponse();
+            return '';
+        }
     }
 
     /**
      * @param $filename
-     * @param $chunks
-     * @param $chunk
      * @param $fileName
      * @param $filePath
      * @return string
      * @throws \Cunity\Core\Exception
      */
-    public function edit($filename, $chunks, $chunk, $fileName, $filePath)
+    public function edit($filename, $fileName, $filePath)
     {
-        if ($chunks == 0 || $chunk == $chunks - 1) {
-            $settings = Cunity::get("settings");
-            $config = Cunity::get("config");
-            $fileinfo = pathinfo($fileName);
-            $destinationFile = "../data/uploads/" . $settings->getSetting("core.filesdir") . "/" . $filename . "." . strtolower($fileinfo['extension']);
-            $previewFile = "../data/uploads/" . $settings->getSetting("core.filesdir") . "/prev_" . $filename . "." . strtolower($fileinfo['extension']);
+        $settings = Cunity::get("settings");
+        $config = Cunity::get("config");
+        $fileinfo = pathinfo($fileName);
+        $destinationFile = "../data/uploads/" . $settings->getSetting("core.filesdir") . "/" . $filename . "." . strtolower($fileinfo['extension']);
+        $previewFile = "../data/uploads/" . $settings->getSetting("core.filesdir") . "/prev_" . $filename . "." . strtolower($fileinfo['extension']);
 
-            rename("{$filePath}.part", $destinationFile);
-            copy($destinationFile, $previewFile);
+        rename("{$filePath}.part", $destinationFile);
+        copy($destinationFile, $previewFile);
 
-            $resizer = new Resize($config->images);
-            $preview = new Resize($config->previewImages);
-            $crop = new Crop([
-                "thumbwidth" => "thumbnail",
-                "directory" => "../data/uploads/" . Cunity::get("settings")->getSetting("core.filesdir"),
-                "prefix" => "thumb_"
-            ]);
-            $resizer->filter($destinationFile);
-            $preview->filter($previewFile);
-            $crop->filter($destinationFile);
-            return $filename . "." . strtolower($fileinfo['extension']);
+        $this->resize($config, $destinationFile, $previewFile);
+        return $filename . "." . strtolower($fileinfo['extension']);
+    }
+
+    /**
+     * @param $config
+     * @param $destinationFile
+     * @param $previewFile
+     * @throws \Cunity\Core\Exception
+     */
+    public function resize($config, $destinationFile, $previewFile)
+    {
+        $resizer = new Resize($config->images);
+        $preview = new Resize($config->previewImages);
+        $crop = new Crop([
+            "thumbwidth" => "thumbnail",
+            "directory" => "../data/uploads/" . Cunity::get("settings")->getSetting("core.filesdir"),
+            "prefix" => "thumb_"
+        ]);
+        $resizer->filter($destinationFile);
+        $preview->filter($previewFile);
+        $crop->filter($destinationFile);
+    }
+
+    /**
+     * @param $out
+     */
+    public function moveTempFile($out)
+    {
+// Read binary input stream and append it to temp file
+        $tempFile = fopen($_FILES['file']['tmp_name'], "rb");
+
+        if ($tempFile) {
+            /** @noinspection PhpAssignmentInConditionInspection */
+            while ($buff = fread($tempFile, 4096)) {
+                fwrite($out, $buff);
+            }
         } else {
-            $this->sendResponse();
-            return '';
+            $this->sendResponse('{"OK": 0, "info": "Failed to open input stream."}');
         }
+
+        fclose($tempFile);
+        fclose($out);
+
+        unlink($_FILES['file']['tmp_name']);
     }
 }
