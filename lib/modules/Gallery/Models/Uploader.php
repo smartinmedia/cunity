@@ -111,12 +111,12 @@ class Uploader
     }
 
     /**
-     * @param $config
+     * @param \Zend_Config $config
      * @param $destinationFile
      * @param $previewFile
      * @throws \Cunity\Core\Exception
      */
-    public function resize($config, $destinationFile, $previewFile)
+    public function resize(\Zend_Config $config, $destinationFile, $previewFile)
     {
         $resizer = new Resize($config->images);
         $preview = new Resize($config->previewImages);

@@ -220,11 +220,9 @@ class ProfileEdit
     {
         $view = new View();
         $message = [];
-        $validateMail = new Email();
-        $validateUsername = new Username();
         $this->message = $message;
-        $this->getUserName($validateUsername);
-        $this->validateEmail($validateMail);
+        $this->getUserName(new Username());
+        $this->validateEmail(new Email());
         $res = $this->user->save();
 
         if (!$res) {
@@ -350,9 +348,9 @@ class ProfileEdit
     }
 
     /**
-     * @param $validateUsername
+     * @param Username $validateUsername
      */
-    private function getUserName($validateUsername)
+    private function getUserName(Username $validateUsername)
     {
         if ($validateUsername->isValid($_POST['username'])) {
             $this->user->username = $_POST['username'];
@@ -362,9 +360,9 @@ class ProfileEdit
     }
 
     /**
-     * @param $validateMail
+     * @param Email $validateMail
      */
-    private function validateEmail($validateMail)
+    private function validateEmail(Email $validateMail)
     {
         if ($validateMail->isValid($_POST['email'])) {
             $this->user->email = $_POST['email'];
