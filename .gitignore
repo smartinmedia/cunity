@@ -2,3 +2,4 @@
 vendor
 /data/config.xml
 /composer.lock
+bin
