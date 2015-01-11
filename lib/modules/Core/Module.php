@@ -37,6 +37,7 @@
 namespace Cunity\Core;
 
 use Cunity\Core\Models\Db\Table\Modules;
+use Cunity\Core\View\PageNotFound;
 
 /**
  * Class Module
@@ -65,6 +66,12 @@ class Module
         } else {
             $modules = new Modules();
             $this->_data = $modules->getModuleData($this->_tag);
+
+            if ($moduletag != 'admin' &&
+                $this->_data === null
+            ) {
+                new PageNotFound();
+            }
         }
     }
 
