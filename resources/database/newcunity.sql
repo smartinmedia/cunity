@@ -543,7 +543,7 @@ CREATE TABLE IF NOT EXISTS `TABLEPREFIXprofilefields_types` (
 INSERT INTO `TABLEPREFIXprofilefields_types` (`id`, `value`) VALUES (1, 'select');
 INSERT INTO `TABLEPREFIXprofilefields_types` (`id`, `value`) VALUES (2, 'radio');
 INSERT INTO `TABLEPREFIXprofilefields_types` (`id`, `value`) VALUES (3, 'text');
-INSERT INTO `TABLEPREFIXprofilefields_types` (`id`, `value`) VALUES (4, 'string');
+INSERT INTO `TABLEPREFIXprofilefields_types` (`id`, `value`) VALUES (4, 'text');
 INSERT INTO `TABLEPREFIXprofilefields_types` (`id`, `value`) VALUES (5, 'email');
 INSERT INTO `TABLEPREFIXprofilefields_types` (`id`, `value`) VALUES (6, 'date');
 

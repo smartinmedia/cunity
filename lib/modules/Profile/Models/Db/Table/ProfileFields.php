@@ -58,7 +58,7 @@ class ProfileFields extends Table
     /**
      * @var array
      */
-    public static $types = [1 => 'select', 2 => 'radio', 3 => 'text', 4 => 'string', 5 => 'email', 6 => 'date'];
+    public static $types = [1 => 'select', 2 => 'radio', 3 => 'text', 4 => 'text', 5 => 'email', 6 => 'date'];
 
     /**
      * @return array

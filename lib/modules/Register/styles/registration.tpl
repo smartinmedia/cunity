@@ -90,7 +90,7 @@
                                value="{-$value.id}">{-$value.value|translate}
                     </div>
                 {-/foreach}
-                {-elseif $field.type == 'string'}
+                {-elseif $field.type == 'text'}
                 <div class="col-lg-8">
                     <input type="text" {-if $field.required == 1}required="required"{-/if} class="form-control"
                            id="input-{-$field.id}"
