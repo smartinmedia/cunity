@@ -75,9 +75,12 @@
                                                         {-if $field.value==$value.id}selected{-/if}>{-$value.value|translate}</option>
                                             {-/foreach}
                                         </select>
+                                    {-elseif $field.type_id == 3}
+                                        <textarea class="form-control" id="postmsg" name="field[{-$field.id}]"
+                                                  placeholder="{-$field.label}">{-$field.value}</textarea>
                                     {-elseif $field.type_id == 4}
-                                        <input type="text" name="field[{-$field.id}]" class="form-control"
-                                               value="{-$field.value}" placeholder="{-$field.label}">
+                                    <input type="text" name="field[{-$field.id}]" class="form-control"
+                                           value="{-$field.value}" placeholder="{-$field.label}">
                                     {-/if}
                                 </div>
                             </div>
