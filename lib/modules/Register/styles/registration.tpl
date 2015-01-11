@@ -102,7 +102,7 @@
                                id="input-{-$field.id}"
                                placeholder="{-$field.value|translate}" name="field[{-$field.id}]"
                                value="{-$field.value}">
-                        {-elseif $field.type == 'text'}
+                        {-elseif $field.type == 'bigtext'}
                         <div class="col-lg-8">
                             <textarea {-if $field.required == 1}required="required"{-/if} class="form-control"
                                       id="input-password-repeat"
