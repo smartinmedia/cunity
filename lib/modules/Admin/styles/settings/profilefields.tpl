@@ -38,7 +38,7 @@
                         {-foreach $profileFields AS $i => $field}
                             <tr class="profilefield-{-$field.value}">
                                 <td>{-$i+1}</td>
-                                <td>{-$field.value}</td>
+                                <td>{-$field.label}</td>
                                 <td>{-$field.type}</td>
                                 <td>{-if $field.required == 1}<span
                                             class="label label-danger">{-"required"|translate}</span>{-else}<span
