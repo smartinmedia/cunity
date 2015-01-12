@@ -37,13 +37,14 @@
 namespace Cunity\Events\Models\Generator;
 
 use Cunity\Core\Cunity;
+use Cunity\Core\Models\Db\Abstractables\Table;
 use Zend_Db_Expr;
 
 /**
  * Class EventsQuery
  * @package Events\Models\Generator
  */
-class EventsQuery
+class EventsQuery extends Table
 {
 
     /**
@@ -56,7 +57,7 @@ class EventsQuery
         return new Zend_Db_Expr(
             Cunity::get("db")
                 ->select()
-                ->from(Cunity::get("config")->db->params->table_prefix . "_events_guests", "eventid")
+                ->from(Mysqli::getDbprefix() . "events_guests", "eventid")
                 ->where("status" . $status)
                 ->where("userid=?", $_SESSION['user']->userid)
         );

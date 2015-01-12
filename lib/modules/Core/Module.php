@@ -46,6 +46,11 @@ use Cunity\Core\View\PageNotFound;
 class Module
 {
     /**
+     * @var array
+     */
+    private static $FIXMODULES = ['admin', 'start', 'register', 'notifications'];
+
+    /**
      * @var
      */
     protected $_tag;
@@ -67,7 +72,7 @@ class Module
             $modules = new Modules();
             $this->_data = $modules->getModuleData($this->_tag);
 
-            if ($moduletag != 'admin' &&
+            if (!in_array($moduletag, self::$FIXMODULES) &&
                 $this->_data === null
             ) {
                 new PageNotFound();
