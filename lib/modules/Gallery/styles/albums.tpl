@@ -108,7 +108,7 @@
     </div>
 </div>
 <script type="text/html" id="albums-template">
-    <div class="albumlist-item pull-left user-album-{%=o.userid%} {% if (o.userid == {-$user.userid}) { %}album-own{% } else { %}album-foreign{% } %}">
+    <div class="albumlist-item pull-left user-album-{%=o.owner_id%} {% if (o.owner_id == {-$user.userid}) { %}album-own{% } else { %}album-foreign{% } %}">
         <a href="{%=convertUrl({'module':'gallery','action': o.id,'x':o.title.replace(' ','_')})%}"
            class="albumlist-item-image"
            style="background-image:url('{%=checkImage(o.filename,'gallery','thumb_')%}');"></a>
