@@ -112,8 +112,6 @@ class DatabaseUpdater
 
         $process = new Process();
         $process->recreateSearchIndex();
-
-        new Message("Done!", "The Database updated has finished!", "success");
     }
 
     /**
