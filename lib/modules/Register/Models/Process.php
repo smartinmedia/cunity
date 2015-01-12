@@ -172,6 +172,7 @@ class Process
         if (!isset($_POST['resetPw'])) {
             $view = new ForgetPw();
             $view->render();
+            exit;
         } else {
             $users = new Users();
             $user = $users->search("email", $_POST['email']);
