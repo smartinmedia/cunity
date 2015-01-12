@@ -239,6 +239,11 @@ class Process
             $view = new Album();
             $view->setMetaData(["title" => $album['title'], "description" => $album['description']]);
             $view->assign("album", $album);
+            if ($album['privacy'] == 1 &&
+                !in_array($album['owner_id'], $_SESSION['user']->getFriendList())) {
+                new PageNotFound();
+            }
+
             if ($album->owner_id == $_SESSION['userid'] && $album->owner_type === null) {
                 $view->registerScript("gallery", "album-edit");
             }
