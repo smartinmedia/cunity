@@ -240,6 +240,7 @@ class Process
             $view->setMetaData(["title" => $album['title'], "description" => $album['description']]);
             $view->assign("album", $album);
             if ($album['privacy'] == 1 &&
+                $album['owner_id'] != $_SESSION['user']->userid &&
                 !in_array($album['owner_id'], $_SESSION['user']->getFriendList())) {
                 new PageNotFound();
             }
