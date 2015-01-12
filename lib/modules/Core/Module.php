@@ -48,7 +48,7 @@ class Module
     /**
      * @var array
      */
-    private static $FIXMODULES = ['admin', 'start', 'register', 'notifications'];
+    private static $FIXMODULES = ['admin', 'start', 'register', 'notifications', 'comments'];
 
     /**
      * @var
