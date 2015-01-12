@@ -38,6 +38,7 @@ namespace Cunity\Events\Models\Generator;
 
 use Cunity\Core\Cunity;
 use Cunity\Core\Models\Db\Abstractables\Table;
+use Cunity\Core\Models\Db\Adapter\Mysqli;
 use Zend_Db_Expr;
 
 /**
