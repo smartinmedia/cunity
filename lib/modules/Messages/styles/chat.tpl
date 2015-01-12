@@ -15,7 +15,7 @@
                     <button type="button" class="btn btn-default chat-online-box hidden dropdown-toggle"
                             data-toggle="dropdown"><i class="fa fa-cogs"></i></button>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="javascript:closeAllChatWindows();"><i
+                        <li id="closeAllChatsButton"><a href="javascript:closeAllChatWindows();"><i
                                         class="fa fa-times"></i>&nbsp;{-"Close all chat windows"|translate}</a></li>
                         <li><a href="javascript:changeChatStatus(0);"><i
                                         class="fa fa-power-off"></i>&nbsp;{-"Deactivate Chat"|translate}</a></li>
