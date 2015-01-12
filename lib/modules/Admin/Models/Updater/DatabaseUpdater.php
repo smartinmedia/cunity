@@ -38,7 +38,6 @@ namespace Cunity\Admin\Models\Updater;
 
 use Cunity\Admin\Models\Db\Table\Versions;
 use Cunity\Core\Cunity;
-use Cunity\Core\View\Message;
 use Cunity\Search\Models\Process;
 
 /**
