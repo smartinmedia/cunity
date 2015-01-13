@@ -91,13 +91,13 @@
                                 <div class="input-group">
                                     <input type="hidden" name="albumid" value="{-$album.id}">
                                     <input type="hidden" class="ajaxform-callback" value="addUploaded">
-                                    <input class="inputCover form-control" type="text" id="fileonecover">
+                                    <input class="inputCover form-control" type="text" id="fileonecover" readonly="readonly">
                                     <input class="hidden filefakeinput" name="file" type="file" id="fileone"
                                            data-rel="#fileonecover">
                                     <span class="input-group-btn">
                                         <label class="btn btn-default" for="fileone"><i
                                                 class="fa fa-search"></i>&nbsp;{-"Browse"|translate}</label>
-                                        <button class="btn btn-primary" type="submit"><i class="fa fa-upload"></i>
+                                        <button class="btn btn-primary" type="submit" id="submitButtonFileOne" disabled="disabled"><i class="fa fa-upload"></i>
                                         </button>
                                     </span>
                                 </div>
@@ -111,13 +111,13 @@
                                 <div class="input-group">
                                     <input type="hidden" name="albumid" value="{-$album.id}">
                                     <input type="hidden" class="ajaxform-callback" value="addUploaded">
-                                    <input class="inputCover form-control" type="text" id="filetwocover">
+                                    <input class="inputCover form-control" type="text" id="filetwocover" readonly="readonly">
                                     <input class="hidden filefakeinput" name="file" type="file" id="filetwo"
                                            data-rel="#filetwocover">
                                     <span class="input-group-btn">
                                         <label class="btn btn-default" for="filetwo"><i
                                                 class="fa fa-search"></i>&nbsp;{-"Browse"|translate}</label>
-                                        <button class="btn btn-primary" type="submit"><i class="fa fa-upload"></i>
+                                        <button class="btn btn-primary" type="submit" id="submitButtonFileOne" disabled="disabled"><i class="fa fa-upload"></i>
                                         </button>
                                     </span>
                                 </div>
@@ -131,13 +131,13 @@
                                 <div class="input-group">
                                     <input type="hidden" name="albumid" value="{-$album.id}">
                                     <input type="hidden" class="ajaxform-callback" value="addUploaded">
-                                    <input class="inputCover form-control" type="text" id="filethreecover">
+                                    <input class="inputCover form-control" type="text" id="filethreecover" readonly="readonly">
                                     <input class="hidden filefakeinput" name="file" type="file" id="filethree"
                                            data-rel="#filethreecover">
                                     <span class="input-group-btn">
                                         <label class="btn btn-default" for="filethree"><i class="fa fa-search"></i>&nbsp;{-"Browse"|translate}
                                         </label>
-                                        <button class="btn btn-primary" type="submit"><i class="fa fa-upload"></i>
+                                        <button class="btn btn-primary" type="submit" id="submitButtonFileOne" disabled="disabled"><i class="fa fa-upload"></i>
                                         </button>
                                     </span>
                                 </div>
