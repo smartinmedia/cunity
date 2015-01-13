@@ -116,6 +116,16 @@
                         <input type="checkbox" class="userlist-filter" value="2">&nbsp;{-"Administrators"|translate}
                     </label>
                 </li>
+                <li class="list-group-item">
+                    <label class="checkbox">
+                        <input type="checkbox" class="userlist-filter" value="3">&nbsp;{-"Cunity Owner"|translate}
+                    </label>
+                </li>
+                <li class="list-group-item">
+                    <label class="checkbox">
+                        <input type="checkbox" class="userlist-filter" value="4">&nbsp;{-"Blocked Users"|translate}
+                    </label>
+                </li>
             </ul>
             <div class="panel-footer">
                 <button class="btn btn-block btn-primary" onclick="applyFilter();">{-"Apply filter"|translate}</button>
