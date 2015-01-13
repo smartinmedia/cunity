@@ -68,7 +68,6 @@ class Relationships extends Table
     }
 
 
-
     /**
      * @param $user
      * @param $secondUser
@@ -213,8 +212,12 @@ class Relationships extends Table
         $numberOfFriends = count($friendlist);
         for ($i = 0; $i < $numberOfFriends; $i++) {
             $lastAction = $date->createFromFormat('Y-m-d H:i:s', $friendlist[$i]['lastAction'])->getTimestamp();
-            if (time() - 60 > $lastAction) {
+            if (time() - 200 > $lastAction) {
+                $friendlist[$i]['onlineStatus'] = 2;
+            } elseif (time() - 60 > $lastAction) {
                 $friendlist[$i]['onlineStatus'] = 0;
+            } else {
+                $friendlist[$i]['onlineStatus'] = 1;
             }
         }
 
