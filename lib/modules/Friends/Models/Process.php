@@ -78,7 +78,7 @@ class Process
      */
     private function confirm()
     {
-        RelationShipHelper::confirm();
+        RelationShipHelper::confirm(true);
     }
 
     /**
