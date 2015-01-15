@@ -2,13 +2,13 @@
     <div class="album-owner-box pull-left">
         {-if $album.owner_type eq NULL}
             <a class="pull-left" href="{-"index.php?m=profile&action={-$album.username}"|URL}"><img
-                    src="{-$album.filename|image:"user":"cr_"}" class="img-rounded thumbnail tooltip-trigger"
-                    data-title="{-$album.name}"></a>
-            {-else}
+                        src="{-$album.filename|image:"user":"cr_"}" class="img-rounded thumbnail tooltip-trigger"
+                        data-title="{-$album.name}"></a>
+        {-else}
             <a class="pull-left" href="{-"index.php?m=events&action={-$album.owner_id}"|URL}"><img
-                    src="{-$album.filename|image:"event":"thumb_"}" class="img-rounded thumbnail tooltip-trigger"
-                    data-title="{-$album.eventTitle}"></a>
-            {-/if}
+                        src="{-$album.filename|image:"event":"thumb_"}" class="img-rounded thumbnail tooltip-trigger"
+                        data-title="{-$album.eventTitle}"></a>
+        {-/if}
         <div class="pull-left">
             <h1 class="page-header">
                 {-$album.title}
@@ -21,21 +21,21 @@
     {-if $album.owner_id eq $user.userid && $event.owner_type eq NULL}
         <button class="btn btn-default pull-right tooltip-trigger" data-title="{-"Edit or delete this album"|translate}"
                 data-container="body" data-toggle="modal" data-target="#editalbum_modal" style="margin-left:10px"><i
-                class="fa fa-pencil"></i></button>
+                    class="fa fa-pencil"></i></button>
         <div id="imagecontextmenu" class="hidden" data-moveto="body" data-imageid="0">
             <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu"
                 style="display:block;position:static;margin-bottom:5px;">
                 {-*<li><a tabindex="-1" href="javascript:void(0);" class="editimg"><i class="fa fa-pencil"></i>&nbsp;{-"Edit Image"|translate}</a></li>
                 <li class="divider"></li>*}
                 <li><a tabindex="-1" href="javascript:deleteImage($('#imagecontextmenu').data('imageid'));"><i
-                            class="fa fa-trash-o"></i>&nbsp;{-"Delete Image"|translate}</a></li>
+                                class="fa fa-trash-o"></i>&nbsp;{-"Delete Image"|translate}</a></li>
             </ul>
         </div>
     {-/if}
     {-if ($album.type eq "shared" && $album.allow_upload eq 1 && !$album.userid eq $user.userid)  || (($album.type eq NULL || $album.type eq "shared")&&$album.owner_id eq $user.userid && $event.owner_type eq NULL)}
         <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#upload_modal"><i
-                class="fa fa-plus"></i>&nbsp;{-"Upload images"|translate}</button>
-        {-/if}
+                    class="fa fa-plus"></i>&nbsp;{-"Upload images"|translate}</button>
+    {-/if}
 </div>
 <input type="hidden" id="albumid" value="{-$album.id}">
 <div id="imagelist">
@@ -45,7 +45,8 @@
         </a></div>
 </div>
 {-if $album.owner_id eq $user.userid && $event.owner_type eq NULL}
-    <div class="modal fade" id="upload_modal" tabindex="-1" role="dialog" aria-labelledby="upload_modal" aria-hidden="true"
+    <div class="modal fade" id="upload_modal" tabindex="-1" role="dialog" aria-labelledby="upload_modal"
+         aria-hidden="true"
          data-moveto="body">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -63,7 +64,8 @@
                         </span>
 
                         <div class="progress progress-striped active upload-progress" id="upload_progress">
-                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: 0"></div>
+                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuemin="0"
+                                 aria-valuemax="100" style="width: 0"></div>
                         </div>
                         <div id="filescontainer">
                             <div class="alert alert-info">
@@ -80,82 +82,47 @@
                         </div>
                     </div>
                 </div>
-                <div id="singleuploader" class="hidden">
-                    <div class="alert alert-info">
-                        {-"Select files to upload. You can upload up to three images at the same time!"|translate}
-                    </div>
-                    <form class="form-horizontal ajaxform" role="form" enctype="multipart/form-data"
-                          action="{-"index.php?m=gallery&action=upload"|URL}" method="POST">
+                <form class="form-horizontal" role="form" enctype="multipart/form-data"
+                      action="{-"index.php?m=gallery&action=upload"|URL}" method="POST">
+                    <input type="hidden" name="uploadtype" value="single" />
+                    <div id="singleuploader" class="hidden">
+                        <div class="alert alert-info">
+                            {-"Select files to upload. You can upload up to three images at the same time!"|translate}
+                        </div>
                         <div class="row">
                             <div class="col-lg-10">
                                 <div class="input-group">
                                     <input type="hidden" name="albumid" value="{-$album.id}">
                                     <input type="hidden" class="ajaxform-callback" value="addUploaded">
-                                    <input class="inputCover form-control" type="text" id="fileonecover" readonly="readonly">
+                                    <input class="inputCover form-control" type="text" id="fileonecover"
+                                           readonly="readonly">
                                     <input class="hidden filefakeinput" name="file" type="file" id="fileone"
                                            data-rel="#fileonecover">
                                     <span class="input-group-btn">
                                         <label class="btn btn-default" for="fileone"><i
-                                                class="fa fa-search"></i>&nbsp;{-"Browse"|translate}</label>
-                                        <button class="btn btn-primary" type="submit" id="submitButtonFileOne" disabled="disabled"><i class="fa fa-upload"></i>
+                                                    class="fa fa-search"></i>&nbsp;{-"Browse"|translate}</label>
+                                        <button class="btn btn-primary" type="submit" id="submitButtonFileOne"
+                                                disabled="disabled"><i class="fa fa-upload"></i>
                                         </button>
                                     </span>
                                 </div>
                             </div>
                         </div>
-                    </form>
-                    <form class="form-horizontal ajaxform" role="form" enctype="multipart/form-data"
-                          action="{-"index.php?m=gallery&action=upload"|URL}" method="POST">
-                        <div class="row">
-                            <div class="col-lg-10">
-                                <div class="input-group">
-                                    <input type="hidden" name="albumid" value="{-$album.id}">
-                                    <input type="hidden" class="ajaxform-callback" value="addUploaded">
-                                    <input class="inputCover form-control" type="text" id="filetwocover" readonly="readonly">
-                                    <input class="hidden filefakeinput" name="file" type="file" id="filetwo"
-                                           data-rel="#filetwocover">
-                                    <span class="input-group-btn">
-                                        <label class="btn btn-default" for="filetwo"><i
-                                                class="fa fa-search"></i>&nbsp;{-"Browse"|translate}</label>
-                                        <button class="btn btn-primary" type="submit" id="submitButtonFileOne" disabled="disabled"><i class="fa fa-upload"></i>
-                                        </button>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                    <form class="form-horizontal ajaxform" role="form" enctype="multipart/form-data"
-                          action="{-"index.php?m=gallery&action=upload"|URL}" method="POST">
-                        <div class="row">
-                            <div class="col-lg-10">
-                                <div class="input-group">
-                                    <input type="hidden" name="albumid" value="{-$album.id}">
-                                    <input type="hidden" class="ajaxform-callback" value="addUploaded">
-                                    <input class="inputCover form-control" type="text" id="filethreecover" readonly="readonly">
-                                    <input class="hidden filefakeinput" name="file" type="file" id="filethree"
-                                           data-rel="#filethreecover">
-                                    <span class="input-group-btn">
-                                        <label class="btn btn-default" for="filethree"><i class="fa fa-search"></i>&nbsp;{-"Browse"|translate}
-                                        </label>
-                                        <button class="btn btn-primary" type="submit" id="submitButtonFileOne" disabled="disabled"><i class="fa fa-upload"></i>
-                                        </button>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <a href="#" class="singleuploader_link">{-"Uploader not working? Try the simple one"|translate}</a>
-                    <a href="#"
-                       class="multiuploader_link hidden">{-"Have many images to upload? use the multiuploader"|translate}</a>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">{-"Cancel"|translate}</button>
-                    <button type="button" id="startupload" class="btn btn-primary"
-                            data-loading-text="{-"Please wait..."|translate}"><i
-                            class="fa fa-upload"></i>&nbsp;{-"Upload"|translate}</button>
-                    <button type="button" id="closeupload" class="btn btn-primary" data-dismiss="modal"><i
-                            class="fa fa-check"></i>&nbsp;{-"Finish"|translate}</button>
-                </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#"
+                           class="singleuploader_link">{-"Uploader not working? Try the simple one"|translate}</a>
+                        <a href="#"
+                           class="multiuploader_link hidden">{-"Have many images to upload? use the multiuploader"|translate}</a>
+                        <button type="button" class="btn btn-default"
+                                data-dismiss="modal">{-"Cancel"|translate}</button>
+                        <button type="button" id="startupload" class="btn btn-primary"
+                                data-loading-text="{-"Please wait..."|translate}"><i
+                                    class="fa fa-upload"></i>&nbsp;{-"Upload"|translate}</button>
+                        <button type="button" id="closeupload" class="btn btn-primary" data-dismiss="modal"><i
+                                    class="fa fa-check"></i>&nbsp;{-"Finish"|translate}</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -205,26 +172,28 @@
                                            data-title="{-"You can choose friends who are allowed to see this album"|translate}"
                                            data-container="#editalbum_modal" style="width:33.3333%">
                                         <input type="radio" name="privacy" value="0" id="editalbum_shared"
-                                               {-if $album.privacy eq 0}selected{-/if}><i class="fa fa-check-square-o"></i>&nbsp;{-"Shared"|translate}
+                                               {-if $album.privacy eq 0}selected{-/if}><i
+                                                class="fa fa-check-square-o"></i>&nbsp;{-"Shared"|translate}
                                     </label>
                                     <label class="btn btn-default tooltip-trigger {-if $album.privacy eq 1}active{-/if}"
                                            data-title="{-"Only your friends can see the images"|translate}"
                                            data-container="#editalbum_modal" style="width:33.3333%">
                                         <input type="radio" name="privacy" value="1"
                                                {-if $album.privacy eq 1}selected{-/if}><i
-                                               class="fa fa-group"></i>&nbsp;{-"Friends"|translate}
+                                                class="fa fa-group"></i>&nbsp;{-"Friends"|translate}
                                     </label>
                                     <label class="btn btn-default tooltip-trigger {-if $album.privacy eq 2}active{-/if}"
                                            data-title="{-"Every user can see the images"|translate}"
                                            data-container="#editalbum_modal" style="width:33.3333%">
                                         <input type="radio" name="privacy" value="2"
                                                {-if $album.privacy eq 2}selected{-/if}><i
-                                               class="fa fa-globe"></i>&nbsp;{-"Public"|translate}
+                                                class="fa fa-globe"></i>&nbsp;{-"Public"|translate}
                                     </label>
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group  {-if !$album.privacy eq 0 or $album.owner_id neq $user.userid}hidden{-/if}" id="editalbum_shared_options">
+                        <div class="form-group  {-if !$album.privacy eq 0 or $album.owner_id neq $user.userid}hidden{-/if}"
+                             id="editalbum_shared_options">
                             <div class="col-sm-offset-2 col-sm-10">
                                 <div class="checkbox">
                                     <label>
@@ -241,17 +210,18 @@
                 <div class="modal-footer">
                     {-if $album.owner_id eq $user.userid && ($album.type eq NULL || $album.type eq "shared")}
                         <a href="#" class="text-danger albumdelete-link" data-title="{-"Are you sure?"|translate}"><i
-                                class="fa fa-trash-o"></i>&nbsp;{-"Delete this album"|translate}</a>
-                        {-/if}
+                                    class="fa fa-trash-o"></i>&nbsp;{-"Delete this album"|translate}</a>
+                    {-/if}
                     <button type="button" class="btn btn-default" data-dismiss="modal"
                             onclick="$('#editalbum_form')[0].reset();">{-"Cancel"|translate}</button>
-                    <button type="button" id="savealbum" onclick="$('#editalbum_form').submit();" class="btn btn-primary"
+                    <button type="button" id="savealbum" onclick="$('#editalbum_form').submit();"
+                            class="btn btn-primary"
                             data-loading-text="{-"Please wait.."|translate}">{-"Save changes"|translate}</button>
                 </div>
                 <div class="hidden deletecontent">
                     <p class="text-danger">{-"If you delete this album, all images and their likes, dislikes and comments will be deleted permanently!"|translate}</p>
                     <a class="btn btn-danger btn-block finaldelete"><i
-                            class="fa fa-trash-o"></i>&nbsp;{-"Sure, delete this album"|translate}</a>
+                                class="fa fa-trash-o"></i>&nbsp;{-"Sure, delete this album"|translate}</a>
                 </div>
             </div>
         </div>

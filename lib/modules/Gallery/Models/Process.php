@@ -165,9 +165,16 @@ class Process
         }
         $result = $images->uploadImage($album->id, isset($_POST['newsfeed_post']));
         $album->addImage((isset($_POST['newsfeed_post'])) ? $result['content'] : $result['imageid']);
-        $view = new View($result !== false);
-        $view->addData($result);
-        $view->sendResponse();
+        if (isset($_POST['uploadtype']) &&
+            $_POST['uploadtype'] == 'single'
+        ) {
+            header("Location: " . Url::convertUrl("index.php?m=gallery&action=" . $_POST['albumid']));
+            exit;
+        } else {
+            $view = new View($result !== false);
+            $view->addData($result);
+            $view->sendResponse();
+        }
     }
 
     /**
@@ -241,7 +248,8 @@ class Process
             $view->assign("album", $album);
             if ($album['privacy'] == 1 &&
                 $album['owner_id'] != $_SESSION['user']->userid &&
-                !in_array($album['owner_id'], $_SESSION['user']->getFriendList())) {
+                !in_array($album['owner_id'], $_SESSION['user']->getFriendList())
+            ) {
                 new PageNotFound();
             }
 
