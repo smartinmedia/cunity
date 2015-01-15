@@ -91,7 +91,7 @@ class Process
             if (!empty($hits)) {
                 $results = [];
                 foreach ($hits as $hit) {
-                    if ($hit->username !== $_SESSION['user']->username) {
+                    if ($hit->username != $_SESSION['user']->username) {
                         $results[] = $hit->username;
                     }
                 }
@@ -105,7 +105,7 @@ class Process
                         if (empty($friends)) {
                             return ["queryString" => $queryString, "users" => []];
                         } else {
-                            $userresult = $users->getSetIn($results);
+                            $userresult = $users->getSet($results, 'u.username');
                         }
                     } else {
                         $userresult = $users->getSet($results, "u.username", ["u.userid", "u.username", "u.name"]);
