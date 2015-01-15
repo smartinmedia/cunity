@@ -87,7 +87,7 @@
                     <input type="hidden" name="uploadtype" value="single" />
                     <div id="singleuploader" class="hidden">
                         <div class="alert alert-info">
-                            {-"Select files to upload. You can upload up to three images at the same time!"|translate}
+                            {-"Select file to upload. You can upload only one image at the same time!"|translate}
                         </div>
                         <div class="row">
                             <div class="col-lg-10">
