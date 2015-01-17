@@ -69,6 +69,10 @@
     padding: 10px;
 }
 
+.pagination>.active>a, .pagination>.active>span, .pagination>.active>a:hover, .pagination>.active>span:hover, .pagination>.active>a:focus, .pagination>.active>span:focus {
+    z-index: 0 !important;
+}
+
 .emoticon-select {
     cursor: pointer;
     margin: 5px;
