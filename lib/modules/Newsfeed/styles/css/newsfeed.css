@@ -337,6 +337,7 @@
 
 .post-comment .message {
     padding: 10px 0;
+    word-break: break-all;
 }
 
 .post-comment .time {
@@ -352,10 +353,6 @@
     font-size: 12px;
     padding: 3px;
     resize: vertical;
-}
-
-.newsfeed-post-content p {
-    word-break: break-all;
 }
 
 @media screen and (max-width: 1023px) {
