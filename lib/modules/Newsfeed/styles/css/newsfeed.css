@@ -179,6 +179,7 @@
     padding: 0 5px;
     font-size: 0.95em;
     position: relative;
+    word-break: break-all;
 }
 
 .newsfeed-post-content > a {
@@ -337,6 +338,9 @@
 
 .post-comment .message {
     padding: 10px 0;
+}
+
+.post-comment {
     word-break: break-all;
 }
 
