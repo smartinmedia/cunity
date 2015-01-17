@@ -54,14 +54,44 @@ class Gd extends
      */
     public function thumbnail($file, $target, $thumbwidth)
     {
-        list($width,, $type) = getimagesize($file);
-        $source = $this->getType($file, $type);
+        list($width, $height, $type) = getimagesize($file);
 
+        $source = false;
+
+        switch ($type) {
+            case IMAGETYPE_PNG:
+                $source = imagecreatefrompng($file);
+                break;
+            case IMAGETYPE_JPEG:
+                $source = imagecreatefromjpeg($file);
+                break;
+            case IMAGETYPE_GIF:
+                $source = imagecreatefromgif($file);
+                break;
+        }
+        $x = $width / 4;
+        $y = $height / 4;
         $w = $width / 2;
         $h = $w;
-
         $thumb = imagecreatetruecolor($thumbwidth, $thumbwidth);
-        $this->createThumbnail($w, $h, $target, $thumb, $source, $thumbwidth, $thumbwidth);
+
+        imagealphablending($thumb, false);
+        imagesavealpha($thumb, true);
+
+        imagecopyresampled(
+            $thumb,
+            $source,
+            0,
+            0,
+            $x,
+            $y,
+            $thumbwidth,
+            $thumbwidth,
+            $w,
+            $h
+        );
+
+        imagejpeg($thumb, $target);
 
         return $file;
     }
@@ -81,14 +111,45 @@ class Gd extends
         /** @noinspection PhpUnusedLocalVariableInspection */
         list(, , $type) = getimagesize($file);
 
-        $source = $this->getType($file, $type);
+        $source = false;
+
+        switch ($type) {
+            case IMAGETYPE_PNG:
+                $source = imagecreatefrompng($file);
+                break;
+            case IMAGETYPE_JPEG:
+                $source = imagecreatefromjpeg($file);
+                break;
+            case IMAGETYPE_GIF:
+                $source = imagecreatefromgif($file);
+                break;
+        }
 
         $w = abs($x1 - $x);
         $h = abs($y1 - $y);
         $destinationRatio = $w / $h;
-        $thumbheight = $thumbwidth / $destinationRatio;
-        $thumb = imagecreatetruecolor($thumbheight, $thumbwidth);
-        $this->createThumbnail($w, $h, $target, $thumb, $source, $thumbwidth, $thumbheight);
+        $thumb = imagecreatetruecolor(
+            $thumbwidth,
+            $thumbwidth / $destinationRatio
+        );
+
+        imagealphablending($thumb, false);
+        imagesavealpha($thumb, true);
+
+        imagecopyresampled(
+            $thumb,
+            $source,
+            0,
+            0,
+            $x,
+            $y,
+            $thumbwidth,
+            $thumbwidth / $destinationRatio,
+            $w,
+            $h
+        );
+
+        imagejpeg($thumb, $target);
 
         return $file;
     }
