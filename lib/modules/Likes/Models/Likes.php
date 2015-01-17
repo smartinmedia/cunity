@@ -79,7 +79,9 @@ class Likes
     {
         $res = $this->table->like($_POST['ref_id'], $_POST['ref_name']);
         $this->view->setStatus($res !== false);
-        new Process('loadImage', $_POST['ref_id']);
+        if ($_POST['ref_name'] == 'image') {
+            new Process('loadImage', $_POST['ref_id']);
+        }
     }
 
     /**
@@ -89,7 +91,9 @@ class Likes
     {
         $res = $this->table->dislike($_POST['ref_id'], $_POST['ref_name']);
         $this->view->setStatus($res !== false);
-        new Process('loadImage', $_POST['ref_id']);
+        if ($_POST['ref_name'] == 'image') {
+            new Process('loadImage', $_POST['ref_id']);
+        }
     }
 
     /**
@@ -99,7 +103,9 @@ class Likes
     {
         $res = $this->table->unlike($_POST['ref_id'], $_POST['ref_name']);
         $this->view->setStatus($res !== false);
-        new Process('loadImage', $_POST['ref_id']);
+        if ($_POST['ref_name'] == 'image') {
+            new Process('loadImage', $_POST['ref_id']);
+        }
     }
 
     /**
