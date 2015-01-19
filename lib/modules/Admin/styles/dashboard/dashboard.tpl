@@ -154,6 +154,14 @@
                         <span class="label label-info">{-"core.design"|setting}</span>
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                        {-"Version"|translate}
+                    </td>
+                    <td>
+                        <span class="label label-info">{-$version}</span>
+                    </td>
+                </tr>
             </table>
         </div>
     </div>

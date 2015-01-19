@@ -57,6 +57,7 @@ class Dashboard extends Statistics
         $config = \Cunity\Core\Cunity::get("config");
         $this->assignments['smtp_check'] = $config->mail->smtp_check;
         $this->assignments['modules'] = $installedModules;
+        $this->assignments['version'] = $config->site->version;
 
         $this->render("dashboard");
     }
