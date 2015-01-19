@@ -128,7 +128,7 @@ CREATE TABLE IF NOT EXISTS `TABLEPREFIXforums_categories` (
 CREATE TABLE IF NOT EXISTS `TABLEPREFIXforums_posts` (
   `id`        INT(11)       NOT NULL AUTO_INCREMENT,
   `userid`    INT(11)       NOT NULL,
-  `content`   VARCHAR(1000) NOT NULL,
+  `content`   TEXT          NOT NULL,
   `thread_id` INT(11)       NOT NULL,
   `time`      TIMESTAMP     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
