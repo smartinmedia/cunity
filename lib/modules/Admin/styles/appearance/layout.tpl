@@ -1,5 +1,9 @@
 <link rel="stylesheet" href="{-"core.siteurl"|setting}lib/plugins/summernote/css/summernote.css">
-<script src="{-"core.siteurl"|setting}lib/plugins/summernote/js/summernote.min.js"></script>
+<script type="text/javascript">
+    scriptsToInclude = [
+        '{-"core.siteurl"|setting}lib/plugins/summernote/js/summernote.min.js',
+    ];
+</script>
 <div class="row">
     <div class="col-lg-12">
         <h1 class="page-header">{-"Layout"|translate}

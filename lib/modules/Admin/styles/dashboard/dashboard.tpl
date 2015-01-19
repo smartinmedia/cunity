@@ -14,8 +14,12 @@
 
 <link rel="stylesheet" href="http://cdn.oesmith.co.uk/morris-0.4.3.min.css">
 <link href="{-"core.siteurl"|setting}lib/plugins/morris/css/morris-0.4.3.min.css" rel="stylesheet">
-<script src="{-"core.siteurl"|setting}lib/plugins/raphael/js/raphael-min.js" type="text/javascript"></script>
-<script src="{-"core.siteurl"|setting}lib/plugins/morris/js/morris-0.4.3.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    scriptsToInclude = [
+        '{-"core.siteurl"|setting}lib/plugins/raphael/js/raphael-min.js',
+        '{-"core.siteurl"|setting}lib/plugins/morris/js/morris-0.4.3.min.js'
+    ];
+</script>
 <div class="row">
     <div class="col-lg-12">
         <h1 class="page-header">{-"Dashboard"|translate}</h1>
@@ -42,10 +46,11 @@
             <div class="panel-body modules-overview">
                 <div class="row">
                     {-foreach $modules AS $module}
-                    <div class="col-sm-2">
-                        <i class="fa fa-{-$module.iconClass} fa-fw fa-5x {-if $module.status == 0}text-muted{-/if}"></i>
-                        <a href="{-"core.siteurl"|setting}{-$module.namespace}" target="_blank">{-$module.name|translate}</a>
-                    </div>
+                        <div class="col-sm-2">
+                            <i class="fa fa-{-$module.iconClass} fa-fw fa-5x {-if $module.status == 0}text-muted{-/if}"></i>
+                            <a href="{-"core.siteurl"|setting}{-$module.namespace}"
+                               target="_blank">{-$module.name|translate}</a>
+                        </div>
                     {-/foreach}
                 </div>
             </div>
@@ -140,9 +145,9 @@
                     </td>
                     <td>
                         {-if $smtp_check}
-                        <span class="label label-success">SMTP {-"active"|translate}</span>
+                            <span class="label label-success">SMTP {-"active"|translate}</span>
                         {-else}
-                        <span class="label label-danger">SMTP {-"inactive"|translate}</span>
+                            <span class="label label-danger">SMTP {-"inactive"|translate}</span>
                         {-/if}
                     </td>
                 </tr>
