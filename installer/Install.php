@@ -83,7 +83,7 @@ class Install
     private function init()
     {
         if (file_exists("data/config.xml")) {
-//            throw new Exception("Cunity aready installed!");
+            throw new Exception("Cunity aready installed!");
         }
         if (!file_exists("data/config-example.xml")) {
             throw new Exception("config-example.xml missing!");
@@ -131,10 +131,10 @@ class Install
         if ($connection === false) {
             $this->outputAjaxResponse('could not connect to database', false);
         } else {
-//            $this->executeSql($connection);
+            $this->executeSql($connection);
         }
 
-//        $this->writeDatabaseConfig();
+        $this->writeDatabaseConfig();
         $this->outputAjaxResponse();
     }
 
@@ -195,10 +195,10 @@ class Install
     private function prepareConfig()
     {
         foreach ($_REQUEST['general'] as $setting => $value) {
-//            $this->writeConfigToDatabase($setting, $value);
+            $this->writeConfigToDatabase($setting, $value);
         }
 
-//        $this->writeConfigToFile($_REQUEST['config']);
+        $this->writeConfigToFile($_REQUEST['config']);
         $this->writeApacheConfig();
     }
 
