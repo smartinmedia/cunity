@@ -208,6 +208,7 @@ class Process
                 }
             }
         }
+        fb($conversations);
         $view->addData(["conversations" => $conversations]);
         $view->sendResponse();
     }
