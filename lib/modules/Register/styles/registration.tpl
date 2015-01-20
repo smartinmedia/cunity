@@ -110,7 +110,7 @@
                                       name="{-$field.id}">{-$field.value}</textarea>
                             {-elseif $field.type == 'date'}
                             <div class="col-lg-7">
-                                <div class="input-group date" id="datepicker">
+                                <div class="input-group date datepicker" id="datepicker{-$field.id}">
                                     <input type="text" class="form-control" name="field[{-$field.id}]"
                                            value="{-$field.value}"
                                            readonly="readonly">
