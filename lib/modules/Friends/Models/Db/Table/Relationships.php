@@ -211,7 +211,12 @@ class Relationships extends Table
         $date = new \DateTime();
         $numberOfFriends = count($friendlist);
         for ($i = 0; $i < $numberOfFriends; $i++) {
-            $lastAction = $date->createFromFormat('Y-m-d H:i:s', $friendlist[$i]['lastAction'])->getTimestamp();
+            if (null === $friendlist[$i]['lastAction']) {
+                $lastAction = 0;
+            } else {
+                $lastAction = $date->createFromFormat('Y-m-d H:i:s', $friendlist[$i]['lastAction'])->getTimestamp();
+            }
+
             if (time() - 200 > $lastAction) {
                 $friendlist[$i]['onlineStatus'] = 2;
             } elseif (time() - 60 > $lastAction) {
