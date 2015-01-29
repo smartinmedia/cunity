@@ -200,6 +200,10 @@ class Install
     private function prepareConfig()
     {
         foreach ($_REQUEST['general'] as $setting => $value) {
+            if ($setting == 'core.siteurl' &&
+                substr($value, -1) != '/') {
+                $value .= '/';
+            }
             $this->writeConfigToDatabase($setting, $value);
         }
 
@@ -443,90 +447,63 @@ $installer = new Install();
                                         <div class="form-group">
                                             <label><?php echo Install::translate("Please agree to our Terms & Conditions first"); ?></label>
 
-                                            <div class="form-control"><?php echo Install::translate('Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-                            nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At
-                            vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
-                            takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur
-                            sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
-                            erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita
-                            kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor
-                            sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
-                            dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores
-                            et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit
-                            amet.
+                                            <div class="form-control"><?php echo Install::translate('This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
 
-                            Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel
-                            illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui
-                            blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem
-                            ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt
-                            ut laoreet dolore magna aliquam erat volutpat.
+	THIS FREE SOFTWARE IS PROVIDED BY THE AUTHOR "AS IS" AND
+    ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+    LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
+    FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
+    EVENT SHALL THE AUTHOR OR ANY CONTRIBUTOR BE LIABLE FOR
+    ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+    CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+    EFFECTS OF UNAUTHORIZED OR MALICIOUS NETWORK ACCESS;
+    PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+    DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED
+    AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+    LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+    ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
+    IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-                            Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl
-                            ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in
-                            vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero
-                            eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue
-                            duis dolore te feugait nulla facilisi.
+    * CUNITY(R) is open source, you may do the above mentioned actions under
+	  GNU Affero General Public License EXCEPT removing "Powered by CUNITY(R)",
+	  the logo or "(C) Smart In Media GmbH & Co. KG" without permission
 
-                            Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod
-                            mazim placerat facer possim assum. Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
-                            sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut
-                            wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut
-                            aliquip ex ea commodo consequat.
+    * We highly encourage websites that promote our product
 
-                            Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel
-                            illum dolore eu feugiat nulla facilisis.
+    * You cannot sell your products on behalf of CUNITY, so you may sell them,
+	  but not as an official of CUNITY
 
-                            At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
-                            takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur
-                            sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
-                            erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita
-                            kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor
-                            sit amet, consetetur sadipscing elitr, At accusam aliquyam diam diam dolore dolores duo
-                            eirmod eos erat, et nonumy sed tempor et et invidunt justo labore Stet clita ea et
-                            gubergren, kasd magna no rebum. sanctus sea sed takimata ut vero voluptua. est Lorem ipsum
-                            dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
-                            eirmod tempor invidunt ut labore et dolore magna aliquyam erat.
+    * We are not responsible for any material or content that is found on
+	  "Powered by CUNITY(R)" websites
 
-                            Consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore
-                            magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
-                            rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-                            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
-                            invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam
-                            et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est
-                            Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                            diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
-                            voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd
-                            gubergren, no sea takimata sanctus.
+    * All official products are listed on our Main website, there is no reseller or affiliate
 
-                            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
-                            invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam
-                            et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est
-                            Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                            diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
-                            voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd
-                            gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit
-                            amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
-                            dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores
-                            et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit
-                            amet.
+    * Without Purchase of Branding Removal, you cannot remove "Powered by CUNITY(R)", the
+	  logo or  "(C) Smart In Media GmbH & Co. KG" without permission  from your website
 
-                            Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel
-                            illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui
-                            blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem
-                            ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt
-                            ut laoreet dolore magna aliquam erat volutpat.
+    * You may use CUNITY(R) for multiple websites/servers.
 
-                            Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl
-                            ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in
-                            vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero
-                            eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue
-                            duis dolore te feugait nulla facilisi.
+	* If you change the code / design, you must provide a link on your web-page for
+	  the users to an archive of the changed code.
 
-                            Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod
-                            mazim placerat facer possim assum. Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
-                            sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut
-                            wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut
-                            aliquip ex ea commodo'); ?>
+	* If you did not change the original code / design, you have to leave the link to
+	  http://www.cunity.net
+
+    * Distribution of this CUNITY(R) software under another license than GNU Affero
+	  General Public License is not allowed.
+
+    * Our Technical Support is not FREE, you can use our Forums (user-to-user) support
+
+	* You must not use the name CUNITY or its logo in any other context than on the software.
+
+Refund Policy
+
+    * Our products are intangible and virtual, and all products have online demos
+	  available so you can test each and every part of the products prior to your
+	  download/purchase. Once the services are rendered we can\'t provide you the refund.'); ?>
                                             </div>
                                         </div>
                                         <div class="checkbox">
@@ -645,7 +622,7 @@ $installer = new Install();
 
                                         <div class="col-lg-7">
                                             <input type="text" name="general[core.siteurl]" id="siteurl"
-                                                   class="form-control">
+                                                   class="form-control" value="http://">
                                         </div>
                     <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
                           title="<?php echo Install::translate('Where to find your installation'); ?>"
@@ -686,7 +663,8 @@ $installer = new Install();
                                                 <label>
                                                     <input type="radio" id="connection-type-smtp" required
                                                            name="config[mail][smtp]"
-                                                           class="change-connection-type">&nbsp;<?php echo Install::translate("Use SMTP"); ?>
+                                                           class="change-connection-type"
+                                                           checked="checked">&nbsp;<?php echo Install::translate("Use SMTP"); ?>
                                                 </label>
                                             </div>
                                             <div class="radio-inline">
@@ -942,7 +920,8 @@ $installer = new Install();
             $('[data-toggle="tooltip"]').tooltip();
 
             $('#installCarousel').carousel({
-                interval: false
+                interval: false,
+                keyboard: false
             });
             $('#accept-terms').change(function () {
                 if ($('#accept-terms').is(':checked')) {
@@ -970,6 +949,8 @@ $installer = new Install();
                         if (data.response == 'config')
                         {
                             $('.error-message').show();
+                        } else {
+                            $('.error-message').hide();
                         }
                     }
                 });
