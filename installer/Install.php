@@ -68,14 +68,13 @@ class Install
     {
         if (array_key_exists('action', $_REQUEST) &&
             $_REQUEST['type'] === 'ajax' &&
-            $_REQUEST['action'] != 'prepareDatabase' &&
-            $_REQUEST['action'] != 'prepareConfig' &&
-            $_REQUEST['action'] != 'prepareAdmin'
+            $_REQUEST['action'] != 'prepareDatabase'
         ) {
             \Cunity\Core\Cunity::init();
-        } else {
+        } elseif($_REQUEST['type'] != 'ajax') {
             $this->init();
         }
+
         $this->initTranslator();
         $this->handleRequest();
     }
