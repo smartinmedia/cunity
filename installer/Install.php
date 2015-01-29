@@ -448,62 +448,62 @@ $installer = new Install();
                                         <div class="form-group">
                                             <label><?php echo Install::translate("Please agree to our Terms & Conditions first"); ?></label>
 
-                                            <div class="form-control"><?php echo Install::translate('This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU Affero General Public License for more details.
-
-	THIS FREE SOFTWARE IS PROVIDED BY THE AUTHOR "AS IS" AND
-    ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-    LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
-    FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
-    EVENT SHALL THE AUTHOR OR ANY CONTRIBUTOR BE LIABLE FOR
-    ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-    CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
-    EFFECTS OF UNAUTHORIZED OR MALICIOUS NETWORK ACCESS;
-    PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-    DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED
-    AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
-    LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
-    ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
-    IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
-    * CUNITY(R) is open source, you may do the above mentioned actions under
-	  GNU Affero General Public License EXCEPT removing "Powered by CUNITY(R)",
-	  the logo or "(C) Smart In Media GmbH & Co. KG" without permission
-
-    * We highly encourage websites that promote our product
-
-    * You cannot sell your products on behalf of CUNITY, so you may sell them,
-	  but not as an official of CUNITY
-
-    * We are not responsible for any material or content that is found on
-	  "Powered by CUNITY(R)" websites
-
-    * All official products are listed on our Main website, there is no reseller or affiliate
-
-    * Without Purchase of Branding Removal, you cannot remove "Powered by CUNITY(R)", the
-	  logo or  "(C) Smart In Media GmbH & Co. KG" without permission  from your website
-
-    * You may use CUNITY(R) for multiple websites/servers.
-
-	* If you change the code / design, you must provide a link on your web-page for
-	  the users to an archive of the changed code.
-
-	* If you did not change the original code / design, you have to leave the link to
-	  http://www.cunity.net
-
-    * Distribution of this CUNITY(R) software under another license than GNU Affero
-	  General Public License is not allowed.
-
-    * Our Technical Support is not FREE, you can use our Forums (user-to-user) support
-
-	* You must not use the name CUNITY or its logo in any other context than on the software.
-
-Refund Policy
-
-    * Our products are intangible and virtual, and all products have online demos
-	  available so you can test each and every part of the products prior to your
+                                            <div class="form-control"><?php echo Install::translate('This program is distributed in the hope that it will be useful,<br />
+    but WITHOUT ANY WARRANTY; without even the implied warranty of<br />
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the<br />
+    GNU Affero General Public License for more details.<br />
+<br />
+	THIS FREE SOFTWARE IS PROVIDED BY THE AUTHOR "AS IS" AND<br />
+    ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT<br />
+    LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND<br />
+    FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO<br />
+    EVENT SHALL THE AUTHOR OR ANY CONTRIBUTOR BE LIABLE FOR<br />
+    ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR<br />
+    CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,<br />
+    EFFECTS OF UNAUTHORIZED OR MALICIOUS NETWORK ACCESS;<br />
+    PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,<br />
+    DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED<br />
+    AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT<br />
+    LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)<br />
+    ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN<br />
+    IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.<br />
+<br />
+    * CUNITY(R) is open source, you may do the above mentioned actions under<br />
+	  GNU Affero General Public License EXCEPT removing "Powered by CUNITY(R)",<br />
+	  the logo or "(C) Smart In Media GmbH & Co. KG" without permission<br />
+<br />
+    * We highly encourage websites that promote our product<br />
+<br />
+    * You cannot sell your products on behalf of CUNITY, so you may sell them,<br />
+	  but not as an official of CUNITY<br />
+<br />
+    * We are not responsible for any material or content that is found on<br />
+	  "Powered by CUNITY(R)" websites<br />
+<br />
+    * All official products are listed on our Main website, there is no reseller or affiliate<br />
+<br />
+    * Without Purchase of Branding Removal, you cannot remove "Powered by CUNITY(R)", the<br />
+	  logo or  "(C) Smart In Media GmbH & Co. KG" without permission  from your website<br />
+<br />
+    * You may use CUNITY(R) for multiple websites/servers.<br />
+<br />
+	* If you change the code / design, you must provide a link on your web-page for<br />
+	  the users to an archive of the changed code.<br />
+<br />
+	* If you did not change the original code / design, you have to leave the link to<br />
+	  http://www.cunity.net<br />
+<br />
+    * Distribution of this CUNITY(R) software under another license than GNU Affero<br />
+	  General Public License is not allowed.<br />
+<br />
+    * Our Technical Support is not FREE, you can use our Forums (user-to-user) support<br />
+<br />
+	* You must not use the name CUNITY or its logo in any other context than on the software.<br />
+<br />
+Refund Policy<br />
+<br />
+    * Our products are intangible and virtual, and all products have online demos<br />
+	  available so you can test each and every part of the products prior to your<br />
 	  download/purchase. Once the services are rendered we can\'t provide you the refund.'); ?>
                                             </div>
                                         </div>
