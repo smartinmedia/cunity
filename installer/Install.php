@@ -216,10 +216,11 @@ class Install
      */
     private function writeDatabaseConfig()
     {
-        if (!touch('data/config.xml')) {
-            $this->outputAjaxResponse('config', false);
-        } else {
+        try {
+            touch('data/config.xml');
             unlink('data/config.xml');
+        } catch(Exception $e) {
+            $this->outputAjaxResponse('config', false);
         }
 
         $databaseConfig = [];
