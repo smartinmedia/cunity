@@ -86,7 +86,7 @@
         <li><a href="{-"index.php?m=pages&action=terms"|URL}">{-"Terms and Conditions"|translate}</a></li>
         <li>|</li>
         <li><a href="{-"index.php?m=contact"|URL}">{-"Contact"|translate}</a></li>
-        <li class="pull-right copyright-start">Cunity &reg; powered by <a href="http://smartinmedia.com/" target="_blank">Smart In Media</a>
+        <li class="pull-right copyright-start">Powered by <a href="http://cunity.net/" target="_blank">Cunity</a>
         </li>
     </ul>
 </footer>
