@@ -983,6 +983,7 @@ Refund Policy
                 });
             });
 
+            $('#installCarousel').off('keydown.bs.carousel');
             $('#installCarousel').on('slide.bs.carousel', function (e) {
                 var c = $(this).data('bs.carousel');
                 var oldIndex = index;
