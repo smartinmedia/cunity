@@ -216,10 +216,7 @@ class Install
      */
     private function writeDatabaseConfig()
     {
-        try {
-            touch('data/config.xml');
-            unlink('data/config.xml');
-        } catch(Exception $e) {
+        if (!is_writable(__DIR__.'/../data/')) {
             $this->outputAjaxResponse('config', false);
         }
 
