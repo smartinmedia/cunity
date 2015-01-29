@@ -66,14 +66,15 @@ class Install
      */
     public function __construct()
     {
-        $this->init();
         if (array_key_exists('action', $_REQUEST) &&
             $_REQUEST['type'] === 'ajax' &&
             $_REQUEST['action'] != 'prepareDatabase'
         ) {
             \Cunity\Core\Cunity::init();
+        } else {
+            $this->init();
         }
-
+        $this->initTranslator();
         $this->handleRequest();
     }
 
@@ -88,7 +89,6 @@ class Install
         if (!file_exists("data/config-example.xml")) {
             throw new Exception("config-example.xml missing!");
         }
-        $this->initTranslator();
     }
 
     /**
@@ -117,6 +117,7 @@ class Install
         if (isset($_REQUEST['action']) &&
             method_exists($this, $_REQUEST['action'])
         ) {
+            fb($_REQUEST);
             call_user_func([$this, $_REQUEST['action']]);
         }
     }
@@ -185,7 +186,7 @@ class Install
         }
 
         $sqlData = file_get_contents(__DIR__ . '/../resources/database/newcunity.sql');
-        $sqlData = explode(';', str_replace('TABLEPREFIX', $dbPrefix, $sqlData));
+        $sqlData = explode(";\r\n", str_replace('TABLEPREFIX', $dbPrefix, $sqlData));
 
         foreach ($sqlData as $query) {
             if ($query !== '') {
@@ -279,7 +280,7 @@ class Install
         $lines = file($file);
         $numberOfLines = count($lines);
         for ($i = 0; $i < $numberOfLines; $i++) {
-            if (strrpos($lines[$i], 'RewriteBase', -strlen($lines[$i])) !== false) {
+            if (strrpos($lines[$i], '# RewriteBase /cunity', -strlen($lines[$i])) !== false) {
                 $lines[$i] = 'RewriteBase ' . $rewriteBase."\n";
             }
 
@@ -924,7 +925,7 @@ $installer = new Install();
         </div>
     <?php } ?>
     <footer>
-        &copy; 2014 Smart In Media GmbH & Co. KG
+        <small class="copyright">Powered by <a href="http://cunity.net/" target="_blank">Cunity</a></small>
     </footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="../lib/plugins/bootstrap/js/bootstrap.min.js"></script>
