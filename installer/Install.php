@@ -126,6 +126,11 @@ class Install
      */
     private function prepareDatabase()
     {
+        if ($_REQUEST['db-name'] == '')
+        {
+            $this->outputAjaxResponse('databasename cannot be empty', false);
+        }
+
         $connection = mysqli_connect($_REQUEST['db-host'], $_REQUEST['db-user'], $_REQUEST['db-password'], $_REQUEST['db-name']);
 
         if ($connection === false) {
@@ -207,6 +212,12 @@ class Install
      */
     private function writeDatabaseConfig()
     {
+        if (!touch('data/config.xml')) {
+            $this->outputAjaxResponse('config', false);
+        } else {
+            unlink('data/config.xml');
+        }
+
         $databaseConfig = [];
         $databaseConfig['db'] = [];
         $databaseConfig['db']['params'] = [];
@@ -599,6 +610,9 @@ $installer = new Install();
                           title="<?php echo Install::translate('Prefix for your tables, leave default value if you have no idea'); ?>"
                           data-placement="right"></span>
                                     </div>
+                                    <div class="form-group has-feedback hidden error-message">
+                                        <label class="col-lg-10 control-label"><?php echo Install::translate("please check your user rights so data/config.xml is writeable"); ?></label>
+                                    </div>
                                     <div class="form-group has-feedback col-lg-7">
                                         <button class="btn btn-primary btn-block" id="checkDatabase"><i
                                                 class="fa-check fa"></i>&nbsp;<?php echo Install::translate("Check Connection & copy data to database"); ?>
@@ -952,6 +966,11 @@ $installer = new Install();
                     } else {
                         $('#databaseForm .has-feedback').removeClass('has-success').addClass('has-error');
                         $('#installNextButton').attr('disabled', 'disabled');
+
+                        if (data.response == 'config')
+                        {
+                            $('.error-message').show();
+                        }
                     }
                 });
 
