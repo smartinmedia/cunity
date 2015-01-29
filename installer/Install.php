@@ -68,7 +68,9 @@ class Install
     {
         if (array_key_exists('action', $_REQUEST) &&
             $_REQUEST['type'] === 'ajax' &&
-            $_REQUEST['action'] != 'prepareDatabase'
+            $_REQUEST['action'] != 'prepareDatabase' &&
+            $_REQUEST['action'] != 'prepareConfig' &&
+            $_REQUEST['action'] != 'prepareAdmin'
         ) {
             \Cunity\Core\Cunity::init();
         } else {
@@ -126,8 +128,7 @@ class Install
      */
     private function prepareDatabase()
     {
-        if ($_REQUEST['db-name'] == '')
-        {
+        if ($_REQUEST['db-name'] == '') {
             $this->outputAjaxResponse('databasename cannot be empty', false);
         }
 
@@ -201,7 +202,8 @@ class Install
     {
         foreach ($_REQUEST['general'] as $setting => $value) {
             if ($setting == 'core.siteurl' &&
-                substr($value, -1) != '/') {
+                substr($value, -1) != '/'
+            ) {
                 $value .= '/';
             }
             $this->writeConfigToDatabase($setting, $value);
@@ -216,7 +218,7 @@ class Install
      */
     private function writeDatabaseConfig()
     {
-        if (!is_writable(__DIR__.'/../data/')) {
+        if (!is_writable(__DIR__ . '/../data/')) {
             $this->outputAjaxResponse('config', false);
         }
 
@@ -282,7 +284,7 @@ class Install
         $numberOfLines = count($lines);
         for ($i = 0; $i < $numberOfLines; $i++) {
             if (strrpos($lines[$i], '# RewriteBase /cunity', -strlen($lines[$i])) !== false) {
-                $lines[$i] = 'RewriteBase ' . $rewriteBase."\n";
+                $lines[$i] = 'RewriteBase ' . $rewriteBase . "\n";
             }
 
         }
@@ -586,7 +588,8 @@ Refund Policy<br />
                           data-placement="right"></span>
                                     </div>
                                     <div class="form-group has-feedback hidden error-message">
-                                        <label class="col-lg-10 control-label"><?php echo Install::translate("please check your user rights so data/config.xml is writeable"); ?></label>
+                                        <label
+                                            class="col-lg-10 control-label"><?php echo Install::translate("please check your user rights so data/config.xml is writeable"); ?></label>
                                     </div>
                                     <div class="form-group has-feedback col-lg-7">
                                         <button class="btn btn-primary btn-block" id="checkDatabase"><i
@@ -944,8 +947,7 @@ Refund Policy<br />
                         $('#databaseForm .has-feedback').removeClass('has-success').addClass('has-error');
                         $('#installNextButton').attr('disabled', 'disabled');
 
-                        if (data.response == 'config')
-                        {
+                        if (data.response == 'config') {
                             $('.error-message').show();
                         } else {
                             $('.error-message').hide();
@@ -956,11 +958,11 @@ Refund Policy<br />
                 return false;
             });
 
-            $('#connection-type-sendmail').click(function() {
+            $('#connection-type-sendmail').click(function () {
                 $('#smtp-settings').hide();
             });
 
-            $('#connection-type-smtp').click(function() {
+            $('#connection-type-smtp').click(function () {
                 $('#smtp-settings').show();
             });
 
