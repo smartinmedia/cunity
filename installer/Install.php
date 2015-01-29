@@ -117,7 +117,6 @@ class Install
         if (isset($_REQUEST['action']) &&
             method_exists($this, $_REQUEST['action'])
         ) {
-            fb($_REQUEST);
             call_user_func([$this, $_REQUEST['action']]);
         }
     }
