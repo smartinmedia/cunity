@@ -977,6 +977,14 @@ $installer = new Install();
                 return false;
             });
 
+            $('#connection-type-sendmail').click(function() {
+                $('#smtp-settings').hide();
+            });
+
+            $('#connection-type-smtp').click(function() {
+                $('#smtp-settings').show();
+            });
+
             $('#installNextButton').click(function () {
                 var formId = '';
 
