@@ -37,6 +37,12 @@
 
 use Cunity\Core\Controller;
 
+if (!file_exists(__DIR__.'/data/config.xml'))
+{
+    header('Location: installer/Install.php');
+    exit;
+}
+
 ob_start("ob_gzhandler");
 error_reporting(E_ALL ^ E_NOTICE);
 date_default_timezone_set("UTC");
