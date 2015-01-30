@@ -952,7 +952,7 @@ Refund Policy<br />
 
                         if (data.response == 'config') {
                             $('.error-message-config').show();
-                        } else if(data.response == 'temp')
+                        } else if(data.response == 'temp') {
                             $('.error-message-temp').show();
                         } else {
                             $('.error-message').hide();
