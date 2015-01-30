@@ -71,7 +71,8 @@ class Install
             $_REQUEST['action'] != 'prepareDatabase'
         ) {
             \Cunity\Core\Cunity::init();
-        } elseif($_REQUEST['type'] != 'ajax') {
+        } elseif(array_key_exists('action', $_REQUEST) &&
+            $_REQUEST['type'] != 'ajax') {
             $this->init();
         }
 
@@ -593,6 +594,10 @@ Refund Policy<br />
                                         <label
                                             class="col-lg-10 control-label"><?php echo Install::translate("please check your user rights so data/temp/ is writeable"); ?></label>
                                     </div>
+                                    <div class="form-group has-feedback hidden has-success success-message">
+                                        <label
+                                            class="col-lg-10 control-label"><?php echo Install::translate("your configuration passed all tests, please proceed to the next step"); ?></label>
+                                    </div>
                                     <div class="form-group has-feedback col-lg-7">
                                         <button class="btn btn-primary btn-block" id="checkDatabase"><i
                                                 class="fa-check fa"></i>&nbsp;<?php echo Install::translate("Check Connection & copy data to database"); ?>
@@ -946,6 +951,7 @@ Refund Policy<br />
                         $('#databaseForm .has-feedback').removeClass('has-error').addClass('has-success');
                         $('#installNextButton').removeAttr('disabled');
                         $('.error-message').hide();
+                        $('.success-message').show();
                     } else {
                         $('#databaseForm .has-feedback').removeClass('has-success').addClass('has-error');
                         $('#installNextButton').attr('disabled', 'disabled');
