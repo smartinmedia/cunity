@@ -412,14 +412,18 @@ class View extends Smarty
             );
 
             /** @noinspection PhpUndefinedMethodInspection */
-            self::$zt->setOptions(
-                [
-                    'log' => new Zend_Log(
-                        new Zend_Log_Writer_Stream(__DIR__.'/../../../../resources/log/missing-translations.log')
-                    ),
-                    'logUntranslated' => true
-                ]
-            );
+            $missingTranslationLog = __DIR__ . '/../../../../resources/log/missing-translations.log';
+
+            if (is_writeable($missingTranslationLog)) {
+                self::$zt->setOptions(
+                    [
+                        'log' => new Zend_Log(
+                            new Zend_Log_Writer_Stream($missingTranslationLog)
+                        ),
+                        'logUntranslated' => true
+                    ]
+                );
+            }
 
             /** @noinspection PhpUndefinedMethodInspection */
             if (!self::$zt->isAvailable($locale->getLanguage())) {
