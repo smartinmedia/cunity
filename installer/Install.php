@@ -945,6 +945,7 @@ Refund Policy<br />
                     if (data.success) {
                         $('#databaseForm .has-feedback').removeClass('has-error').addClass('has-success');
                         $('#installNextButton').removeAttr('disabled');
+                        $('.error-message').hide();
                     } else {
                         $('#databaseForm .has-feedback').removeClass('has-success').addClass('has-error');
                         $('#installNextButton').attr('disabled', 'disabled');
