@@ -216,6 +216,10 @@ class Install
             $this->outputAjaxResponse('config', false);
         }
 
+        if (!is_writable(__DIR__ . '/../data/')) {
+            $this->outputAjaxResponse('temp', false);
+        }
+
         $databaseConfig = [];
         $databaseConfig['db'] = [];
         $databaseConfig['db']['params'] = [];
@@ -581,9 +585,13 @@ Refund Policy<br />
                           title="<?php echo Install::translate('Prefix for your tables, leave default value if you have no idea'); ?>"
                           data-placement="right"></span>
                                     </div>
-                                    <div class="form-group has-feedback hidden error-message">
+                                    <div class="form-group has-feedback hidden error-message-config error-message">
                                         <label
                                             class="col-lg-10 control-label"><?php echo Install::translate("please check your user rights so data/config.xml is writeable"); ?></label>
+                                    </div>
+                                    <div class="form-group has-feedback hidden error-message-temp error-message">
+                                        <label
+                                            class="col-lg-10 control-label"><?php echo Install::translate("please check your user rights so data/temp/ is writeable"); ?></label>
                                     </div>
                                     <div class="form-group has-feedback col-lg-7">
                                         <button class="btn btn-primary btn-block" id="checkDatabase"><i
@@ -942,7 +950,9 @@ Refund Policy<br />
                         $('#installNextButton').attr('disabled', 'disabled');
 
                         if (data.response == 'config') {
-                            $('.error-message').show();
+                            $('.error-message-config').show();
+                        } else if(data.response == 'temp')
+                            $('.error-message-temp').show();
                         } else {
                             $('.error-message').hide();
                         }
