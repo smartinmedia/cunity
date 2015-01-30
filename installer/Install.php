@@ -185,11 +185,11 @@ class Install
         }
 
         $sqlData = file_get_contents(__DIR__ . '/../resources/database/newcunity.sql');
-        $sqlData = explode(";\r\n", str_replace('TABLEPREFIX', $dbPrefix, $sqlData));
+        $sqlData = str_replace('TABLEPREFIX', $dbPrefix, $sqlData);
 
         foreach ($sqlData as $query) {
             if ($query !== '') {
-                mysqli_query($connection, $query);
+                mysqli_multi_query($connection, $query);
             }
         }
     }
