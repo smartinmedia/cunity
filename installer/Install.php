@@ -216,7 +216,7 @@ class Install
             $this->outputAjaxResponse('config', false);
         }
 
-        if (!is_writable(__DIR__ . '/../data/')) {
+        if (!is_writable(__DIR__ . '/../data/temp/')) {
             $this->outputAjaxResponse('temp', false);
         }
 
