@@ -132,6 +132,10 @@ class Install
             $this->outputAjaxResponse('databasename cannot be empty', false);
         }
 
+        if (!extension_loaded('gd') || !function_exists('gd_info')) {
+            $this->outputAjaxResponse('gdlib', false);
+        }
+
         $connection = mysqli_connect($_REQUEST['db-host'], $_REQUEST['db-user'], $_REQUEST['db-password'], $_REQUEST['db-name']);
 
         if ($connection === false) {
@@ -575,6 +579,10 @@ Refund Policy<br />
                                         <label
                                             class="col-lg-10 control-label"><?php echo Install::translate("please check your user rights so data/temp/ is writeable"); ?></label>
                                     </div>
+                                    <div class="form-group has-feedback hidden error-message-gdlib error-message">
+                                        <label
+                                            class="col-lg-10 control-label"><?php echo Install::translate("PHP GD libray is required in order to run Cunity"); ?></label>
+                                    </div>
                                     <div class="form-group has-feedback hidden has-success success-message">
                                         <label
                                             class="col-lg-10 control-label"><?php echo Install::translate("your configuration passed all tests, please proceed to the next step"); ?></label>
@@ -941,6 +949,8 @@ Refund Policy<br />
                             $('.error-message-config').show();
                         } else if(data.response == 'temp') {
                             $('.error-message-temp').show();
+                        } else if(data.response == 'gdlib') {
+                            $('.error-message-gdlib').show();
                         } else {
                             $('.error-message').hide();
                         }
