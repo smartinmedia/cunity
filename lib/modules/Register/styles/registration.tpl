@@ -127,7 +127,7 @@
                                 <label class="control-label col-lg-4">{-"Birthday"|translate}</label>
 
                                 <div class="col-lg-7">
-                                    <div class="input-group date" id="datepicker">
+                                    <div class="input-group date datepicker" id="datepicker">
                                         <input type="text" class="form-control" name="birthday" required="required"
                                                readonly="readonly">
                         <span class="input-group-addon">
