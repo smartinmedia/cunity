@@ -265,7 +265,14 @@ class View extends Smarty
         $this->assign("meta", $this->_metadata);
         $this->assign('script_head', implode("\n", $this->_headScripts));
         $this->assign('css_head', base64_encode(implode(",", $this->_headCss)));
-        $this->assign('modrewrite', (boolean)in_array('mod_rewrite', apache_get_modules()));
+        $modRewrite = false;
+
+        if (function_exists("apache_get_modules")) {
+            $modRewrite = (boolean)in_array('mod_rewrite', apache_get_modules());
+        }
+
+        $this->assign('modrewrite', $modRewrite);
+
         if ($this->_useWrapper) {
             $this->assign(
                 'tpl_name',
