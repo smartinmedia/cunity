@@ -3,6 +3,15 @@
     "description": "Cunity is an open-source social network that was programmed out of the need of having an own social network, which is not controlled by some big internet company. Cunity offers a variety of modules such as friends, forum, pinboard, chat, photo-gallery, messaging, etc.",
     "minimum-stability": "dev",
     "license": "AGPL-3.0",
+    "repositories": [
+        {
+            "packagist": false
+        },
+        {
+            "type": "composer",
+            "url": "http://composer.codersquad.de/"
+        }
+    ],
     "require": {
         "php": "~5.5",
         "zendframework/zendframework1": "~1",
