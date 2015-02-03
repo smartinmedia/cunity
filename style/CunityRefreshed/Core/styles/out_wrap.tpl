@@ -16,7 +16,7 @@
             <link rel="stylesheet" type="text/css" href="{-"core.siteurl"|setting}lib/modules/Core/styles/css/cunity.min.css.php?files={-$css_head}">
         {-/if}
         <script src="{-"core.siteurl"|setting}lib/plugins/js/jquery.min.js" type="text/javascript"></script>
-        <script type="text/javascript">var modrewrite = {-$modrewrite}, siteurl = "{-"core.siteurl"|setting}", userid = parseInt("{-$user.userid}"), design = "CunityRefreshed", login = {-if empty($user)}false{-else}true{-/if};</script>
+        <script type="text/javascript">var modrewrite = '{-$modrewrite}', siteurl = "{-"core.siteurl"|setting}", userid = parseInt("{-$user.userid}"), design = "CunityRefreshed", login = {-if empty($user)}false{-else}true{-/if};</script>
         {-*<script src="{-"core.siteurl"|setting}style/CunityRefreshed/javascript/jquery.touchSwipe.min.js"></script>*}
         <script src="{-"core.siteurl"|setting}lib/plugins/js/jquery.mousewheel.min.js" type="text/javascript"></script>
         <script src="{-"core.siteurl"|setting}lib/modules/Core/styles/javascript/cunity-core.js" type="text/javascript"></script>                
