@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -43,8 +43,7 @@ use Cunity\Core\Helper\UserHelper;
 use ZipArchive;
 
 /**
- * Class UpdateHelper
- * @package Cunity\Admin\Helper
+ * Class UpdateHelper.
  */
 class UpdateHelper
 {
@@ -72,11 +71,12 @@ class UpdateHelper
 
     /**
      * @return mixed
+     *
      * @throws \Cunity\Core\Exception
      */
     public static function getVersion()
     {
-        $config = Cunity::get("config");
+        $config = Cunity::get('config');
 
         return $config->site->version;
     }
@@ -86,15 +86,14 @@ class UpdateHelper
      */
     protected static function getRemoteVersion($force = false)
     {
-        $settings = Cunity::get("settings");
+        $settings = Cunity::get('settings');
 
         if ($settings->getSetting('core.lastupdatecheck') < mktime(0, 0, 1, date('m'), date('d'), date('Y')) ||
             $force
         ) {
-            $context = array('http' =>
-                array(
-                    'header' => 'Referer: ' .
-                        $settings->getSetting('core.siteurl')));
+            $context = array('http' => array(
+                    'header' => 'Referer: '.
+                        $settings->getSetting('core.siteurl'), ));
             $xcontext = stream_context_create($context);
             $settings->setSetting('core.remoteversion', file_get_contents(self::$UPDATECHECKURL, 'r', $xcontext));
             $settings->setSetting('core.lastupdatecheck', time());
@@ -122,12 +121,13 @@ class UpdateHelper
     private static function getUpdateFile()
     {
         $ch = curl_init(self::$LATESTURL);
-        $updateFile = __DIR__ . '/../../../../data/temp/latest.zip';
+        $updateFile = __DIR__.'/../../../../data/temp/latest.zip';
         $targetFile = fopen($updateFile, 'w+');
         curl_setopt($ch, CURLOPT_FILE, $targetFile);
         curl_setopt($ch, CURLOPT_TIMEOUT, 3600);
         curl_exec($ch);
         fclose($targetFile);
+
         return $updateFile;
     }
 
@@ -138,7 +138,7 @@ class UpdateHelper
     {
         $zip = new ZipArchive();
         $zip->open($updateFile);
-        $zip->extractTo(__DIR__ . '/../../../../');
+        $zip->extractTo(__DIR__.'/../../../../');
         $zip->close();
     }
 
@@ -150,8 +150,8 @@ class UpdateHelper
         $configuration = [];
         $configuration['site'] = [];
         $configuration['site']['version'] = self::getRemoteVersion();
-        $config = new \Zend_Config_Xml(__DIR__ . '/../../../../data/config.xml');
-        $configWriter = new \Zend_Config_Writer_Xml(["config" => new \Zend_Config(Process::arrayMergeRecursiveDistinct($config->toArray(), $configuration)), "filename" => __DIR__ . '/../../../../data/config.xml']);
+        $config = new \Zend_Config_Xml(__DIR__.'/../../../../data/config.xml');
+        $configWriter = new \Zend_Config_Writer_Xml(['config' => new \Zend_Config(Process::arrayMergeRecursiveDistinct($config->toArray(), $configuration)), 'filename' => __DIR__.'/../../../../data/config.xml']);
         $configWriter->write();
     }
 }

@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -37,23 +37,22 @@
 namespace Cunity\Core\View;
 
 /**
- * Class PageNotFound
- * @package Cunity\Core\View
+ * Class PageNotFound.
  */
 class PageNotFound extends View
 {
     /**
      * @var string
      */
-    protected $_templateDir = "Core";
+    protected $_templateDir = 'Core';
     /**
      * @var string
      */
-    protected $_templateFile = "404.tpl";
+    protected $_templateFile = '404.tpl';
     /**
      * @var array
      */
-    protected $_metadata = ["title" => "404 - Page Not Found"];
+    protected $_metadata = ['title' => '404 - Page Not Found'];
 
     /**
      * @throws \Exception

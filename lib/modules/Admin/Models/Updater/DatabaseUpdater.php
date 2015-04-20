@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -41,26 +41,21 @@ use Cunity\Core\Cunity;
 use Cunity\Search\Models\Process;
 
 /**
- * Class DatabaseUpdater
- * @package Admin\Models\Updater
+ * Class DatabaseUpdater.
  */
 class DatabaseUpdater
 {
-
     /**
-     *
      * @var String
      */
-    protected $_directory = "../data/temp/databaseUpdates";
+    protected $_directory = '../data/temp/databaseUpdates';
 
     /**
-     *
      * @var array
      */
     protected $versions = [];
 
     /**
-     *
      * @var \Cunity\Admin\Models\Db\Table\Versions
      */
     protected $versionDb = null;
@@ -92,15 +87,15 @@ class DatabaseUpdater
         $dir = new \DirectoryIterator($this->_directory);
         foreach ($dir as $fileinfo) {
             if (!$fileinfo->isDot() && $fileinfo->isReadable()) {
-                if ($fileinfo->getExtension() == "php") {
-                    include_once $this->_directory . DIRECTORY_SEPARATOR . $fileinfo->getFilename();
-                    $classname = $fileinfo->getBasename(".php");
+                if ($fileinfo->getExtension() == 'php') {
+                    include_once $this->_directory.DIRECTORY_SEPARATOR.$fileinfo->getFilename();
+                    $classname = $fileinfo->getBasename('.php');
                     $classnameParts = explode('Version', $classname);
                     if (class_exists($classname) && !$this->versionInstalled($classnameParts[1])) {
                         /** @var DbUpdateVersion $dbCmd */
-                        $dbCmd = new $classname(Cunity::get("db"));
+                        $dbCmd = new $classname(Cunity::get('db'));
                         if ($dbCmd instanceof DbCommandInterface) {
-                            /** @noinspection PhpUndefinedMethodInspection */
+                            /* @noinspection PhpUndefinedMethodInspection */
                             $dbCmd->execute();
                             $dbCmd->updateDatabaseTimestamp($this->versionDb);
                         }
@@ -114,9 +109,9 @@ class DatabaseUpdater
     }
 
     /**
+     * @param float $timestamp
      *
-     * @param double $timestamp
-     * @return boolean
+     * @return bool
      */
     protected function versionInstalled($timestamp)
     {

@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -39,12 +39,10 @@ namespace Cunity\Forums\Models\Db\Table;
 use Cunity\Core\Models\Db\Abstractables\Table;
 
 /**
- * Class Threads
- * @package Cunity\Forums\Models\Db\Table
+ * Class Threads.
  */
 class Threads extends Table
 {
-
     /**
      * @var string
      */
@@ -64,24 +62,27 @@ class Threads extends Table
 
     /**
      * @param $boardid
+     *
      * @return array|bool
      */
     public function loadThreads($boardid)
     {
         $res = $this->getAdapter()->fetchAll(
             $this->getWhere()
-                ->where("pc.id IS NOT NULL")
-                ->where("t.board_id=?", $boardid)
-                ->group("t.id")
+                ->where('pc.id IS NOT NULL')
+                ->where('t.board_id=?', $boardid)
+                ->group('t.id')
         );
         if ($res !== null && $res !== false) {
             return $res;
         }
+
         return false;
     }
 
     /**
      * @param $category
+     *
      * @return array|bool
      */
     public function loadCategoryThreads($category)
@@ -89,17 +90,19 @@ class Threads extends Table
         $res = $this->getAdapter()->fetchAll(
             $this
                 ->getWhere()
-                ->where("t.category=?", $category)
-                ->group("t.id")
+                ->where('t.category=?', $category)
+                ->group('t.id')
         );
         if ($res !== null && $res !== false) {
             return $res;
         }
+
         return false;
     }
 
     /**
      * @param $id
+     *
      * @return bool|mixed
      */
     public function loadThreadData($id)
@@ -108,42 +111,46 @@ class Threads extends Table
             $this
                 ->getAdapter()
                 ->select()
-                ->from(["t" => $this->_name])
-                ->joinLeft(["b" => $this->_dbprefix . "forums_boards"], "b.id=t.board_id", ["forum_id", new \Zend_Db_Expr("b.title as boardtitle")])
-                ->joinLeft(["pc" => $this->_dbprefix . "forums_posts"], "pc.thread_id=t.id", new \Zend_Db_Expr("COUNT(DISTINCT pc.id) AS postcount"))
-                ->joinLeft(["f" => $this->_dbprefix . "forums"], "f.id=b.forum_id", [new \Zend_Db_Expr("f.title as forumtitle")])
-                ->where("t.id=?", $id)
+                ->from(['t' => $this->_name])
+                ->joinLeft(['b' => $this->_dbprefix.'forums_boards'], 'b.id=t.board_id', ['forum_id', new \Zend_Db_Expr('b.title as boardtitle')])
+                ->joinLeft(['pc' => $this->_dbprefix.'forums_posts'], 'pc.thread_id=t.id', new \Zend_Db_Expr('COUNT(DISTINCT pc.id) AS postcount'))
+                ->joinLeft(['f' => $this->_dbprefix.'forums'], 'f.id=b.forum_id', [new \Zend_Db_Expr('f.title as forumtitle')])
+                ->where('t.id=?', $id)
         );
-        if ($res === null || $res["id"] === null) {
+        if ($res === null || $res['id'] === null) {
             return false;
         }
+
         return $res;
     }
 
     /**
      * @param $id
+     *
      * @return bool
      */
     public function deleteThreadsByBoardId($id)
     {
         $result = [];
-        $res = $this->fetchAll($this->select()->where("board_id=?", $id));
+        $res = $this->fetchAll($this->select()->where('board_id=?', $id));
         foreach ($res as $r) {
             $result[] = $this->deleteThread($r->id);
         }
+
         return !in_array(false, $result);
     }
 
     /**
      * @param $id
+     *
      * @return bool
      */
     public function deleteThread($id)
     {
-        $posts = new Posts;
-        $r = $posts->delete($posts->getAdapter()->quoteInto("thread_id=?", $id));
+        $posts = new Posts();
+        $r = $posts->delete($posts->getAdapter()->quoteInto('thread_id=?', $id));
         if ($r !== false) {
-            return ($this->delete($this->getAdapter()->quoteInto("id=?", $id)) > 0);
+            return ($this->delete($this->getAdapter()->quoteInto('id=?', $id)) > 0);
         } else {
             return false;
         }
@@ -157,12 +164,12 @@ class Threads extends Table
         return $this
             ->getAdapter()
             ->select()
-            ->from(["t" => $this->getTableName()])
-            ->joinLeft(["p" => $this->_dbprefix . "forums_posts"], "p.thread_id=t.id", ["time"])
-            ->joinLeft(["pc" => $this->_dbprefix . "forums_posts"], "pc.thread_id=t.id", new \Zend_Db_Expr("COUNT(DISTINCT pc.id) AS postcount"))
-            ->joinLeft(["u" => $this->_dbprefix . "users"], "u.userid=p.userid", ["name", "username"])
-            ->joinLeft(["c" => $this->_dbprefix . "forums_categories"], "c.id=t.category", ["name AS categoryName", "tag AS categoryTag"])
-            ->order("t.important DESC")
-            ->order("p.time DESC");
+            ->from(['t' => $this->getTableName()])
+            ->joinLeft(['p' => $this->_dbprefix.'forums_posts'], 'p.thread_id=t.id', ['time'])
+            ->joinLeft(['pc' => $this->_dbprefix.'forums_posts'], 'pc.thread_id=t.id', new \Zend_Db_Expr('COUNT(DISTINCT pc.id) AS postcount'))
+            ->joinLeft(['u' => $this->_dbprefix.'users'], 'u.userid=p.userid', ['name', 'username'])
+            ->joinLeft(['c' => $this->_dbprefix.'forums_categories'], 'c.id=t.category', ['name AS categoryName', 'tag AS categoryTag'])
+            ->order('t.important DESC')
+            ->order('p.time DESC');
     }
 }

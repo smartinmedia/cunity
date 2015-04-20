@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -41,22 +41,22 @@ use Cunity\Core\Models\Db\Adapter\Mysqli;
 use Zend_Db_Expr;
 
 /**
- * Class FriendQuery
- * @package Friends\Models\Generator
+ * Class FriendQuery.
  */
 class FriendQuery
 {
-
     /**
      * @param string $status
+     *
      * @return Zend_Db_Expr
+     *
      * @throws \Exception
      */
-    public static function getFriendListQuery($status = "> 0")
+    public static function getFriendListQuery($status = '> 0')
     {
-        return new Zend_Db_Expr(Cunity::get("db")->select()
-            ->from(Mysqli::getDbprefix() . "relations", new Zend_Db_Expr("(CASE WHEN sender = " . $_SESSION['user']->userid . " THEN receiver WHEN receiver = " . $_SESSION['user']->userid . " THEN sender END)"))
-            ->where("status" . $status)
-            ->where("sender=? OR receiver=?", $_SESSION['user']->userid));
+        return new Zend_Db_Expr(Cunity::get('db')->select()
+            ->from(Mysqli::getDbprefix().'relations', new Zend_Db_Expr('(CASE WHEN sender = '.$_SESSION['user']->userid.' THEN receiver WHEN receiver = '.$_SESSION['user']->userid.' THEN sender END)'))
+            ->where('status'.$status)
+            ->where('sender=? OR receiver=?', $_SESSION['user']->userid));
     }
 }

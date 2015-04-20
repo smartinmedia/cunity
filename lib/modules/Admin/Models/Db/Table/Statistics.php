@@ -9,7 +9,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -35,19 +35,18 @@
  * #####################################################################################
  */
 
-
 namespace Cunity\Admin\Models\Db\Table;
 
 use Cunity\Core\Models\Db\Abstractables\Table;
 
 /**
- * Class Version
- * @package Cunity\Admin\Models\Db\Table
+ * Class Version.
  */
 class Statistics extends Table
 {
     /**
      * @param int $numberOfMonths
+     *
      * @return array|bool
      */
     public function getLastMonths($numberOfMonths = 12)
@@ -60,7 +59,7 @@ class Statistics extends Table
         $rows = $this->fetchAll('time >= "'.date('Y-m-01 H:i:s', $startDate).'"')->toArray();
 
         foreach ($rows as $row) {
-            $row['time'] = $date->createFromFormat('Y-m-d H:i:s', $row['time'])->format('Y'). ' Q'.floor(date("m", $date->createFromFormat('Y-m-d H:i:s', $row['time'])->getTimestamp()) / 3);
+            $row['time'] = $date->createFromFormat('Y-m-d H:i:s', $row['time'])->format('Y').' Q'.floor(date('m', $date->createFromFormat('Y-m-d H:i:s', $row['time'])->getTimestamp()) / 3);
             $statistics[$row['time']]['comments']++;
         }
 
@@ -68,7 +67,7 @@ class Statistics extends Table
         $rows = $this->fetchAll('time >= "'.date('Y-m-01 H:i:s', $startDate).'"')->toArray();
 
         foreach ($rows as $row) {
-            $row['time'] = $date->createFromFormat('Y-m-d H:i:s', $row['time'])->format('Y'). ' Q'.floor(date("m", $date->createFromFormat('Y-m-d H:i:s', $row['time'])->getTimestamp()) / 3);
+            $row['time'] = $date->createFromFormat('Y-m-d H:i:s', $row['time'])->format('Y').' Q'.floor(date('m', $date->createFromFormat('Y-m-d H:i:s', $row['time'])->getTimestamp()) / 3);
             $statistics[$row['time']]['posts']++;
         }
 
@@ -76,7 +75,7 @@ class Statistics extends Table
         $rows = $this->fetchAll('time >= "'.date('Y-m-01 H:i:s', $startDate).'"')->toArray();
 
         foreach ($rows as $row) {
-            $row['time'] = $date->createFromFormat('Y-m-d H:i:s', $row['time'])->format('Y'). ' Q'.floor(date("m", $date->createFromFormat('Y-m-d H:i:s', $row['time'])->getTimestamp()) / 3);
+            $row['time'] = $date->createFromFormat('Y-m-d H:i:s', $row['time'])->format('Y').' Q'.floor(date('m', $date->createFromFormat('Y-m-d H:i:s', $row['time'])->getTimestamp()) / 3);
             $statistics[$row['time']]['notifications']++;
         }
 
@@ -85,7 +84,7 @@ class Statistics extends Table
 
         foreach ($rows as $row) {
             $row['time'] = $row['registered'];
-            $row['time'] = $date->createFromFormat('Y-m-d H:i:s', $row['time'])->format('Y'). ' Q'.floor(date("m", $date->createFromFormat('Y-m-d H:i:s', $row['time'])->getTimestamp()) / 3);
+            $row['time'] = $date->createFromFormat('Y-m-d H:i:s', $row['time'])->format('Y').' Q'.floor(date('m', $date->createFromFormat('Y-m-d H:i:s', $row['time'])->getTimestamp()) / 3);
             $statistics[$row['time']]['users']++;
         }
 

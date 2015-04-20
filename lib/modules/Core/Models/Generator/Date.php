@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -37,13 +37,13 @@
 namespace Cunity\Core\Models\Generator;
 
 /**
- * Class Date
- * @package Cunity\Core\Models\Generator
+ * Class Date.
  */
 class Date
 {
     /**
      * @param $since
+     *
      * @return string
      */
     public static function timeSince($since)
@@ -57,7 +57,7 @@ class Date
             [86400, 'day'],
             [3600, 'hour'],
             [60, 'minute'],
-            [1, 'second']
+            [1, 'second'],
         ];
 
         for ($i = 0, $j = count($chunks); $i < $j; $i++) {
@@ -68,7 +68,8 @@ class Date
             }
         }
 
-        $print = ($count == 1) ? '1 ' . $name : "$count {$name}s";
+        $print = ($count == 1) ? '1 '.$name : "$count {$name}s";
+
         return $print;
     }
 }

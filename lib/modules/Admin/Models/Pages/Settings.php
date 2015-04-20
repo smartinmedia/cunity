@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -44,12 +44,10 @@ use Cunity\Pages\Models\Db\Table\Pages;
 use Cunity\Profile\Models\Db\Table\ProfileFields;
 
 /**
- * Class Settings
- * @package Cunity\Admin\Models\Pages
+ * Class Settings.
  */
 class Settings extends PageAbstract
 {
-
     /**
      *
      */
@@ -59,7 +57,7 @@ class Settings extends PageAbstract
             $this->handleRequest();
         } else {
             $this->loadData();
-            $this->render("settings");
+            $this->render('settings');
         }
     }
 
@@ -70,24 +68,24 @@ class Settings extends PageAbstract
     {
         $view = new View();
         switch ($_POST['action']) {
-            case "sendTestMail":
+            case 'sendTestMail':
                 $mail = new Mail();
-                $mail->sendMail("TestMail from cunity", "Cunity - Testmail", ["name" => "Cunity Admin", "email" => $_POST['mail']]);
+                $mail->sendMail('TestMail from cunity', 'Cunity - Testmail', ['name' => 'Cunity Admin', 'email' => $_POST['mail']]);
                 $view->setStatus(true);
                 break;
-            case "loadPages":
+            case 'loadPages':
                 $pages = new Pages();
                 $res = $pages->loadPages();
                 $view->setStatus($res !== null);
-                $view->addData(["pages" => $res->toArray()]);
+                $view->addData(['pages' => $res->toArray()]);
                 break;
-            case "deletePage":
+            case 'deletePage':
                 if (isset($_POST['id']) && !empty($_POST['id'])) {
                     $pages = new Pages();
                     $status = $pages->deletePage($_POST['id']);
                     if ($status !== false && false) {
                         $comments = new Comments();
-                        $status = $comments->removeAllComments($_POST['id'], "page");
+                        $status = $comments->removeAllComments($_POST['id'], 'page');
                     } else {
                         $status = true;
                     }
@@ -103,7 +101,7 @@ class Settings extends PageAbstract
                 $page = $pages->getPage($res);
                 $view->setStatus($res !== null && $res !== false);
                 $page->content = html_entity_decode($page->content);
-                $view->addData(["page" => $page->toArray()]);
+                $view->addData(['page' => $page->toArray()]);
                 break;
         }
         $view->sendResponse();
@@ -114,22 +112,22 @@ class Settings extends PageAbstract
      */
     private function loadData()
     {
-        $langIterator = new \DirectoryIterator("modules/Core/languages");
-        $designIterator = new \DirectoryIterator("../style");
+        $langIterator = new \DirectoryIterator('modules/Core/languages');
+        $designIterator = new \DirectoryIterator('../style');
         foreach ($designIterator as $design) {
             if ($design->isDir() && $design->isReadable() && !$design->isDot()) {
-                $this->assignments['availableDesigns'][] = [$design->getBasename(), file_get_contents($design->getRealPath() . DIRECTORY_SEPARATOR . "name.txt")];
+                $this->assignments['availableDesigns'][] = [$design->getBasename(), file_get_contents($design->getRealPath().DIRECTORY_SEPARATOR.'name.txt')];
             }
         }
 
         foreach ($langIterator as $lang) {
-            if ($lang->isReadable() && $lang->getExtension() == "csv") {
+            if ($lang->isReadable() && $lang->getExtension() == 'csv') {
                 $this->assignments['availableLanguages'][] = $lang->getBasename('.csv');
             }
         }
         $profileFields = new ProfileFields();
         $this->assignments['profileFields'] = $profileFields->getAll();
         $this->assignments['fieldTypes'] = ProfileFields::$types;
-        $this->assignments["config"] = Cunity::get("config");
+        $this->assignments['config'] = Cunity::get('config');
     }
 }

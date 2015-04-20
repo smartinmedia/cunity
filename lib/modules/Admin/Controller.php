@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -41,12 +41,10 @@ use Cunity\Core\ModuleController;
 use Cunity\Register\Models\Login;
 
 /**
- * Class Controller
- * @package Cunity\Admin
+ * Class Controller.
  */
 class Controller extends ModuleController
 {
-
     /**
      *
      */
@@ -58,7 +56,7 @@ class Controller extends ModuleController
 
             switch ($action) {
                 case 'login':
-                    new Models\Login("login");
+                    new Models\Login('login');
                     break;
                 case 'save':
                 case 'delete':
@@ -66,11 +64,11 @@ class Controller extends ModuleController
                     new Models\Process($_REQUEST['form'], $action);
                     break;
                 default:
-                    $model = "\Cunity\Admin\Models\\Pages\\" . ucfirst($action);
+                    $model = "\Cunity\Admin\Models\\Pages\\".ucfirst($action);
                     if (!Models\Login::loggedIn()) {
                         new View\Login();
                     } elseif (Request::isAjaxRequest()) {
-                        new $model;
+                        new $model();
                     }
                     break;
             }

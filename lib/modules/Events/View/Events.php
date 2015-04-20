@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -39,24 +39,22 @@ namespace Cunity\Events\View;
 use Cunity\Core\View\View;
 
 /**
- * Class Events
- * @package Cunity\Events\View
+ * Class Events.
  */
 class Events extends View
 {
-
     /**
      * @var string
      */
-    protected $_templateDir = "events";
+    protected $_templateDir = 'events';
     /**
      * @var string
      */
-    protected $_templateFile = "events.tpl";
+    protected $_templateFile = 'events.tpl';
     /**
      * @var array
      */
-    protected $_metadata = ["title" => "Events"];
+    protected $_metadata = ['title' => 'Events'];
 
     /**
      * @throws \Cunity\Core\Exception
@@ -65,30 +63,30 @@ class Events extends View
     public function __construct()
     {
         parent::__construct();
-        $this->registerCss("events", "events");
-        $this->registerScript("events", "events");
+        $this->registerCss('events', 'events');
+        $this->registerScript('events', 'events');
         $this->registerCunityPlugin(
-            "bootstrap-datepicker",
+            'bootstrap-datepicker',
             [
-                "css/bootstrap-datepicker.css",
-                "js/bootstrap-datepicker.js"
+                'css/bootstrap-datepicker.css',
+                'js/bootstrap-datepicker.js',
             ]
         );
         $this->registerCunityPlugin(
-            "bootstrap-timepicker",
+            'bootstrap-timepicker',
             [
-                "css/bootstrap-timepicker.css",
-                "js/bootstrap-timepicker.min.js"
+                'css/bootstrap-timepicker.css',
+                'js/bootstrap-timepicker.min.js',
             ]
         );
         $this->registerCunityPlugin(
-            "calendar",
+            'calendar',
             [
-                "css/calendar.css",
-                "js/calendar.min.js"
+                'css/calendar.css',
+                'js/calendar.min.js',
             ]
         );
-        $this->registerCunityPlugin("js", ["underscore-min.js"]);
+        $this->registerCunityPlugin('js', ['underscore-min.js']);
         $this->show();
     }
 }

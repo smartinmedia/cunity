@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -39,24 +39,22 @@ namespace Cunity\Register;
 use Cunity\Core\ModuleController;
 
 /**
- * Class Controller
- * @package Cunity\Register
+ * Class Controller.
  */
 class Controller extends ModuleController
 {
-
     /**
      * @var array
      */
     private $_allowedActions = [
-        "sendRegistration",
-        "forgetPw",
-        "login",
-        "logout",
-        "verify",
-        "delete",
-        "reset",
-        "validate"
+        'sendRegistration',
+        'forgetPw',
+        'login',
+        'logout',
+        'verify',
+        'delete',
+        'reset',
+        'validate',
     ];
 
     /**

@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -43,12 +43,10 @@ use Cunity\Core\View\Ajax\View;
 use Cunity\Core\View\PageNotFound;
 
 /**
- * Class Profile
- * @package Cunity\Profile\Models
+ * Class Profile.
  */
 class Profile
 {
-
     /**
      * @var array
      */
@@ -84,7 +82,7 @@ class Profile
                 } else {
                     $result = [];
                 }
-                $view->addData(["result" => $result]);
+                $view->addData(['result' => $result]);
                 $view->sendResponse();
                 break;
         }
@@ -96,10 +94,10 @@ class Profile
     private function checkUser()
     {
         /** @var Users $users */
-        /** @noinspection PhpUndefinedMethodInspection */
+        /* @noinspection PhpUndefinedMethodInspection */
         $users = $_SESSION['user']->getTable();
         if (isset($_GET['action']) && !empty($_GET['action'])) {
-            $result = $users->get($_GET['action'], "username");
+            $result = $users->get($_GET['action'], 'username');
             if (!$result instanceof User || $result['name'] === null) {
                 new PageNotFound();
             }
@@ -121,7 +119,7 @@ class Profile
     {
         $view = new \Cunity\Profile\View\Profile();
         $view->assign('profile', $this->profileData);
-        $view->setMetaData(["title" => $this->profileData['name']]);
+        $view->setMetaData(['title' => $this->profileData['name']]);
         $view->render();
     }
 }

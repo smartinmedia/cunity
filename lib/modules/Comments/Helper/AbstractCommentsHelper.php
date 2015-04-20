@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -40,8 +40,7 @@ use Cunity\Comments\Models\Db;
 use Cunity\Core\View\Ajax\View;
 
 /**
- * Class AbstractCommentsHelper
- * @package Cunity\Core\Helper
+ * Class AbstractCommentsHelper.
  */
 abstract class AbstractCommentsHelper
 {
@@ -103,6 +102,6 @@ abstract class AbstractCommentsHelper
     {
         $res = $this->table->get($_POST['ref_id'], $_POST['ref_name'], $_POST['last'], $_POST['limit']);
         $this->view->setStatus($res !== false);
-        $this->view->addData(["comments" => $res]);
+        $this->view->addData(['comments' => $res]);
     }
 }

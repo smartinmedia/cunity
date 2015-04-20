@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -37,24 +37,25 @@
 namespace Cunity\Core\Models\Generator;
 
 /**
- * Class Unique
- * @package Core\Models\Generator
+ * Class Unique.
  */
 class Unique
 {
     /**
      * @param int $max
+     *
      * @return string
      */
     public static function createSalt($max = 25)
     {
-        $characterList = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        $characterList = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
         $i = 0;
-        $salt = "";
+        $salt = '';
         do {
             $salt .= $characterList{mt_rand(0, strlen($characterList) - 1)};
             $i++;
         } while ($i < $max);
+
         return $salt;
     }
 }

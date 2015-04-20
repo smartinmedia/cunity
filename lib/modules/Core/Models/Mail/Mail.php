@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -41,8 +41,7 @@ use Zend_Mail_Transport_Sendmail;
 use Zend_Mail_Transport_Smtp;
 
 /**
- * Class Mail
- * @package Cunity\Core\Models\Mail
+ * Class Mail.
  */
 class Mail extends \Zend_Mail
 {
@@ -52,7 +51,7 @@ class Mail extends \Zend_Mail
     public function __construct()
     {
         parent::__construct();
-        $config = Cunity::get("config");
+        $config = Cunity::get('config');
         $transport = ($config->mail->smtp == 1) ? new Zend_Mail_Transport_Smtp($config->mail->params->host, $config->mail->params->toArray()) : new \Zend_Mail_Transport_Sendmail();
         parent::setDefaultTransport($transport);
         parent::setDefaultFrom($config->mail->sendermail, $config->mail->sendername);
@@ -63,6 +62,7 @@ class Mail extends \Zend_Mail
      * @param $subject
      * @param array $receiver
      * @param array $cc
+     *
      * @throws \Zend_Mail_Exception
      */
     public function sendMail($body, $subject, array $receiver, array $cc = [])

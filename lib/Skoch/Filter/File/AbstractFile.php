@@ -7,13 +7,13 @@ use Zend_Config;
 use Zend_Filter_Exception;
 
 /**
- * Class AbstractFile
- * @package Skoch\Filter\File
+ * Class AbstractFile.
  */
 abstract class AbstractFile
 {
     /**
      * @throws Zend_Filter_Exception
+     *
      * @param param array|Zend_Config $options
      */
     public function __construct($options)
@@ -43,7 +43,7 @@ abstract class AbstractFile
                 $name = $options['adapter'];
                 if (substr($name, 0, 26) != 'Skoch_Filter_File_Adapter_') {
                     $name = 'Skoch_Filter_File_Adapter_'
-                        . ucfirst(
+                        .ucfirst(
                             strtolower($name)
                         );
                 }

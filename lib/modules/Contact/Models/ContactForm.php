@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -42,8 +42,7 @@ use Cunity\Core\View\Message;
 use Cunity\Register\Models\Login;
 
 /**
- * Class ContactForm
- * @package Cunity\Contact\Models
+ * Class ContactForm.
  */
 class ContactForm
 {
@@ -63,19 +62,19 @@ class ContactForm
         if (isset($_POST['message'])) {
             $contactDb = new Contact();
             $res = $contactDb->insert([
-                "userid" => (Login::loggedIn()) ? $_SESSION['user']->userid : 0,
-                "firstname" => $_POST['firstname'],
-                "lastname" => $_POST['lastname'],
-                "email" => $_POST['email'],
-                "subject" => $_POST['subject'],
-                "message" => $_POST['message'],
+                'userid' => (Login::loggedIn()) ? $_SESSION['user']->userid : 0,
+                'firstname' => $_POST['firstname'],
+                'lastname' => $_POST['lastname'],
+                'email' => $_POST['email'],
+                'subject' => $_POST['subject'],
+                'message' => $_POST['message'],
             ]);
             if ($res) {
-                $cc = (isset($_POST['send_copy']) && $_POST['send_copy'] == 1) ? ["email" => $_POST['email'], "name" => $_POST['firstname'] . " " . $_POST['lastname']] : [];
-                new ContactMail([], ["subject" => $_POST['subject'], "message" => $_POST['message']], $cc);
-                new Message("Finished!", "Your Message was sent successfully!", "success");
+                $cc = (isset($_POST['send_copy']) && $_POST['send_copy'] == 1) ? ['email' => $_POST['email'], 'name' => $_POST['firstname'].' '.$_POST['lastname']] : [];
+                new ContactMail([], ['subject' => $_POST['subject'], 'message' => $_POST['message']], $cc);
+                new Message('Finished!', 'Your Message was sent successfully!', 'success');
             } else {
-                new Message("Sorry!", "There was an error in our system, please try again later", "danger");
+                new Message('Sorry!', 'There was an error in our system, please try again later', 'danger');
             }
         }
     }

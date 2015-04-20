@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -40,28 +40,26 @@ use Cunity\Core\View\View;
 use Cunity\Profile\Models\Db\Table\ProfileFields;
 
 /**
- * Class Startpage
- * @package Cunity\Start\View
+ * Class Startpage.
  */
 class Startpage extends View
 {
-
     /**
      * @var string
      */
-    protected $_templateDir = "start";
+    protected $_templateDir = 'start';
     /**
      * @var string
      */
-    protected $_templateFile = "startpage.tpl";
+    protected $_templateFile = 'startpage.tpl';
     /**
      * @var string
      */
-    protected $_languageFolder = "start/languages";
+    protected $_languageFolder = 'start/languages';
     /**
      * @var array
      */
-    protected $_metadata = ["title" => "Welcome"];
+    protected $_metadata = ['title' => 'Welcome'];
     /**
      * @var bool
      */
@@ -75,11 +73,11 @@ class Startpage extends View
     {
         parent::__construct();
         $this->assign('success', false);
-        $this->registerScript("register", "registration");
-        $this->registerCss("register", "style");
+        $this->registerScript('register', 'registration');
+        $this->registerCss('register', 'style');
         $this->registerCunityPlugin(
-            "bootstrap-datepicker",
-            ["css/bootstrap-datepicker.css", "js/bootstrap-datepicker.js"]
+            'bootstrap-datepicker',
+            ['css/bootstrap-datepicker.css', 'js/bootstrap-datepicker.js']
         );
         $profileFields = new ProfileFields();
         $this->assign('profileFields', $profileFields->getRegistrationFields());

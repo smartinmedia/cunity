@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -45,12 +45,10 @@ use Cunity\Profile\Models\Db\Table\ProfileFieldsUsers;
 use Cunity\Register\View\VerifyMail;
 
 /**
- * Class Users
- * @package Cunity\Core\Models\Db\Table
+ * Class Users.
  */
 class Users extends Table
 {
-
     /**
      * @var string
      */
@@ -74,29 +72,31 @@ class Users extends Table
 
     /**
      * @param array $data
+     *
      * @return bool
+     *
      * @throws \Exception
      */
     public function registerNewUser(array $data, $groupId = 0, $sendVerfificationMail = true)
     {
         $salt = Unique::createSalt(25);
 
-        if (Cunity::get("settings")->getSetting("core.fullname")) {
-            $name = ($data['firstname'] . " " . $data['lastname']);
+        if (Cunity::get('settings')->getSetting('core.fullname')) {
+            $name = ($data['firstname'].' '.$data['lastname']);
         } else {
             $name = ($data['username']);
         }
 
         $result = $this->insert([
-            "email" => trim($data['email']),
-            "userhash" => $this->createUniqueHash(),
-            "username" => $data['username'],
-            "groupid" => $groupId,
-            "password" => sha1(trim($data['password']) . $salt),
-            "salt" => $salt,
-            "name" => $name,
-            "firstname" => $data['firstname'],
-            "lastname" => $data['lastname']
+            'email' => trim($data['email']),
+            'userhash' => $this->createUniqueHash(),
+            'username' => $data['username'],
+            'groupid' => $groupId,
+            'password' => sha1(trim($data['password']).$salt),
+            'salt' => $salt,
+            'name' => $name,
+            'firstname' => $data['firstname'],
+            'lastname' => $data['lastname'],
         ]);
 
         if (array_key_exists('field', $_POST)) {
@@ -105,9 +105,11 @@ class Users extends Table
         }
 
         if ($result && $sendVerfificationMail) {
-            new VerifyMail(["name" => $name, "email" => $data['email']], $salt);
+            new VerifyMail(['name' => $name, 'email' => $data['email']], $salt);
+
             return true;
         }
+
         return false;
     }
 
@@ -117,7 +119,7 @@ class Users extends Table
     private function createUniqueHash()
     {
         $str = Unique::createSalt(32);
-        if ($this->search("userhash", $str) !== null) {
+        if ($this->search('userhash', $str) !== null) {
             return $this->createUniqueHash();
         } else {
             return $str;
@@ -127,28 +129,30 @@ class Users extends Table
     /**
      * @param $key
      * @param $value
+     *
      * @return User
      */
     public function search($key, $value)
     {
-        return $this->fetchRow($this->select()->where($this->getAdapter()->quoteIdentifier($key) . " = ?", $value));
+        return $this->fetchRow($this->select()->where($this->getAdapter()->quoteIdentifier($key).' = ?', $value));
     }
 
     /**
-     * @param array $values
+     * @param array  $values
      * @param string $key
-     * @param array $fields
-     * @param bool $includeOwn
+     * @param array  $fields
+     * @param bool   $includeOwn
+     *
      * @return \Zend_Db_Table_Rowset_Abstract
      */
-    public function getSet(array $values, $key = "u.userid", array $fields = ["*"], $includeOwn = false)
+    public function getSet(array $values, $key = 'u.userid', array $fields = ['*'], $includeOwn = false)
     {
         $query = $this->getGallery($fields);
         if (!$includeOwn) {
-            $query->where("u.userid != ?", $_SESSION['user']->userid);
+            $query->where('u.userid != ?', $_SESSION['user']->userid);
         }
         if (!empty($values)) {
-            $query->where($key . " IN(?)", $values);
+            $query->where($key.' IN(?)', $values);
         }
         $res = $this->fetchAll($query);
         $resCount = count($res);
@@ -161,9 +165,10 @@ class Users extends Table
 
     /**
      * @param array $fields
+     *
      * @return \Zend_Db_Table_Rowset_Abstract
      */
-    public function getSetIn(array $fields = ["*"])
+    public function getSetIn(array $fields = ['*'])
     {
         $query = $this->getGallery($fields);
         $res = $this->fetchAll($query);
@@ -177,6 +182,7 @@ class Users extends Table
 
     /**
      * @param $userid
+     *
      * @return bool
      */
     public function exists($userid)
@@ -187,39 +193,43 @@ class Users extends Table
     /**
      * @param $userid
      * @param string $key
+     *
      * @return null|\Zend_Db_Table_Row_Abstract
      */
-    public function get($userid, $key = "userid")
+    public function get($userid, $key = 'userid')
     {
         $res = $this->fetchRow(
             $this->select()
                 ->setIntegrityCheck(false)
-                ->from(["u" => $this->getTableName()])
-                ->joinLeft(["fr" => $this->_dbprefix . "relations"], "(fr.sender = u.userid OR fr.receiver = u.userid) AND status = 2", new \Zend_Db_Expr("COUNT(DISTINCT fr.relation_id) AS friendscount"))
-                ->joinLeft(["a" => $this->_dbprefix . "gallery_albums"], "u.userid=a.owner_id AND a.owner_type IS NULL AND (((a.privacy = 2 OR (a.privacy = 1 AND a.owner_id IN (" . new \Zend_Db_Expr($this->getAdapter()->select()->from($this->_dbprefix . "relations", new \Zend_Db_Expr("(CASE WHEN sender = " . $_SESSION['user']->userid . " THEN receiver WHEN receiver = " . $_SESSION['user']->userid . " THEN sender END)"))->where("status > 0")->where("sender=?", $_SESSION['user']->userid)->orWhere("receiver=?", $_SESSION['user']->userid)) . ")))) OR (a.owner_type IS NULL AND a.owner_id = " . $_SESSION['user']->userid . " ))", new \Zend_Db_Expr("COUNT(DISTINCT a.id) AS albumscount"))
-                ->joinLeft(["p" => $this->_dbprefix . "privacy"], "p.userid=u.userid", new \Zend_Db_Expr("GROUP_CONCAT(CONCAT(p.type,':',p.value)) AS privacy"))
-                ->joinLeft(["r" => $this->_dbprefix . "relations"], "(r.receiver = " . $this->getAdapter()->quote($_SESSION['user']->userid) . " AND r.sender = u.userid) OR (r.sender = " . $this->getAdapter()->quote($_SESSION['user']->userid) . " AND r.receiver = u.userid)")
-                ->joinLeft(["pi" => $this->_dbprefix . "gallery_images"], "pi.id = u.profileImage", ['filename AS pimg', 'albumid AS palbumid'])
-                ->joinLeft(["ti" => $this->_dbprefix . "gallery_images"], "ti.id = u.titleImage", ["filename AS timg", "albumid AS talbumid"])
-                ->where("u." . $key . " = ?", $userid)
+                ->from(['u' => $this->getTableName()])
+                ->joinLeft(['fr' => $this->_dbprefix.'relations'], '(fr.sender = u.userid OR fr.receiver = u.userid) AND status = 2', new \Zend_Db_Expr('COUNT(DISTINCT fr.relation_id) AS friendscount'))
+                ->joinLeft(['a' => $this->_dbprefix.'gallery_albums'], 'u.userid=a.owner_id AND a.owner_type IS NULL AND (((a.privacy = 2 OR (a.privacy = 1 AND a.owner_id IN ('.new \Zend_Db_Expr($this->getAdapter()->select()->from($this->_dbprefix.'relations', new \Zend_Db_Expr('(CASE WHEN sender = '.$_SESSION['user']->userid.' THEN receiver WHEN receiver = '.$_SESSION['user']->userid.' THEN sender END)'))->where('status > 0')->where('sender=?', $_SESSION['user']->userid)->orWhere('receiver=?', $_SESSION['user']->userid)).')))) OR (a.owner_type IS NULL AND a.owner_id = '.$_SESSION['user']->userid.' ))', new \Zend_Db_Expr('COUNT(DISTINCT a.id) AS albumscount'))
+                ->joinLeft(['p' => $this->_dbprefix.'privacy'], 'p.userid=u.userid', new \Zend_Db_Expr("GROUP_CONCAT(CONCAT(p.type,':',p.value)) AS privacy"))
+                ->joinLeft(['r' => $this->_dbprefix.'relations'], '(r.receiver = '.$this->getAdapter()->quote($_SESSION['user']->userid).' AND r.sender = u.userid) OR (r.sender = '.$this->getAdapter()->quote($_SESSION['user']->userid).' AND r.receiver = u.userid)')
+                ->joinLeft(['pi' => $this->_dbprefix.'gallery_images'], 'pi.id = u.profileImage', ['filename AS pimg', 'albumid AS palbumid'])
+                ->joinLeft(['ti' => $this->_dbprefix.'gallery_images'], 'ti.id = u.titleImage', ['filename AS timg', 'albumid AS talbumid'])
+                ->where('u.'.$key.' = ?', $userid)
         );
         $res->privacy = Privacy::parse($res->privacy);
+
         return $res;
     }
 
     /**
      * @param array $fields
+     *
      * @return \Zend_Db_Select
      */
     protected function getGallery(array $fields)
     {
-        $query = $this->select()->setIntegrityCheck(false)->from(["u" => $this->getTableName()])
-            ->joinLeft(["r" => $this->_dbprefix . "relations"], "(r.receiver = " . $this->getAdapter()->quote($_SESSION['user']->userid) . " AND r.sender = u.userid) OR (r.sender = " . $this->getAdapter()->quote($_SESSION['user']->userid) . " AND r.receiver = u.userid)")
-            ->joinLeft(["pi" => $this->_dbprefix . "gallery_images"], "pi.id = u.profileImage", ['filename AS pimg', 'albumid AS palbumid'])
-            ->joinLeft(["ti" => $this->_dbprefix . "gallery_images"], "ti.id = u.titleImage", ["filename AS timg", "albumid AS talbumid"])
-            ->joinLeft(["p" => $this->_dbprefix . "privacy"], "p.userid=u.userid", new \Zend_Db_Expr("GROUP_CONCAT(CONCAT(p.type,':',p.value)) AS privacy"))
-            ->group("u.userid")
-            ->where("u.groupid > 0");
+        $query = $this->select()->setIntegrityCheck(false)->from(['u' => $this->getTableName()])
+            ->joinLeft(['r' => $this->_dbprefix.'relations'], '(r.receiver = '.$this->getAdapter()->quote($_SESSION['user']->userid).' AND r.sender = u.userid) OR (r.sender = '.$this->getAdapter()->quote($_SESSION['user']->userid).' AND r.receiver = u.userid)')
+            ->joinLeft(['pi' => $this->_dbprefix.'gallery_images'], 'pi.id = u.profileImage', ['filename AS pimg', 'albumid AS palbumid'])
+            ->joinLeft(['ti' => $this->_dbprefix.'gallery_images'], 'ti.id = u.titleImage', ['filename AS timg', 'albumid AS talbumid'])
+            ->joinLeft(['p' => $this->_dbprefix.'privacy'], 'p.userid=u.userid', new \Zend_Db_Expr("GROUP_CONCAT(CONCAT(p.type,':',p.value)) AS privacy"))
+            ->group('u.userid')
+            ->where('u.groupid > 0');
+
         return $query;
     }
 }

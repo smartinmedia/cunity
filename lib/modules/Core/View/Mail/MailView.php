@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -40,8 +40,7 @@ use Cunity\Core\Models\Mail\Mail;
 use Cunity\Core\View\View;
 
 /**
- * Class MailView
- * @package Cunity\Core\View\Mail
+ * Class MailView.
  */
 class MailView extends View
 {
@@ -78,7 +77,7 @@ class MailView extends View
     {
         $this->assign(
             'tpl_name',
-            $this->_templateDir . '/styles/' . $this->_templateFile
+            $this->_templateDir.'/styles/'.$this->_templateFile
         );
         $_body = $this->fetch('Core/styles/out_mail.tpl');
         $mailer = new Mail();

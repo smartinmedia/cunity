@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -37,40 +37,40 @@
 namespace Cunity\Core\View;
 
 /**
- * Class Message
- * @package Cunity\Core\View
+ * Class Message.
  */
 class Message extends View
 {
     /**
      * @var string
      */
-    protected $_templateDir = "core";
+    protected $_templateDir = 'core';
     /**
      * @var string
      */
-    protected $_templateFile = "message.tpl";
+    protected $_templateFile = 'message.tpl';
     /**
      * @var array
      */
-    private $_validTypes = ["info", "danger", "success"];
+    private $_validTypes = ['info', 'danger', 'success'];
 
     /**
      * @param $header
      * @param $message
      * @param string $type
+     *
      * @throws \Exception
      */
-    public function __construct($header, $message, $type = "info")
+    public function __construct($header, $message, $type = 'info')
     {
         parent::__construct();
         $titleTranslated = $this->translate($header);
-        $this->_metadata = ["title" => $titleTranslated];
-        $this->assign("MESSAGE", $this->translate($message));
-        $this->assign("HEADER", $titleTranslated);
+        $this->_metadata = ['title' => $titleTranslated];
+        $this->assign('MESSAGE', $this->translate($message));
+        $this->assign('HEADER', $titleTranslated);
         $this->assign(
-            "TYPE", (
-            in_array($type, $this->_validTypes) ? $type : "info")
+            'TYPE', (
+            in_array($type, $this->_validTypes) ? $type : 'info')
         );
         $this->show();
     }

@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -40,12 +40,10 @@ use Cunity\Core\Models\Db\Table\Users;
 use Cunity\Core\View\Ajax\View;
 
 /**
- * Class Process
- * @package Cunity\Memberlist\Models
+ * Class Process.
  */
 class Process
 {
-
     /**
      *
      */
@@ -53,10 +51,9 @@ class Process
     {
         $table = new Users();
 
-        $result = $table->getSet([], "userid", ["username", "name", "userid"]);
+        $result = $table->getSet([], 'userid', ['username', 'name', 'userid']);
         $view = new View($result !== null);
-        $view->addData(["result" => $result->toArray()]);
+        $view->addData(['result' => $result->toArray()]);
         $view->sendResponse();
     }
-
 }

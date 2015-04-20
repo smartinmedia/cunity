@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -48,12 +48,10 @@ use Cunity\Register\View\ResetPassword;
 use Zend_Validate_Date;
 
 /**
- * Class Register
- * @package Cunity\Register\Models
+ * Class Register.
  */
 class Register
 {
-
     /**
      * @var array
      */
@@ -68,30 +66,30 @@ class Register
         $view = new ResetPassword();
         if (!empty($_POST)) {
             $users = new Users();
-            $user = $users->search("email", $_POST['email']);
+            $user = $users->search('email', $_POST['email']);
             if ($user !== null) {
                 $tokendata = json_decode($user->password_token, true);
                 if ($_POST['token'] == $tokendata['token']) {
-                    if (time() - $tokendata["time"] > 1800) {
-                        $this->errors["token"] = "The given token has expired! Every token is only valid for 30 minutes";
+                    if (time() - $tokendata['time'] > 1800) {
+                        $this->errors['token'] = 'The given token has expired! Every token is only valid for 30 minutes';
                     } else {
                         $validatePassword = new Password();
                         if (!$validatePassword->passwordValid($_POST['password'], $_POST['password_repeat'])) {
-                            $this->errors["password"] = implode(',', $validatePassword->getMessages());
-                            $this->errors["password_repeat"] = "";
+                            $this->errors['password'] = implode(',', $validatePassword->getMessages());
+                            $this->errors['password_repeat'] = '';
                         } else {
-                            $user->password = sha1($_POST['password'] . $user->salt);
+                            $user->password = sha1($_POST['password'].$user->salt);
                             $user->password_token = null;
                             $user->save();
-                            new Message("Done!", "Your password was changed successfully! You can now login!", "success");
+                            new Message('Done!', 'Your password was changed successfully! You can now login!', 'success');
                             exit();
                         }
                     }
                 } else {
-                    $this->errors["token"] = "The given token is not correct!";
+                    $this->errors['token'] = 'The given token is not correct!';
                 }
             } else {
-                $this->errors["email"] = "Email was not found in our system!";
+                $this->errors['email'] = 'Email was not found in our system!';
             }
 
             $this->assignErrors($view, $error_messages);
@@ -114,6 +112,7 @@ class Register
 
     /**
      * @return bool
+     *
      * @throws \Exception
      */
     public function validateForm()
@@ -122,22 +121,23 @@ class Register
         $validateUsername = new Username();
         $validatePassword = new Password();
 
-        if (Cunity::get("settings")->getSetting("register.min_age")) {
-            $validateBirthday = new Zend_Validate_Date(["format" => "mm/dd/yyyy"]);
+        if (Cunity::get('settings')->getSetting('register.min_age')) {
+            $validateBirthday = new Zend_Validate_Date(['format' => 'mm/dd/yyyy']);
             if (!$validateBirthday->isValid($_POST['birthday'])) {
                 $this->errors['birthday'] = implode(',', $validateBirthday->getMessages());
             }
         }
         if (!$validateUsername->isValid($_POST['username'])) {
-            $this->errors["username"] = implode(',', $validateUsername->getMessages());
+            $this->errors['username'] = implode(',', $validateUsername->getMessages());
         }
         if (!$validateMail->isValid($_POST['email'])) {
-            $this->errors["email"] = implode(',', $validateMail->getMessages());
+            $this->errors['email'] = implode(',', $validateMail->getMessages());
         }
         if (!$validatePassword->passwordValid($_POST['password'], $_POST['password_repeat'])) {
-            $this->errors["password"] = implode(',', $validatePassword->getMessages());
-            $this->errors["password_repeat"] = "";
+            $this->errors['password'] = implode(',', $validatePassword->getMessages());
+            $this->errors['password_repeat'] = '';
         }
+
         return empty($this->errors);
     }
 
@@ -153,9 +153,9 @@ class Register
                     $error_messages[$error] = $view->translate($message);
                 }
             }
-            $view->assign("error_messages", $error_messages);
+            $view->assign('error_messages', $error_messages);
             $view->assign('success', false);
-            $view->assign("values", $_POST);
+            $view->assign('values', $_POST);
         }
     }
 }

@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -39,8 +39,7 @@ namespace Cunity\Contact;
 use Cunity\Core\ModuleController;
 
 /**
- * Class Controller
- * @package Cunity\Contact
+ * Class Controller.
  */
 class Controller extends ModuleController
 {
@@ -59,7 +58,7 @@ class Controller extends ModuleController
     {
         if (!isset($_GET['action']) || empty($_GET['action'])) {
             new View\ContactForm();
-        } elseif (isset($_GET['action']) && $_GET['action'] == "sendContact") {
+        } elseif (isset($_GET['action']) && $_GET['action'] == 'sendContact') {
             new Models\ContactForm();
         }
     }

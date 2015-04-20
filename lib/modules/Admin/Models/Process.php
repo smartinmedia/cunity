@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -47,8 +47,7 @@ use Cunity\Profile\Models\Db\Table\ProfileFields;
 use Cunity\Profile\Models\Db\Table\ProfileFieldsValues;
 
 /**
- * Class Process
- * @package Cunity\Admin\Models
+ * Class Process.
  */
 class Process
 {
@@ -72,6 +71,7 @@ class Process
 
     /**
      * @param $form
+     *
      * @throws \Exception
      * @throws \Zend_Config_Exception
      */
@@ -79,31 +79,31 @@ class Process
     {
         $res = [];
         switch ($form) {
-            case "settings":
-            case "headline":
+            case 'settings':
+            case 'headline':
                 foreach ($_POST as $key => $value) {
-                    if (strpos($key, "settings-") !== false) {
-                        $setting = explode("-", $key);
-                        /** @noinspection PhpUnnecessaryFullyQualifiedNameInspection */
-                        $settings = \Cunity\Core\Cunity::get("settings");
+                    if (strpos($key, 'settings-') !== false) {
+                        $setting = explode('-', $key);
+                        /* @noinspection PhpUnnecessaryFullyQualifiedNameInspection */
+                        $settings = \Cunity\Core\Cunity::get('settings');
                         $res[] = $settings->setSetting(preg_replace('/_/', '.', $setting[1], 1), $value);
                     }
                 }
                 break;
-            case "config":
-                $config = new \Zend_Config_Xml("../data/config.xml");
-                $configWriter = new \Zend_Config_Writer_Xml(["config" => new \Zend_Config(self::arrayMergeRecursiveDistinct($config->toArray(), $_POST['config'])), "filename" => "../data/config.xml"]);
+            case 'config':
+                $config = new \Zend_Config_Xml('../data/config.xml');
+                $configWriter = new \Zend_Config_Writer_Xml(['config' => new \Zend_Config(self::arrayMergeRecursiveDistinct($config->toArray(), $_POST['config'])), 'filename' => '../data/config.xml']);
                 $configWriter->write();
                 break;
-            case "mailtemplates":
-                $settings = Cunity::get("settings");
-                $res[] = $settings->setSetting("core.mail_header", $_POST['mail_header']);
-                $res[] = $settings->setSetting("core.mail_footer", $_POST['mail_footer']);
+            case 'mailtemplates':
+                $settings = Cunity::get('settings');
+                $res[] = $settings->setSetting('core.mail_header', $_POST['mail_header']);
+                $res[] = $settings->setSetting('core.mail_footer', $_POST['mail_footer']);
                 break;
             case 'modules':
                 Cunity::set('modules', new Modules());
-                $modules = Cunity::get("modules");
-                $modules->update(['status' => $_POST['status']], 'id = ' . $_POST['id']);
+                $modules = Cunity::get('modules');
+                $modules->update(['status' => $_POST['status']], 'id = '.$_POST['id']);
                 break;
             case 'update':
                 UpdateHelper::update();
@@ -111,13 +111,13 @@ class Process
             case 'users':
                 Cunity::set('users', new Users());
                 /** @var Users $users */
-                $users = Cunity::get("users");
+                $users = Cunity::get('users');
 
                 if (null !== $_REQUEST['userid']) {
                     if ('' !== $_REQUEST['groupid']) {
-                        $users->update(['groupid' => $_REQUEST['groupid']], 'userid = ' . $_REQUEST['userid']);
+                        $users->update(['groupid' => $_REQUEST['groupid']], 'userid = '.$_REQUEST['userid']);
                     } else {
-                        $users->delete('userid = ' . $_REQUEST['userid']);
+                        $users->delete('userid = '.$_REQUEST['userid']);
                     }
                 } else {
                     $users->registerNewUser($_REQUEST);
@@ -131,7 +131,9 @@ class Process
     /**
      * @param array $array1
      * @param array $array2
+     *
      * @return array
+     *
      * @author Daniel <daniel (at) danielsmedegaardbuus (dot) dk>
      * @author Gabriel Sobrinho <gabriel (dot) sobrinho (at) gmail (dot) com>
      */
@@ -169,8 +171,8 @@ class Process
                 break;
         }
 
-        /** @var Table $object */
-        $object->delete($primary . ' = ' . $_REQUEST['id']);
+        /* @var Table $object */
+        $object->delete($primary.' = '.$_REQUEST['id']);
         $this->sendResponse();
     }
 
@@ -180,7 +182,7 @@ class Process
     protected function sendResponse($res = [])
     {
         $view = new View(!in_array(false, $res));
-        $view->addData(["panel" => $_POST['panel']]);
+        $view->addData(['panel' => $_POST['panel']]);
         $view->sendResponse();
     }
 
@@ -207,7 +209,7 @@ class Process
                 break;
         }
 
-        /** @var Table $object */
+        /* @var Table $object */
         $this->sendResponse();
     }
 }

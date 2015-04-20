@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -41,8 +41,7 @@ use Cunity\Core\Models\Generator\Url;
 use Cunity\Notifications\Models\Notifier;
 
 /**
- * Class Notifications
- * @package Cunity\Notifications\Models\Db\Table
+ * Class Notifications.
  */
 class Notifications extends Table
 {
@@ -65,11 +64,13 @@ class Notifications extends Table
 
     /**
      * @param array $data
+     *
      * @return bool
      */
     public function insertNotification(array $data)
     {
         $data['unread'] = 1;
+
         return (1 == $this->insert($data));
     }
 
@@ -79,32 +80,34 @@ class Notifications extends Table
     public function getNotifications()
     {
         $result = [];
-        $query = $this->getAdapter()->select()->from(["n" => $this->_name])
-            ->joinLeft(["u" => $this->_dbprefix . "users"], "n.ref_userid=u.userid", ["name", "username"])
-            ->joinLeft(["pi" => $this->_dbprefix . "gallery_images"], "pi.id = u.profileImage", ['filename AS pimg', 'albumid AS palbumid'])
-            ->where("n.userid=?", $_SESSION['user']->userid)
-            ->order("n.unread DESC")
+        $query = $this->getAdapter()->select()->from(['n' => $this->_name])
+            ->joinLeft(['u' => $this->_dbprefix.'users'], 'n.ref_userid=u.userid', ['name', 'username'])
+            ->joinLeft(['pi' => $this->_dbprefix.'gallery_images'], 'pi.id = u.profileImage', ['filename AS pimg', 'albumid AS palbumid'])
+            ->where('n.userid=?', $_SESSION['user']->userid)
+            ->order('n.unread DESC')
             ->limit(5);
         $res = $this->getAdapter()->fetchAll($query);
         $resCount = count($res);
         for ($i = 0; $i < $resCount; $i++) {
-            $d = Notifier::getNotificationData($res[$i]["type"]);
-            $res[$i]["message"] = \sprintf($d, $res[$i]["name"]);
-            $res[$i]["target"] = Url::convertUrl($res[$i]["target"]);
-            if ($res[$i]["unread"] == 1) {
-                $result["new"]++;
+            $d = Notifier::getNotificationData($res[$i]['type']);
+            $res[$i]['message'] = \sprintf($d, $res[$i]['name']);
+            $res[$i]['target'] = Url::convertUrl($res[$i]['target']);
+            if ($res[$i]['unread'] == 1) {
+                $result['new']++;
             }
         }
-        $result["all"] = $res;
+        $result['all'] = $res;
+
         return $result;
     }
 
     /**
      * @param $id
+     *
      * @return bool
      */
     public function read($id)
     {
-        return ($this->update(["unread" => 0], $this->getAdapter()->quoteInto("id=?", $id)) !== false);
+        return ($this->update(['unread' => 0], $this->getAdapter()->quoteInto('id=?', $id)) !== false);
     }
 }

@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -39,12 +39,10 @@ namespace Cunity\Profile\Models\Db\Table;
 use Cunity\Core\Models\Db\Abstractables\Table;
 
 /**
- * Class ProfilePins
- * @package Profile\Models\Db\Table
+ * Class ProfilePins.
  */
 class ProfilePins extends Table
 {
-
     /**
      * @var string
      */
@@ -64,16 +62,17 @@ class ProfilePins extends Table
 
     /**
      * @param $userid
+     *
      * @return array|\Zend_Db_Table_Rowset_Abstract
      */
     public function getAllByUser($userid)
     {
         $pt = new Privacy();
-        $res = $pt->checkPrivacy("visit", $userid);
+        $res = $pt->checkPrivacy('visit', $userid);
         if ($res) {
-            return $this->fetchAll($this->select()->where("userid=?", $userid)->order("row"));
+            return $this->fetchAll($this->select()->where('userid=?', $userid)->order('row'));
         } else {
-            return ["status" => true];
+            return ['status' => true];
         }
     }
 
@@ -81,10 +80,11 @@ class ProfilePins extends Table
      * @param $columns
      * @param $row
      * @param $pinid
+     *
      * @return int
      */
     public function updatePosition($columns, $row, $pinid)
     {
-        return $this->update(["column" => $columns, "row" => $row], $this->getAdapter()->quoteInto("id=?", $pinid));
+        return $this->update(['column' => $columns, 'row' => $row], $this->getAdapter()->quoteInto('id=?', $pinid));
     }
 }

@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -40,12 +40,10 @@ use Cunity\Core\Models\Db\Abstractables\Table;
 use Cunity\Core\Models\Db\Table\Users;
 
 /**
- * Class Relationships
- * @package Cunity\Friends\Models\Db\Table
+ * Class Relationships.
  */
 class Relationships extends Table
 {
-
     /**
      * @var string
      */
@@ -67,11 +65,12 @@ class Relationships extends Table
         parent::__construct();
     }
 
-
     /**
      * @param $user
      * @param $secondUser
+     *
      * @return int
+     *
      * @throws \Zend_Db_Table_Row_Exception
      */
     public function deleteRelation($user, $secondUser)
@@ -82,6 +81,7 @@ class Relationships extends Table
     /**
      * @param $user
      * @param $secondUser
+     *
      * @return null|\Zend_Db_Table_Row_Abstract
      */
     public function getRelation($user, $secondUser)
@@ -93,6 +93,7 @@ class Relationships extends Table
      * @param $user
      * @param $secondUser
      * @param array $updates
+     *
      * @return mixed
      */
     public function updateRelation($user, $secondUser, array $updates)
@@ -109,36 +110,38 @@ class Relationships extends Table
      * @param $user
      * @param $secondUser
      * @param $status
+     *
      * @return mixed
      */
     public function addRelation($user, $secondUser, $status)
     {
-        return $this->insert(["sender" => $user, "receiver" => $secondUser, "status" => $status]);
+        return $this->insert(['sender' => $user, 'receiver' => $secondUser, 'status' => $status]);
     }
 
     /**
      * @param string $status
-     * @param int $userid
-     * @return null
+     * @param int    $userid
      */
-    public function getFullFriendList($status = ">1", $userid = 0)
+    public function getFullFriendList($status = '>1', $userid = 0)
     {
         $friends = $this->getFriendList($status, $userid);
         if (!empty($friends)) {
-            /** @noinspection PhpUndefinedMethodInspection */
+            /* @noinspection PhpUndefinedMethodInspection */
             $users = $_SESSION['user']->getTable();
-            /** @noinspection PhpUndefinedMethodInspection */
-            return $users->getSet($friends, "u.userid", ["u.userid", "u.username", "u.name"], true)->toArray();
+            /* @noinspection PhpUndefinedMethodInspection */
+            return $users->getSet($friends, 'u.userid', ['u.userid', 'u.username', 'u.name'], true)->toArray();
         }
-        return null;
+
+        return;
     }
 
     /**
      * @param string $status
-     * @param int $userid
+     * @param int    $userid
+     *
      * @return array
      */
-    public function getFriendList($status = ">1", $userid = 0)
+    public function getFriendList($status = '>1', $userid = 0)
     {
         if ($userid == 0) {
             $userid = $_SESSION['user']->userid;
@@ -147,23 +150,25 @@ class Relationships extends Table
         }
         // Only user, who blocked another people is allowed to get this list
         if (!is_string($status) && $status == 0) {
-            $query = $this->getAdapter()->query("SELECT receiver AS friend FROM " . $this->getTableName() . " WHERE " . $this->getAdapter()->quoteInto("sender=?", $userid) . " AND STATUS = 0");
+            $query = $this->getAdapter()->query('SELECT receiver AS friend FROM '.$this->getTableName().' WHERE '.$this->getAdapter()->quoteInto('sender=?', $userid).' AND STATUS = 0');
         } else {
             $query = $this->getAdapter()->select()
-                ->from($this->getTableName(), new \Zend_Db_Expr("(CASE WHEN sender = " . $userid . " THEN receiver WHEN receiver = " . $userid . " THEN sender END) AS friend"))
-                ->where("status " . $status)
-                ->where("sender=? OR receiver = ? ", $userid);
+                ->from($this->getTableName(), new \Zend_Db_Expr('(CASE WHEN sender = '.$userid.' THEN receiver WHEN receiver = '.$userid.' THEN sender END) AS friend'))
+                ->where('status '.$status)
+                ->where('sender=? OR receiver = ? ', $userid);
         }
         $res = $this->getAdapter()->fetchAll($query);
         $result = [];
         foreach ($res as $friend) {
             $result[] = $friend['friend'];
         }
+
         return $result;
     }
 
     /**
      * @param int $userid
+     *
      * @return array|null
      */
     public function getFullFriendRequests($userid = 0)
@@ -171,13 +176,16 @@ class Relationships extends Table
         $friends = $this->getFriendRequests($userid);
         if (!empty($friends)) {
             $users = new Users();
-            return $users->getSet($friends, "u.userid", ["u.userid", "u.username", "u.name"])->toArray();
+
+            return $users->getSet($friends, 'u.userid', ['u.userid', 'u.username', 'u.name'])->toArray();
         }
-        return null;
+
+        return;
     }
 
     /**
      * @param int $userid
+     *
      * @return array
      */
     public function getFriendRequests($userid = 0)
@@ -185,27 +193,29 @@ class Relationships extends Table
         if ($userid == 0) {
             $userid = $_SESSION['user']->userid;
         }
-        $res = $this->fetchAll($this->select()->from($this, ["sender"])->where("receiver=?", $userid)->where("status=1"));
+        $res = $this->fetchAll($this->select()->from($this, ['sender'])->where('receiver=?', $userid)->where('status=1'));
         $result = [];
         foreach ($res as $friend) {
             $result[] = $friend['sender'];
         }
+
         return $result;
     }
 
     /**
      * @param $userid
+     *
      * @return array
      */
     public function loadOnlineFriends($userid)
     {
-        $friendlist = $this->getAdapter()->fetchAll($this->getAdapter()->select()->from(["u" => $this->_dbprefix . "users"])
-            ->joinLeft(["pi" => $this->_dbprefix . "gallery_images"], "pi.id = u.profileImage", "filename AS pimg")
-            ->where("u.userid IN (" . new \Zend_Db_Expr($this->getAdapter()->select()
-                    ->from($this->_dbprefix . "relations", new \Zend_Db_Expr("(CASE WHEN sender = " . $userid . " THEN receiver WHEN receiver = " . $userid . " THEN sender END)"))
-                    ->where("status > 1")
-                    ->where("sender=? OR receiver = ? ", $userid)) . ")")
-            ->order("u.name DESC")
+        $friendlist = $this->getAdapter()->fetchAll($this->getAdapter()->select()->from(['u' => $this->_dbprefix.'users'])
+            ->joinLeft(['pi' => $this->_dbprefix.'gallery_images'], 'pi.id = u.profileImage', 'filename AS pimg')
+            ->where('u.userid IN ('.new \Zend_Db_Expr($this->getAdapter()->select()
+                    ->from($this->_dbprefix.'relations', new \Zend_Db_Expr('(CASE WHEN sender = '.$userid.' THEN receiver WHEN receiver = '.$userid.' THEN sender END)'))
+                    ->where('status > 1')
+                    ->where('sender=? OR receiver = ? ', $userid)).')')
+            ->order('u.name DESC')
         );
 
         $date = new \DateTime();

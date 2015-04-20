@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -37,13 +37,13 @@
 namespace Cunity\Core\Models\Db\Rowset;
 
 /**
- * Class Rowset
- * @package Cunity\Core\Models\Db\Rowset
+ * Class Rowset.
  */
 class Rowset extends \Zend_Db_Table_Rowset_Abstract
 {
     /**
      * @param array $fields
+     *
      * @return array
      */
     public function toSelectedArray(array $fields)
@@ -61,6 +61,7 @@ class Rowset extends \Zend_Db_Table_Rowset_Abstract
                 $this->_data[$i] = $row->toSelectedArray($fields);
             }
         }
+
         return $this->_data;
     }
 }

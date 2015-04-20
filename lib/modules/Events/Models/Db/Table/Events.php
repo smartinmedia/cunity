@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -40,8 +40,7 @@ use Cunity\Core\Models\Db\Abstractables\Table;
 use Cunity\Friends\Models\Generator\FriendQuery;
 
 /**
- * Class Events
- * @package Cunity\Events\Models\Db\Table
+ * Class Events.
  */
 class Events extends Table
 {
@@ -64,6 +63,7 @@ class Events extends Table
 
     /**
      * @param array $data
+     *
      * @return mixed
      */
     public function addEvent(array $data)
@@ -73,15 +73,17 @@ class Events extends Table
 
     /**
      * @param $eventid
+     *
      * @return bool
      */
     public function deleteEvent($eventid)
     {
-        return (0 < $this->delete($this->getAdapter()->quoteInto("id=?", $eventid)));
+        return (0 < $this->delete($this->getAdapter()->quoteInto('id=?', $eventid)));
     }
 
     /**
      * @param $eventid
+     *
      * @return mixed
      */
     public function getEventData($eventid)
@@ -91,13 +93,13 @@ class Events extends Table
             $this
                 ->getAdapter()
                 ->select()
-                ->from(["e" => $this->getTableName()], ["*"])
-                ->joinLeft(["g" => $this->_dbprefix . "events_guests"], "g.eventid=e.id AND g.userid=" . $this->getAdapter()->quote($_SESSION['user']->userid), ["guestid", "status"])
-                ->joinLeft(["u" => $this->_dbprefix . "users"], "e.userid = u.userid", ["username", "name"])
-                ->joinLeft(["i" => $this->_dbprefix . "gallery_images"], "i.id=e.imageId", ["filename"])
-                ->joinLeft(["gc" => $this->_dbprefix . "events_guests"], "g.eventid=e.id", new \Zend_Db_Expr("COUNT(gc.guestid) AS guestcount"))
-                ->group("gc.guestid")
-                ->where("e.id=?", $eventid)
+                ->from(['e' => $this->getTableName()], ['*'])
+                ->joinLeft(['g' => $this->_dbprefix.'events_guests'], 'g.eventid=e.id AND g.userid='.$this->getAdapter()->quote($_SESSION['user']->userid), ['guestid', 'status'])
+                ->joinLeft(['u' => $this->_dbprefix.'users'], 'e.userid = u.userid', ['username', 'name'])
+                ->joinLeft(['i' => $this->_dbprefix.'gallery_images'], 'i.id=e.imageId', ['filename'])
+                ->joinLeft(['gc' => $this->_dbprefix.'events_guests'], 'g.eventid=e.id', new \Zend_Db_Expr('COUNT(gc.guestid) AS guestcount'))
+                ->group('gc.guestid')
+                ->where('e.id=?', $eventid)
         );
         if ($res !== null) {
             $returnValue = $res;
@@ -109,27 +111,30 @@ class Events extends Table
     /**
      * @param $start
      * @param $end
+     *
      * @return array
      */
     public function fetchBetween($start, $end)
     {
-        $query = $this->getAdapter()->select()->from(["e" => $this->getTableName()], ["*", new \Zend_Db_Expr("UNIX_TIMESTAMP(start)*1000 AS start"), new \Zend_Db_Expr("UNIX_TIMESTAMP(start)*1000 AS end")])
-            ->joinLeft(["g" => $this->_dbprefix . "events_guests"], "g.eventid=e.id AND g.userid=" . $this->getAdapter()->quote($_SESSION['user']->userid), ["guestid", "status"])
-            ->joinLeft(["u" => $this->_dbprefix . "users"], "e.userid = u.userid", ["username", "name"])
-            ->joinLeft(["pi" => $this->_dbprefix . "gallery_images"], "pi.id = u.profileImage AND e.type = 'birthday'", "filename AS pimg")
-            ->where("e.start BETWEEN " . $this->getAdapter()->quote($start) . " AND " . $this->getAdapter()->quote($end))
-            ->where("e.type = 'event' OR (e.type = 'birthday' AND e.userid IN (" . FriendQuery::getFriendListQuery("=2") . "))")
+        $query = $this->getAdapter()->select()->from(['e' => $this->getTableName()], ['*', new \Zend_Db_Expr('UNIX_TIMESTAMP(start)*1000 AS start'), new \Zend_Db_Expr('UNIX_TIMESTAMP(start)*1000 AS end')])
+            ->joinLeft(['g' => $this->_dbprefix.'events_guests'], 'g.eventid=e.id AND g.userid='.$this->getAdapter()->quote($_SESSION['user']->userid), ['guestid', 'status'])
+            ->joinLeft(['u' => $this->_dbprefix.'users'], 'e.userid = u.userid', ['username', 'name'])
+            ->joinLeft(['pi' => $this->_dbprefix.'gallery_images'], "pi.id = u.profileImage AND e.type = 'birthday'", 'filename AS pimg')
+            ->where('e.start BETWEEN '.$this->getAdapter()->quote($start).' AND '.$this->getAdapter()->quote($end))
+            ->where("e.type = 'event' OR (e.type = 'birthday' AND e.userid IN (".FriendQuery::getFriendListQuery('=2').'))')
             ->where("(g.guestid IS NULL AND e.type = 'birthday') OR (g.guestid IS NOT NULL AND e.type = 'event')");
+
         return $this->getAdapter()->fetchAll($query);
     }
 
     /**
      * @param $eventid
      * @param $values
+     *
      * @return bool
      */
     public function updateEvent($eventid, $values)
     {
-        return (0 < $this->update($values, $this->getAdapter()->quoteInto("id=?", $eventid)));
+        return (0 < $this->update($values, $this->getAdapter()->quoteInto('id=?', $eventid)));
     }
 }

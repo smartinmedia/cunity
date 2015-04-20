@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -40,27 +40,23 @@ use Cunity\Admin\Models\Db\Table\Versions;
 use Cunity\Core\Models\Db\Adapter\Mysqli;
 
 /**
- * Class DbUpdateVersion
- * @package Cunity\Admin\Models\Updater
+ * Class DbUpdateVersion.
+ *
  * @abstract
  */
 abstract class DbUpdateVersion
 {
-
     /**
-     *
      * @var Mysqli
      */
     protected $_db;
 
     /**
-     *
      * @var int
      */
     protected $_timestamp = 0;
 
     /**
-     *
      * @param Mysqli $database
      */
     public function __construct(Mysqli $database)
@@ -73,6 +69,6 @@ abstract class DbUpdateVersion
      */
     public function updateDatabaseTimestamp(Versions $db)
     {
-        $db->insert(["timestamp" => $this->_timestamp]);
+        $db->insert(['timestamp' => $this->_timestamp]);
     }
 }

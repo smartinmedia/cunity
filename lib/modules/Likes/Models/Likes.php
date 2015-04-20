@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -40,8 +40,7 @@ use Cunity\Core\View\Ajax\View;
 use Cunity\Gallery\Models\Process;
 
 /**
- * Class Likes
- * @package Likes\Models
+ * Class Likes.
  */
 class Likes
 {
@@ -115,6 +114,6 @@ class Likes
     {
         $res = $this->table->getLikes($_POST['ref_id'], $_POST['ref_name'], $_POST['dislike']);
         $this->view->setStatus($res !== false);
-        $this->view->addData(["likes" => $res]);
+        $this->view->addData(['likes' => $res]);
     }
 }

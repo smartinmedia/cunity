@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -39,24 +39,22 @@ namespace Cunity\Register\View;
 use Cunity\Core\View\View;
 
 /**
- * Class ResetPassword
- * @package Cunity\Register\View
+ * Class ResetPassword.
  */
 class ResetPassword extends View
 {
-
     /**
      * @var string
      */
-    protected $_templateDir = "register";
+    protected $_templateDir = 'register';
     /**
      * @var string
      */
-    protected $_templateFile = "resetpw.tpl";
+    protected $_templateFile = 'resetpw.tpl';
     /**
      * @var array
      */
-    protected $_metadata = ["title" => "Reset Password"];
+    protected $_metadata = ['title' => 'Reset Password'];
 
     /**
      * @throws \Cunity\Core\Exception
@@ -65,6 +63,6 @@ class ResetPassword extends View
     public function __construct()
     {
         parent::__construct();
-        $this->registerCss("register", "resetpw");
+        $this->registerCss('register', 'resetpw');
     }
 }

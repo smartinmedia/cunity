@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -39,26 +39,24 @@ namespace Cunity\Forums\View;
 use Cunity\Core\View\View;
 
 /**
- * Class Board
- * @package Cunity\Forums\View
+ * Class Board.
  */
 class Board extends View
 {
+    /**
+     * @var string
+     */
+    protected $_templateDir = 'forums';
 
     /**
      * @var string
      */
-    protected $_templateDir = "forums";
-
-    /**
-     * @var string
-     */
-    protected $_templateFile = "board.tpl";
+    protected $_templateFile = 'board.tpl';
 
     /**
      * @var array
      */
-    protected $_metadata = ["title" => "Board"];
+    protected $_metadata = ['title' => 'Board'];
 
     /**
      * @throws \Cunity\Core\Exception
@@ -67,15 +65,15 @@ class Board extends View
     public function __construct()
     {
         parent::__construct();
-        $this->registerCss("forums", "board");
-        $this->registerScript("forums", "board");
+        $this->registerCss('forums', 'board');
+        $this->registerScript('forums', 'board');
         $this->registerCunityPlugin(
-            "summernote",
+            'summernote',
             [
-                "css/summernote.css",
-                "js/summernote.min.js"
+                'css/summernote.css',
+                'js/summernote.min.js',
             ]
         );
-        $this->registerScript("forums", "category-cloud");
+        $this->registerScript('forums', 'category-cloud');
     }
 }

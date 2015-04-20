@@ -9,7 +9,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -35,19 +35,16 @@
  * #####################################################################################
  */
 
-
 namespace Cunity\Admin\Models\Db\Table;
 
 use Cunity\Admin\Models\Updater\DbUpdateVersion;
 use Cunity\Core\Models\Db\Abstractables\Table;
 
 /**
- * Class Version
- * @package Cunity\Admin\Models\Db\Table
+ * Class Version.
  */
 class Versions extends Table
 {
-
     /**
      * @var string
      */
@@ -78,8 +75,10 @@ class Versions extends Table
             foreach ($res as $version) {
                 $versions[] = $version->timestamp;
             }
+
             return $versions;
         }
+
         return false;
     }
 }

@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -43,13 +43,13 @@ use Cunity\Likes\Models\Db\Table\Likes;
 use Cunity\Newsfeed\Models\Db\Table\Posts;
 
 /**
- * Class Image
- * @package Cunity\Gallery\Models\Db\Row
+ * Class Image.
  */
 class Image extends \Zend_Db_Table_Row_Abstract
 {
     /**
      * @return bool
+     *
      * @throws \Exception
      * @throws \Zend_Db_Table_Exception
      * @throws \Zend_Db_Table_Row_Exception
@@ -59,18 +59,18 @@ class Image extends \Zend_Db_Table_Row_Abstract
         if ($this->owner_id == $_SESSION['user']->userid && $this->owner_type === null) {
             $albums = new GalleryAlbums();
             $album = $albums->find($this->albumid);
-            /** @noinspection PhpUndefinedMethodInspection */
+            /* @noinspection PhpUndefinedMethodInspection */
             $album->current()->removeImage($this->id);
-            $settings = Cunity::get("settings");
+            $settings = Cunity::get('settings');
             $likes = new Likes();
             $comments = new Comments();
-            $posts = new Posts;
-            $posts->delete([$posts->getAdapter()->quote("type=`image`"), $posts->getAdapter()->quoteInto("content=?", $this->id)]);
+            $posts = new Posts();
+            $posts->delete([$posts->getAdapter()->quote('type=`image`'), $posts->getAdapter()->quoteInto('content=?', $this->id)]);
             $comments->delete($this->_getTable()->getAdapter()->quoteInto("ref_id=? AND ref_name='image'", $this->id));
             $likes->delete($this->_getTable()->getAdapter()->quoteInto("ref_id=? AND ref_name='image'", $this->id));
-            $filename = "../data/uploads/" . $settings->getSetting("core.filesdir") . "/" . $this->filename;
-            $filenameThumb = "../data/uploads/" . $settings->getSetting("core.filesdir") . "/thumb_" . $this->filename;
-            $filenameCr = "../data/uploads/" . $settings->getSetting("core.filesdir") . "/cr_" . $this->filename;
+            $filename = '../data/uploads/'.$settings->getSetting('core.filesdir').'/'.$this->filename;
+            $filenameThumb = '../data/uploads/'.$settings->getSetting('core.filesdir').'/thumb_'.$this->filename;
+            $filenameCr = '../data/uploads/'.$settings->getSetting('core.filesdir').'/cr_'.$this->filename;
 
             if (file_exists($filename)) {
                 unlink($filename);
@@ -86,6 +86,7 @@ class Image extends \Zend_Db_Table_Row_Abstract
 
             return ($this->delete() == 1);
         }
+
         return false;
     }
 }

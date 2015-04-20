@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -40,8 +40,7 @@ use Cunity\Core\Models\Db\Table\Modules;
 use Cunity\Core\View\PageNotFound;
 
 /**
- * Class Module
- * @package Core
+ * Class Module.
  */
 class Module
 {
@@ -66,8 +65,7 @@ class Module
     {
         $this->_tag = $moduletag;
         if (!class_exists($this->getClassName())) {
-            new View\PageNotFound;
-
+            new View\PageNotFound();
         } else {
             $modules = new Modules();
             $this->_data = $modules->getModuleData($this->_tag);
@@ -85,7 +83,7 @@ class Module
      */
     public function getClassName()
     {
-        return "Cunity\\" . ucfirst($this->_tag) . "\Controller";
+        return "Cunity\\".ucfirst($this->_tag)."\Controller";
     }
 
     /**
@@ -106,9 +104,10 @@ class Module
      */
     public function isActive()
     {
-        if ($this->_data !== NULL)
+        if ($this->_data !== null) {
             return $this->_data['status'];
-        else
+        } else {
             return true;
+        }
     }
 }

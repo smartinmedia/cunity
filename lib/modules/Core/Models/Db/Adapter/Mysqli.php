@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -35,22 +35,22 @@
  */
 
 namespace Cunity\Core\Models\Db\Adapter;
+
 use Cunity\Core\Cunity;
 
 /**
- * Class Mysqli
- * @package Cunity\Core\Models\Db\Adapter
+ * Class Mysqli.
  */
 class Mysqli extends \Zend_Db_Adapter_Mysqli
 {
     /**
-     *
      * @var String
      */
-    protected $dbprefix = "cunity";
+    protected $dbprefix = 'cunity';
 
     /**
      * @param \Zend_Config_Xml $config
+     *
      * @throws \Zend_Db_Adapter_Exception
      */
     public function __construct(\Zend_Config_Xml $config)
@@ -60,16 +60,15 @@ class Mysqli extends \Zend_Db_Adapter_Mysqli
     }
 
     /**
-     *
      * @return String
      */
     public static function getDbprefix()
     {
         $dbprefix = '';
-        $config = Cunity::get("config");
+        $config = Cunity::get('config');
 
         if ($config->db->params->table_prefix !== '') {
-            $dbprefix = $config->db->params->table_prefix . '_';
+            $dbprefix = $config->db->params->table_prefix.'_';
         }
 
         return $dbprefix;

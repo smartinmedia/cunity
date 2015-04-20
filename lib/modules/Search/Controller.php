@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -41,12 +41,10 @@ use Cunity\Core\View\Ajax\View;
 use Cunity\Search\View\Searchresults;
 
 /**
- * Class Controller
- * @package Cunity\Search
+ * Class Controller.
  */
 class Controller extends ModuleController
 {
-
     /**
      *
      */
@@ -62,7 +60,7 @@ class Controller extends ModuleController
     {
         if (isset($_GET['q']) && !empty($_GET['q']) && empty($_GET['action'])) {
             new Searchresults();
-        } elseif (isset($_GET['action']) && $_GET['action'] == "livesearch") {
+        } elseif (isset($_GET['action']) && $_GET['action'] == 'livesearch') {
             $process = new Models\Process();
             $result = $process->find($_POST['q']);
             $view = new View();
@@ -74,6 +72,7 @@ class Controller extends ModuleController
 
     /**
      * @param $user
+     *
      * @return mixed|void
      */
     public static function onRegister($user)
@@ -85,6 +84,7 @@ class Controller extends ModuleController
 
     /**
      * @param $user
+     *
      * @return mixed|void
      */
     public static function onUnregister($user)

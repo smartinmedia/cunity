@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -39,24 +39,22 @@ namespace Cunity\Gallery\View;
 use Cunity\Core\View\View;
 
 /**
- * Class Album
- * @package Cunity\Gallery\View
+ * Class Album.
  */
 class Album extends View
 {
-
     /**
      * @var string
      */
-    protected $_templateDir = "gallery";
+    protected $_templateDir = 'gallery';
     /**
      * @var string
      */
-    protected $_templateFile = "album.tpl";
+    protected $_templateFile = 'album.tpl';
     /**
      * @var array
      */
-    protected $_metadata = ["title" => "Album"];
+    protected $_metadata = ['title' => 'Album'];
 
     /**
      * @throws \Cunity\Core\Exception
@@ -65,12 +63,12 @@ class Album extends View
     public function __construct()
     {
         parent::__construct();
-        $this->registerCss("gallery", "album");
-        $this->registerCss("gallery", "lightbox");
-        $this->registerScript("gallery", "uploader");
-        $this->registerScript("gallery", "jquery.blueimp-gallery");
-        $this->registerScript("gallery", "album");
-        $this->registerScript("gallery", "lightbox");
-        $this->registerCunityPlugin("plupload", ["js/plupload.full.min.js"]);
+        $this->registerCss('gallery', 'album');
+        $this->registerCss('gallery', 'lightbox');
+        $this->registerScript('gallery', 'uploader');
+        $this->registerScript('gallery', 'jquery.blueimp-gallery');
+        $this->registerScript('gallery', 'album');
+        $this->registerScript('gallery', 'lightbox');
+        $this->registerCunityPlugin('plupload', ['js/plupload.full.min.js']);
     }
 }

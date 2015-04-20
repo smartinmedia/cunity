@@ -9,7 +9,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -41,12 +41,10 @@ use Cunity\Core\Models\Db\Table\Menu;
 use Cunity\Core\View\Ajax\View;
 
 /**
- * Class Appearance
- * @package Cunity\Admin\Models\Pages
+ * Class Appearance.
  */
 class Appearance extends PageAbstract
 {
-
     /**
      *
      */
@@ -56,7 +54,7 @@ class Appearance extends PageAbstract
             $this->handleRequest();
         } else {
             $this->loadData();
-            $this->render("appearance");
+            $this->render('appearance');
         }
     }
 
@@ -69,13 +67,13 @@ class Appearance extends PageAbstract
         switch ($_POST['action']) {
             case 'loadMenu':
                 $menu = new Menu();
-                $view->addData(["main" => $menu->getMainMenu(), "footer" => $menu->getFooterMenu()]);
+                $view->addData(['main' => $menu->getMainMenu(), 'footer' => $menu->getFooterMenu()]);
                 $view->sendResponse();
                 break;
             case 'addMenuItem':
                 $menu = new Menu();
                 $res = $menu->addMenuItem($_POST);
-                $view->addData(["data" => $res]);
+                $view->addData(['data' => $res]);
                 $view->sendResponse();
                 break;
             case 'updateMenu':
@@ -85,13 +83,13 @@ class Appearance extends PageAbstract
                 $res = [];
                 if ($menu->deleteBut(array_merge($mainMenu, $footerMenu))) {
                     foreach ($mainMenu as $i => $m) {
-                        $res[] = (false !== $menu->update(["pos" => $i], $menu->getAdapter()->quoteInto("id=?", $m)));
+                        $res[] = (false !== $menu->update(['pos' => $i], $menu->getAdapter()->quoteInto('id=?', $m)));
                     }
                     foreach ($footerMenu as $i => $m) {
-                        $res[] = (false !== $menu->update(["pos" => $i], $menu->getAdapter()->quoteInto("id=?", $m)));
+                        $res[] = (false !== $menu->update(['pos' => $i], $menu->getAdapter()->quoteInto('id=?', $m)));
                     }
                 }
-                $view->addData(["panel" => "menu-panel"]);
+                $view->addData(['panel' => 'menu-panel']);
                 $view->setStatus(!in_array(false, $res));
                 $view->sendResponse();
                 break;
@@ -105,7 +103,7 @@ class Appearance extends PageAbstract
     {
         $modules = new \Cunity\Core\Models\Db\Table\Modules();
         $installedModules = $modules->getModules()->toArray();
-        $config = \Cunity\Core\Cunity::get("config");
+        $config = \Cunity\Core\Cunity::get('config');
         $this->assignments['smtp_check'] = $config->mail->smtp_check;
         $this->assignments['modules'] = $installedModules;
     }

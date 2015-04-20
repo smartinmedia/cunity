@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -39,16 +39,14 @@ namespace Cunity\Admin\Models;
 use Cunity\Core\Models\Generator\Url;
 
 /**
- * Class Login
- * @package Cunity\Admin\Models
+ * Class Login.
  */
 class Login
 {
-
     /**
      * @param string $action
      */
-    public function __construct($action = "")
+    public function __construct($action = '')
     {
         if (method_exists($this, $action)) {
             call_user_func([$this, $action]);
@@ -61,7 +59,7 @@ class Login
     public static function loginRequired()
     {
         if (!self::loggedIn()) {
-            header("Location:" . Url::convertUrl("index.php?m=admin&action=login"));
+            header('Location:'.Url::convertUrl('index.php?m=admin&action=login'));
             exit();
         } else {
             return;
@@ -82,18 +80,18 @@ class Login
     public function login()
     {
         if (isset($_POST['email'])) {
-            if ($_SESSION['user']->email == $_POST['email'] && $_SESSION['user']->password == sha1($_POST['password'] . $_SESSION['user']->salt)) {
+            if ($_SESSION['user']->email == $_POST['email'] && $_SESSION['user']->password == sha1($_POST['password'].$_SESSION['user']->salt)) {
                 $_SESSION['admin_loggedIn'] = true;
-                header("Location:" . Url::convertUrl("index.php?m=admin"));
+                header('Location:'.Url::convertUrl('index.php?m=admin'));
                 exit();
             } else {
                 $view = new \Cunity\Admin\View\Login();
-                $view->assign("message", "The entered data is not correct!");
+                $view->assign('message', 'The entered data is not correct!');
                 $view->show();
             }
         } else {
             $view = new \Cunity\Admin\View\Login();
-            $view->assign("message", "");
+            $view->assign('message', '');
             $view->show();
         }
     }

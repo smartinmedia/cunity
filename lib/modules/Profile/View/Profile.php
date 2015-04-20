@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -39,24 +39,22 @@ namespace Cunity\Profile\View;
 use Cunity\Core\View\View;
 
 /**
- * Class Profile
- * @package Cunity\Profile\View
+ * Class Profile.
  */
 class Profile extends View
 {
-
     /**
      * @var string
      */
-    protected $_templateDir = "profile";
+    protected $_templateDir = 'profile';
     /**
      * @var string
      */
-    protected $_templateFile = "profile.tpl";
+    protected $_templateFile = 'profile.tpl';
     /**
      * @var array
      */
-    protected $_metadata = ["title" => "Profile"];
+    protected $_metadata = ['title' => 'Profile'];
 
     /**
      * @throws \Cunity\Core\Exception
@@ -65,16 +63,16 @@ class Profile extends View
     public function __construct()
     {
         parent::__construct();
-        $this->registerScript("profile", "profile");
-        $this->registerScript("gallery", "albums");
-        $this->registerScript("newsfeed", "newsfeed");
-        $this->registerCss("profile", "profile");
-        $this->registerCss("newsfeed", "newsfeed");
-        $this->registerCss("gallery", "albums");
-        $this->registerCss("friends", "friends");
-        $this->registerCss("gallery", "lightbox");
-        $this->registerScript("gallery", "jquery.blueimp-gallery");
-        $this->registerScript("gallery", "lightbox");
+        $this->registerScript('profile', 'profile');
+        $this->registerScript('gallery', 'albums');
+        $this->registerScript('newsfeed', 'newsfeed');
+        $this->registerCss('profile', 'profile');
+        $this->registerCss('newsfeed', 'newsfeed');
+        $this->registerCss('gallery', 'albums');
+        $this->registerCss('friends', 'friends');
+        $this->registerCss('gallery', 'lightbox');
+        $this->registerScript('gallery', 'jquery.blueimp-gallery');
+        $this->registerScript('gallery', 'lightbox');
     }
 
     /**

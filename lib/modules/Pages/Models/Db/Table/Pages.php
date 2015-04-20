@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -39,12 +39,10 @@ namespace Cunity\Pages\Models\Db\Table;
 use Cunity\Core\Models\Db\Abstractables\Table;
 
 /**
- * Class Pages
- * @package Cunity\Pages\Models\Db\Table
+ * Class Pages.
  */
 class Pages extends Table
 {
-
     /**
      * @var string
      */
@@ -68,24 +66,27 @@ class Pages extends Table
 
     /**
      * @param $shortlink
+     *
      * @return null|\Zend_Db_Table_Row_Abstract
      */
     public function getPage($shortlink)
     {
-        return $this->fetchRow($this->select()->where("shortlink=?", $shortlink));
+        return $this->fetchRow($this->select()->where('shortlink=?', $shortlink));
     }
 
     /**
      * @param $id
+     *
      * @return null|\Zend_Db_Table_Row_Abstract
      */
     public function getPageById($id)
     {
-        return $this->fetchRow($this->select()->where("id=?", intval($id)));
+        return $this->fetchRow($this->select()->where('id=?', intval($id)));
     }
 
     /**
      * @param array $data
+     *
      * @return mixed
      */
     public function addPage(array $data)
@@ -95,20 +96,21 @@ class Pages extends Table
         if (isset($data['pageid']) && $data['pageid'] > 0) {
             if (false !== $this->update(
                     [
-                    "title" => $data['title'],
-                    "content" => $data['content'],
-                    "comments" => isset($data['comments']) ? 1 : 0,
-                    "shortlink" => preg_replace('/[^a-zA-Z0-9\-]/', "", $data['title'])
+                    'title' => $data['title'],
+                    'content' => $data['content'],
+                    'comments' => isset($data['comments']) ? 1 : 0,
+                    'shortlink' => preg_replace('/[^a-zA-Z0-9\-]/', '', $data['title']),
                 ],
-                    "id=" . $data['pageid'])
-            )
-                $returnValue = preg_replace('/[^a-zA-Z0-9\-]/', "", $data['title']);
+                    'id='.$data['pageid'])
+            ) {
+                $returnValue = preg_replace('/[^a-zA-Z0-9\-]/', '', $data['title']);
+            }
         } else {
             $returnValue = $this->insert([
-                "title" => $data['title'],
-                "content" => $data['content'],
-                "comments" => isset($data['comments']) ? 1 : 0,
-                "shortlink" => preg_replace('/[^a-zA-Z0-9\-]/', "", $data['title'])
+                'title' => $data['title'],
+                'content' => $data['content'],
+                'comments' => isset($data['comments']) ? 1 : 0,
+                'shortlink' => preg_replace('/[^a-zA-Z0-9\-]/', '', $data['title']),
             ]);
         }
 
@@ -117,11 +119,12 @@ class Pages extends Table
 
     /**
      * @param $pageid
+     *
      * @return bool
      */
     public function deletePage($pageid)
     {
-        return ($this->delete($this->getAdapter()->quoteInto("id=?", $pageid)) > 0);
+        return ($this->delete($this->getAdapter()->quoteInto('id=?', $pageid)) > 0);
     }
 
     /**

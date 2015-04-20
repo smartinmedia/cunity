@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -37,8 +37,7 @@
 namespace Cunity\Core\Models\Validation;
 
 /**
- * Class Password
- * @package Core\Models\Validation
+ * Class Password.
  */
 class Password extends \Zend_Validate_StringLength
 {
@@ -66,27 +65,31 @@ class Password extends \Zend_Validate_StringLength
      * @var array
      */
     protected $_messageTemplates = [
-        self::EMPTYSTRING => "Please enter a password",
-        self::LENGTH => "The Password-Length should be between 6 and 30 characters!",
-        self::MATCH => "Your entered passwords do not match"
+        self::EMPTYSTRING => 'Please enter a password',
+        self::LENGTH => 'The Password-Length should be between 6 and 30 characters!',
+        self::MATCH => 'Your entered passwords do not match',
     ];
 
     /**
      * @param $password
      * @param $passwordRepeat
+     *
      * @return bool
      */
     public function passwordValid($password, $passwordRepeat)
     {
-        if ($password == "") {
+        if ($password == '') {
             $this->_error(self::EMPTYSTRING);
+
             return false;
         }
         if (strlen($password) < $this->_min || strlen($password) > $this->_max) {
             $this->_error(self::LENGTH);
+
             return false;
         } elseif ($password !== $passwordRepeat) {
             $this->_error(self::MATCH);
+
             return false;
         } else {
             return parent::isValid($password);

@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -40,8 +40,7 @@ use Cunity\Core\View\Ajax\View;
 use Cunity\Notifications\Models\Db\Table\Notifications;
 
 /**
- * Class Process
- * @package Notifications\Models
+ * Class Process.
  */
 class Process
 {
@@ -53,7 +52,7 @@ class Process
         $n = new Notifications();
         $res = $n->getNotifications();
         $view = new View(true);
-        $view->addData(["result" => $res["all"], "new" => $res["new"]]);
+        $view->addData(['result' => $res['all'], 'new' => $res['new']]);
         $view->sendResponse();
     }
 }

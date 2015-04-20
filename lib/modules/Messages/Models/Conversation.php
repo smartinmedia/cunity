@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -40,12 +40,10 @@ use Cunity\Core\Models\Db\Table\Users;
 use Cunity\Core\View\PageNotFound;
 
 /**
- * Class Conversation
- * @package Cunity\Messages\Models
+ * Class Conversation.
  */
 class Conversation
 {
-
     /**
      *
      */
@@ -63,7 +61,7 @@ class Conversation
         $userTable = new Users();
         $view = new \Cunity\Messages\View\Conversation();
         $conversation = $table->loadConversationDetails($_GET['action']);
-        $users = explode(",", $conversation['users']);
+        $users = explode(',', $conversation['users']);
         if (!in_array($_SESSION['user']->userid, $users)) {
             $view = new PageNotFound();
         } else {
@@ -71,16 +69,16 @@ class Conversation
         }
         $table->markAsRead($_GET['action']);
         if (!empty($users)) {
-            $conversation['users'] = $userTable->getSet($users, "u.userid", ["u.userid", "u.username", "u.name"])->toArray();
-            $usernames = "";
+            $conversation['users'] = $userTable->getSet($users, 'u.userid', ['u.userid', 'u.username', 'u.name'])->toArray();
+            $usernames = '';
             foreach ($conversation['users'] as $user) {
-                $usernames .= $user['name'] . ',';
+                $usernames .= $user['name'].',';
             }
-            $view->setMetaData(["title" => substr($usernames, 0, -1)]);
+            $view->setMetaData(['title' => substr($usernames, 0, -1)]);
         } else {
-            $view->setMetaData(["title" => "Conversation"]);
+            $view->setMetaData(['title' => 'Conversation']);
         }
-        $view->assign("conversation", $conversation);
+        $view->assign('conversation', $conversation);
         $view->show();
     }
 }

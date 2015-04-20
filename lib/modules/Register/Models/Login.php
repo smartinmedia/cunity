@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -43,8 +43,7 @@ use Cunity\Core\Models\Request;
 use Cunity\Core\View\Ajax\View;
 
 /**
- * Class Login
- * @package Register\Models
+ * Class Login.
  */
 class Login
 {
@@ -57,13 +56,13 @@ class Login
             $res = self::checkAutoLogin(false);
             if ($res !== false && $res instanceof User) {
                 $res->setLogin(true);
-                header("Location:" . Url::convertUrl("index.php?m=profile"));
-            } elseif (!isset($_GET['m']) || $_GET['m'] != "start") {
+                header('Location:'.Url::convertUrl('index.php?m=profile'));
+            } elseif (!isset($_GET['m']) || $_GET['m'] != 'start') {
                 if (!Request::isAjaxRequest()) {
-                    header("Location:" . Url::convertUrl("index.php?m=start"));
+                    header('Location:'.Url::convertUrl('index.php?m=start'));
                 } else {
                     $view = new View(false);
-                    $view->addData(["session" => 0]);
+                    $view->addData(['session' => 0]);
                     $view->sendResponse();
                 }
             }
@@ -83,6 +82,7 @@ class Login
 
     /**
      * @param bool $autologin
+     *
      * @return bool|null|\Zend_Db_Table_Row_Abstract
      */
     public static function checkAutoLogin($autologin = true)
@@ -91,16 +91,17 @@ class Login
             return false;
         }
         $users = new Users();
-        $user = $users->search("username", base64_decode($_COOKIE['cunity-login']));
-        if (md5($user->salt . "-" . $user->registered . "-" . $user->userhash) == $_COOKIE['cunity-login-token']) {
+        $user = $users->search('username', base64_decode($_COOKIE['cunity-login']));
+        if (md5($user->salt.'-'.$user->registered.'-'.$user->userhash) == $_COOKIE['cunity-login-token']) {
             if ($autologin) {
                 $user->setLogin(true);
-                header("Location:" . Url::convertUrl("index.php?m=profile"));
+                header('Location:'.Url::convertUrl('index.php?m=profile'));
                 exit();
             } else {
                 return $user;
             }
         }
+
         return false;
     }
 }

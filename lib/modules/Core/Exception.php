@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -37,15 +37,13 @@
 namespace Cunity\Core;
 
 /**
- * Class Exception
- * @package Cunity\Core
+ * Class Exception.
  */
 class Exception extends \Exception
 {
-
     /**
      * @param string $message
-     * @param int $code
+     * @param int    $code
      */
     public function __construct($message, $code = 0)
     {
@@ -57,6 +55,6 @@ class Exception extends \Exception
      */
     public function __toString()
     {
-        return __CLASS__ . ": [{$this->code}]: {$this->message}\n";
+        return __CLASS__.": [{$this->code}]: {$this->message}\n";
     }
 }

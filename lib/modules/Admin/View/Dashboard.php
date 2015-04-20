@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -40,21 +40,18 @@ use Cunity\Admin\Models\Login;
 use Cunity\Admin\View\Abstractables\View;
 
 /**
- * Class Dashboard
- * @package Cunity\Admin\View
+ * Class Dashboard.
  */
 class Dashboard extends View
 {
-
     /**
      * @var string
      */
-    protected $_templateDir = "Admin";
+    protected $_templateDir = 'Admin';
     /**
      * @var string
      */
-    protected $_templateFile = "dashboard/dashboard.tpl";
-
+    protected $_templateFile = 'dashboard/dashboard.tpl';
 
     /**
      *
@@ -63,6 +60,6 @@ class Dashboard extends View
     {
         parent::__construct();
         Login::loginRequired();
-        $this->registerCss("dashboard", "dashboard");
+        $this->registerCss('dashboard', 'dashboard');
     }
 }

@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -46,7 +46,7 @@ class Update extends View
     public function __construct()
     {
         parent::__construct();
-        $this->_templateFile = "update/" . $_GET['x'] . ".tpl";
-        $this->registerCss("update", $_GET['x']);
+        $this->_templateFile = 'update/'.$_GET['x'].'.tpl';
+        $this->registerCss('update', $_GET['x']);
     }
 }

@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -39,24 +39,22 @@ namespace Cunity\Messages\View;
 use Cunity\Core\View\View;
 
 /**
- * Class Conversation
- * @package Cunity\Messages\View
+ * Class Conversation.
  */
 class Conversation extends View
 {
-
     /**
      * @var string
      */
-    protected $_templateDir = "messages";
+    protected $_templateDir = 'messages';
     /**
      * @var string
      */
-    protected $_templateFile = "conversation.tpl";
+    protected $_templateFile = 'conversation.tpl';
     /**
      * @var array
      */
-    protected $_metadata = ["title" => "Conversation"];
+    protected $_metadata = ['title' => 'Conversation'];
 
     /**
      * @throws \Cunity\Core\Exception
@@ -65,8 +63,8 @@ class Conversation extends View
     public function __construct()
     {
         parent::__construct();
-        $this->registerScript("messages", "conversation");
-        $this->registerCss("messages", "conversation");
+        $this->registerScript('messages', 'conversation');
+        $this->registerCss('messages', 'conversation');
     }
 
     /**

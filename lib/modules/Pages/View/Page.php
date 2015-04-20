@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -39,24 +39,22 @@ namespace Cunity\Pages\View;
 use Cunity\Core\View\View;
 
 /**
- * Class Page
- * @package Cunity\Pages\View
+ * Class Page.
  */
 class Page extends View
 {
-
     /**
      * @var string
      */
-    protected $_templateDir = "pages";
+    protected $_templateDir = 'pages';
     /**
      * @var string
      */
-    protected $_templateFile = "page.tpl";
+    protected $_templateFile = 'page.tpl';
     /**
      * @var array
      */
-    protected $_metadata = ["title" => "Content page"];
+    protected $_metadata = ['title' => 'Content page'];
 
     /**
      * @throws \Cunity\Core\Exception
@@ -65,7 +63,7 @@ class Page extends View
     public function __construct()
     {
         parent::__construct();
-        $this->registerCss("pages", "page");
+        $this->registerCss('pages', 'page');
     }
 
     /**

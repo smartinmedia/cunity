@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -40,24 +40,22 @@ use Cunity\Core\Cunity;
 use Cunity\Core\View\View;
 
 /**
- * Class ProfileEdit
- * @package Profile\View
+ * Class ProfileEdit.
  */
 class ProfileEdit extends View
 {
-
     /**
      * @var string
      */
-    protected $_templateDir = "profile";
+    protected $_templateDir = 'profile';
     /**
      * @var string
      */
-    protected $_templateFile = "profile-edit.tpl";
+    protected $_templateFile = 'profile-edit.tpl';
     /**
      * @var array
      */
-    protected $_metadata = ["title" => "Edit Profile"];
+    protected $_metadata = ['title' => 'Edit Profile'];
 
     /**
      *
@@ -65,18 +63,18 @@ class ProfileEdit extends View
     public function __construct()
     {
         parent::__construct();
-        $this->registerScript("profile", "profile-edit");
-        $this->registerScript("profile", "profile");
-        $this->registerCss("profile", "profile");
-        $this->registerCss("profile", "profile-edit");
-        $this->registerCunityPlugin("js", ["jquery-ui-1.10.4.custom.min.js"]);
+        $this->registerScript('profile', 'profile-edit');
+        $this->registerScript('profile', 'profile');
+        $this->registerCss('profile', 'profile');
+        $this->registerCss('profile', 'profile-edit');
+        $this->registerCunityPlugin('js', ['jquery-ui-1.10.4.custom.min.js']);
         $this->registerCunityPlugin(
-            "summernote",
-            ["css/summernote.css", "js/summernote.min.js"]
+            'summernote',
+            ['css/summernote.css', 'js/summernote.min.js']
         );
         $this->assign(
-            "upload_limit",
-            Cunity::get("config")->site->upload_limit
+            'upload_limit',
+            Cunity::get('config')->site->upload_limit
         );
     }
 

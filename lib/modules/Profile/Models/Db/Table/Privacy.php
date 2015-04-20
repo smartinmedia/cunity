@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -39,18 +39,16 @@ namespace Cunity\Profile\Models\Db\Table;
 use Cunity\Core\Models\Db\Abstractables\Table;
 
 /**
- * Class Privacy
- * @package Cunity\Profile\Models\Db\Table
+ * Class Privacy.
  *
  * @property \Zend_Db_Table_Row_Abstract value
  */
 class Privacy extends Table
 {
-
     /**
      * @var array
      */
-    private static $privacies = ["message" => 3, "visit" => 3, "posts" => 3, "search" => 3];
+    private static $privacies = ['message' => 3, 'visit' => 3, 'posts' => 3, 'search' => 3];
     /**
      * @var string
      */
@@ -67,6 +65,7 @@ class Privacy extends Table
     /**
      * @param $type
      * @param $userid
+     *
      * @return bool
      */
     public function checkPrivacy($type, $userid)
@@ -77,16 +76,17 @@ class Privacy extends Table
         $pri = $this->getPrivacy($type, $userid);
         if ($pri == 3) {
             return true;
-        } /** @noinspection PhpUndefinedMethodInspection */ elseif ($pri == 1 && $_SESSION['user']->isFriend($userid)) {
-            return true;
-        }
+        } /* @noinspection PhpUndefinedMethodInspection */ elseif ($pri == 1 && $_SESSION['user']->isFriend($userid)) {
+     return true;
+ }
 
         return false;
     }
 
     /**
      * @param bool $type
-     * @param int $userid
+     * @param int  $userid
+     *
      * @return array
      */
     public function getPrivacy($type = false, $userid = 0)
@@ -95,17 +95,19 @@ class Privacy extends Table
             $userid = $_SESSION['user']->userid;
         }
         if ($type === false) {
-            $res = $this->fetchAll($this->select()->where("userid=?", $userid));
+            $res = $this->fetchAll($this->select()->where('userid=?', $userid));
             $result = [];
             foreach ($res as $p) {
                 $result[$p->type] = $p->value;
             }
+
             return $result;
         } else {
-            $res = $this->fetchAll($this->select()->where("userid=?", $userid)->where("type=?", $type));
+            $res = $this->fetchAll($this->select()->where('userid=?', $userid)->where('type=?', $type));
             if ($res === null || $res === false) {
                 return self::$privacies[$type];
             }
+
             return $res->value;
         }
     }
@@ -114,6 +116,7 @@ class Privacy extends Table
      * @param $userid
      * @param $privacyName
      * @param int $val
+     *
      * @return mixed
      */
     public function updatePrivacy($userid, $privacyName, $val = 0)
@@ -123,14 +126,16 @@ class Privacy extends Table
             foreach ($privacyName as $type => $val) {
                 $res[] = $this->updatePrivacy($userid, $type, $val);
             }
+
             return !in_array(false, $res);
         }
-        $res = $this->fetchRow($this->select()->where("userid=?", $userid)->where("type=?", $privacyName));
+        $res = $this->fetchRow($this->select()->where('userid=?', $userid)->where('type=?', $privacyName));
         if ($res !== null) {
             $res->value = $val;
+
             return $res->save();
         } else {
-            return $this->insert(["userid" => $userid, "type" => $privacyName, "value" => $val]);
+            return $this->insert(['userid' => $userid, 'type' => $privacyName, 'value' => $val]);
         }
     }
 }

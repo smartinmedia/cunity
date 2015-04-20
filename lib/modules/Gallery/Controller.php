@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -40,24 +40,22 @@ use Cunity\Core\ModuleController;
 use Cunity\Register\Models\Login;
 
 /**
- * Class Controller
- * @package Gallery
+ * Class Controller.
  */
 class Controller extends ModuleController
 {
-
     /**
      * @var array
      */
     private $_allowedActions = [
-        "loadImages",
-        "overview",
-        "loadImage",
-        "edit",
-        "deleteImage",
-        "create",
-        "upload",
-        "deleteAlbum"
+        'loadImages',
+        'overview',
+        'loadImage',
+        'edit',
+        'deleteImage',
+        'create',
+        'upload',
+        'deleteAlbum',
     ];
 
     /**
@@ -97,12 +95,13 @@ class Controller extends ModuleController
             $_GET['action']
             )
         ) {
-            new Models\Process("loadAlbum");
+            new Models\Process('loadAlbum');
         }
     }
 
     /**
      * @param $user
+     *
      * @return mixed|void
      */
     public static function onRegister($user)
@@ -114,6 +113,7 @@ class Controller extends ModuleController
 
     /**
      * @param $user
+     *
      * @return mixed|void
      */
     public static function onUnregister($user)

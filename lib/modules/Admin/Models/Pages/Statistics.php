@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -37,19 +37,17 @@
 namespace Cunity\Admin\Models\Pages;
 
 /**
- * Class Statistics
- * @package Cunity\Admin\Models\Pages
+ * Class Statistics.
  */
 class Statistics extends PageAbstract
 {
-
     /**
      *
      */
     public function __construct()
     {
         $this->loadData();
-        $this->render("statistics");
+        $this->render('statistics');
     }
 
     /**

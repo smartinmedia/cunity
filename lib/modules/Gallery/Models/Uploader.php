@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -41,8 +41,7 @@ use Skoch\Filter\File\Crop;
 use Skoch\Filter\File\Resize;
 
 /**
- * Class Uploader
- * @package Cunity\Gallery\Models
+ * Class Uploader.
  */
 class Uploader
 {
@@ -57,23 +56,24 @@ class Uploader
 
     /**
      * @param $filename
+     *
      * @return string
+     *
      * @throws \Exception
      */
     public function upload($filename)
     {
-
         if (empty($_FILES) || $_FILES['file']['error']) {
             $this->sendResponse('{"OK": 0, "info": "Failed to move uploaded file."}');
         }
 
-        $chunk = isset($_REQUEST["chunk"]) ? intval($_REQUEST["chunk"]) : 0;
-        $chunks = isset($_REQUEST["chunks"]) ? intval($_REQUEST["chunks"]) : 0;
-        $fileName = isset($_REQUEST["name"]) ? $_REQUEST["name"] : $_FILES["file"]["name"];
+        $chunk = isset($_REQUEST['chunk']) ? intval($_REQUEST['chunk']) : 0;
+        $chunks = isset($_REQUEST['chunks']) ? intval($_REQUEST['chunks']) : 0;
+        $fileName = isset($_REQUEST['name']) ? $_REQUEST['name'] : $_FILES['file']['name'];
         $filePath = "./$fileName";
 
         // Open temp file
-        $out = fopen("{$filePath}.part", $chunk == 0 ? "wb" : "ab");
+        $out = fopen("{$filePath}.part", $chunk == 0 ? 'wb' : 'ab');
         if ($out) {
             $this->moveTempFile($out);
         } else {
@@ -84,6 +84,7 @@ class Uploader
             return $this->edit($filename, $fileName, $filePath);
         } else {
             $this->sendResponse();
+
             return '';
         }
     }
@@ -92,28 +93,32 @@ class Uploader
      * @param $filename
      * @param $fileName
      * @param $filePath
+     *
      * @return string
+     *
      * @throws \Cunity\Core\Exception
      */
     public function edit($filename, $fileName, $filePath)
     {
-        $settings = Cunity::get("settings");
-        $config = Cunity::get("config");
+        $settings = Cunity::get('settings');
+        $config = Cunity::get('config');
         $fileinfo = pathinfo($fileName);
-        $destinationFile = "../data/uploads/" . $settings->getSetting("core.filesdir") . "/" . $filename . "." . strtolower($fileinfo['extension']);
-        $previewFile = "../data/uploads/" . $settings->getSetting("core.filesdir") . "/prev_" . $filename . "." . strtolower($fileinfo['extension']);
+        $destinationFile = '../data/uploads/'.$settings->getSetting('core.filesdir').'/'.$filename.'.'.strtolower($fileinfo['extension']);
+        $previewFile = '../data/uploads/'.$settings->getSetting('core.filesdir').'/prev_'.$filename.'.'.strtolower($fileinfo['extension']);
 
         rename("{$filePath}.part", $destinationFile);
         copy($destinationFile, $previewFile);
 
         $this->resize($config, $destinationFile, $previewFile);
-        return $filename . "." . strtolower($fileinfo['extension']);
+
+        return $filename.'.'.strtolower($fileinfo['extension']);
     }
 
     /**
      * @param \Zend_Config $config
      * @param $destinationFile
      * @param $previewFile
+     *
      * @throws \Cunity\Core\Exception
      */
     public function resize(\Zend_Config $config, $destinationFile, $previewFile)
@@ -121,9 +126,9 @@ class Uploader
         $resizer = new Resize($config->images);
         $preview = new Resize($config->previewImages);
         $crop = new Crop([
-            "thumbwidth" => "thumbnail",
-            "directory" => "../data/uploads/" . Cunity::get("settings")->getSetting("core.filesdir"),
-            "prefix" => "thumb_"
+            'thumbwidth' => 'thumbnail',
+            'directory' => '../data/uploads/'.Cunity::get('settings')->getSetting('core.filesdir'),
+            'prefix' => 'thumb_',
         ]);
         $resizer->filter($destinationFile);
         $preview->filter($previewFile);
@@ -135,11 +140,11 @@ class Uploader
      */
     public function moveTempFile($out)
     {
-// Read binary input stream and append it to temp file
-        $tempFile = fopen($_FILES['file']['tmp_name'], "rb");
+        // Read binary input stream and append it to temp file
+        $tempFile = fopen($_FILES['file']['tmp_name'], 'rb');
 
         if ($tempFile) {
-            /** @noinspection PhpAssignmentInConditionInspection */
+            /* @noinspection PhpAssignmentInConditionInspection */
             while ($buff = fread($tempFile, 4096)) {
                 fwrite($out, $buff);
             }

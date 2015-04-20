@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -47,12 +47,10 @@ use Cunity\Register\View\ForgetPwMail;
 use Cunity\Register\View\Registration;
 
 /**
- * Class Process
- * @package Cunity\Register\Models
+ * Class Process.
  */
 class Process
 {
-
     /**
      * @param $action
      */
@@ -86,10 +84,10 @@ class Process
      */
     private function validate()
     {
-        $users = new Users;
+        $users = new Users();
         $res = $users->search($_POST['field'], $_POST['val']);
         $view = new View(true);
-        $view->addData(["valid" => ($res === null)]);
+        $view->addData(['valid' => ($res === null)]);
         $view->sendResponse();
     }
 
@@ -99,29 +97,29 @@ class Process
     private function login()
     {
         if (!isset($_POST['email']) || !isset($_POST['password'])) {
-            throw new Exception("Missing Parameters for login!");
+            throw new Exception('Missing Parameters for login!');
         }
 
         $email = trim($_POST['email']);
         $password = trim($_POST['password']);
         $users = new Users();
-        $user = $users->search("email", $email);
+        $user = $users->search('email', $email);
         if ($user !== null) {
             if ($user->passwordMatch($password)) {
                 if ($user->groupid == 0) {
-                    new Message("Sorry", "Your account is not verified! Please check your verification mail! if you have not received a mail, enter your email at \"I forgot my password\" and we will send you a new mail!", "danger");
+                    new Message('Sorry', "Your account is not verified! Please check your verification mail! if you have not received a mail, enter your email at \"I forgot my password\" and we will send you a new mail!", 'danger');
                 } elseif ($user->groupid == 4) {
-                    new Message("Sorry", "Your Account is blocked! Please contact the Administrator", "danger");
+                    new Message('Sorry', 'Your Account is blocked! Please contact the Administrator', 'danger');
                 } else {
                     $user->setLogin(isset($_POST['save-login']));
-                    header("Location:" . Url::convertUrl("index.php?m=profile"));
+                    header('Location:'.Url::convertUrl('index.php?m=profile'));
                     exit();
                 }
             } else {
-                new Message("Sorry", "The entered data is not correct!", "danger");
+                new Message('Sorry', 'The entered data is not correct!', 'danger');
             }
         } else {
-            new Message("Sorry", "The entered data is not correct!", "danger");
+            new Message('Sorry', 'The entered data is not correct!', 'danger');
         }
     }
 
@@ -131,11 +129,11 @@ class Process
     private function logout()
     {
         if (Login::loggedIn()) {
-            /** @noinspection PhpUndefinedMethodInspection */
+            /* @noinspection PhpUndefinedMethodInspection */
             $_SESSION['user']->logout();
         }
 
-        header("Location:" . Url::convertUrl("index.php?m=start"));
+        header('Location:'.Url::convertUrl('index.php?m=start'));
         exit();
     }
 
@@ -146,21 +144,21 @@ class Process
     private function verify()
     {
         if (!isset($_GET['x']) || empty($_GET['x'])) {
-            throw new Exception("No verify-code submitted!");
+            throw new Exception('No verify-code submitted!');
         }
         $users = new Users();
-        $user = $users->search("salt", $_GET['x']);
+        $user = $users->search('salt', $_GET['x']);
         if ($user !== null) {
             $user->groupid = 1;
             $user->save();
-            $config = Cunity::get("config");
+            $config = Cunity::get('config');
             $functions = $config->registerFunctions->toArray();
-            foreach ($functions["module"] as $module) {
-                call_user_func(["\Cunity\\" . ucfirst($module) . "\Controller", "onRegister"], $user);
+            foreach ($functions['module'] as $module) {
+                call_user_func(["\Cunity\\".ucfirst($module)."\Controller", 'onRegister'], $user);
             }
-            new Message("Ready to go!", "Your account was verified! You can now login!", "success");
+            new Message('Ready to go!', 'Your account was verified! You can now login!', 'success');
         } else {
-            new Message("Sorry", "We cannot verify your account! The given data was not found!", "danger");
+            new Message('Sorry', 'We cannot verify your account! The given data was not found!', 'danger');
         }
     }
 
@@ -175,18 +173,18 @@ class Process
             exit;
         } else {
             $users = new Users();
-            $user = $users->search("email", $_POST['email']);
+            $user = $users->search('email', $_POST['email']);
             if ($user !== null) {
                 $token = rand(123123, 999999);
-                $user->password_token = json_encode(["token" => $token, "time" => time()]);
+                $user->password_token = json_encode(['token' => $token, 'time' => time()]);
                 $user->save();
-                new ForgetPwMail(["name" => $user->username, "email" => $user->email], $token);
-                new Message("Done!", "Please check your mails! We have sent you a token to reset your password!", "success");
+                new ForgetPwMail(['name' => $user->username, 'email' => $user->email], $token);
+                new Message('Done!', 'Please check your mails! We have sent you a token to reset your password!', 'success');
                 exit();
             }
         }
         $view = new ForgetPw();
-        $view->assign("error", true);
+        $view->assign('error', true);
         $view->render();
     }
 
@@ -195,10 +193,10 @@ class Process
      */
     private function delete()
     {
-        $config = Cunity::get("config");
+        $config = Cunity::get('config');
         $functions = $config->registerFunctions->toArray();
-        foreach ($functions["module"] as $module) {
-            call_user_func(["Cunity\\" . ucfirst($module) . "\Controller", "onUnregister"], $_SESSION['user']);
+        foreach ($functions['module'] as $module) {
+            call_user_func(["Cunity\\".ucfirst($module)."\Controller", 'onUnregister'], $_SESSION['user']);
         }
     }
 
@@ -208,7 +206,7 @@ class Process
     private function reset()
     {
         if (Login::loggedIn()) {
-            header("Location:" . Url::convertUrl("index.php?m=profile"));
+            header('Location:'.Url::convertUrl('index.php?m=profile'));
             exit;
         }
         $register = new Register();

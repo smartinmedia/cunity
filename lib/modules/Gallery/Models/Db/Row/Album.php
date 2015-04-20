@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -42,14 +42,13 @@ use Cunity\Gallery\Models\Db\Table\GalleryImages;
 use Cunity\Likes\Models\Db\Table\Likes;
 
 /**
- * Class Album
- * @package Gallery\Models\Db\Row
+ * Class Album.
  */
 class Album extends \Zend_Db_Table_Row_Abstract
 {
-
     /**
      * @return bool
+     *
      * @throws \Exception
      * @throws \Zend_Db_Table_Row_Exception
      */
@@ -57,26 +56,29 @@ class Album extends \Zend_Db_Table_Row_Abstract
     {
         $images = new GalleryImages();
         $imageslist = $images->getImages($this->id);
-        $settings = Cunity::get("settings");
+        $settings = Cunity::get('settings');
         foreach ($imageslist as $image) {
             $likes = new Likes();
             $comments = new Comments();
 
             $comments->delete($this->getTable()->getAdapter()->quoteInto("ref_id=? AND ref_name='image'", $image['id']));
             $likes->delete($this->getTable()->getAdapter()->quoteInto("ref_id=? AND ref_name='image'", $image['id']));
-            unlink("../data/uploads/" . $settings->getSetting("core.filesdir") . "/" . $image['filename']);
-            unlink("../data/uploads/" . $settings->getSetting("core.filesdir") . "/thumb_" . $image['filename']);
-            if (file_exists("../data/uploads/" . $settings->getSetting("core.filesdir") . "/cr_" . $image['filename'])) {
-                unlink("../data/uploads/" . $settings->getSetting("core.filesdir") . "/cr_" . $image['filename']);
+            unlink('../data/uploads/'.$settings->getSetting('core.filesdir').'/'.$image['filename']);
+            unlink('../data/uploads/'.$settings->getSetting('core.filesdir').'/thumb_'.$image['filename']);
+            if (file_exists('../data/uploads/'.$settings->getSetting('core.filesdir').'/cr_'.$image['filename'])) {
+                unlink('../data/uploads/'.$settings->getSetting('core.filesdir').'/cr_'.$image['filename']);
             }
         }
-        $images->delete($images->getAdapter()->quoteInto("albumid=?", $this->id));
+        $images->delete($images->getAdapter()->quoteInto('albumid=?', $this->id));
+
         return (0 < $this->delete());
     }
 
     /**
      * @param array $updates
+     *
      * @return mixed
+     *
      * @throws \Zend_Db_Table_Row_Exception
      */
     public function update(array $updates)
@@ -86,6 +88,7 @@ class Album extends \Zend_Db_Table_Row_Abstract
                 $this->__set($field, $value);
             }
         }
+
         return $this->save();
     }
 
@@ -95,23 +98,27 @@ class Album extends \Zend_Db_Table_Row_Abstract
     public function getImages()
     {
         $images = new GalleryImages();
+
         return $images->getImages($this->id);
     }
 
     /**
      * @param $imageid
+     *
      * @return mixed
      */
     public function addImage($imageid)
     {
         $this->photo_count++;
-        $this->time = new \Zend_Db_Expr("UTC_TIMESTAMP()");
+        $this->time = new \Zend_Db_Expr('UTC_TIMESTAMP()');
         $this->cover = $imageid;
+
         return $this->save();
     }
 
     /**
      * @param $imageid
+     *
      * @return mixed
      */
     public function removeImage($imageid)
@@ -120,6 +127,7 @@ class Album extends \Zend_Db_Table_Row_Abstract
             $this->cover = $this->getLastImageId();
         };
         $this->photo_count--;
+
         return $this->save();
     }
 
@@ -129,7 +137,7 @@ class Album extends \Zend_Db_Table_Row_Abstract
     private function getLastImageId()
     {
         $images = new GalleryImages();
-        $res = $images->fetchRow($images->select()->where("albumid=?", $this->id)->order("time")->limit(1));
+        $res = $images->fetchRow($images->select()->where('albumid=?', $this->id)->order('time')->limit(1));
         if ($res === null) {
             return 0;
         } else {

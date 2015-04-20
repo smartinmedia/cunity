@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -40,25 +40,25 @@ use Cunity\Core\Cunity;
 use Cunity\Core\View\Mail\MailView;
 
 /**
- * Class ContactMail
- * @package Cunity\Contact\View
+ * Class ContactMail.
  */
 class ContactMail extends MailView
 {
     /**
      * @var string
      */
-    protected $_templateDir = "contact";
+    protected $_templateDir = 'contact';
 
     /**
      * @var string
      */
-    protected $_templateFile = "contact-mail.tpl";
+    protected $_templateFile = 'contact-mail.tpl';
 
     /**
      * @param array $receiver
      * @param array $content
      * @param array $cc
+     *
      * @throws \Exception
      */
     public function __construct(array $receiver = [],
@@ -67,10 +67,10 @@ class ContactMail extends MailView
     {
         parent::__construct();
         if (empty($receiver)) {
-            $settings = Cunity::get("settings");
+            $settings = Cunity::get('settings');
             $receiver = [
-                "email" => $settings->getSetting("core.contact_mail"),
-                "name" => "Cunity Administrator"
+                'email' => $settings->getSetting('core.contact_mail'),
+                'name' => 'Cunity Administrator',
             ];
         }
         $this->_receiver = $receiver;

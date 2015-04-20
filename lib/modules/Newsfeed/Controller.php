@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -41,8 +41,7 @@ use Cunity\Newsfeed\Models\Db\Table\Walls;
 use Cunity\Register\Models\Login;
 
 /**
- * Class Controller
- * @package Newsfeed
+ * Class Controller.
  */
 class Controller extends ModuleController
 {
@@ -50,10 +49,10 @@ class Controller extends ModuleController
      * @var array
      */
     private $_allowedActions = [
-        "send",
-        "load",
-        "delete",
-        "loadPost"
+        'send',
+        'load',
+        'delete',
+        'loadPost',
     ];
 
     /**
@@ -86,6 +85,7 @@ class Controller extends ModuleController
 
     /**
      * @param $user
+     *
      * @return mixed|void
      */
     public static function onRegister($user)
@@ -97,12 +97,13 @@ class Controller extends ModuleController
 
     /**
      * @param $user
+     *
      * @return mixed|void
      */
     public static function onUnregister($user)
     {
         parent::onUnregister($user);
         $walls = new Walls();
-        $walls->deleteWallByOwner($user->userid, "profile");
+        $walls->deleteWallByOwner($user->userid, 'profile');
     }
 }

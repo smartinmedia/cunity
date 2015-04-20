@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -39,25 +39,23 @@ namespace Cunity\Register\View;
 use Cunity\Core\View\Mail\MailView;
 
 /**
- * Class VerifyMail
- * @package Cunity\Register\View
+ * Class VerifyMail.
  */
 class VerifyMail extends MailView
 {
+    /**
+     * @var string
+     */
+    protected $_templateDir = 'register';
+    /**
+     * @var string
+     */
+    protected $_templateFile = 'register-mail.tpl';
 
     /**
      * @var string
      */
-    protected $_templateDir = "register";
-    /**
-     * @var string
-     */
-    protected $_templateFile = "register-mail.tpl";
-
-    /**
-     * @var string
-     */
-    protected $_subject = "Your Cunity-Registration";
+    protected $_subject = 'Your Cunity-Registration';
 
     /**
      * @param $receiver
@@ -67,7 +65,7 @@ class VerifyMail extends MailView
     {
         parent::__construct();
         $this->_receiver = $receiver;
-        $this->assign("name", $receiver["name"]);
+        $this->assign('name', $receiver['name']);
         $this->assign('registerSalt', $registerSalt);
         $this->show();
     }

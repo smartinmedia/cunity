@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -39,12 +39,10 @@ namespace Cunity\Core\Models\Db\Table;
 use Cunity\Core\Models\Db\Abstractables\Table;
 
 /**
- * Class Settings
- * @package Cunity\Core\Models\Db\Table
+ * Class Settings.
  */
 class Announcements extends Table
 {
-
     /**
      * @var string
      */
@@ -60,11 +58,11 @@ class Announcements extends Table
      */
     public function getAnnouncements()
     {
-        $res = $this->fetchAll($this->select()->where("active = 1")->order("time DESC"));
+        $res = $this->fetchAll($this->select()->where('active = 1')->order('time DESC'));
         if ($res !== null) {
             return $res->toArray();
         }
+
         return [];
     }
-
 }

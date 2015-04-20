@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -39,24 +39,22 @@ namespace Cunity\Forums\View;
 use Cunity\Core\View\View;
 
 /**
- * Class Category
- * @package Forums\View
+ * Class Category.
  */
 class Category extends View
 {
-
     /**
      * @var string
      */
-    protected $_templateDir = "forums";
+    protected $_templateDir = 'forums';
     /**
      * @var string
      */
-    protected $_templateFile = "category.tpl";
+    protected $_templateFile = 'category.tpl';
     /**
      * @var array
      */
-    protected $_metadata = ["title" => "Category"];
+    protected $_metadata = ['title' => 'Category'];
 
     /**
      * @throws \Cunity\Core\Exception
@@ -65,8 +63,8 @@ class Category extends View
     public function __construct()
     {
         parent::__construct();
-        $this->registerCss("forums", "board");
-        $this->registerScript("forums", "category");
-        $this->registerScript("forums", "category-cloud");
+        $this->registerCss('forums', 'board');
+        $this->registerScript('forums', 'category');
+        $this->registerScript('forums', 'category-cloud');
     }
 }

@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -41,12 +41,10 @@ use Cunity\Friends\Models\Db\Table\Relationships;
 use Cunity\Messages\Models\Db\Table\Conversations;
 
 /**
- * Class Process
- * @package Cunity\Messages\Models
+ * Class Process.
  */
 class Process
 {
-
     /**
      * @param $action
      */
@@ -64,16 +62,16 @@ class Process
     private function send()
     {
         $table = new Db\Table\Messages();
-        $res = $table->insert(["sender" => $_SESSION['user']->userid, "conversation" => $_POST['conversation_id'], "message" => $_POST['message'], "source" => $_POST['source']]);
+        $res = $table->insert(['sender' => $_SESSION['user']->userid, 'conversation' => $_POST['conversation_id'], 'message' => $_POST['message'], 'source' => $_POST['source']]);
         $conversation = new Conversations();
-        if ($_POST['source'] == "chat") {
+        if ($_POST['source'] == 'chat') {
             $conversation->markAsRead($_POST['conversation_id']);
         }
         $c = $conversation->loadConversationDetails($_GET['action']);
-        $users = explode(",", $c['users']);
+        $users = explode(',', $c['users']);
         unset($users[array_search($_SESSION['user']->userid, $users)]);
         $view = new View($res !== false);
-        $view->addData(["data" => ["conversation_id" => $_POST['conversation_id'], "message" => $_POST['message'], "time" => date("Y-m-d H:i:s", time()), "sender" => $_SESSION['user']->userid, "id" => $res]]);
+        $view->addData(['data' => ['conversation_id' => $_POST['conversation_id'], 'message' => $_POST['message'], 'time' => date('Y-m-d H:i:s', time()), 'sender' => $_SESSION['user']->userid, 'id' => $res]]);
         $view->sendResponse();
     }
 
@@ -96,7 +94,7 @@ class Process
             $result = true;
         }
         if ($result) {
-            $result = (0 < $messages->insert(["sender" => $_SESSION['user']->userid, "conversation" => $conversation_id, "message" => $_POST['message'], "source" => $_POST['source']]));
+            $result = (0 < $messages->insert(['sender' => $_SESSION['user']->userid, 'conversation' => $conversation_id, 'message' => $_POST['message'], 'source' => $_POST['source']]));
         }
         $view = new View($result);
         $view->sendResponse();
@@ -121,11 +119,11 @@ class Process
         }
         $view = new View($result);
         $data = $conv->loadConversationDetails($conversation_id);
-        /** @noinspection PhpUndefinedMethodInspection */
-        $conversation['users'] = $_SESSION['user']->getTable()->getSet(explode(",", $data['users']), "u.userid", ["u.userid", "u.username", "u.name"])->toArray();
-        $usernames = "";
+        /* @noinspection PhpUndefinedMethodInspection */
+        $conversation['users'] = $_SESSION['user']->getTable()->getSet(explode(',', $data['users']), 'u.userid', ['u.userid', 'u.username', 'u.name'])->toArray();
+        $usernames = '';
         foreach ($conversation['users'] as $user) {
-            $usernames .= $user['name'] . '|' . $user['userid'] . ",";
+            $usernames .= $user['name'].'|'.$user['userid'].',';
         }
         $data['users'] = substr($usernames, 0, -1);
         $data['messages'] = $messages;
@@ -152,7 +150,7 @@ class Process
     private function deletemessage()
     {
         $messages = new Db\Table\Messages();
-        $result = $messages->delete($messages->getAdapter()->quoteInto("id=?", $_POST['msgid']));
+        $result = $messages->delete($messages->getAdapter()->quoteInto('id=?', $_POST['msgid']));
         $view = new View($result !== null);
         $view->sendResponse();
     }
@@ -165,7 +163,7 @@ class Process
         $messages = new Db\Table\Messages();
         $result = $messages->loadByConversation($_POST['conversation_id'], $_POST['offset'], $_POST['refresh']);
         $view = new View($result !== null);
-        $view->addData(["messages" => $result]);
+        $view->addData(['messages' => $result]);
         $view->sendResponse();
     }
 
@@ -178,7 +176,7 @@ class Process
         $res = false;
         $leaveResult = $conv->leave($_SESSION['user']->userid, $_POST['conversation_id']);
         if ($leaveResult) {
-            if ($_POST['delMsgs'] == "true") {
+            if ($_POST['delMsgs'] == 'true') {
                 $messages = new Db\Table\Messages();
                 $res = $messages->deleteByUser($_SESSION['user']->userid, $_POST['conversation_id']);
             } else {
@@ -203,13 +201,13 @@ class Process
                 $userid = $this->findConversationUser($details);
 
                 if ($userid !== null) {
-                    /** @noinspection PhpUndefinedMethodInspection */
-                    $conversations[$i]['users'] = $_SESSION['user']->getTable()->get($userid)->toArray(["pimg", "name"]);
+                    /* @noinspection PhpUndefinedMethodInspection */
+                    $conversations[$i]['users'] = $_SESSION['user']->getTable()->get($userid)->toArray(['pimg', 'name']);
                 }
             }
         }
 
-        $view->addData(["conversations" => $conversations]);
+        $view->addData(['conversations' => $conversations]);
         $view->sendResponse();
     }
 
@@ -222,13 +220,13 @@ class Process
         $conversations = $table->loadConversations($_SESSION['user']->userid, 1);
         $view = new View(true);
         foreach ($conversations as $i => $conv) {
-            if (strpos($conversations[$i]['users'], ",") === false) {
-                $userid = explode("|", $conv['users']);
-                /** @noinspection PhpUndefinedMethodInspection */
-                $conversations[$i]['users'] = $_SESSION['user']->getTable()->get($userid[1])->toArray(["pimg", "name"]);
+            if (strpos($conversations[$i]['users'], ',') === false) {
+                $userid = explode('|', $conv['users']);
+                /* @noinspection PhpUndefinedMethodInspection */
+                $conversations[$i]['users'] = $_SESSION['user']->getTable()->get($userid[1])->toArray(['pimg', 'name']);
             }
         }
-        $view->addData(["conversations" => $conversations]);
+        $view->addData(['conversations' => $conversations]);
         $view->sendResponse();
     }
 
@@ -246,7 +244,7 @@ class Process
         foreach ($conversations as $i => $conv) {
             $conversations[$i]['messages'] = $messages->loadByConversation($conv['conversation'], 0, (isset($_POST['chatboxes']) && is_array($_POST['chatboxes']) && array_key_exists($conv['conversation'], $_POST['chatboxes'])) ? $_POST['chatboxes'][$conv['conversation']] : 0);
         }
-        $view->addData(["conversations" => $conversations, "users" => $friends]);
+        $view->addData(['conversations' => $conversations, 'users' => $friends]);
         $view->sendResponse();
     }
 
@@ -262,6 +260,7 @@ class Process
 
     /**
      * @param $details
+     *
      * @return array
      */
     private function findConversationUser($details)
@@ -270,9 +269,9 @@ class Process
         $id = null;
 
         if (strpos($details['users'], ',') !== false) {
-            $userid = explode(",", $details['users']);
+            $userid = explode(',', $details['users']);
         } elseif (strpos($details['users'], '|') !== false) {
-            $userid = explode("|", $details['users']);
+            $userid = explode('|', $details['users']);
         }
 
         foreach ($userid as $id) {

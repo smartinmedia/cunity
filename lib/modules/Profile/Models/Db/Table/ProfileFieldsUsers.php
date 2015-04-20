@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -40,12 +40,10 @@ use Cunity\Core\Models\Db\Abstractables\Table;
 use Cunity\Core\Models\Db\Row\User;
 
 /**
- * Class ProfileFieldsUsers
- * @package Profile\Models\Db\Table
+ * Class ProfileFieldsUsers.
  */
 class ProfileFieldsUsers extends Table
 {
-
     /**
      * @var string
      */
@@ -63,7 +61,7 @@ class ProfileFieldsUsers extends Table
 
     /**
      * @param array $config
-     * @param null $user
+     * @param null  $user
      */
     public function __construct($config = [], $user = null)
     {
@@ -77,6 +75,7 @@ class ProfileFieldsUsers extends Table
     /**
      * @param $profileFieldId
      * @param null|int $userid
+     *
      * @return array
      */
     public function getByProfileFieldIdAndUserId($profileFieldId, $userid = null)
@@ -84,8 +83,8 @@ class ProfileFieldsUsers extends Table
         $userid = $this->evaluateUserId($userid);
 
         $query = $this->getAdapter()->select()
-            ->from(["p" => $this->getTableName()])
-            ->where('user_id = ' . $userid . ' AND profilefield_id = ' . $profileFieldId);
+            ->from(['p' => $this->getTableName()])
+            ->where('user_id = '.$userid.' AND profilefield_id = '.$profileFieldId);
 
         $result = $this->getAdapter()->fetchAll($query);
 
@@ -94,6 +93,7 @@ class ProfileFieldsUsers extends Table
 
     /**
      * @param null $userid
+     *
      * @return array
      */
     public function getAllByUserId($userid = null)
@@ -101,8 +101,8 @@ class ProfileFieldsUsers extends Table
         $userid = $this->evaluateUserId($userid);
 
         $query = $this->getAdapter()->select()
-            ->from(["p" => $this->getTableName()])
-            ->where('user_id = ' . $userid);
+            ->from(['p' => $this->getTableName()])
+            ->where('user_id = '.$userid);
 
         $result = $this->getAdapter()->fetchAll($query);
 
@@ -110,27 +110,29 @@ class ProfileFieldsUsers extends Table
     }
 
     /**
-     * @param array $data
+     * @param array  $data
      * @param String $where
+     *
      * @return int
      */
     public function update(array $data, $where)
     {
         foreach ($data as $key => $value) {
             $dataToStore = ['user_id' => $this->user->userid, 'profilefield_id' => $key, 'value' => $value];
-            $query = $this->getAdapter()->select()->from(['p' => $this->getTableName()])->where('profilefield_id = ' . $key . ' AND user_id = ' . $this->user->userid);
+            $query = $this->getAdapter()->select()->from(['p' => $this->getTableName()])->where('profilefield_id = '.$key.' AND user_id = '.$this->user->userid);
             $result = $this->getAdapter()->fetchOne($query);
 
             if ($result === false) {
                 $this->insert($dataToStore);
             } else {
-                parent::update($dataToStore, 'profilefield_id = ' . $key . ' AND user_id = ' . $this->user->userid);
+                parent::update($dataToStore, 'profilefield_id = '.$key.' AND user_id = '.$this->user->userid);
             }
         }
     }
 
     /**
      * @param $userid
+     *
      * @return string
      */
     protected function evaluateUserId($userid)

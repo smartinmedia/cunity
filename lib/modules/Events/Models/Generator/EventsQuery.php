@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -42,25 +42,25 @@ use Cunity\Core\Models\Db\Adapter\Mysqli;
 use Zend_Db_Expr;
 
 /**
- * Class EventsQuery
- * @package Events\Models\Generator
+ * Class EventsQuery.
  */
 class EventsQuery extends Table
 {
-
     /**
      * @param string $status
+     *
      * @return Zend_Db_Expr
+     *
      * @throws \Exception
      */
-    public static function getEventsListQuery($status = "> 0")
+    public static function getEventsListQuery($status = '> 0')
     {
         return new Zend_Db_Expr(
-            Cunity::get("db")
+            Cunity::get('db')
                 ->select()
-                ->from(Mysqli::getDbprefix() . "events_guests", "eventid")
-                ->where("status" . $status)
-                ->where("userid=?", $_SESSION['user']->userid)
+                ->from(Mysqli::getDbprefix().'events_guests', 'eventid')
+                ->where('status'.$status)
+                ->where('userid=?', $_SESSION['user']->userid)
         );
     }
 }

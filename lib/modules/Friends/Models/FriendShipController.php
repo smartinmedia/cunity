@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -43,12 +43,10 @@ use Cunity\Friends\Helper\RelationShipHelper;
 use Cunity\Notifications\Models\Notifier;
 
 /**
- * Class FriendShipController
- * @package Cunity\Friends\Models
+ * Class FriendShipController.
  */
 class FriendShipController
 {
-
     /**
      *
      */
@@ -66,9 +64,9 @@ class FriendShipController
     {
         UserHelper::breakOnMissingUserId();
         $notification = new Notifier();
-        $notification->notify($_SESSION['user']->userid, $_POST['userid'], 'confirmfriend', 'index.php?m=confirmfriend&action=' . $_POST['userid']);
+        $notification->notify($_SESSION['user']->userid, $_POST['userid'], 'confirmfriend', 'index.php?m=confirmfriend&action='.$_POST['userid']);
         $relations = new Db\Table\Relationships();
-        $res = $relations->insert(["sender" => $_SESSION['user']->userid, "receiver" => $_POST['userid'], "status" => 1]);
+        $res = $relations->insert(['sender' => $_SESSION['user']->userid, 'receiver' => $_POST['userid'], 'status' => 1]);
         if ($res) {
             $view = new View($res !== false);
             $view->sendResponse();
@@ -123,7 +121,7 @@ class FriendShipController
         $relations = new Db\Table\Relationships();
         $userid = ($_POST['userid'] == 0) ? $_SESSION['user']->userid : $_POST['userid'];
         $view = new View(true);
-        $view->addData(["result" => $relations->getFullFriendList(">1", $userid)]);
+        $view->addData(['result' => $relations->getFullFriendList('>1', $userid)]);
         $view->sendResponse();
     }
 }

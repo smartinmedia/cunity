@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -51,14 +51,11 @@ use Cunity\Forums\View\Forum;
 use Cunity\Forums\View\Thread;
 
 /**
- * Class Process
- * @package Cunity\Forums\Models
+ * Class Process.
  */
 class Process
 {
-
     /**
-     *
      * @param String $action
      */
     public function __construct($action)
@@ -73,9 +70,9 @@ class Process
      */
     public function deleteForum()
     {
-        $forums = new Forums;
+        $forums = new Forums();
         $view = new View(false);
-        /** @noinspection PhpUndefinedMethodInspection */
+        /* @noinspection PhpUndefinedMethodInspection */
         if (UserHelper::isAdmin()) {
             $view->setStatus($forums->deleteForum($_POST['id']));
         }
@@ -87,9 +84,9 @@ class Process
      */
     public function deleteBoard()
     {
-        $boards = new Boards;
+        $boards = new Boards();
         $view = new View(false);
-        /** @noinspection PhpUndefinedMethodInspection */
+        /* @noinspection PhpUndefinedMethodInspection */
         if (UserHelper::isAdmin()) {
             $view->setStatus($boards->deleteBoard($_POST['id']));
         }
@@ -101,9 +98,9 @@ class Process
      */
     public function deleteThread()
     {
-        $threads = new Threads;
+        $threads = new Threads();
         $view = new View(false);
-        /** @noinspection PhpUndefinedMethodInspection */
+        /* @noinspection PhpUndefinedMethodInspection */
         if (UserHelper::isAdmin()) {
             $view->setStatus($threads->deleteThread($_POST['id']));
         }
@@ -115,17 +112,17 @@ class Process
      */
     private function loadForums()
     {
-        $forums = new Forums;
-        $topics = new Boards;
+        $forums = new Forums();
+        $topics = new Boards();
         $res = $forums->loadForums();
         if ($res !== null && $res !== false) {
             $resCount = count($res);
             for ($i = 0; $i < $resCount; $i++) {
-                $res[$i]["boards"] = $topics->loadBoards($res[$i]["id"]);
+                $res[$i]['boards'] = $topics->loadBoards($res[$i]['id']);
             }
         }
         $view = new View($res !== null && $res !== false);
-        $view->addData(["result" => $res]);
+        $view->addData(['result' => $res]);
         $view->sendResponse();
     }
 
@@ -134,10 +131,10 @@ class Process
      */
     private function loadBoards()
     {
-        $boards = new Boards;
+        $boards = new Boards();
         $res = $boards->loadBoards($_POST['id']);
         $view = new View($res !== null && $res !== false);
-        $view->addData(["result" => $res]);
+        $view->addData(['result' => $res]);
         $view->sendResponse();
     }
 
@@ -146,20 +143,21 @@ class Process
      */
     private function loadPosts()
     {
-        $posts = new Posts;
+        $posts = new Posts();
         $res = $posts->loadPosts($_POST['id'], 20, ($_POST['page'] - 1) * 20);
         $view = new View($res !== null && $res !== false);
         if ($res !== false) {
             foreach ($res as $i => $r) {
                 $res[$i]['content'] = $this->quote(htmlspecialchars_decode($r['content']));
             }
-            $view->addData(["result" => $res]);
+            $view->addData(['result' => $res]);
         }
         $view->sendResponse();
     }
 
     /**
      * @param $str
+     *
      * @return mixed
      */
     private function quote($str)
@@ -172,8 +170,8 @@ class Process
             }
             array_push($format_search, '#\[quote=(.*?)\](.*?)#is');
             array_push($format_search, '#\[/quote\]#is');
-            $user = $_SESSION['user']->getTable()->get($matches1[0][1], "username");
-            array_push($format_replace, '<div class="quotation well well-sm"><a class="quotation-user" href="' . Url::convertUrl("index.php?m=profile&action=" . $user->username) . '">' . $user->name . ':</a>$2');
+            $user = $_SESSION['user']->getTable()->get($matches1[0][1], 'username');
+            array_push($format_replace, '<div class="quotation well well-sm"><a class="quotation-user" href="'.Url::convertUrl('index.php?m=profile&action='.$user->username).'">'.$user->name.':</a>$2');
             array_push($format_replace, '</div>');
         }
 
@@ -185,14 +183,14 @@ class Process
      */
     private function forum()
     {
-        $boards = new Forums;
+        $boards = new Forums();
         $data = $boards->loadForumData($_GET['x']);
         if ($data === false) {
-            new PageNotFound;
+            new PageNotFound();
         }
         $view = new Forum();
-        $view->setMetaData(["title" => $data['title']]);
-        $view->assign("forum", $data);
+        $view->setMetaData(['title' => $data['title']]);
+        $view->assign('forum', $data);
         $view->show();
     }
 
@@ -210,28 +208,28 @@ class Process
     private function showData($type)
     {
         $data = false;
-        $cat = new Categories;
+        $cat = new Categories();
         $view = new View();
-        switch($type) {
+        switch ($type) {
             case 'board':
                 $boards = new Boards();
                 $data = $boards->loadBoardData($_GET['x']);
                 $view = new Board();
-                $view->assign("board", $data);
+                $view->assign('board', $data);
                 break;
             case 'thread':
                 $threads = new Threads();
                 $data = $threads->loadThreadData($_GET['x']);
                 $view = new Thread();
-                $view->assign("thread", $data);
+                $view->assign('thread', $data);
                 break;
         }
         if ($data === false) {
-            new PageNotFound;
+            new PageNotFound();
         }
 
-        $view->setMetaData(["title" => $data['title']]);
-        $view->assign("categories", $cat->getCategories());
+        $view->setMetaData(['title' => $data['title']]);
+        $view->assign('categories', $cat->getCategories());
 
         $view->show();
     }
@@ -250,16 +248,16 @@ class Process
     private function category()
     {
         if (!isset($_GET['x']) || empty($_GET['x'])) {
-            new PageNotFound;
+            new PageNotFound();
         }
-        $cat = new Categories;
+        $cat = new Categories();
         $data = $cat->getCategoryData($_GET['x']);
         if ($data === false) {
-            new PageNotFound;
+            new PageNotFound();
         }
         $view = new Category();
-        $view->setMetaData(["title" => $view->translate("Category") . ": " . $data['name']]);
-        $view->assign("category", $data);
+        $view->setMetaData(['title' => $view->translate('Category').': '.$data['name']]);
+        $view->assign('category', $data);
         $view->show();
     }
 
@@ -269,7 +267,7 @@ class Process
     private function loadThreads()
     {
         $res = false;
-        $threads = new Threads;
+        $threads = new Threads();
         if (isset($_POST['id'])) {
             $res = $threads->loadThreads($_POST['id']);
         } elseif (isset($_POST['cat'])) {
@@ -280,7 +278,7 @@ class Process
             foreach ($res as $i => $r) {
                 $res[$i]['content'] = strip_tags(htmlspecialchars_decode($r['content']));
             }
-            $view->addData(["result" => $res]);
+            $view->addData(['result' => $res]);
         }
         $view->sendResponse();
     }
@@ -290,11 +288,11 @@ class Process
      */
     private function createForum()
     {
-        $forums = new Forums;
-        $res = $forums->add(["title" => $_POST['title'], "description" => $_POST['description'], "board_permissions" => (isset($_POST['board_permissions'])) ? $_POST['board_permissions'] : 0]);
+        $forums = new Forums();
+        $res = $forums->add(['title' => $_POST['title'], 'description' => $_POST['description'], 'board_permissions' => (isset($_POST['board_permissions'])) ? $_POST['board_permissions'] : 0]);
         $view = new View($res !== false);
         if ($res !== false) {
-            $view->addData(["forum" => $res]);
+            $view->addData(['forum' => $res]);
         }
         $view->sendResponse();
     }
@@ -304,11 +302,11 @@ class Process
      */
     private function createBoard()
     {
-        $forums = new Boards;
-        $res = $forums->add(["title" => $_POST['title'], "description" => $_POST['description'], "forum_id" => $_POST['forum_id']]);
+        $forums = new Boards();
+        $res = $forums->add(['title' => $_POST['title'], 'description' => $_POST['description'], 'forum_id' => $_POST['forum_id']]);
         $view = new View($res !== false);
         if ($res !== false) {
-            $view->addData(["board" => $res]);
+            $view->addData(['board' => $res]);
         }
         $view->sendResponse();
     }
@@ -318,8 +316,8 @@ class Process
      */
     private function startThread()
     {
-        $threads = new Threads;
-        $posts = new Posts;
+        $threads = new Threads();
+        $posts = new Posts();
         $category = $_POST['category'];
 
         if ($category === null) {
@@ -328,26 +326,26 @@ class Process
 
         if ((isset($_POST['important']) && UserHelper::isAdmin())) {
             $res = $threads->insert([
-                "title" => $_POST['title'],
-                "board_id" => $_POST['board_id'],
-                "userid" => $_SESSION['user']->userid,
-                "category" => $category,
-                "important" => $_POST['important']
+                'title' => $_POST['title'],
+                'board_id' => $_POST['board_id'],
+                'userid' => $_SESSION['user']->userid,
+                'category' => $category,
+                'important' => $_POST['important'],
             ]);
         } else {
             $res = $threads->insert([
-                "title" => $_POST['title'],
-                "board_id" => $_POST['board_id'],
-                "userid" => $_SESSION['user']->userid,
-                "category" => $category,
-                "important" => 0
+                'title' => $_POST['title'],
+                'board_id' => $_POST['board_id'],
+                'userid' => $_SESSION['user']->userid,
+                'category' => $category,
+                'important' => 0,
             ]);
         }
         $view = new View(false);
         if ($res !== false) {
-            $postRes = $posts->post(["content" => $_POST['content'], "thread_id" => $res, "userid" => $_SESSION['user']->userid]);
+            $postRes = $posts->post(['content' => $_POST['content'], 'thread_id' => $res, 'userid' => $_SESSION['user']->userid]);
             $view->setStatus($postRes !== false);
-            $view->addData(["id" => $res]);
+            $view->addData(['id' => $res]);
         }
         $view->sendResponse();
     }
@@ -357,13 +355,13 @@ class Process
      */
     private function postReply()
     {
-        $posts = new Posts;
+        $posts = new Posts();
         $res = $posts->post($_POST);
         $view = new View(false);
         if ($res !== false) {
             $view->setStatus(true);
             $res['content'] = $this->quote(htmlspecialchars_decode($res['content']));
-            $view->addData(["post" => $res]);
+            $view->addData(['post' => $res]);
         }
         $view->sendResponse();
     }
@@ -377,7 +375,7 @@ class Process
         $res = $cat->getCategories();
         $view = new View($res !== false);
         if ($res !== false) {
-            $view->addData(["result" => $res]);
+            $view->addData(['result' => $res]);
         }
         $view->sendResponse();
     }
@@ -387,8 +385,8 @@ class Process
      */
     private function editForum()
     {
-        $forums = new Forums;
-        $res = $forums->update(["title" => $_POST['title'], "description" => $_POST['description'], "board_permissions" => (isset($_POST['board_permissions'])) ? $_POST['board_permissions'] : 0], $forums->getAdapter()->quoteInto("id=?", $_POST['forum_id']));
+        $forums = new Forums();
+        $res = $forums->update(['title' => $_POST['title'], 'description' => $_POST['description'], 'board_permissions' => (isset($_POST['board_permissions'])) ? $_POST['board_permissions'] : 0], $forums->getAdapter()->quoteInto('id=?', $_POST['forum_id']));
         $view = new View($res !== false && $res > 0);
         $view->sendResponse();
     }
@@ -398,8 +396,8 @@ class Process
      */
     private function editBoard()
     {
-        $boards = new Boards;
-        $res = $boards->update(["title" => $_POST['title'], "description" => $_POST['description']], $boards->getAdapter()->quoteInto("id=?", $_POST['board_id']));
+        $boards = new Boards();
+        $res = $boards->update(['title' => $_POST['title'], 'description' => $_POST['description']], $boards->getAdapter()->quoteInto('id=?', $_POST['board_id']));
         $view = new View($res !== false && $res > 0);
         $view->sendResponse();
     }
@@ -409,7 +407,7 @@ class Process
      */
     private function deletePost()
     {
-        $posts = new Posts;
+        $posts = new Posts();
         $data = $posts->getPost($_POST['id']);
         $view = new View(false);
         if (UserHelper::isAdmin() || $data['userid'] == $_SESSION['user']->userid) {
@@ -423,19 +421,19 @@ class Process
      */
     private function editThread()
     {
-        $threads = new Threads;
+        $threads = new Threads();
         if ((isset($_POST['important']) && UserHelper::isAdmin())) {
             $res = $threads->update([
-                "title" => $_POST['title'],
-                "category" => $_POST['category'],
-                "important" => $_POST['important']
-            ], $threads->getAdapter()->quoteInto("id=?", $_POST['thread_id']));
+                'title' => $_POST['title'],
+                'category' => $_POST['category'],
+                'important' => $_POST['important'],
+            ], $threads->getAdapter()->quoteInto('id=?', $_POST['thread_id']));
         } else {
             $res = $threads->update([
-                "title" => $_POST['title'],
-                "category" => $_POST['category'],
-                "important" => 0
-            ], $threads->getAdapter()->quoteInto("id=?", $_POST['thread_id']));
+                'title' => $_POST['title'],
+                'category' => $_POST['category'],
+                'important' => 0,
+            ], $threads->getAdapter()->quoteInto('id=?', $_POST['thread_id']));
         }
         $view = new View($res !== false);
         $view->sendResponse();

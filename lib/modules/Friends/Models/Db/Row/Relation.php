@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -37,8 +37,7 @@
 namespace Cunity\Friends\Models\Db\Row;
 
 /**
- * Class Relation
- * @package Cunity\Friends\Models\Db\Row
+ * Class Relation.
  */
 class Relation extends \Zend_Db_Table_Row_Abstract
 {

@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -39,12 +39,10 @@ namespace Cunity\Admin\Models\Pages;
 use Cunity\Core\Models\Db\Table\Modules;
 
 /**
- * Class Dashboard
- * @package Cunity\Admin\Models\Pages
+ * Class Dashboard.
  */
 class Dashboard extends Statistics
 {
-
     /**
      *
      */
@@ -54,11 +52,11 @@ class Dashboard extends Statistics
 
         $modules = new Modules();
         $installedModules = $modules->getModules()->toArray();
-        $config = \Cunity\Core\Cunity::get("config");
+        $config = \Cunity\Core\Cunity::get('config');
         $this->assignments['smtp_check'] = $config->mail->smtp_check;
         $this->assignments['modules'] = $installedModules;
         $this->assignments['version'] = $config->site->version;
 
-        $this->render("dashboard");
+        $this->render('dashboard');
     }
 }

@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -43,12 +43,10 @@ use Cunity\Messages\Models\Db\Table\Messages;
 use Cunity\Newsfeed\Models\Db\Table\Posts;
 
 /**
- * Class Statistics
- * @package Cunity\Admin\Models
+ * Class Statistics.
  */
 class Statistics
 {
-
     /**
      * @var array
      */
@@ -68,6 +66,7 @@ class Statistics
 
     /**
      * @param $name
+     *
      * @return mixed
      */
     private function __get($name)

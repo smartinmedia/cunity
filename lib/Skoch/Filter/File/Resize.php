@@ -1,16 +1,17 @@
 <?php
 
 /**
- * Zend Framework addition by skoch
+ * Zend Framework addition by skoch.
  *
  * @category   Skoch
- * @package    Skoch_Filter
+ *
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
  * @author     Stefan Koch <cct@stefan-koch.name>
  */
 /**
  * @see Zend_Filter_Interface
  */
+
 namespace Skoch\Filter\File;
 
 use Skoch\Filter\File\Adapter\AbstractAdapter;
@@ -18,14 +19,12 @@ use Zend_Config;
 use Zend_Filter_Exception;
 
 /**
- * Resizes a given file and saves the created file
+ * Resizes a given file and saves the created file.
  *
  * @category   Skoch
- * @package    Skoch_Filter
  */
 class Resize extends AbstractFile implements \Zend_Filter_Interface
 {
-
     /**
      * @var null
      */
@@ -52,13 +51,15 @@ class Resize extends AbstractFile implements \Zend_Filter_Interface
     protected $adapter = 'Skoch\Filter\File\Adapter\Gd';
 
     /**
-     * Create a new resize filter with the given options
+     * Create a new resize filter with the given options.
      *
      * @param Zend_Config|array $options Some options. You may specify: width,
-     * height, keepRatio, keepSmaller (do not resize image if it is smaller than
-     * expected), directory (save thumbnail to another directory),
-     * adapter (the name or an instance of the desired adapter)
+     *                                   height, keepRatio, keepSmaller (do not resize image if it is smaller than
+     *                                   expected), directory (save thumbnail to another directory),
+     *                                   adapter (the name or an instance of the desired adapter)
+     *
      * @throws Zend_Filter_Exception
+     *
      * @return \Skoch\Filter\File\Resize An instance of this filter
      */
     public function __construct($options)
@@ -92,9 +93,7 @@ class Resize extends AbstractFile implements \Zend_Filter_Interface
     }
 
     /**
-     * Instantiate the adapter if it is not already an instance
-     *
-     * @return void
+     * Instantiate the adapter if it is not already an instance.
      */
     protected function prepareAdapter()
     {
@@ -106,17 +105,18 @@ class Resize extends AbstractFile implements \Zend_Filter_Interface
     }
 
     /**
-     * Defined by Zend_Filter_Interface
+     * Defined by Zend_Filter_Interface.
      *
      * Resizes the file $value according to the defined settings
      *
-     * @param  string $value Full path of file to change
+     * @param string $value Full path of file to change
+     *
      * @return string|bool Filename or false when there were errors
      */
     public function filter($value)
     {
         if ($this->directory) {
-            $target = $this->directory . '/' . basename($value);
+            $target = $this->directory.'/'.basename($value);
         } else {
             $target = $value;
         }
@@ -130,5 +130,4 @@ class Resize extends AbstractFile implements \Zend_Filter_Interface
             $this->_keepSmalle
         );
     }
-
 }

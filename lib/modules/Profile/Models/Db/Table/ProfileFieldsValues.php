@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -39,12 +39,10 @@ namespace Cunity\Profile\Models\Db\Table;
 use Cunity\Core\Models\Db\Abstractables\Table;
 
 /**
- * Class ProfileFieldsValues
- * @package Profile\Models\Db\Table
+ * Class ProfileFieldsValues.
  */
 class ProfileFieldsValues extends Table
 {
-
     /**
      * @var string
      */
@@ -61,8 +59,8 @@ class ProfileFieldsValues extends Table
     public function getAll()
     {
         $query = $this->getAdapter()->select()
-            ->from(["pf" => $this->getTableName()])
-            ->order("pf.sorting");
+            ->from(['pf' => $this->getTableName()])
+            ->order('pf.sorting');
 
         $result = $this->getAdapter()->fetchAll($query);
 

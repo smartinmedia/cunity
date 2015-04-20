@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -39,12 +39,10 @@ namespace Cunity\Newsfeed\Models;
 use Cunity\Core\View\Ajax\View;
 
 /**
- * Class Process
- * @package Newsfeed\Models
+ * Class Process.
  */
 class Process
 {
-
     /**
      * @param $action
      */
@@ -64,15 +62,15 @@ class Process
         $view = new View();
         if (empty($_POST['content'])) {
             $view->setStatus(false);
-            $view->addData(["msg" => $view->translate("Oups! Your post is empty!")]);
+            $view->addData(['msg' => $view->translate('Oups! Your post is empty!')]);
         } else {
             $table = new Db\Table\Posts();
-            $videoData = ["video" => json_decode(html_entity_decode($_POST['youtubedata']), true), "content" => $_POST['content']];
-            $content = ($_POST['type'] == "video") ? json_encode($videoData) : $_POST['content'];
-            $res = $table->post(["userid" => $_SESSION['user']->userid, "wall_owner_id" => $_POST['wall_owner_id'], "wall_owner_type" => $_POST['wall_owner_type'], "privacy" => $_POST['privacy'], "content" => $content, "type" => $_POST['type']]);
+            $videoData = ['video' => json_decode(html_entity_decode($_POST['youtubedata']), true), 'content' => $_POST['content']];
+            $content = ($_POST['type'] == 'video') ? json_encode($videoData) : $_POST['content'];
+            $res = $table->post(['userid' => $_SESSION['user']->userid, 'wall_owner_id' => $_POST['wall_owner_id'], 'wall_owner_type' => $_POST['wall_owner_type'], 'privacy' => $_POST['privacy'], 'content' => $content, 'type' => $_POST['type']]);
             $view->setStatus($res !== false);
-            if ($_POST['type'] == "video") {
-                $view->addData(array_merge($res, ["content" => $videoData]));
+            if ($_POST['type'] == 'video') {
+                $view->addData(array_merge($res, ['content' => $videoData]));
             } else {
                 $view->addData($res);
             }
@@ -112,13 +110,13 @@ class Process
             $newsfeed = new Db\Table\Walls();
             $res = $newsfeed->getNewsfeed($_POST['offset'], $_POST['refresh'], $_POST['filter']);
             $view = new View(true);
-            $view->addData(["posts" => $res]);
+            $view->addData(['posts' => $res]);
             $view->sendResponse();
         } elseif (isset($_POST['wall_owner_id']) && $_POST['wall_owner_id'] > 0 && isset($_POST['wall_owner_type']) && !empty($_POST['wall_owner_type'])) {
             $newsfeed = new Db\Table\Walls();
             $res = $newsfeed->getWall($_POST['wall_owner_id'], $_POST['wall_owner_type'], $_POST['offset'], $_POST['refresh'], $_POST['filter']);
             $view = new View(true);
-            $view->addData(["posts" => $res]);
+            $view->addData(['posts' => $res]);
             $view->sendResponse();
         }
     }

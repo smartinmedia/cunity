@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -40,12 +40,10 @@ use Cunity\Core\Exception;
 use Cunity\Core\Models\Db\Abstractables\Table;
 
 /**
- * Class Settings
- * @package Core\Models\Db\Table
+ * Class Settings.
  */
 class Settings extends Table
 {
-
     /**
      * @var string
      */
@@ -81,6 +79,7 @@ class Settings extends Table
 
     /**
      * @param $name
+     *
      * @return string
      */
     public function __get($name)
@@ -91,7 +90,9 @@ class Settings extends Table
     /**
      * @param $name
      * @param $value
+     *
      * @return bool
+     *
      * @throws Exception
      */
     public function __set($name, $value)
@@ -101,6 +102,7 @@ class Settings extends Table
 
     /**
      * @param $name
+     *
      * @return string
      */
     public function getSetting($name)
@@ -108,25 +110,29 @@ class Settings extends Table
         if (isset($this->settings[$name])) {
             return $this->settings[$name];
         }
-        $row = $this->fetchRow($this->select()->where("name=?", $name));
+        $row = $this->fetchRow($this->select()->where('name=?', $name));
         $this->settings[$name] = $row->value;
+
         return $row->value;
     }
 
     /**
      * @param $name
      * @param $value
+     *
      * @return bool
+     *
      * @throws Exception
      */
     public function setSetting($name, $value)
     {
-        $row = $this->fetchRow($this->select()->where("name=?", $name));
+        $row = $this->fetchRow($this->select()->where('name=?', $name));
 
         if ($row === null) {
-            throw new Exception("Try to set undefined setting: \"" . $name . "\"");
+            throw new Exception("Try to set undefined setting: \"".$name."\"");
         } else {
             $row->value = $value;
+
             return (false !== $row->save());
         }
     }

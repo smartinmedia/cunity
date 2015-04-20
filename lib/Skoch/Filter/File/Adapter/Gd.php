@@ -1,25 +1,24 @@
 <?php
 
 /**
- * Zend Framework addition by skoch
+ * Zend Framework addition by skoch.
  *
  * @category   Skoch
- * @package    Skoch_Filter
+ *
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
  * @author     Stefan Koch <cct@stefan-koch.name>
  */
+
 namespace Skoch\Filter\File\Adapter;
 
 /**
- * Resizes a given file with the gd adapter and saves the created file
+ * Resizes a given file with the gd adapter and saves the created file.
  *
  * @category   Skoch
- * @package    Skoch_Filter
  */
 class Gd extends
     AbstractAdapter
 {
-
     /**
      * @param $width
      * @param $height
@@ -27,6 +26,7 @@ class Gd extends
      * @param $file
      * @param $target
      * @param bool $keepSmaller
+     *
      * @return mixed
      */
     public function resize($width,
@@ -50,6 +50,7 @@ class Gd extends
      * @param $file
      * @param $target
      * @param $thumbwidth
+     *
      * @return mixed
      */
     public function thumbnail($file, $target, $thumbwidth)
@@ -104,11 +105,12 @@ class Gd extends
      * @param $file
      * @param $target
      * @param $thumbwidth
+     *
      * @return mixed
      */
     public function crop($x, $y, $x1, $y1, $file, $target, $thumbwidth)
     {
-        /** @noinspection PhpUnusedLocalVariableInspection */
+        /* @noinspection PhpUnusedLocalVariableInspection */
         list(, , $type) = getimagesize($file);
 
         $source = false;
@@ -199,6 +201,7 @@ class Gd extends
     /**
      * @param $file
      * @param $type
+     *
      * @return resource
      */
     private function getType($file, $type)
@@ -215,6 +218,7 @@ class Gd extends
                 $source = imagecreatefromgif($file);
                 break;
         }
+
         return $source;
     }
 
@@ -225,6 +229,7 @@ class Gd extends
      * @param $keepSmaller
      * @param $oldWidth
      * @param $oldHeight
+     *
      * @return array
      */
     private function calculateMetrics($width, $height, $keepRatio, $keepSmaller, $oldWidth, $oldHeight)
@@ -237,14 +242,16 @@ class Gd extends
                     $width,
                     $height
                 );
+
                 return array($width, $height);
             }
+
             return array($width, $height);
         } else {
             $width = $oldWidth;
             $height = $oldHeight;
+
             return array($width, $height);
         }
     }
-
 }

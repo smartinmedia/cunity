@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -51,8 +51,7 @@ use Zend_Log_Writer_Stream;
 use Zend_Translate;
 
 /**
- * Class View
- * @package Core\View
+ * Class View.
  */
 class View extends Smarty
 {
@@ -69,19 +68,19 @@ class View extends Smarty
     /**
      * @var string
      */
-    protected $_templateRoot = "modules/";
+    protected $_templateRoot = 'modules/';
     /**
      * @var mixed|string
      */
-    protected $_coreRoot = "../style/%design%/";
+    protected $_coreRoot = '../style/%design%/';
     /**
      * @var string
      */
-    protected $_templateCache = "../data/temp/templates-cache/";
+    protected $_templateCache = '../data/temp/templates-cache/';
     /**
      * @var string
      */
-    protected $_templateCompiled = "../data/temp/templates-compiled/";
+    protected $_templateCompiled = '../data/temp/templates-compiled/';
     /**
      * @var bool
      */
@@ -89,19 +88,19 @@ class View extends Smarty
     /**
      * @var string
      */
-    protected $_wrapper = "Core/styles/out_wrap.tpl";
+    protected $_wrapper = 'Core/styles/out_wrap.tpl';
     /**
      * @var string
      */
-    protected $_templateDir = "";
+    protected $_templateDir = '';
     /**
      * @var string
      */
-    protected $_templateFile = "";
+    protected $_templateFile = '';
     /**
      * @var string
      */
-    protected $_languageFolder = "Core/languages/";
+    protected $_languageFolder = 'Core/languages/';
     /**
      * @var array
      */
@@ -114,8 +113,8 @@ class View extends Smarty
      * @var array
      */
     protected $_metadata = [
-        "title" => "A page",
-        "description" => "Cunity - Your private social network"
+        'title' => 'A page',
+        'description' => 'Cunity - Your private social network',
     ];
 
     /**
@@ -125,44 +124,47 @@ class View extends Smarty
     public function __construct()
     {
         parent::__construct();
-        if (!file_exists("../style/" . $this->getSetting("core.design"))) {
+        if (!file_exists('../style/'.$this->getSetting('core.design'))) {
             throw new \Exception(
                 "Cannot find Theme-Folder \""
-                . $this->getSetting("core.design")
-                . "\""
+                .$this->getSetting('core.design')
+                ."\""
             );
         }
         $this->_coreRoot = str_replace(
-            "%design%",
-            $this->getSetting("core.design"),
+            '%design%',
+            $this->getSetting('core.design'),
             $this->_coreRoot
         );
         $this->setTemplateDir([$this->_coreRoot, $this->_templateRoot]);
         $this->setCompileDir($this->_templateCompiled);
         $this->setCacheDir($this->_templateCache);
-        $this->left_delimiter = "{-";
-        $this->debugging = Cunity::get("config")->site->tpl_debug;
-        $this->registerPlugin("modifier", "translate", [$this, "translate"]);
-        $this->registerPlugin("modifier", "setting", [$this, "getSetting"]);
-        $this->registerPlugin("modifier", "config", [$this, "getConfig"]);
-        $this->registerPlugin("modifier", "image", [$this, "convertImage"]);
-        $this->registerPlugin("modifier", "URL", [$this, 'convertUrl']);
+        $this->left_delimiter = '{-';
+        $this->debugging = Cunity::get('config')->site->tpl_debug;
+        $this->registerPlugin('modifier', 'translate', [$this, 'translate']);
+        $this->registerPlugin('modifier', 'setting', [$this, 'getSetting']);
+        $this->registerPlugin('modifier', 'config', [$this, 'getConfig']);
+        $this->registerPlugin('modifier', 'image', [$this, 'convertImage']);
+        $this->registerPlugin('modifier', 'URL', [$this, 'convertUrl']);
         $this->_templateDir = ucfirst($this->_templateDir);
         $this->initTranslator();
     }
 
     /**
      * @param $settingname
+     *
      * @return mixed
+     *
      * @throws \Exception
      */
     public function getSetting($settingname)
     {
-        return Cunity::get("settings")->getSetting($settingname);
+        return Cunity::get('settings')->getSetting($settingname);
     }
 
     /**
      * @param $urlString
+     *
      * @return string
      */
     public static function convertUrl($urlString)
@@ -172,11 +174,12 @@ class View extends Smarty
 
     /**
      * @param $string
+     *
      * @return string
      */
     public static function translate($string)
     {
-        /** @noinspection PhpUndefinedMethodInspection */
+        /* @noinspection PhpUndefinedMethodInspection */
         return self::$zt->_($string);
     }
 
@@ -192,23 +195,25 @@ class View extends Smarty
      * @param $filename
      * @param $type
      * @param string $prefix
+     *
      * @return string
      */
-    public function convertImage($filename, $type, $prefix = "")
+    public function convertImage($filename, $type, $prefix = '')
     {
         if ($filename === null || empty($filename)) {
-            return $this->getSetting("core.siteurl")
-            . "style/"
-            . $this->getSetting("core.design")
-            . "/img/placeholders/noimg-"
-            . $type . ".png";
+            return $this->getSetting('core.siteurl')
+            .'style/'
+            .$this->getSetting('core.design')
+            .'/img/placeholders/noimg-'
+            .$type.'.png';
         }
-        return $this->getSetting("core.siteurl")
-        . "data/uploads/"
-        . $this->getSetting("core.filesdir")
-        . "/"
-        . $prefix
-        . $filename;
+
+        return $this->getSetting('core.siteurl')
+        .'data/uploads/'
+        .$this->getSetting('core.filesdir')
+        .'/'
+        .$prefix
+        .$filename;
     }
 
     /**
@@ -225,21 +230,21 @@ class View extends Smarty
      */
     public function show()
     {
-        if (Login::loggedIn() && $_GET['m'] !== "admin") {
-            $this->registerScript("search", "livesearch");
-            $this->registerScript("messages", "message-modal");
-            $this->registerScript("notifications", "notifications");
-            $this->registerScript("messages", "chat");
-            $this->registerCss("messages", "chat");
-            $this->registerCss("search", "livesearch");
-            $this->registerCss("messages", "message-modal");
-            $this->registerCss("notifications", "notifications");
-            $this->registerScript("friends", "friends");
+        if (Login::loggedIn() && $_GET['m'] !== 'admin') {
+            $this->registerScript('search', 'livesearch');
+            $this->registerScript('messages', 'message-modal');
+            $this->registerScript('notifications', 'notifications');
+            $this->registerScript('messages', 'chat');
+            $this->registerCss('messages', 'chat');
+            $this->registerCss('search', 'livesearch');
+            $this->registerCss('messages', 'message-modal');
+            $this->registerCss('notifications', 'notifications');
+            $this->registerScript('friends', 'friends');
         }
         $announcements = new Announcements();
-        $this->assign("announcements", $announcements->getAnnouncements());
+        $this->assign('announcements', $announcements->getAnnouncements());
         if ((Login::loggedIn())) {
-            /** @noinspection PhpUndefinedMethodInspection */
+            /* @noinspection PhpUndefinedMethodInspection */
             $this->assign(
                 'user',
                 $_SESSION['user']->getTable()->get($_SESSION['user']->userid)
@@ -251,24 +256,24 @@ class View extends Smarty
         $this->assign('hasUpdate', UpdateHelper::hasUpdates());
         $this->assign('menu', new Menu());
         $this->registerCunityPlugin(
-            "jscrollpane",
-            ["css/jquery.jscrollpane.css", "js/jquery.jscrollpane.min.js"]
+            'jscrollpane',
+            ['css/jquery.jscrollpane.css', 'js/jquery.jscrollpane.min.js']
         );
         $this->registerCunityPlugin(
-            "bootstrap-validator",
+            'bootstrap-validator',
             [
-                "css/bootstrapValidator.min.css",
-                "js/bootstrapValidator.min.js"
+                'css/bootstrapValidator.min.css',
+                'js/bootstrapValidator.min.js',
             ]
         );
-        $this->_metadata["module"] = $_GET['m'];
-        $this->assign("meta", $this->_metadata);
+        $this->_metadata['module'] = $_GET['m'];
+        $this->assign('meta', $this->_metadata);
         $this->assign('script_head', implode("\n", $this->_headScripts));
-        $this->assign('css_head', base64_encode(implode(",", $this->_headCss)));
+        $this->assign('css_head', base64_encode(implode(',', $this->_headCss)));
         $modRewrite = false;
 
-        if (function_exists("apache_get_modules")) {
-            $modRewrite = (boolean)in_array('mod_rewrite', apache_get_modules());
+        if (function_exists('apache_get_modules')) {
+            $modRewrite = (boolean) in_array('mod_rewrite', apache_get_modules());
         }
 
         $this->assign('modrewrite', $modRewrite);
@@ -276,16 +281,16 @@ class View extends Smarty
         if ($this->_useWrapper) {
             $this->assign(
                 'tpl_name',
-                $this->_templateDir . '/styles/' . $this->_templateFile
+                $this->_templateDir.'/styles/'.$this->_templateFile
             );
             $this->display($this->_wrapper);
         } else {
             $this->display(
                 $this->_templateDir
-                . DIRECTORY_SEPARATOR
-                . 'styles'
-                . DIRECTORY_SEPARATOR
-                . $this->_templateFile
+                .DIRECTORY_SEPARATOR
+                .'styles'
+                .DIRECTORY_SEPARATOR
+                .$this->_templateFile
             );
         }
     }
@@ -293,46 +298,47 @@ class View extends Smarty
     /**
      * @param $module
      * @param $scriptName
+     *
      * @throws Exception
      */
     public function registerScript($module, $scriptName)
     {
         if ((!empty($module))) {
-            $module = ucfirst($module) . "/styles/javascript/";
+            $module = ucfirst($module).'/styles/javascript/';
         } else {
-            $module = "../plugins/javascript/";
+            $module = '../plugins/javascript/';
         }
 
         if (file_exists(
-            $this->_templateRoot . $module . $scriptName . ".min.js"
+            $this->_templateRoot.$module.$scriptName.'.min.js'
         )) {
             $this->_headScripts[] = '<script src="'
-                . $this->getSetting("core.siteurl")
-                . "lib/"
-                . $this->_templateRoot
-                . $module
-                . $scriptName
-                . ".min.js"
-                . '"></script>';
+                .$this->getSetting('core.siteurl')
+                .'lib/'
+                .$this->_templateRoot
+                .$module
+                .$scriptName
+                .'.min.js'
+                .'"></script>';
         } elseif (file_exists(
-            $this->_templateRoot . $module . $scriptName . ".js"
+            $this->_templateRoot.$module.$scriptName.'.js'
         )) {
             $this->_headScripts[] = '<script src="'
-                . $this->getSetting("core.siteurl")
-                . "lib/"
-                . $this->_templateRoot
-                . $module
-                . $scriptName
-                . ".js"
-                . '"></script>';
+                .$this->getSetting('core.siteurl')
+                .'lib/'
+                .$this->_templateRoot
+                .$module
+                .$scriptName
+                .'.js'
+                .'"></script>';
         } else {
             throw new Exception(
                 "Cannot load javascript-file: '"
-                . $this->_templateRoot
-                . $module
-                . $scriptName
-                . ".js"
-                . "'"
+                .$this->_templateRoot
+                .$module
+                .$scriptName
+                .'.js'
+                ."'"
             );
         }
     }
@@ -340,26 +346,27 @@ class View extends Smarty
     /**
      * @param $module
      * @param $fileName
+     *
      * @throws Exception
      */
     protected function registerCss($module, $fileName)
     {
         if ((!empty($module))) {
-            $module = ucfirst($module) . "/styles/css/";
+            $module = ucfirst($module).'/styles/css/';
         } else {
-            $module = "../plugins/css/";
+            $module = '../plugins/css/';
         }
 
-        if (file_exists($this->_templateRoot . $module . $fileName . ".css")) {
-            $this->_headCss[] = $module . $fileName . ".css";
+        if (file_exists($this->_templateRoot.$module.$fileName.'.css')) {
+            $this->_headCss[] = $module.$fileName.'.css';
         } else {
             throw new Exception(
                 "Cannot load CSS-file: '"
-                . $this->_templateRoot
-                . $module
-                . $fileName
-                . ".css"
-                . "'"
+                .$this->_templateRoot
+                .$module
+                .$fileName
+                .'.css'
+                ."'"
             );
         }
     }
@@ -370,22 +377,22 @@ class View extends Smarty
      */
     protected function registerCunityPlugin($pluginName, array $files)
     {
-        if (file_exists("plugins/" . $pluginName)) {
+        if (file_exists('plugins/'.$pluginName)) {
             if (!empty($files)) {
                 foreach ($files as $file) {
                     $finfo = pathinfo($file);
-                    if ($finfo['extension'] == "js") {
+                    if ($finfo['extension'] == 'js') {
                         $this->_headScripts[] = '<script src="'
-                            . $this->getSetting("core.siteurl")
-                            . "lib/plugins/" . $pluginName
-                            . "/"
-                            . $file
-                            . '"></script>';
-                    } elseif ($finfo['extension'] == "css") {
-                        $this->_headCss[] = "../plugins/"
-                            . $pluginName
-                            . "/"
-                            . $file;
+                            .$this->getSetting('core.siteurl')
+                            .'lib/plugins/'.$pluginName
+                            .'/'
+                            .$file
+                            .'"></script>';
+                    } elseif ($finfo['extension'] == 'css') {
+                        $this->_headCss[] = '../plugins/'
+                            .$pluginName
+                            .'/'
+                            .$file;
                     }
                 }
             }
@@ -404,22 +411,22 @@ class View extends Smarty
             self::$zt = new Zend_Translate(
                 [
                     'adapter' => 'csv',
-                    'content' => __DIR__ . '/../languages/' . $locale->getLanguage() . '.csv',
+                    'content' => __DIR__.'/../languages/'.$locale->getLanguage().'.csv',
                     'scan' => Zend_Translate::LOCALE_FILENAME,
-                    'locale' => $locale->getLanguage()
+                    'locale' => $locale->getLanguage(),
                 ]
             );
 
-            /** @noinspection PhpUndefinedMethodInspection */
+            /* @noinspection PhpUndefinedMethodInspection */
             self::$zt->addTranslation(
                 array(
-                    'content' => __DIR__ . '/../languages/' . $locale->getLanguage() . '.csv',
-                    'locale' => $locale->getLanguage()
+                    'content' => __DIR__.'/../languages/'.$locale->getLanguage().'.csv',
+                    'locale' => $locale->getLanguage(),
                 )
             );
 
-            /** @noinspection PhpUndefinedMethodInspection */
-            $missingTranslationLog = __DIR__ . '/../../../../resources/log/missing-translations.log';
+            /* @noinspection PhpUndefinedMethodInspection */
+            $missingTranslationLog = __DIR__.'/../../../../resources/log/missing-translations.log';
 
             if (is_writeable($missingTranslationLog)) {
                 self::$zt->setOptions(
@@ -427,17 +434,17 @@ class View extends Smarty
                         'log' => new Zend_Log(
                             new Zend_Log_Writer_Stream($missingTranslationLog)
                         ),
-                        'logUntranslated' => true
+                        'logUntranslated' => true,
                     ]
                 );
             }
 
-            /** @noinspection PhpUndefinedMethodInspection */
+            /* @noinspection PhpUndefinedMethodInspection */
             if (!self::$zt->isAvailable($locale->getLanguage())) {
-                /** @noinspection PhpUndefinedMethodInspection */
+                /* @noinspection PhpUndefinedMethodInspection */
                 self::$zt->setLocale(self::$defaultLanguage);
             }
-            /** @noinspection PhpUndefinedMethodInspection */
+            /* @noinspection PhpUndefinedMethodInspection */
             self::$zt->getLocale();
         }
     }

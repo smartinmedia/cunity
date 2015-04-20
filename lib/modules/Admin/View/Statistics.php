@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -39,20 +39,18 @@ namespace Cunity\Admin\View;
 use Cunity\Admin\View\Abstractables\View;
 
 /**
- * Class Statistics
- * @package Cunity\Admin\View
+ * Class Statistics.
  */
 class Statistics extends View
 {
-
     /**
      *
      */
     public function __construct()
     {
         parent::__construct();
-        $this->_templateFile = "statistics/" . $_GET['x'] . ".tpl";
-        $this->registerCss("statistics", $_GET['x']);
+        $this->_templateFile = 'statistics/'.$_GET['x'].'.tpl';
+        $this->registerCss('statistics', $_GET['x']);
         $this->show();
     }
 }

@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -39,8 +39,7 @@ namespace Cunity\Notifications\Models\Db\Table;
 use Cunity\Core\Models\Db\Abstractables\Table;
 
 /**
- * Class NotificationSettings
- * @package Cunity\Notifications\Models\Db\Table
+ * Class NotificationSettings.
  */
 class NotificationSettings extends Table
 {
@@ -60,19 +59,22 @@ class NotificationSettings extends Table
     /**
      * @param $name
      * @param $userid
+     *
      * @return int|string
      */
     public function getSetting($name, $userid)
     {
-        $res = $this->fetchRow($this->select()->from($this, "value")->where("userid=?", $userid)->where("name=?", $name));
+        $res = $this->fetchRow($this->select()->from($this, 'value')->where('userid=?', $userid)->where('name=?', $name));
         if ($res === null || $res === false) {
             return 3;
         }
+
         return $res->value;
     }
 
     /**
      * @param $userid
+     *
      * @return int|string
      */
     public function getSettings($userid = null)
@@ -82,7 +84,7 @@ class NotificationSettings extends Table
         }
 
         /** @var $res \Zend_Db_Table_Row */
-        $res = $this->fetchAll($this->select()->from($this, ['name', 'value'])->where("userid=?", $userid));
+        $res = $this->fetchAll($this->select()->from($this, ['name', 'value'])->where('userid=?', $userid));
 
         $returnValue = [];
 
@@ -95,15 +97,17 @@ class NotificationSettings extends Table
 
     /**
      * @param array $values
+     *
      * @return bool
      */
     public function updateSettings(array $values)
     {
         $res = [];
-        $res[] = (0 < $this->delete($this->getAdapter()->quoteInto("userid=?", $_SESSION['user']->userid)));
+        $res[] = (0 < $this->delete($this->getAdapter()->quoteInto('userid=?', $_SESSION['user']->userid)));
         foreach ($values as $name => $value) {
-            $res[] = $this->insert(["userid" => $_SESSION['user']->userid, "name" => $name, "value" => $value]);
+            $res[] = $this->insert(['userid' => $_SESSION['user']->userid, 'name' => $name, 'value' => $value]);
         }
+
         return !in_array(false, $res);
     }
 }

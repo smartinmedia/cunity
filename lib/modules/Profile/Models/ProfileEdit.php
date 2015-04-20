@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -51,8 +51,7 @@ use Cunity\Profile\View\ProfileCrop;
 use Skoch\Filter\File\Crop;
 
 /**
- * Class ProfileEdit
- * @package Profile\Models
+ * Class ProfileEdit.
  */
 class ProfileEdit
 {
@@ -77,7 +76,7 @@ class ProfileEdit
      */
     private function handleRequest()
     {
-        if ($_GET['action'] == "cropImage") {
+        if ($_GET['action'] == 'cropImage') {
             $this->cropImage();
         } elseif (isset($_POST['edit']) && !empty($_POST['edit'])) {
             if (method_exists($this, $_POST['edit'])) {
@@ -96,15 +95,15 @@ class ProfileEdit
         if (!isset($_GET['x']) || empty($_GET['x'])) {
             new PageNotFound();
         }
-        /** @noinspection PhpUnnecessaryFullyQualifiedNameInspection */
+        /* @noinspection PhpUnnecessaryFullyQualifiedNameInspection */
         $images = new \Cunity\Gallery\Models\Db\Table\GalleryImages();
         $result = $images->getImageData($_GET['x']);
         $view = new ProfileCrop();
-        /** @noinspection PhpUndefinedMethodInspection */
+        /* @noinspection PhpUndefinedMethodInspection */
         $user = $_SESSION['user']->getTable()->get($_SESSION['user']->userid); // Get a new user Object with all image-data
-        /** @var User $user */
-        $profileData = $user->toArray(["userid", "username", "name", "timg", "pimg", "talbumid", "palbumid"]);
-        $view->assign(["profile" => $profileData, "result" => $result[0], "type" => $_GET['y'], "image" => getimagesize("../data/uploads/" . Cunity::get("settings")->getSetting("core.filesdir") . "/" . $result[0]['filename'])]);
+        /* @var User $user */
+        $profileData = $user->toArray(['userid', 'username', 'name', 'timg', 'pimg', 'talbumid', 'palbumid']);
+        $view->assign(['profile' => $profileData, 'result' => $result[0], 'type' => $_GET['y'], 'image' => getimagesize('../data/uploads/'.Cunity::get('settings')->getSetting('core.filesdir').'/'.$result[0]['filename'])]);
         $view->show();
     }
 
@@ -113,12 +112,12 @@ class ProfileEdit
      */
     public function deleteImage()
     {
-        if ($_POST['type'] == "profile") {
+        if ($_POST['type'] == 'profile') {
             $_SESSION['user']->profileImage = 0;
         } else {
             $_SESSION['user']->titleImage = 0;
         }
-        /** @noinspection PhpUndefinedMethodInspection */
+        /* @noinspection PhpUndefinedMethodInspection */
         if ($_SESSION['user']->save()) {
             $view = new View(true);
             $view->sendResponse();
@@ -148,9 +147,9 @@ class ProfileEdit
     {
         if (isset($_POST['id'])) {
             $pins = new Db\Table\ProfilePins();
-            $result = $pins->delete($pins->getAdapter()->quoteInto("id=?", $_POST['id']));
+            $result = $pins->delete($pins->getAdapter()->quoteInto('id=?', $_POST['id']));
             $view = new View(($result > 0));
-            $view->addData(["id" => $_POST['id']]);
+            $view->addData(['id' => $_POST['id']]);
             $view->sendResponse();
         }
     }
@@ -164,13 +163,13 @@ class ProfileEdit
         if (isset($_POST['title']) && isset($_POST['type']) && isset($_POST['content'])) {
             $pins = new Db\Table\ProfilePins();
             if (isset($_POST['editPin'])) {
-                $pins->update(["title" => $_POST['title'], "content" => $_POST['content'], "type" => $_POST['type'], "iconclass" => $_POST['iconClass']], $pins->getAdapter()->quoteInto("id=?", $_POST['editPin']));
+                $pins->update(['title' => $_POST['title'], 'content' => $_POST['content'], 'type' => $_POST['type'], 'iconclass' => $_POST['iconClass']], $pins->getAdapter()->quoteInto('id=?', $_POST['editPin']));
                 $res = $_POST['editPin'];
             } else {
-                $res = $pins->insert(["userid" => $this->user->userid, "title" => $_POST['title'], "content" => $_POST['content'], "type" => $_POST['type'], "iconclass" => $_POST['iconClass']]);
+                $res = $pins->insert(['userid' => $this->user->userid, 'title' => $_POST['title'], 'content' => $_POST['content'], 'type' => $_POST['type'], 'iconclass' => $_POST['iconClass']]);
             }
             $view = new View(true);
-            $view->addData(["title" => $_POST['title'], "type" => $_POST['type'], "content" => htmlspecialchars_decode($_POST['content']), "iconclass" => $_POST['iconClass'], "id" => $res, "updated" => isset($_POST['editPin'])]);
+            $view->addData(['title' => $_POST['title'], 'type' => $_POST['type'], 'content' => htmlspecialchars_decode($_POST['content']), 'iconclass' => $_POST['iconClass'], 'id' => $res, 'updated' => isset($_POST['editPin'])]);
             $view->sendResponse();
         }
     }
@@ -189,9 +188,9 @@ class ProfileEdit
             $view = new View($res);
 
             if ($res) {
-                $message = $view->translate("Notification settings changed successfully!");
+                $message = $view->translate('Notification settings changed successfully!');
             } else {
-                $message = $view->translate("Sorry, something went wrong, try again");
+                $message = $view->translate('Sorry, something went wrong, try again');
             }
 
             $view->addData(['msg' => $message]);
@@ -226,16 +225,16 @@ class ProfileEdit
         $res = $this->user->save();
 
         if (!$res) {
-            $this->message[] = $view->translate("Something went wrong! Please try again later!");
+            $this->message[] = $view->translate('Something went wrong! Please try again later!');
         }
 
         $view->setStatus(empty($this->message));
 
         if (empty($this->message)) {
-            $this->message[] = $view->translate("Your changes were saved successfully!");
+            $this->message[] = $view->translate('Your changes were saved successfully!');
         }
 
-        $view->addData(["msg" => implode(',', $this->message)]);
+        $view->addData(['msg' => implode(',', $this->message)]);
         $view->sendResponse();
     }
 
@@ -246,20 +245,20 @@ class ProfileEdit
     {
         $status = false;
         $view = new View();
-        if (sha1($_POST['old-password'] . $this->user->salt) === $this->user->password) {
+        if (sha1($_POST['old-password'].$this->user->salt) === $this->user->password) {
             if ($_POST['new-password'] === $_POST['new-password-rep']) {
-                $this->user->password = sha1($_POST['new-password'] . $this->user->salt);
+                $this->user->password = sha1($_POST['new-password'].$this->user->salt);
                 $this->user->save();
                 $status = true;
-                $message = $view->translate("Password changed successfully!");
+                $message = $view->translate('Password changed successfully!');
             } else {
-                $message = $view->translate("The new passwords do not match!");
+                $message = $view->translate('The new passwords do not match!');
             }
         } else {
-            $message = $view->translate("The current password is wrong");
+            $message = $view->translate('The current password is wrong');
         }
         $view->setStatus($status);
-        $view->addData(["msg" => $message]);
+        $view->addData(['msg' => $message]);
         $view->sendResponse();
     }
 
@@ -276,9 +275,9 @@ class ProfileEdit
             $view->setStatus($res);
 
             if ($res) {
-                $message = $view->translate("Privacy settings changed successfully!");
+                $message = $view->translate('Privacy settings changed successfully!');
             } else {
-                $message = $view->translate("Sorry, something went wrong, try again");
+                $message = $view->translate('Sorry, something went wrong, try again');
             }
 
             $view->addData(['msg' => $message]);
@@ -299,7 +298,7 @@ class ProfileEdit
             $view->addData($result);
             $view->sendResponse();
         } else {
-            new Message("Sorry!", "Something went wrong on our server!");
+            new Message('Sorry!', 'Something went wrong on our server!');
         }
     }
 
@@ -310,40 +309,40 @@ class ProfileEdit
     private function crop()
     {
         $file = new Crop([
-            "x" => $_POST['crop-x'],
-            "y" => $_POST['crop-y'],
-            "x1" => $_POST['crop-x1'],
-            "y1" => $_POST['crop-y1'],
-            "thumbwidth" => ($_POST['type'] == "title") ? 970 : 150,
-            "directory" => "../data/uploads/" . Cunity::get("settings")->getSetting("core.filesdir"),
-            "prefix" => "cr_"
+            'x' => $_POST['crop-x'],
+            'y' => $_POST['crop-y'],
+            'x1' => $_POST['crop-x1'],
+            'y1' => $_POST['crop-y1'],
+            'thumbwidth' => ($_POST['type'] == 'title') ? 970 : 150,
+            'directory' => '../data/uploads/'.Cunity::get('settings')->getSetting('core.filesdir'),
+            'prefix' => 'cr_',
         ]);
         $file->filter($_POST['crop-image']);
-        if ($_POST['type'] == "title") {
+        if ($_POST['type'] == 'title') {
             $_SESSION['user']->titleImage = $_POST['imageid'];
         } else {
             $_SESSION['user']->profileImage = $_POST['imageid'];
         }
-        /** @noinspection PhpUndefinedMethodInspection */
+        /* @noinspection PhpUndefinedMethodInspection */
         if ($_SESSION['user']->save()) {
-            header("Location: " . Url::convertUrl("index.php?m=profile"));
+            header('Location: '.Url::convertUrl('index.php?m=profile'));
         }
     }
 
     private function updateProfileFields()
     {
         $view = new \Cunity\Profile\View\ProfileEdit();
-        /** @noinspection PhpUndefinedMethodInspection */
+        /* @noinspection PhpUndefinedMethodInspection */
         $user = $this->user->getTable()->get($_SESSION['user']->userid);
-        /** @var User $user */
-        $profile = $user->toArray(["userid", "username", "email", "firstname", "lastname", "registered", "pimg", "timg", "palbumid", "talbumid"]);
+        /* @var User $user */
+        $profile = $user->toArray(['userid', 'username', 'email', 'firstname', 'lastname', 'registered', 'pimg', 'timg', 'palbumid', 'talbumid']);
         $table = new Db\Table\Privacy();
         $privacy = $table->getPrivacy();
         $table = new NotificationSettings();
         $notificationSettings = $table->getSettings();
         $profileFields = new ProfileFields();
         $view->assign('profileFields', $profileFields->getAll());
-        $view->assign("profile", array_merge($profile, ["privacy" => $privacy, 'notificationSettings' => $notificationSettings]));
+        $view->assign('profile', array_merge($profile, ['privacy' => $privacy, 'notificationSettings' => $notificationSettings]));
         $view->render();
     }
 
@@ -355,7 +354,7 @@ class ProfileEdit
         if ($validateUsername->isValid($_POST['username'])) {
             $this->user->username = $_POST['username'];
         } else {
-            $this->message[] = implode(",", $validateUsername->getMessages());
+            $this->message[] = implode(',', $validateUsername->getMessages());
         }
     }
 
@@ -367,12 +366,13 @@ class ProfileEdit
         if ($validateMail->isValid($_POST['email'])) {
             $this->user->email = $_POST['email'];
         } else {
-            $this->message[] = implode(",", $validateMail->getMessages());
+            $this->message[] = implode(',', $validateMail->getMessages());
         }
     }
 
     /**
      * @param $result
+     *
      * @return mixed
      */
     private function generateResult($result)
@@ -388,6 +388,7 @@ class ProfileEdit
                 $result[$key] = 0;
             }
         }
+
         return $result;
     }
 }

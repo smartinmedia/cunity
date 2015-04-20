@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -46,12 +46,10 @@ use Zend_Validate_Alpha;
 use Zend_Validate_StringLength;
 
 /**
- * Class Register
- * @package Cunity\Register\Models
+ * Class Register.
  */
 class Register
 {
-
     /**
      * @var Users
      */
@@ -98,27 +96,28 @@ class Register
         $validateUsername = new Zend_Validate();
         $validatePassword = new Password();
 
-        $validateUsername->addValidator(new Zend_Validate_StringLength(["max" => 20, "min" => 2]), true)->addValidator(new \Zend_Validate_Alnum());
+        $validateUsername->addValidator(new Zend_Validate_StringLength(['max' => 20, 'min' => 2]), true)->addValidator(new \Zend_Validate_Alnum());
 
         if (!$validateUsername->isValid($_POST['username'])) {
-            $this->errors["username"] = "Your username is invalid!";
+            $this->errors['username'] = 'Your username is invalid!';
         }
         if (!$validateMail->isValid($_POST['email'])) {
-            $this->errors["email"] = implode(',', $validateMail->getMessages());
+            $this->errors['email'] = implode(',', $validateMail->getMessages());
         }
         if (!$validatePassword->passwordValid($_POST['password'], $_POST['password-repeat'])) {
-            $this->errors["password"] = implode(',', $validatePassword->getMessages());
-            $this->errors["password_repeat"] = "";
+            $this->errors['password'] = implode(',', $validatePassword->getMessages());
+            $this->errors['password_repeat'] = '';
         }
-        if (!isset($_POST['sex']) || ($_POST['sex'] != 'm' && $_POST['sex'] != "f")) {
-            $this->errors["sex"] = "Please select a gender";
+        if (!isset($_POST['sex']) || ($_POST['sex'] != 'm' && $_POST['sex'] != 'f')) {
+            $this->errors['sex'] = 'Please select a gender';
         }
         if (!$validateAlpha->isValid($_POST['firstname'])) {
-            $this->errors["firstname"] = "The Firstname is invalid";
+            $this->errors['firstname'] = 'The Firstname is invalid';
         }
         if (!$validateAlpha->isValid($_POST['lastname'])) {
-            $this->errors["lastname"] = "The Lastname is invalid";
+            $this->errors['lastname'] = 'The Lastname is invalid';
         }
+
         return empty($this->errors);
     }
 
@@ -131,10 +130,10 @@ class Register
         $error_messages = [];
         if (!empty($this->errors)) {
             foreach ($this->errors as $error => $message) {
-                $view->assign("input_error_" . $error, "error");
+                $view->assign('input_error_'.$error, 'error');
                 $error_messages[] = $message;
             }
-            $view->assign("error_messages", $error_messages);
+            $view->assign('error_messages', $error_messages);
         }
         $view->render();
     }

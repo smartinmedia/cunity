@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -44,8 +44,7 @@ use Cunity\Profile\Models\Db\Table\ProfileFieldsUsers;
 use Cunity\Search\Models\Process;
 
 /**
- * Class User
- * @package Cunity\Core\Models\Db\Row
+ * Class User.
  */
 class User extends \Zend_Db_Table_Row_Abstract
 {
@@ -74,11 +73,12 @@ class User extends \Zend_Db_Table_Row_Abstract
 
     /**
      * @param $password
+     *
      * @return bool
      */
     public function passwordMatch($password)
     {
-        return (sha1($password . $this->salt) == $this->password);
+        return (sha1($password.$this->salt) == $this->password);
     }
 
     /**
@@ -89,7 +89,7 @@ class User extends \Zend_Db_Table_Row_Abstract
         if ($cookie) {
             $this->setCookie();
         }
-        $this->password_token = NULL;
+        $this->password_token = null;
         $this->save();
         $_SESSION['loggedIn'] = true;
         $_SESSION['user'] = $this;
@@ -101,8 +101,8 @@ class User extends \Zend_Db_Table_Row_Abstract
     private function setCookie()
     {
         $expire = time() + 3600 * 24 * 30;
-        setcookie("cunity-login", base64_encode($this->username), $expire, '/', Cunity::get("settings")->getSetting("core.siteurl"));
-        setcookie("cunity-login-token", md5($this->salt . "-" . $this->registered . "-" . $this->userhash), $expire, '/', Cunity::get("settings")->getSetting("core.siteurl"));
+        setcookie('cunity-login', base64_encode($this->username), $expire, '/', Cunity::get('settings')->getSetting('core.siteurl'));
+        setcookie('cunity-login-token', md5($this->salt.'-'.$this->registered.'-'.$this->userhash), $expire, '/', Cunity::get('settings')->getSetting('core.siteurl'));
     }
 
     /**
@@ -117,9 +117,11 @@ class User extends \Zend_Db_Table_Row_Abstract
             $currentUsername = $this->username;
             $result = parent::save();
             $searchindex = new Process();
-            return $result && $searchindex->updateUser($currentUsername, $this->username, $this->firstname . " " . $this->lastname);
+
+            return $result && $searchindex->updateUser($currentUsername, $this->username, $this->firstname.' '.$this->lastname);
         } elseif (array_key_exists('field', $_POST)) {
             $profileFieldsUser = new ProfileFieldsUsers([], $this);
+
             return $profileFieldsUser->update($_POST['field'], '');
         } else {
             return parent::save();
@@ -132,8 +134,8 @@ class User extends \Zend_Db_Table_Row_Abstract
     public function logout()
     {
         session_destroy();
-        setcookie("cunity-login", base64_encode($this->username), time() - 3600, '/', Cunity::get("settings")->getSetting("core.siteurl"));
-        setcookie("cunity-login-token", md5($this->salt . "-" . $this->registered . "-" . $this->userhash), time() - 3600, '/', Cunity::get("settings")->getSetting("core.siteurl"));
+        setcookie('cunity-login', base64_encode($this->username), time() - 3600, '/', Cunity::get('settings')->getSetting('core.siteurl'));
+        setcookie('cunity-login-token', md5($this->salt.'-'.$this->registered.'-'.$this->userhash), time() - 3600, '/', Cunity::get('settings')->getSetting('core.siteurl'));
     }
 
     /**
@@ -145,7 +147,8 @@ class User extends \Zend_Db_Table_Row_Abstract
             return $this->images;
         }
         $images = new GalleryImages();
-        $this->images = $images->fetchAll($images->select()->where("id=?", $this->profileImage)->orWhere("id=?", $this->titleImage));
+        $this->images = $images->fetchAll($images->select()->where('id=?', $this->profileImage)->orWhere('id=?', $this->titleImage));
+
         return $this->images;
     }
 
@@ -155,24 +158,28 @@ class User extends \Zend_Db_Table_Row_Abstract
     public function getFriendList()
     {
         $rel = new Relationships();
-        return $rel->getFriendList(">1", $this->userid);
+
+        return $rel->getFriendList('>1', $this->userid);
     }
 
     /**
      * @param int $user
+     *
      * @return bool
      */
     public function isFriend($user = 0)
     {
         $r = $this->getRelationship($user);
-        if (!empty($r) && $r["status"] == 2) {
+        if (!empty($r) && $r['status'] == 2) {
             return true;
         }
+
         return false;
     }
 
     /**
      * @param int $user
+     *
      * @return array
      */
     public function getRelationship($user = 0)
@@ -192,6 +199,7 @@ class User extends \Zend_Db_Table_Row_Abstract
 
     /**
      * @param array $args
+     *
      * @return array
      */
     public function toArray(array $args = [])
@@ -203,6 +211,7 @@ class User extends \Zend_Db_Table_Row_Abstract
         foreach ($args as $v) {
             $result[$v] = $this->_data[$v];
         }
+
         return $result;
     }
 
@@ -222,7 +231,7 @@ class User extends \Zend_Db_Table_Row_Abstract
         if ($this->_table === null) {
             $this->setTable(new Users());
         }
-        $this->lastAction = new \Zend_Db_Expr("UTC_TIMESTAMP()");
+        $this->lastAction = new \Zend_Db_Expr('UTC_TIMESTAMP()');
         $this->onlineStatus = intval(!isset($_POST['inactive']));
         $this->save();
     }

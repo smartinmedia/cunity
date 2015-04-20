@@ -9,7 +9,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -36,15 +36,14 @@
  */
 
 namespace Cunity\Admin\Models\Pages;
+
 use Cunity\Core\View\View;
 
 /**
- * Class PageAbstract
- * @package Cunity\Admin\Models\Pages
+ * Class PageAbstract.
  */
 abstract class PageAbstract
 {
-
     /**
      * @var array
      */
@@ -56,10 +55,10 @@ abstract class PageAbstract
     public function render($class)
     {
         /** @var View $class */
-        $class = "\\Cunity\\Admin\\View\\" . ucfirst($class);
+        $class = "\\Cunity\\Admin\\View\\".ucfirst($class);
 
         /** @var View $view */
-        $view = new $class;
+        $view = new $class();
         $view->assign($this->assignments);
         $view->show();
     }

@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -37,8 +37,7 @@
 namespace Cunity\Core\Models\Db\Row;
 
 /**
- * Class Setting
- * @package Core\Models\Db\Row
+ * Class Setting.
  */
 class Setting extends \Zend_Db_Table_Row_Abstract
 {
@@ -48,7 +47,7 @@ class Setting extends \Zend_Db_Table_Row_Abstract
     public function init()
     {
         parent::init();
-        array_walk($this->_data, [$this, "stringtotypes"]);
+        array_walk($this->_data, [$this, 'stringtotypes']);
     }
 
     /**
@@ -56,6 +55,6 @@ class Setting extends \Zend_Db_Table_Row_Abstract
      */
     private function stringtotypes(&$val)
     {
-        $val = ($val === 1 || $val === true || $val === 0 || $val === false) ? (boolean)$val : $val;
+        $val = ($val === 1 || $val === true || $val === 0 || $val === false) ? (boolean) $val : $val;
     }
 }

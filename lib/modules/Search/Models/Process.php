@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -39,35 +39,33 @@ namespace Cunity\Search\Models;
 use Cunity\Core\Models\Db\Table\Users;
 
 /**
- * Class Process
- * @package Cunity\Search\Models
+ * Class Process.
  */
 class Process
 {
-
     /**
      * @var string
      */
-    private $indexfile = "../../../data/searchindex";
+    private $indexfile = '../../../data/searchindex';
 
     /**
      *
      */
     public function __construct()
     {
-        $this->indexfile = __DIR__ . '/' . $this->indexfile;
+        $this->indexfile = __DIR__.'/'.$this->indexfile;
     }
-
 
     /**
      * @param $queryString
+     *
      * @return array
      */
     public function find($queryString)
     {
         $queryString = trim($queryString);
         if (empty($queryString)) {
-            return ["queryString" => $queryString, "message" => "No String"];
+            return ['queryString' => $queryString, 'message' => 'No String'];
         } else {
             $index = \Zend_Search_Lucene::open($this->indexfile);
             $res = explode(' ', $queryString);
@@ -77,10 +75,10 @@ class Process
             foreach ($res as $val) {
                 if (!empty($val)) {
                     $subquery = new \Zend_Search_Lucene_Search_Query_Boolean();
-                    $searchkey1 = $val . "*";
-                    $pattern = new \Zend_Search_Lucene_Index_Term($searchkey1, "name");
+                    $searchkey1 = $val.'*';
+                    $pattern = new \Zend_Search_Lucene_Index_Term($searchkey1, 'name');
                     $userQuery = new \Zend_Search_Lucene_Search_Query_Wildcard($pattern);
-                    $patternUsername = new \Zend_Search_Lucene_Index_Term($searchkey1, "username");
+                    $patternUsername = new \Zend_Search_Lucene_Index_Term($searchkey1, 'username');
                     $usernameQuery = new \Zend_Search_Lucene_Search_Query_Wildcard($patternUsername);
                     $subquery->addSubquery($userQuery, null);
                     $subquery->addSubquery($usernameQuery, null);
@@ -96,47 +94,52 @@ class Process
                     }
                 }
                 if (!empty($results)) {
-                    /** @noinspection PhpUndefinedMethodInspection */
+                    /* @noinspection PhpUndefinedMethodInspection */
                     /** @var Users $users */
                     $users = $_SESSION['user']->getTable();
                     if (isset($_POST['friends'])) {
-                        /** @noinspection PhpUndefinedMethodInspection */
+                        /* @noinspection PhpUndefinedMethodInspection */
                         $friends = $_SESSION['user']->getFriendList();
                         if (empty($friends)) {
-                            return ["queryString" => $queryString, "users" => []];
+                            return ['queryString' => $queryString, 'users' => []];
                         } else {
                             $userresult = $users->getSet($results, 'u.username');
                         }
                     } else {
-                        $userresult = $users->getSet($results, "u.username", ["u.userid", "u.username", "u.name"]);
+                        $userresult = $users->getSet($results, 'u.username', ['u.userid', 'u.username', 'u.name']);
                     }
-                    return ["queryString" => $queryString, "users" => $userresult->toArray()];
+
+                    return ['queryString' => $queryString, 'users' => $userresult->toArray()];
                 }
             }
         }
-        return ["queryString" => $queryString];
+
+        return ['queryString' => $queryString];
     }
 
     /**
      * @param $username
      * @param $newusername
      * @param $newname
+     *
      * @return bool
      */
     public function updateUser($username, $newusername, $newname)
     {
         $index = \Zend_Search_Lucene::open($this->indexfile);
-        $hits = $index->find('username:' . $username);
+        $hits = $index->find('username:'.$username);
 
         foreach ($hits as $hit) {
             $index->delete($hit->id);
         }
+
         return $this->addUser($newusername, $newname);
     }
 
     /**
      * @param $username
      * @param $name
+     *
      * @return bool
      */
     public function addUser($username, $name)
@@ -152,6 +155,7 @@ class Process
         $doc->addField(\Zend_Search_Lucene_Field::unStored('name', $name));
         $index->addDocument($doc);
         $index->optimize();
+
         return true;
     }
 
@@ -161,7 +165,7 @@ class Process
     public function removeUser($username)
     {
         $index = \Zend_Search_Lucene::open($this->indexfile);
-        $hits = $index->find('username:' . $username);
+        $hits = $index->find('username:'.$username);
         foreach ($hits as $hit) {
             $index->delete($hit->id);
         }
@@ -178,6 +182,7 @@ class Process
             $index = \Zend_Search_Lucene::create($this->indexfile);
         }
         $index->optimize();
+
         return true;
     }
 
@@ -186,7 +191,7 @@ class Process
      */
     public function recreateSearchIndex()
     {
-        $users = new Users;
+        $users = new Users();
         try {
             $index = \Zend_Search_Lucene::open($this->indexfile);
         } catch (\Zend_Search_Lucene_Exception $e) {
@@ -200,6 +205,7 @@ class Process
             $index->addDocument($doc);
         }
         $index->optimize();
+
         return true;
     }
 }

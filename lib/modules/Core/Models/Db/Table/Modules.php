@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -39,8 +39,7 @@ namespace Cunity\Core\Models\Db\Table;
 use Cunity\Core\Models\Db\Abstractables\Table;
 
 /**
- * Class Modules
- * @package Cunity\Core\Models\Db\Table
+ * Class Modules.
  */
 class Modules extends Table
 {
@@ -73,12 +72,13 @@ class Modules extends Table
     /**
      * @param $moduletag
      * @param bool $onlyActive
+     *
      * @return \Zend_Db_Table_Row_Abstract
      */
     public function getModuleData($moduletag, $onlyActive = true)
     {
         /** @var \Zend_Db_Table_Select $where */
-        $where = $this->select()->where("namespace=?", $moduletag)->limit(1);
+        $where = $this->select()->where('namespace=?', $moduletag)->limit(1);
 
         if ($onlyActive) {
             $where->where('status = ?', 1);

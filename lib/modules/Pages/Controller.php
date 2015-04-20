@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -42,12 +42,10 @@ use Cunity\Pages\Models\Db\Row\Page;
 use Cunity\Pages\Models\Db\Table\Pages;
 
 /**
- * Class Controller
- * @package Cunity\Pages
+ * Class Controller.
  */
 class Controller extends ModuleController
 {
-
     /**
      *
      */

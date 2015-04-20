@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -39,28 +39,26 @@ namespace Cunity\Register\View;
 use Cunity\Core\View\View;
 
 /**
- * Class ForgetPw
- * @package Cunity\Register\View
+ * Class ForgetPw.
  */
 class ForgetPw extends View
 {
-
     /**
      * @var string
      */
-    protected $_templateDir = "register";
+    protected $_templateDir = 'register';
     /**
      * @var string
      */
-    protected $_templateFile = "forgetpw.tpl";
+    protected $_templateFile = 'forgetpw.tpl';
     /**
      * @var string
      */
-    protected $_languageFolder = "Register/languages";
+    protected $_languageFolder = 'Register/languages';
     /**
      * @var array
      */
-    protected $_metadata = ["title" => "Reset Password"];
+    protected $_metadata = ['title' => 'Reset Password'];
 
     /**
      * @throws \Exception

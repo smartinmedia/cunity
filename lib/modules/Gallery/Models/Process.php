@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -47,8 +47,7 @@ use Cunity\Gallery\View\Album;
 use Cunity\Likes\Models\Db\Table\Likes;
 
 /**
- * Class Process
- * @package Cunity\Gallery\Models
+ * Class Process.
  */
 class Process
 {
@@ -95,10 +94,10 @@ class Process
         $albums = $table->loadAlbums($_POST['userid']);
         if ($albums !== null) {
             $view = new View(true);
-            $view->addData(["result" => $albums]);
+            $view->addData(['result' => $albums]);
             $view->sendResponse();
         } else {
-            new Message("Sorry", "We can't find any albums!", "danger");
+            new Message('Sorry', "We can't find any albums!", 'danger');
         }
     }
 
@@ -110,25 +109,25 @@ class Process
         $table = new GalleryAlbums();
         if (($_POST['privacy'] == 0)) {
             $result = $table->insert([
-                "title" => $_POST['title'],
-                "description" => $_POST['description'],
-                "owner_id" => $_SESSION['user']->userid,
-                "type" => "shared",
-                "user_upload" => isset($_POST['allow_upload']) ? 1 : 0,
-                "privacy" => $_POST['privacy']
+                'title' => $_POST['title'],
+                'description' => $_POST['description'],
+                'owner_id' => $_SESSION['user']->userid,
+                'type' => 'shared',
+                'user_upload' => isset($_POST['allow_upload']) ? 1 : 0,
+                'privacy' => $_POST['privacy'],
             ]);
         } else {
             $result = $table->insert([
-                "title" => $_POST['title'],
-                "description" => $_POST['description'],
-                "owner_id" => $_SESSION['user']->userid,
-                "type" => null,
-                "user_upload" => isset($_POST['allow_upload']) ? 1 : 0,
-                "privacy" => $_POST['privacy']
+                'title' => $_POST['title'],
+                'description' => $_POST['description'],
+                'owner_id' => $_SESSION['user']->userid,
+                'type' => null,
+                'user_upload' => isset($_POST['allow_upload']) ? 1 : 0,
+                'privacy' => $_POST['privacy'],
             ]);
         }
         $view = new View($result !== null);
-        $view->addData(["target" => Url::convertUrl("index.php?m=gallery&action=" . $result . "&x=" . str_replace(" ", "_", $_POST['title']))]);
+        $view->addData(['target' => Url::convertUrl('index.php?m=gallery&action='.$result.'&x='.str_replace(' ', '_', $_POST['title']))]);
         $view->sendResponse();
     }
 
@@ -155,10 +154,10 @@ class Process
         $images = new GalleryImages();
         if (isset($_POST['newsfeed_post'])) {
             /** @var \Cunity\Gallery\Models\Db\Row\Album $album */
-            $album = $albums->fetchRow($albums->select()->where("type=?", "newsfeed")->where("owner_id=?", $_SESSION['user']->userid)->where("owner_type IS NULL"));
+            $album = $albums->fetchRow($albums->select()->where('type=?', 'newsfeed')->where('owner_id=?', $_SESSION['user']->userid)->where('owner_type IS NULL'));
             if ($album === null) {
                 $albumid = $albums->newNewsfeedAlbums($_SESSION['user']->userid);
-                $album = $albums->fetchRow($albums->select()->where("id=?", $albumid));
+                $album = $albums->fetchRow($albums->select()->where('id=?', $albumid));
             }
         } else {
             $album = $albums->find($_POST['albumid'])->current();
@@ -168,7 +167,7 @@ class Process
         if (isset($_POST['uploadtype']) &&
             $_POST['uploadtype'] == 'single'
         ) {
-            header("Location: " . Url::convertUrl("index.php?m=gallery&action=" . $_POST['albumid']));
+            header('Location: '.Url::convertUrl('index.php?m=gallery&action='.$_POST['albumid']));
             exit;
         } else {
             $view = new View($result !== false);
@@ -207,16 +206,16 @@ class Process
             $result = $result[0];
             $albumData = $albums->getAlbumData($result['albumid']);
             $likeTable = new Likes();
-            $socialData['likes'] = $likeTable->getLikes($this->id, "image");
-            $socialData['dislikes'] = $likeTable->getLikes($this->id, "image", 1);
+            $socialData['likes'] = $likeTable->getLikes($this->id, 'image');
+            $socialData['dislikes'] = $likeTable->getLikes($this->id, 'image', 1);
 
             if ($result['commentcount'] > 0) {
                 $comments = new Comments();
-                $socialData['comments'] = $comments->get($this->id, "image", false, 13);
+                $socialData['comments'] = $comments->get($this->id, 'image', false, 13);
             } else {
                 $socialData['comments'] = [];
             }
-            $view->addData(array_merge($socialData, $result, ["album" => $albumData]));
+            $view->addData(array_merge($socialData, $result, ['album' => $albumData]));
         } else {
             $view->setStatus(false);
         }
@@ -229,9 +228,9 @@ class Process
     private function loadImages()
     {
         $images = new GalleryImages();
-        $result = $images->getImages($_POST['albumid'], ["limit" => $_POST['limit'], "offset" => $_POST['offset']]);
+        $result = $images->getImages($_POST['albumid'], ['limit' => $_POST['limit'], 'offset' => $_POST['offset']]);
         $view = new View($result !== false);
-        $view->addData(["result" => $result]);
+        $view->addData(['result' => $result]);
         $view->sendResponse();
     }
 
@@ -244,8 +243,8 @@ class Process
         $album = $albums->getAlbumData($_GET['action']);
         if ($album !== false) {
             $view = new Album();
-            $view->setMetaData(["title" => $album['title'], "description" => $album['description']]);
-            $view->assign("album", $album);
+            $view->setMetaData(['title' => $album['title'], 'description' => $album['description']]);
+            $view->assign('album', $album);
             if ($album['privacy'] == 1 &&
                 $album['owner_id'] != $_SESSION['user']->userid &&
                 !in_array($album['owner_id'], $_SESSION['user']->getFriendList())
@@ -254,7 +253,7 @@ class Process
             }
 
             if ($album->owner_id == $_SESSION['userid'] && $album->owner_type === null) {
-                $view->registerScript("gallery", "album-edit");
+                $view->registerScript('gallery', 'album-edit');
             }
             $view->show();
         } else {

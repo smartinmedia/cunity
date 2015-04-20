@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -39,12 +39,10 @@ namespace Cunity\Comments\Models\Db\Table;
 use Cunity\Core\Models\Db\Abstractables\Table;
 
 /**
- * Class Comments
- * @package Cunity\Comments\Models\Db\Table
+ * Class Comments.
  */
 class Comments extends Table
 {
-
     /**
      * @var string
      */
@@ -66,58 +64,65 @@ class Comments extends Table
      * @param $referenceId
      * @param $referenceName
      * @param $content
+     *
      * @return array|mixed
      */
     public function addComment($referenceId, $referenceName, $content)
     {
-        $res = $this->insert(["ref_id" => $referenceId, "ref_name" => $referenceName, "userid" => $_SESSION['user']->userid, "content" => $content]);
-        if ($res !== NULL)
+        $res = $this->insert(['ref_id' => $referenceId, 'ref_name' => $referenceName, 'userid' => $_SESSION['user']->userid, 'content' => $content]);
+        if ($res !== null) {
             return $this->getComment($res);
-        else
-            return ["status" => false];
+        } else {
+            return ['status' => false];
+        }
     }
 
     /**
      * @param $commentid
+     *
      * @return mixed
      */
     public function getComment($commentid)
     {
-        return $this->getAdapter()->fetchRow($this->getAdapter()->select()->from(["c" => $this->getTableName()], ["id", "content", "time", "userid"])->joinLeft(["u" => $this->_dbprefix . "users"], "u.userid = c.userid", ["username", "name"])->joinLeft(["i" => $this->_dbprefix . "gallery_images"], "u.profileImage = i.id", ["filename"])->where("c.id = ?", $commentid));
+        return $this->getAdapter()->fetchRow($this->getAdapter()->select()->from(['c' => $this->getTableName()], ['id', 'content', 'time', 'userid'])->joinLeft(['u' => $this->_dbprefix.'users'], 'u.userid = c.userid', ['username', 'name'])->joinLeft(['i' => $this->_dbprefix.'gallery_images'], 'u.profileImage = i.id', ['filename'])->where('c.id = ?', $commentid));
     }
 
     /**
      * @param $commentid
+     *
      * @return int
      */
     public function removeComment($commentid)
     {
-        return $this->delete($this->getAdapter()->quoteInto("id = ?", $commentid));
+        return $this->delete($this->getAdapter()->quoteInto('id = ?', $commentid));
     }
 
     /**
      * @param $referenceId
      * @param $referenceName
+     *
      * @return int
      */
     public function removeAllComments($referenceId, $referenceName)
     {
-        return $this->delete($this->getAdapter()->quoteInto("ref_id = ? AND ref_name = ?", [intval($referenceId), $referenceName]));
+        return $this->delete($this->getAdapter()->quoteInto('ref_id = ? AND ref_name = ?', [intval($referenceId), $referenceName]));
     }
 
     /**
      * @param $referenceId
      * @param $referenceName
      * @param bool $last
-     * @param int $limit
+     * @param int  $limit
+     *
      * @return array
      */
     public function get($referenceId, $referenceName, $last = false, $limit = 20)
     {
-        $query = $this->getAdapter()->select()->from(["c" => $this->_dbprefix . "comments"])->joinLeft(["u" => $this->_dbprefix . "users"], "u.userid = c.userid", ["username", "name"])->joinLeft(["i" => $this->_dbprefix . "gallery_images"], "u.profileImage = i.id", ["filename"])->where("c.ref_id = ?", $referenceId)->where("c.ref_name = ?", $referenceName)->order("c.time DESC")->limit($limit);
+        $query = $this->getAdapter()->select()->from(['c' => $this->_dbprefix.'comments'])->joinLeft(['u' => $this->_dbprefix.'users'], 'u.userid = c.userid', ['username', 'name'])->joinLeft(['i' => $this->_dbprefix.'gallery_images'], 'u.profileImage = i.id', ['filename'])->where('c.ref_id = ?', $referenceId)->where('c.ref_name = ?', $referenceName)->order('c.time DESC')->limit($limit);
         if ($last) {
-            $query->where("c.id < ?", $last);
+            $query->where('c.id < ?', $last);
         }
+
         return $this->getAdapter()->fetchAll($query);
     }
 }

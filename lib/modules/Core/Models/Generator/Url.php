@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -39,25 +39,27 @@ namespace Cunity\Core\Models\Generator;
 use Cunity\Core\Cunity;
 
 /**
- * Class Url
- * @package Core\Models\Generator
+ * Class Url.
  */
 class Url
 {
     /**
      * @param $urlString
+     *
      * @return string
+     *
      * @throws \Exception
      */
     public static function convertUrl($urlString)
     {
         //if mod rewrite is enabled!
-        if (Cunity::get("mod_rewrite")) {
+        if (Cunity::get('mod_rewrite')) {
             $parsedUrl = parse_url($urlString);
             parse_str($parsedUrl['query'], $parsedQuery);
-            return Cunity::get("settings")->getSetting("core.siteurl") . implode('/', $parsedQuery);
+
+            return Cunity::get('settings')->getSetting('core.siteurl').implode('/', $parsedQuery);
         } else {
-            return Cunity::get("settings")->getSetting("core.siteurl") . $urlString;
+            return Cunity::get('settings')->getSetting('core.siteurl').$urlString;
         }
     }
 }

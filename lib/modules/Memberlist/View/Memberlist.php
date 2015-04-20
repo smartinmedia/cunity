@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -39,28 +39,26 @@ namespace Cunity\Memberlist\View;
 use Cunity\Core\View\View;
 
 /**
- * Class Memberlist
- * @package Cunity\Memberlist\View
+ * Class Memberlist.
  */
 class Memberlist extends View
 {
-
     /**
      * @var string
      */
-    protected $_templateDir = "memberlist";
+    protected $_templateDir = 'memberlist';
     /**
      * @var string
      */
-    protected $_templateFile = "memberlist.tpl";
+    protected $_templateFile = 'memberlist.tpl';
     /**
      * @var string
      */
-    protected $_languageFolder = "Memberlist/languages";
+    protected $_languageFolder = 'Memberlist/languages';
     /**
      * @var array
      */
-    protected $_metadata = ["title" => "Memberlist"];
+    protected $_metadata = ['title' => 'Memberlist'];
 
     /**
      * @throws \Cunity\Core\Exception
@@ -69,7 +67,7 @@ class Memberlist extends View
     public function __construct()
     {
         parent::__construct();
-        $this->registerScript("memberlist", "memberlist");
+        $this->registerScript('memberlist', 'memberlist');
         $this->show();
     }
 }
