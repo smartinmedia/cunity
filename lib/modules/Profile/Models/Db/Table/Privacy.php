@@ -90,7 +90,7 @@ class Privacy extends Table
 
     /**
      * @param bool $type
-     * @param int $userid
+     * @param int  $userid
      *
      * @return array
      */

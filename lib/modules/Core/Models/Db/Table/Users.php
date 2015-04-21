@@ -72,8 +72,8 @@ class Users extends Table
 
     /**
      * @param array $data
-     * @param int $groupId
-     * @param bool $sendVerfificationMail
+     * @param int   $groupId
+     * @param bool  $sendVerfificationMail
      *
      * @return bool
      *
