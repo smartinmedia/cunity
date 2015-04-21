@@ -36,6 +36,7 @@
 
 namespace Cunity\Profile\Models\Db\Table;
 
+use Cunity\Core\Cunity;
 use Cunity\Core\Models\Db\Abstractables\Table;
 
 /**
@@ -70,22 +71,26 @@ class Privacy extends Table
      */
     public function checkPrivacy($type, $userid)
     {
-        if ($userid == $_SESSION['user']->userid) {
+        $settings = Cunity::get('settings');
+
+        if ($userid == $_SESSION['user']->userid ||
+            $settings->getSetting('register.allfriends')
+        ) {
             return true;
         }
         $pri = $this->getPrivacy($type, $userid);
         if ($pri == 3) {
             return true;
-        } /* @noinspection PhpUndefinedMethodInspection */ elseif ($pri == 1 && $_SESSION['user']->isFriend($userid)) {
-     return true;
- }
+        } elseif ($pri == 1 && $_SESSION['user']->isFriend($userid)) {
+            return true;
+        }
 
         return false;
     }
 
     /**
      * @param bool $type
-     * @param int  $userid
+     * @param int $userid
      *
      * @return array
      */

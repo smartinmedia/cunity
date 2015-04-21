@@ -62,11 +62,11 @@
                             <select class="form-control" id="register-allow" name="settings-register.permissions">
 
                                 <option value="everyone"{-if "register.permissions"|setting eq "everyone"}
-                                        selected{-/if}>{-"Everyone"|translate}</option>
+                                selected{-/if}>{-"Everyone"|translate}</option>
                                 <option value="activation"{-if "register.permissions"|setting eq "activation"}
-                                        selected{-/if}>{-"Everyone, but user must be activated by an administrator"|translate}</option>
+                                selected{-/if}>{-"Everyone, but user must be activated by an administrator"|translate}</option>
                                 <option value="invitation" {-if "register.permissions"|setting eq "invitation"}
-                                        selected{-/if}>{-"Only users who received an invitation"|translate}</option>
+                                selected{-/if}>{-"Only users who received an invitation"|translate}</option>
                             </select>
                         </div>
                     </div>
@@ -77,9 +77,22 @@
                         <div class="col-sm-8">
                             <select class="form-control" id="register-notify" name="settings-register.notification">
                                 <option value="1" {-if !"register.notification"|setting eq 0}
-                                        selected{-/if}>{-"Send me an email, if a new user registered (and verified the account)"|translate}</option>
+                                selected{-/if}>{-"Send me an email, if a new user registered (and verified the account)"|translate}</option>
                                 <option value="0" {-if "register.notification"|setting eq 0}
-                                        selected{-/if}>{-"Do not send me an email"|translate}</option>
+                                selected{-/if}>{-"Do not send me an email"|translate}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-allfriends"
+                               class="col-sm-4 control-label">{-"Should all members be friends?"|translate}</label>
+
+                        <div class="col-sm-8">
+                            <select class="form-control" id="register-allfriends" name="settings-register.allfriends">
+                                <option value="0" {-if !"register.allfriends"|setting eq 1}
+                                selected{-/if}>{-"No"|translate}</option>
+                                <option value="1" {-if "register.allfriends"|setting eq 1}
+                                selected{-/if}>{-"Yes"|translate}</option>
                             </select>
                         </div>
                     </div>

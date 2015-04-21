@@ -36,6 +36,7 @@
 
 namespace Cunity\Friends\Models\Db\Table;
 
+use Cunity\Core\Cunity;
 use Cunity\Core\Models\Db\Abstractables\Table;
 use Cunity\Core\Models\Db\Table\Users;
 
@@ -120,24 +121,31 @@ class Relationships extends Table
 
     /**
      * @param string $status
-     * @param int    $userid
+     * @param int $userid
+     * @return array
      */
     public function getFullFriendList($status = '>1', $userid = 0)
     {
-        $friends = $this->getFriendList($status, $userid);
-        if (!empty($friends)) {
+        $settings = Cunity::get('settings');
+
+        if ($settings->getSetting('register.allfriends')) {
+            /** @var Users $users */
+            $users = $_SESSION['user']->getTable();
+
+            return $users->fetchAll('userid!='.$_SESSION['user']->userid)->toArray();
+        } elseif (!empty($friends)) {
+            $friends = $this->getFriendList($status, $userid);
+
             /* @noinspection PhpUndefinedMethodInspection */
             $users = $_SESSION['user']->getTable();
             /* @noinspection PhpUndefinedMethodInspection */
             return $users->getSet($friends, 'u.userid', ['u.userid', 'u.username', 'u.name'], true)->toArray();
         }
-
-        return;
     }
 
     /**
      * @param string $status
-     * @param int    $userid
+     * @param int $userid
      *
      * @return array
      */
@@ -148,13 +156,16 @@ class Relationships extends Table
         } else {
             $userid = intval($userid);
         }
+
+        $settings = Cunity::get('settings');
+
         // Only user, who blocked another people is allowed to get this list
         if (!is_string($status) && $status == 0) {
-            $query = $this->getAdapter()->query('SELECT receiver AS friend FROM '.$this->getTableName().' WHERE '.$this->getAdapter()->quoteInto('sender=?', $userid).' AND STATUS = 0');
+            $query = $this->getAdapter()->query('SELECT receiver AS friend FROM ' . $this->getTableName() . ' WHERE ' . $this->getAdapter()->quoteInto('sender=?', $userid) . ' AND STATUS = 0');
         } else {
             $query = $this->getAdapter()->select()
-                ->from($this->getTableName(), new \Zend_Db_Expr('(CASE WHEN sender = '.$userid.' THEN receiver WHEN receiver = '.$userid.' THEN sender END) AS friend'))
-                ->where('status '.$status)
+                ->from($this->getTableName(), new \Zend_Db_Expr('(CASE WHEN sender = ' . $userid . ' THEN receiver WHEN receiver = ' . $userid . ' THEN sender END) AS friend'))
+                ->where('status ' . $status)
                 ->where('sender=? OR receiver = ? ', $userid);
         }
         $res = $this->getAdapter()->fetchAll($query);
@@ -180,7 +191,7 @@ class Relationships extends Table
             return $users->getSet($friends, 'u.userid', ['u.userid', 'u.username', 'u.name'])->toArray();
         }
 
-        return;
+        return null;
     }
 
     /**
@@ -209,12 +220,12 @@ class Relationships extends Table
      */
     public function loadOnlineFriends($userid)
     {
-        $friendlist = $this->getAdapter()->fetchAll($this->getAdapter()->select()->from(['u' => $this->_dbprefix.'users'])
-            ->joinLeft(['pi' => $this->_dbprefix.'gallery_images'], 'pi.id = u.profileImage', 'filename AS pimg')
-            ->where('u.userid IN ('.new \Zend_Db_Expr($this->getAdapter()->select()
-                    ->from($this->_dbprefix.'relations', new \Zend_Db_Expr('(CASE WHEN sender = '.$userid.' THEN receiver WHEN receiver = '.$userid.' THEN sender END)'))
+        $friendlist = $this->getAdapter()->fetchAll($this->getAdapter()->select()->from(['u' => $this->_dbprefix . 'users'])
+            ->joinLeft(['pi' => $this->_dbprefix . 'gallery_images'], 'pi.id = u.profileImage', 'filename AS pimg')
+            ->where('u.userid IN (' . new \Zend_Db_Expr($this->getAdapter()->select()
+                    ->from($this->_dbprefix . 'relations', new \Zend_Db_Expr('(CASE WHEN sender = ' . $userid . ' THEN receiver WHEN receiver = ' . $userid . ' THEN sender END)'))
                     ->where('status > 1')
-                    ->where('sender=? OR receiver = ? ', $userid)).')')
+                    ->where('sender=? OR receiver = ? ', $userid)) . ')')
             ->order('u.name DESC')
         );
 

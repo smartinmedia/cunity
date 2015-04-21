@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################.
+ * ########################################################################################
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -34,37 +34,19 @@
  * #####################################################################################
  */
 
-namespace Cunity\Friends\Models\Generator;
-
-use Cunity\Core\Cunity;
-use Cunity\Core\Models\Db\Adapter\Mysqli;
-use Zend_Db_Expr;
+use Cunity\Admin\Models\Updater\DbCommandInterface;
+use Cunity\Admin\Models\Updater\DbUpdateVersion;
 
 /**
- * Class FriendQuery.
+ * Class Version1429526886
  */
-class FriendQuery
+class Version11429526886 extends DbUpdateVersion implements DbCommandInterface
 {
     /**
-     * @param string $status
      *
-     * @return Zend_Db_Expr
-     *
-     * @throws \Exception
      */
-    public static function getFriendListQuery($status = '> 0')
+    public function execute()
     {
-        $settings = Cunity::get('settings');
-
-        if ($settings->getSetting('register.allfriends')) {
-            return new Zend_Db_Expr(Cunity::get('db')->select()
-                ->from(Mysqli::getDbprefix().'users', 'userid')
-                ->where('userid!=?', $_SESSION['user']->userid));
-        } else {
-            return new Zend_Db_Expr(Cunity::get('db')->select()
-                ->from(Mysqli::getDbprefix().'relations', new Zend_Db_Expr('(CASE WHEN sender = '.$_SESSION['user']->userid.' THEN receiver WHEN receiver = '.$_SESSION['user']->userid.' THEN sender END)'))
-                ->where('status'.$status)
-                ->where('sender=? OR receiver=?', $_SESSION['user']->userid));
-        }
+        $this->_db->query("INSERT INTO `".$this->_db->getDbprefix()."settings` (`name`, `value`) VALUES ('register.allfriends', '0')");
     }
 }

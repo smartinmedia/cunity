@@ -522,6 +522,7 @@
                                    {-if $profile.notificationSettings.addconversation == 2 or $profile.notificationSettings.addconversation == 3}checked="checked"{-/if}>
                         </td>
                     </tr>
+                    {-if ("register.allfriends"|setting == 0) }
                     <tr>
                         <td>{-"Someone add you as a friend"|translate}<input type="hidden" name="types[addfriend]"
                                                                              value="1"></td>
@@ -544,7 +545,8 @@
                                    {-if $profile.notificationSettings.confirmfriend == 2 or $profile.notificationSettings.confirmfriend == 3}checked="checked"{-/if}>
                         </td>
                     </tr>
-                    {-*<tr>
+                    {-/if}
+                                        {-*<tr>
                     <td>{-"Someone commented on one of your posts or photos"|translate}</td>
                     <td><input type="checkbox" name="alert[post_comment]" value="1"></td>
                     <td><input type="checkbox" name="mail[post_comment]" value="1"></td>

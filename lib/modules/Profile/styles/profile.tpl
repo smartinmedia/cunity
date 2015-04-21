@@ -14,21 +14,25 @@
     </div>
     {-if $user.userid != $profile.userid}
         <div class="nofriends-buttons btn-group friend-buttons{-if $profile.status !== null} hidden{-/if}">
-            <button class="btn btn-default" data-userid="{-$profile.userid}" data-action="addasfriend"
-                    data-toggle="modal"
-                    data-target="#relationship-modal"><span class="fa fa-plus"></span> {-"Add as friend"|translate}
-            </button>
-            <button class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
-            <ul class="dropdown-menu">
-                {-if $profile.privacy.message eq 3}
+            {-if ("register.allfriends"|setting == 0) }
+                <button class="btn btn-default" data-userid="{-$profile.userid}" data-action="addasfriend"
+                        data-toggle="modal"
+                        data-target="#relationship-modal"><span class="fa fa-plus"></span> {-"Add as friend"|translate}
+                </button>
+                <button class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span
+                            class="caret">{-"Send a message"|translate}</span></button>
+                <ul class="dropdown-menu">
                     <li><a href="javascript:sendMessage('{-$profile.name}',{-$profile.userid});"><i
                                     class="fa fa-envelope-o"></i> {-"Send message"|translate}</a></li>
-                {-/if}
-                <li class="divider"></li>
-                <li><a href="#" data-userid="{-$profile.userid}" data-action="blockperson" data-toggle="modal"
-                       data-target="#relationship-modal"><i class="fa fa-ban"></i> {-"Block Person"|translate}</a></li>
-                {-*<li><a href="#"><i class="fa fa-bullhorn"></i> {-"Report Person"|translate}</a></li>*}
-            </ul>
+                    <li class="divider"></li>
+                    <li><a href="#" data-userid="{-$profile.userid}" data-action="blockperson" data-toggle="modal"
+                           data-target="#relationship-modal"><i class="fa fa-ban"></i> {-"Block Person"|translate}</a>
+                    </li>
+                    {-*<li><a href="#"><i class="fa fa-bullhorn"></i> {-"Report Person"|translate}</a></li>*}
+                </ul>
+            {-else }
+                <button onclick="javascript:sendMessage('{-$profile.name}',{-$profile.userid});" class="btn btn-default">{-"Send a message"|translate}</button>
+            {-/if}
         </div>
         <div class="blocked-buttons btn-group friend-buttons{-if $profile.status != 0 || $profile.sender != $user.userid} hidden{-/if}">
             <button class="btn btn-default tooltip-trigger" data-title="{-"You have blocked this user"|translate}"
@@ -185,19 +189,23 @@
                 </div>
                 <div class="btn-group pull-right hidden newsfeed-post-buttons">
                     <button class="btn btn-primary tooltip-trigger"
-                            data-title="{-"Select who will be allowed to see this post"|translate}" data-toggle="dropdown"><span
+                            data-title="{-"Select who will be allowed to see this post"|translate}"
+                            data-toggle="dropdown"><span
                                 class="fa fa-lock"></span>&nbsp;<i class="caret"></i></button>
                     <input type="hidden" name="privacy" value="0" id="postPrivacy">
                     <button class="btn btn-primary newsfeed-post-button" type="submit" id="newsfeed-post-button"><span
                                 class="fa fa-comment"></span>&nbsp;{-"Post"|translate}!
                     </button>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="privacy-dropdown">
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:selectPostPrivacy(0);"><i
+                        <li role="presentation"><a role="menuitem" tabindex="-1"
+                                                   href="javascript:selectPostPrivacy(0);"><i
                                         class="fa fa-globe fa-fw"></i>&nbsp;{-"Public"|translate}</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:selectPostPrivacy(1);"><i
+                        <li role="presentation"><a role="menuitem" tabindex="-1"
+                                                   href="javascript:selectPostPrivacy(1);"><i
                                         class="fa fa-users fa-fw"></i>&nbsp;{-"Friends"|translate}</a></li>
                         <li role="presentation" class="divider"></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:selectPostPrivacy(2);"><i
+                        <li role="presentation"><a role="menuitem" tabindex="-1"
+                                                   href="javascript:selectPostPrivacy(2);"><i
                                         class="fa fa-user fa-fw"></i>&nbsp;{-"Only Me"|translate}</a></li>
                     </ul>
                 </div>

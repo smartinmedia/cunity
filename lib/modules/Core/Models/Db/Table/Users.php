@@ -72,10 +72,12 @@ class Users extends Table
 
     /**
      * @param array $data
+     * @param int $groupId
+     * @param bool $sendVerfificationMail
      *
      * @return bool
      *
-     * @throws \Exception
+     * @throws \Cunity\Core\Exception
      */
     public function registerNewUser(array $data, $groupId = 0, $sendVerfificationMail = true)
     {

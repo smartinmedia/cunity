@@ -435,6 +435,7 @@ VALUES ('core.description', 'This is the TestCunity for the new Design <3');
 INSERT INTO `TABLEPREFIXsettings` (`name`, `value`) VALUES ('register.permissions', 'everyone');
 INSERT INTO `TABLEPREFIXsettings` (`name`, `value`) VALUES ('register.notification', '1');
 INSERT INTO `TABLEPREFIXsettings` (`name`, `value`) VALUES ('register.min_age', '13');
+INSERT INTO `TABLEPREFIXsettings` (`name`, `value`) VALUES ('register.allfriends', '0');
 INSERT INTO `TABLEPREFIXsettings` (`name`, `value`) VALUES ('core.mail_header', 'mail template header');
 INSERT INTO `TABLEPREFIXsettings` (`name`, `value`) VALUES ('core.mail_footer', 'mail template footer');
 INSERT INTO `TABLEPREFIXsettings` (`name`, `value`) VALUES ('messages.chat', '1');
