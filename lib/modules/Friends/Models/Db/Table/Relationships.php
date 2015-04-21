@@ -158,8 +158,6 @@ class Relationships extends Table
             $userid = intval($userid);
         }
 
-        $settings = Cunity::get('settings');
-
         // Only user, who blocked another people is allowed to get this list
         if (!is_string($status) && $status == 0) {
             $query = $this->getAdapter()->query('SELECT receiver AS friend FROM '.$this->getTableName().' WHERE '.$this->getAdapter()->quoteInto('sender=?', $userid).' AND STATUS = 0');
