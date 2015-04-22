@@ -127,8 +127,17 @@
                     <a data-cat="users" data-page="view"><i class="fa fa-group fa-fw"></i> {-"Userlist"|translate}</a>
                 </li>
                 <li>
-                    <a data-cat="mailing" data-page="contact"><i
-                                class="fa fa-envelope-o fa-fw"></i>&nbsp;{-"Messages"|translate}</a>
+                    <a href="#" class="dropdown"><i class="fa fa-envelope-o fa-fw"></i> {-"Messages"|translate}<span
+                                class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a data-cat="mailing" data-page="contact">{-"Messages"|translate}</a>
+                        </li>
+                        <li>
+                            <a data-cat="mailing" data-page="newsletter">{-"Newsletter"|translate}</a>
+                        </li>
+                    </ul>
+                    <!-- /.nav-second-level -->
                 </li>
                 <li>
                     <a data-cat="update" data-page="update"><i
