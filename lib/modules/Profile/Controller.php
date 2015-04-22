@@ -33,7 +33,6 @@
  *
  * #####################################################################################
  */
-
 namespace Cunity\Profile;
 
 use Cunity\Core\ModuleController;

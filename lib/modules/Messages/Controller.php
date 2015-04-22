@@ -33,7 +33,6 @@
  *
  * #####################################################################################
  */
-
 namespace Cunity\Messages;
 
 use Cunity\Core\ModuleController;

@@ -33,7 +33,6 @@
  *
  * #####################################################################################
  */
-
 namespace Cunity\Admin\Helper;
 
 use Cunity\Admin\Models\Process;

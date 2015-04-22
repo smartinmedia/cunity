@@ -33,7 +33,6 @@
  *
  * #####################################################################################
  */
-
 namespace Cunity\Newsfeed\Models\Db\Table;
 
 use Cunity\Core\Models\Db\Abstractables\Table;

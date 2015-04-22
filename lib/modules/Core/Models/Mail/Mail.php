@@ -33,11 +33,9 @@
  *
  * #####################################################################################
  */
-
 namespace Cunity\Core\Models\Mail;
 
 use Cunity\Core\Cunity;
-use Zend_Mail_Transport_Sendmail;
 use Zend_Mail_Transport_Smtp;
 
 /**

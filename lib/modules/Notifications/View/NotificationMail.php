@@ -33,7 +33,6 @@
  *
  * #####################################################################################
  */
-
 namespace Cunity\Notifications\View;
 
 use Cunity\Core\View\Mail\MailView;

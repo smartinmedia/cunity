@@ -33,7 +33,6 @@
  *
  * #####################################################################################
  */
-
 namespace Cunity\Notifications;
 
 use Cunity\Core\ModuleController;

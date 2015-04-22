@@ -33,7 +33,6 @@
  *
  * #####################################################################################
  */
-
 namespace Cunity\Comments\Models;
 
 use Cunity\Comments\Helper\AbstractCommentsHelper;

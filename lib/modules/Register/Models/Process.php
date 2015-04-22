@@ -33,7 +33,6 @@
  *
  * #####################################################################################
  */
-
 namespace Cunity\Register\Models;
 
 use Cunity\Core\Cunity;
@@ -107,7 +106,7 @@ class Process
         if ($user !== null) {
             if ($user->passwordMatch($password)) {
                 if ($user->groupid == 0) {
-                    new Message('Sorry', "Your account is not verified! Please check your verification mail! if you have not received a mail, enter your email at \"I forgot my password\" and we will send you a new mail!", 'danger');
+                    new Message('Sorry', 'Your account is not verified! Please check your verification mail! if you have not received a mail, enter your email at "I forgot my password" and we will send you a new mail!', 'danger');
                 } elseif ($user->groupid == 4) {
                     new Message('Sorry', 'Your Account is blocked! Please contact the Administrator', 'danger');
                 } else {
@@ -196,7 +195,7 @@ class Process
         $config = Cunity::get('config');
         $functions = $config->registerFunctions->toArray();
         foreach ($functions['module'] as $module) {
-            call_user_func(["Cunity\\".ucfirst($module)."\Controller", 'onUnregister'], $_SESSION['user']);
+            call_user_func(['Cunity\\'.ucfirst($module)."\Controller", 'onUnregister'], $_SESSION['user']);
         }
     }
 

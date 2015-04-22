@@ -33,7 +33,6 @@
  *
  * #####################################################################################
  */
-
 namespace Cunity\Search;
 
 use Cunity\Core\ModuleController;

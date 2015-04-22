@@ -33,7 +33,6 @@
  *
  * #####################################################################################
  */
-
 namespace Cunity\Gallery\Models\Db\Table;
 
 use Cunity\Core\Cunity;

@@ -33,7 +33,6 @@
  *
  * #####################################################################################
  */
-
 namespace Cunity\Memberlist\Models;
 
 use Cunity\Core\Models\Db\Table\Users;

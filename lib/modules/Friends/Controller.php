@@ -33,7 +33,6 @@
  *
  * #####################################################################################
  */
-
 namespace Cunity\Friends;
 
 use Cunity\Core\ModuleController;

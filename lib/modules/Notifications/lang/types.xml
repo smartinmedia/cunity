@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version = '1.0'?>
 <zend-config>
     <types>
         <wall_post>%s postet on your Wall!</wall_post>

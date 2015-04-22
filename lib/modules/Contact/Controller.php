@@ -33,7 +33,6 @@
  *
  * #####################################################################################
  */
-
 namespace Cunity\Contact;
 
 use Cunity\Core\ModuleController;

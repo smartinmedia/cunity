@@ -33,7 +33,6 @@
  *
  * #####################################################################################
  */
-
 namespace Cunity\Memberlist\View;
 
 use Cunity\Core\View\View;

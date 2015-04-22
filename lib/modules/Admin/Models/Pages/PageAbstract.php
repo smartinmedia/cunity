@@ -34,7 +34,6 @@
  *
  * #####################################################################################
  */
-
 namespace Cunity\Admin\Models\Pages;
 
 use Cunity\Core\View\View;
@@ -55,7 +54,7 @@ abstract class PageAbstract
     public function render($class)
     {
         /** @var View $class */
-        $class = "\\Cunity\\Admin\\View\\".ucfirst($class);
+        $class = '\\Cunity\\Admin\\View\\'.ucfirst($class);
 
         /** @var View $view */
         $view = new $class();

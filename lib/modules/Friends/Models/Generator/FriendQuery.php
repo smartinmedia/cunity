@@ -33,7 +33,6 @@
  *
  * #####################################################################################
  */
-
 namespace Cunity\Friends\Models\Generator;
 
 use Cunity\Core\Cunity;

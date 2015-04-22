@@ -33,7 +33,6 @@
  *
  * #####################################################################################
  */
-
 namespace Cunity\Messages\Models\Db\Table;
 
 use Cunity\Core\Models\Db\Abstractables\Table;
