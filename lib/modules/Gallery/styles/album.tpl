@@ -41,7 +41,7 @@
 <div id="imagelist">
     <div class="list clearfix"></div>
     <div class="loader block-loader gallery-loader"></div>
-    <div class="album-load-more hidden"><a href="javascript:loadPhotos({-$album.id});"><i class="fa fa-clock-o"></i>&nbsp;{-"Load more Photos"|translate}
+    <div class="album-load-more hidden"><a href="javascript:loadPhotos({-$album.id});" ><i class="fa fa-clock-o"></i>&nbsp;{-"Load more Photos"|translate}
         </a></div>
 </div>
 {-if $album.owner_id eq $user.userid && $event.owner_type eq NULL}
