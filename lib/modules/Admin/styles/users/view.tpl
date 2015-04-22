@@ -69,7 +69,7 @@
                                     <li><a href="javascript: changeUserStatus(4, {-$userItem.userid});"><i
                                                     class="fa fa-ban"></i>&nbsp;{-"Block this user"|translate}</a></li>
                                     {-/if}
-                                    {-if $user.groupid <= 3 and $userItem.groupid == 4}
+                                    {-if $user.groupid == 3 and $userItem.groupid == 0}
                                         <li><a href="javascript: changeUserStatus(1, {-$userItem.userid});"><i
                                                         class="fa fa-check"></i>&nbsp;{-"Activate this user"|translate}
                                             </a></li>
