@@ -190,7 +190,7 @@ class Relationships extends Table
             return $users->getSet($friends, 'u.userid', ['u.userid', 'u.username', 'u.name'])->toArray();
         }
 
-        return null;
+        return;
     }
 
     /**
