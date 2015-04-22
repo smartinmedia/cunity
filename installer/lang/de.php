@@ -1,4 +1,5 @@
 <?php
+
 /**
  * ########################################################################################
  * ## CUNITY(R) V2.0 - An open source social network / "your private social network"     ##
@@ -7,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -89,5 +90,5 @@ return [
     'Female' => 'Weiblich',
     'Male' => 'Männlich',
     'Finish Installation' => 'Installation abschließen',
-    'Settings' => 'Einstellungen'
+    'Settings' => 'Einstellungen',
 ];
