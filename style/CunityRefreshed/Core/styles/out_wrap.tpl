@@ -6,7 +6,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="generator" content="Cunity -  your private social network">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-        <title>{-$meta.title|translate}&nbsp;|&nbsp;{-"core.sitename"|setting}</title>
+        <title>{-$meta.title}&nbsp;|&nbsp;{-"core.sitename"|setting}</title>
         <link href="{-"core.siteurl"|setting}lib/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <link href="{-"core.siteurl"|setting}lib/plugins/fontawesome/css/font-awesome.css" rel="stylesheet">
         <link type="text/css" href="{-"core.siteurl"|setting}style/CunityRefreshed/css/style.css" rel="stylesheet" media="screen and (min-width:1024px)">
@@ -65,7 +65,7 @@
                 <div style="overflow:hidden;" class="pull-left">
                     <i id="menu-trigger" class="fa fa-bars"><img src="{-"core.siteurl"|setting}style/CunityRefreshed/img/cunity-logo-26.gif"></i>                
                 </div>
-                <h1 class="pull-left">{-$meta.title|translate}</h1>
+                <h1 class="pull-left">{-$meta.title}</h1>
                 {-if !empty($user)}
                     <i data-toggle="dropdown" data-target="#mobile-drop" class="fa fa-ellipsis-v pull-right"></i>        
                     <ul class="dropdown-menu" role="menu" aria-labelledby="option-drop" id="mobile-option"></ul>
