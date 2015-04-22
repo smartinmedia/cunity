@@ -579,3 +579,19 @@ CREATE TABLE IF NOT EXISTS `TABLEPREFIXprofilefields_values` (
 
 INSERT INTO `TABLEPREFIXprofilefields_values` (`id`, `value`, `profilefield_id`, `sorting`) VALUES (1, 'Female', 1, 1);
 INSERT INTO `TABLEPREFIXprofilefields_values` (`id`, `value`, `profilefield_id`, `sorting`) VALUES (2, 'Male', 1, 2);
+
+CREATE TABLE IF NOT EXISTS `TABLEPREFIXnewsletter` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `time` TIMESTAMP NOT NULL,
+  `subject` varchar(255) NOT NULL,
+  `message` text NOT NULL,
+  `userid` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `TABLEPREFIXnewsletter_user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `newsletterid` int(11) NOT NULL,
+  `userid` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;

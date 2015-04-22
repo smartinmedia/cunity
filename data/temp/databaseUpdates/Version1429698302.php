@@ -1,6 +1,5 @@
 <?php
 
-
 /**
  * ########################################################################################
  * ## CUNITY(R) V2.0 - An open source social network / "your private social network"     ##
@@ -9,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################.
+ * ########################################################################################
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -35,40 +34,20 @@
  * #####################################################################################
  */
 
-namespace Cunity\Admin\Models\Pages;
-
-use Cunity\Contact\Models\Db\Table\Contact;
-use Cunity\Core\Models\Db\Table\Newsletter;
+use Cunity\Admin\Models\Updater\DbCommandInterface;
+use Cunity\Admin\Models\Updater\DbUpdateVersion;
 
 /**
- * Class Mailing.
+ * Class Version1429698302
  */
-class Mailing extends PageAbstract
+class Version1429698302 extends DbUpdateVersion implements DbCommandInterface
 {
     /**
      *
      */
-    public function __construct()
+    public function execute()
     {
-        $this->loadData();
-        $this->render('mailing');
-    }
-
-    /**
-     * @throws \Exception
-     */
-    private function loadData()
-    {
-        $modules = new \Cunity\Core\Models\Db\Table\Modules();
-        $installedModules = $modules->getModules()->toArray();
-        $config = \Cunity\Core\Cunity::get('config');
-        $this->assignments['smtp_check'] = $config->mail->smtp_check;
-        $this->assignments['modules'] = $installedModules;
-        $messages = new Contact();
-        $allMessages = $messages->fetchAll();
-        $this->assignments['messages'] = $allMessages;
-        $newsletter = new Newsletter();
-        $allNewsletters = $newsletter->fetchAll();
-        $this->assignments['newsletters'] = $allNewsletters;
+        $this->_db->query("CREATE TABLE `".$this->_db->getDbprefix()."newsletter` (`id` int(11) NOT NULL AUTO_INCREMENT, `time` TIMESTAMP NOT NULL, `headline` varchar(255) NOT NULL, `subject` text NOT NULL, `userid` int(11) NOT NULL, PRIMARY KEY (`id`) ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1");
+        $this->_db->query("CREATE TABLE `".$this->_db->getDbprefix()."newsletter_user` (`id` int(11) NOT NULL AUTO_INCREMENT, `newsletterid` int(11) NOT NULL, `userid` int(11) NOT NULL, PRIMARY KEY (`id`) ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1");
     }
 }

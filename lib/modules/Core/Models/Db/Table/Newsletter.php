@@ -1,6 +1,5 @@
 <?php
 
-
 /**
  * ########################################################################################
  * ## CUNITY(R) V2.0 - An open source social network / "your private social network"     ##
@@ -35,40 +34,22 @@
  * #####################################################################################
  */
 
-namespace Cunity\Admin\Models\Pages;
+namespace Cunity\Core\Models\Db\Table;
 
-use Cunity\Contact\Models\Db\Table\Contact;
-use Cunity\Core\Models\Db\Table\Newsletter;
+use Cunity\Core\Models\Db\Abstractables\Table;
 
 /**
- * Class Mailing.
+ * Class Settings.
  */
-class Mailing extends PageAbstract
+class Newsletter extends Table
 {
     /**
-     *
+     * @var string
      */
-    public function __construct()
-    {
-        $this->loadData();
-        $this->render('mailing');
-    }
+    protected $_name = 'newsletter';
 
     /**
-     * @throws \Exception
+     * @var string
      */
-    private function loadData()
-    {
-        $modules = new \Cunity\Core\Models\Db\Table\Modules();
-        $installedModules = $modules->getModules()->toArray();
-        $config = \Cunity\Core\Cunity::get('config');
-        $this->assignments['smtp_check'] = $config->mail->smtp_check;
-        $this->assignments['modules'] = $installedModules;
-        $messages = new Contact();
-        $allMessages = $messages->fetchAll();
-        $this->assignments['messages'] = $allMessages;
-        $newsletter = new Newsletter();
-        $allNewsletters = $newsletter->fetchAll();
-        $this->assignments['newsletters'] = $allNewsletters;
-    }
+    protected $_primary = 'id';
 }
