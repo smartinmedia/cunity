@@ -585,13 +585,5 @@ CREATE TABLE IF NOT EXISTS `TABLEPREFIXnewsletter` (
   `time` TIMESTAMP NOT NULL,
   `subject` varchar(255) NOT NULL,
   `message` text NOT NULL,
-  `userid` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
-CREATE TABLE IF NOT EXISTS `TABLEPREFIXnewsletter_user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `newsletterid` int(11) NOT NULL,
-  `userid` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;

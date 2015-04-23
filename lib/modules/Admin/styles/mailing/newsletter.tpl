@@ -1,6 +1,9 @@
 <div class="row">
     <div class="col-lg-12">
-        <h1 class="page-header">{-"Messages"|translate}</h1>
+        <h1 class="page-header">{-"Newsletter"|translate}
+            <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#addnewslettermodal"><i
+                        class="fa fa-plus"></i>&nbsp;{-"Add Newsletter"|translate}</button>
+        </h1>
         <ol class="breadcrumb">
             <li><a href="{-"core.siteurl"|setting}admin"><i class="fa fa-home"></i></a></li>
             <li class="active">{-"Mailing"|translate}</li>
@@ -21,9 +24,8 @@
                     <tr>
                         <th width="30px">#</th>
                         <th width="160px">{-"Time"|translate}</th>
-                        <th>{-"Subject"|translate}</th>
+                        <th width="200px">{-"Subject"|translate}</th>
                         <th>{-"Message"|translate}</th>
-                        <th>&nbsp;</th>
                     </tr>
                     </thead>
                     <tbody id="moduletable">
@@ -41,3 +43,50 @@
         </div>
     </div>
 </form>
+<div class="modal fade" id="addnewslettermodal" tabindex="-1" role="dialog" aria-labelledby="addnewslettermodal"
+     aria-hidden="true">
+    <form class="login-form form-horizontal ajaxform" action="{-"index.php?m=admin&action=insert"|URL}"
+          style="margin:10px;" name="users">
+        <input type="hidden" name="action" value="insert">
+        <input type="hidden" class="ajaxform-callback" value="addNewsletter">
+        <input type="hidden" name="form" value="newsletter">
+
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">{-"Add Newsletter"|translate}</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="subject"
+                               class="col-sm-4 control-label">{-"Subject"|translate}*</label>
+
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" value="" id="subject"
+                                   name="subject" required data-bv-stringlength data-bv-stringlength-min="3"
+                                   data-bv-stringlength-message="{-"Subject is too short (min. 3 chars)"|translate}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="message"
+                               class="col-sm-4 control-label">{-"Message"|translate}*</label>
+
+                        <div class="col-sm-8">
+                            <textarea rows="10" class="form-control" id="message"
+                                      name="message" required data-bv-stringlength data-bv-stringlength-min="3"
+                                      data-bv-stringlength-message="{-"Message is too short (min. 3 chars)"|translate}"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" data-bb-handler="confirm" class="btn btn-default" data-dismiss="modal">Close
+                    </button>
+                    <button type="submit" class="btn btn-primary" name="submitButton" value="test">{-"Send test mail"|translate}</button>
+                    <button type="submit" class="btn btn-primary" name="submitButton" value="send">{-"Send to users"|translate}</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+ö

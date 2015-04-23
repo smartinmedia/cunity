@@ -41,6 +41,7 @@ use Cunity\Contact\Models\Db\Table\Contact;
 use Cunity\Core\Cunity;
 use Cunity\Core\Models\Db\Abstractables\Table;
 use Cunity\Core\Models\Db\Table\Modules;
+use Cunity\Core\Models\Db\Table\Newsletter;
 use Cunity\Core\Models\Db\Table\Users;
 use Cunity\Core\View\Ajax\View;
 use Cunity\Profile\Models\Db\Table\ProfileFields;
@@ -54,7 +55,7 @@ class Process
     /**
      * @var array
      */
-    private $validForms = ['config', 'settings', 'mailtemplates', 'modules', 'users', 'profilefields', 'contact', 'headline', 'update'];
+    private $validForms = ['config', 'settings', 'mailtemplates', 'modules', 'users', 'profilefields', 'contact', 'headline', 'update', 'newsletter'];
 
     /**
      * @param $form
@@ -205,7 +206,12 @@ class Process
                 }
 
                 break;
+            case 'newsletter':
+                $object = new Newsletter();
             default:
+                if (is_object($object)) {
+                    $object->insert($_REQUEST);
+                }
                 break;
         }
 
