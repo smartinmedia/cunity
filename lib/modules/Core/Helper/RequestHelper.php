@@ -33,7 +33,6 @@
  *
  * #####################################################################################
  */
-
 namespace Cunity\Core\Helper;
 
 use Zend_Controller_Request_Http;

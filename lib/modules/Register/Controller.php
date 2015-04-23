@@ -33,7 +33,6 @@
  *
  * #####################################################################################
  */
-
 namespace Cunity\Register;
 
 use Cunity\Core\ModuleController;

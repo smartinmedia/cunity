@@ -33,7 +33,6 @@
  *
  * #####################################################################################
  */
-
 namespace Cunity\Friends\Models;
 
 use Cunity\Core\Exception;

@@ -33,7 +33,6 @@
  *
  * #####################################################################################
  */
-
 namespace Cunity\Gallery;
 
 use Cunity\Core\ModuleController;

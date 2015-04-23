@@ -33,7 +33,6 @@
  *
  * #####################################################################################
  */
-
 namespace Cunity\Admin\Models\Updater;
 
 use Cunity\Admin\Models\Db\Table\Versions;

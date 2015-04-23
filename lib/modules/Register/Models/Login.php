@@ -33,7 +33,6 @@
  *
  * #####################################################################################
  */
-
 namespace Cunity\Register\Models;
 
 use Cunity\Core\Models\Db\Row\User;

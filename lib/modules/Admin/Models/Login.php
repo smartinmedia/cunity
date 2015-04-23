@@ -33,7 +33,6 @@
  *
  * #####################################################################################
  */
-
 namespace Cunity\Admin\Models;
 
 use Cunity\Core\Models\Generator\Url;

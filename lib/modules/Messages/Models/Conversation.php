@@ -33,7 +33,6 @@
  *
  * #####################################################################################
  */
-
 namespace Cunity\Messages\Models;
 
 use Cunity\Core\Models\Db\Table\Users;

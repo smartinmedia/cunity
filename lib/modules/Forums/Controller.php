@@ -33,7 +33,6 @@
  *
  * #####################################################################################
  */
-
 namespace Cunity\Forums;
 
 use Cunity\Core\ModuleController;

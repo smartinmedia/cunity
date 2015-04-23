@@ -33,7 +33,6 @@
  *
  * #####################################################################################
  */
-
 namespace Cunity\Core\View;
 
 use Cunity\Admin\Helper\UpdateHelper;
@@ -126,9 +125,9 @@ class View extends Smarty
         parent::__construct();
         if (!file_exists('../style/'.$this->getSetting('core.design'))) {
             throw new \Exception(
-                "Cannot find Theme-Folder \""
+                'Cannot find Theme-Folder "'
                 .$this->getSetting('core.design')
-                ."\""
+                .'"'
             );
         }
         $this->_coreRoot = str_replace(

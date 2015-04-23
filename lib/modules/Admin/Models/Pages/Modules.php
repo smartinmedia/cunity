@@ -34,7 +34,6 @@
  *
  * #####################################################################################
  */
-
 namespace Cunity\Admin\Models\Pages;
 
 use Cunity\Core\View\Ajax\View;

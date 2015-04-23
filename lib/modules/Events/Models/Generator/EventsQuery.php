@@ -33,7 +33,6 @@
  *
  * #####################################################################################
  */
-
 namespace Cunity\Events\Models\Generator;
 
 use Cunity\Core\Cunity;

@@ -33,7 +33,6 @@
  *
  * #####################################################################################
  */
-
 namespace Cunity\Contact\Models;
 
 use Cunity\Contact\Models\Db\Table\Contact;

@@ -33,7 +33,6 @@
  *
  * #####################################################################################
  */
-
 namespace Cunity\Likes\Models\Db\Table;
 
 use Cunity\Core\Models\Db\Abstractables\Table;

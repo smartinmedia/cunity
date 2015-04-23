@@ -33,7 +33,6 @@
  *
  * #####################################################################################
  */
-
 namespace Cunity\Comments\Helper;
 
 use Cunity\Comments\Models\Db;

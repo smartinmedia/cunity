@@ -34,7 +34,6 @@
  *
  * #####################################################################################
  */
-
 namespace Cunity\Admin\Models\Pages;
 
 use Cunity\Contact\Models\Db\Table\Contact;

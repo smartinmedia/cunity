@@ -33,7 +33,6 @@
  *
  * #####################################################################################
  */
-
 namespace Cunity\Notifications\Models;
 
 use Cunity\Core\View\Ajax\View;

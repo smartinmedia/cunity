@@ -33,7 +33,6 @@
  *
  * #####################################################################################
  */
-
 namespace Cunity\Core;
 
 use Cunity\Core\Models\Db\Adapter\Mysqli;
@@ -95,7 +94,7 @@ class Cunity
             return self::$_instances[$instance];
         } else {
             throw new Exception(
-                "Instance of \"".$instance."\" not found!"
+                'Instance of "'.$instance.'" not found!'
             );
         }
     }

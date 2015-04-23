@@ -33,7 +33,6 @@
  *
  * #####################################################################################
  */
-
 namespace Cunity\Core\View\Mail;
 
 use Cunity\Core\Models\Mail\Mail;

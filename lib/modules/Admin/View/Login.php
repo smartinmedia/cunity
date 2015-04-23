@@ -33,7 +33,6 @@
  *
  * #####################################################################################
  */
-
 namespace Cunity\Admin\View;
 
 use Cunity\Admin\View\Abstractables\View;

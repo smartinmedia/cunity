@@ -33,7 +33,6 @@
  *
  * #####################################################################################
  */
-
 namespace Cunity\Events;
 
 use Cunity\Core\ModuleController;

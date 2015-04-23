@@ -33,7 +33,6 @@
  *
  * #####################################################################################
  */
-
 namespace Cunity\Core\Models\Db\Abstractables;
 
 use Cunity\Core\Cunity;

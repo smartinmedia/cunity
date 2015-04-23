@@ -33,7 +33,6 @@
  *
  * #####################################################################################
  */
-
 namespace Cunity\Admin\Models\Pages;
 
 use Cunity\Admin\Helper\UpdateHelper;
