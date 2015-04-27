@@ -33,6 +33,7 @@
  *
  * #####################################################################################
  */
+
 namespace Cunity\Admin\Models;
 
 use Cunity\Admin\Helper\NewsletterHelper;
