@@ -33,6 +33,7 @@
  *
  * #####################################################################################
  */
+
 namespace Cunity\Notifications\Models;
 
 use Cunity\Notifications\View\NotificationMail;

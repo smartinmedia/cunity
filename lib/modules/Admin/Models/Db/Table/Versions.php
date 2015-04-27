@@ -34,6 +34,7 @@
  *
  * #####################################################################################
  */
+
 namespace Cunity\Admin\Models\Db\Table;
 
 use Cunity\Admin\Models\Updater\DbUpdateVersion;

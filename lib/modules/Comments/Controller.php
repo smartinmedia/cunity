@@ -33,6 +33,7 @@
  *
  * #####################################################################################
  */
+
 namespace Cunity\Comments;
 
 use Cunity\Core\ModuleController;

@@ -33,6 +33,7 @@
  *
  * #####################################################################################
  */
+
 namespace Cunity\Comments\Models\Db\Table;
 
 use Cunity\Core\Models\Db\Abstractables\Table;

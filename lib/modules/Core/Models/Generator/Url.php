@@ -33,6 +33,7 @@
  *
  * #####################################################################################
  */
+
 namespace Cunity\Core\Models\Generator;
 
 use Cunity\Core\Cunity;

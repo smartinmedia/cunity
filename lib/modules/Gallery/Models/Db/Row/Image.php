@@ -33,6 +33,7 @@
  *
  * #####################################################################################
  */
+
 namespace Cunity\Gallery\Models\Db\Row;
 
 use Cunity\Comments\Models\Db\Table\Comments;

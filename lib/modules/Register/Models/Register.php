@@ -33,6 +33,7 @@
  *
  * #####################################################################################
  */
+
 namespace Cunity\Register\Models;
 
 use Cunity\Core\Cunity;

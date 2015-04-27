@@ -33,6 +33,7 @@
  *
  * #####################################################################################
  */
+
 namespace Cunity\Admin\Models\Pages;
 
 use Cunity\Comments\Models\Db\Table\Comments;

@@ -33,6 +33,7 @@
  *
  * #####################################################################################
  */
+
 namespace Cunity\Core\Models\Db\Row;
 
 use Cunity\Core\Cunity;

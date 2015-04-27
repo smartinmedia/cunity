@@ -33,6 +33,7 @@
  *
  * #####################################################################################
  */
+
 namespace Cunity\Pages;
 
 use Cunity\Core\ModuleController;

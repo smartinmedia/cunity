@@ -33,6 +33,7 @@
  *
  * #####################################################################################
  */
+
 namespace Cunity\Search\Models;
 
 use Cunity\Core\Models\Db\Table\Users;

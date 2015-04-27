@@ -33,6 +33,7 @@
  *
  * #####################################################################################
  */
+
 namespace Cunity\Forums\Models;
 
 use Cunity\Core\Helper\UserHelper;

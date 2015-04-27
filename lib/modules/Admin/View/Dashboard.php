@@ -33,6 +33,7 @@
  *
  * #####################################################################################
  */
+
 namespace Cunity\Admin\View;
 
 use Cunity\Admin\Models\Login;

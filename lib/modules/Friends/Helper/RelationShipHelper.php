@@ -33,6 +33,7 @@
  *
  * #####################################################################################
  */
+
 namespace Cunity\Friends\Helper;
 
 use Cunity\Core\Exception;

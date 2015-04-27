@@ -33,6 +33,7 @@
  *
  * #####################################################################################
  */
+
 namespace Cunity\Friends\Models\Db\Table;
 
 use Cunity\Core\Cunity;

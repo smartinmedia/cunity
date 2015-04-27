@@ -33,6 +33,7 @@
  *
  * #####################################################################################
  */
+
 namespace Cunity\Newsfeed\Models;
 
 use Cunity\Core\View\Ajax\View;

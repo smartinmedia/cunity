@@ -33,6 +33,7 @@
  *
  * #####################################################################################
  */
+
 namespace Cunity\Likes;
 
 use Cunity\Core\ModuleController;

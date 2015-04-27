@@ -33,6 +33,7 @@
  *
  * #####################################################################################
  */
+
 namespace Cunity\Memberlist;
 
 use Cunity\Core\ModuleController;

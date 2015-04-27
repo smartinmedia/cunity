@@ -35,6 +35,7 @@
  */
 namespace Cunity\Admin\Models;
 
+use Cunity\Admin\Helper\NewsletterHelper;
 use Cunity\Admin\Helper\UpdateHelper;
 use Cunity\Contact\Models\Db\Table\Contact;
 use Cunity\Core\Cunity;
@@ -206,7 +207,11 @@ class Process
 
                 break;
             case 'newsletter':
-                $object = new Newsletter();
+                NewsletterHelper::sendMails('test', 'bla', ($_REQUEST['type'] === 'test'));
+
+                if ($_REQUEST['type'] !== 'test') {
+                    $object = new Newsletter();
+                }
             default:
                 if (is_object($object)) {
                     $object->insert($_REQUEST);

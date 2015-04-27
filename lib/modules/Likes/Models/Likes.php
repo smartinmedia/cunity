@@ -33,6 +33,7 @@
  *
  * #####################################################################################
  */
+
 namespace Cunity\Likes\Models;
 
 use Cunity\Core\View\Ajax\View;

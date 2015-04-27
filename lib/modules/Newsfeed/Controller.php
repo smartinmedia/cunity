@@ -33,6 +33,7 @@
  *
  * #####################################################################################
  */
+
 namespace Cunity\Newsfeed;
 
 use Cunity\Core\ModuleController;

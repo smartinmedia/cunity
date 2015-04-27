@@ -11,6 +11,7 @@
 /**
  * @see Zend_Filter_Interface
  */
+
 namespace Skoch\Filter\File;
 
 use Skoch\Filter\File\Adapter\AbstractAdapter;

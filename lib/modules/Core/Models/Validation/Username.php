@@ -33,6 +33,7 @@
  *
  * #####################################################################################
  */
+
 namespace Cunity\Core\Models\Validation;
 
 use Cunity\Core\Models\Db\Table\Users;

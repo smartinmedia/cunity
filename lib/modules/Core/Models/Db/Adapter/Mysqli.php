@@ -33,6 +33,7 @@
  *
  * #####################################################################################
  */
+
 namespace Cunity\Core\Models\Db\Adapter;
 
 use Cunity\Core\Cunity;

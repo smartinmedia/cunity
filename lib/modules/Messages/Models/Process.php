@@ -33,6 +33,7 @@
  *
  * #####################################################################################
  */
+
 namespace Cunity\Messages\Models;
 
 use Cunity\Core\View\Ajax\View;

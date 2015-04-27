@@ -33,6 +33,7 @@
  *
  * #####################################################################################
  */
+
 namespace Cunity\Newsfeed\Models\Db\Table;
 
 use Cunity\Comments\Models\Db\Table\Comments;

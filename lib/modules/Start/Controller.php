@@ -33,6 +33,7 @@
  *
  * #####################################################################################
  */
+
 namespace Cunity\Start;
 
 use Cunity\Core\ModuleController;

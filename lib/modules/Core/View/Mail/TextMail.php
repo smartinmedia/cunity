@@ -33,6 +33,7 @@
  *
  * #####################################################################################
  */
+
 namespace Cunity\Core\View\Mail;
 
 use Cunity\Core\Models\Db\Row\User;

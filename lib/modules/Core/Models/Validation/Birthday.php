@@ -33,6 +33,7 @@
  *
  * #####################################################################################
  */
+
 namespace Cunity\Core\Models\Validation;
 
 use Cunity\Core\Cunity;
