@@ -83,7 +83,7 @@
                     <button type="button" data-bb-handler="confirm" class="btn btn-default" data-dismiss="modal">Close
                     </button>
                     <input type="hidden" name="type" value="test" id="type" />
-                    <button type="submit" class="btn btn-primary" name="submitButton" id="test">{-"Send test mail"|translate}</button>
+                    <button type="submit" class="btn btn-primary btn-warning" name="submitButton" id="test">{-"Send test mail"|translate}</button>
                     <button type="submit" class="btn btn-primary" name="submitButton" id="send">{-"Send to users"|translate}</button>
                 </div>
             </div>

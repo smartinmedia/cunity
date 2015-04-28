@@ -68,7 +68,7 @@ class Mailing extends PageAbstract
         $allMessages = $messages->fetchAll();
         $this->assignments['messages'] = $allMessages;
         $newsletter = new Newsletter();
-        $allNewsletters = $newsletter->fetchAll();
+        $allNewsletters = $newsletter->fetchAll(null, 'time desc');
         $this->assignments['newsletters'] = $allNewsletters;
     }
 }
