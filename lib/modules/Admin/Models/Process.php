@@ -208,7 +208,7 @@ class Process
 
                 break;
             case 'newsletter':
-                NewsletterHelper::sendMails('test', 'bla', ($_REQUEST['type'] === 'test'));
+                NewsletterHelper::sendMails($_REQUEST['subject'], $_REQUEST['message'], ($_REQUEST['type'] === 'test'));
 
                 if ($_REQUEST['type'] !== 'test') {
                     $object = new Newsletter();
