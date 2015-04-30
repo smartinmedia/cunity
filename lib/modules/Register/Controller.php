@@ -36,6 +36,8 @@
 
 namespace Cunity\Register;
 
+use Cunity\Admin\View\Login;
+use Cunity\Core\Models\Generator\Url;
 use Cunity\Core\ModuleController;
 
 /**
@@ -70,6 +72,11 @@ class Controller extends ModuleController
      */
     private function handleRequest()
     {
+        if (Models\Login::loggedIn()) {
+            header('Location:'.Url::convertUrl('index.php?m=profile'));
+            exit();
+        }
+
         if (!isset($_GET['action']) || empty($_GET['action'])) {
             $view = new View\Registration();
             $view->assign('success', false);
