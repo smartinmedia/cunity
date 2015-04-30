@@ -51,6 +51,5 @@ class Statistics extends View
         parent::__construct();
         $this->_templateFile = 'statistics/'.$_GET['x'].'.tpl';
         $this->registerCss('statistics', $_GET['x']);
-        $this->show();
     }
 }

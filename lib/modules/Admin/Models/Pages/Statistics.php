@@ -35,6 +35,7 @@
  */
 
 namespace Cunity\Admin\Models\Pages;
+use Cunity\Core\Models\Db\Table\Log;
 
 /**
  * Class Statistics.
@@ -66,6 +67,36 @@ class Statistics extends PageAbstract
             $counter++;
         }
 
+
         $this->assignments['statisticdata'] = json_encode($statisticData);
+
+        $log = new Log();
+        $logData = $log->fetchAll(null, 'id desc')->toArray();
+
+        foreach ($logData as $index => $log) {
+            switch ($log['level']) {
+                case 'emergency':
+                case 'alert':
+                case 'critical':
+                case 'error':
+                    $logData[$index]['label'] = 'danger';
+                    break;
+                case 'warning':
+                    $logData[$index]['label'] = 'warning';
+                    break;
+                case 'notice':
+                case 'info':
+                    $logData[$index]['label'] = 'info';
+                    break;
+                case 'debug':
+                    $logData[$index]['label'] = 'info';
+                    break;
+                default:
+                    $logData[$index]['label'] = 'default';
+                    break;
+            }
+        }
+
+        $this->assignments['logdata'] = $logData;
     }
 }

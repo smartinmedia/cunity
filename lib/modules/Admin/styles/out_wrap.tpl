@@ -143,19 +143,19 @@
                     <a data-cat="update" data-page="update"><i
                                 class="fa fa-undo fa-fw"></i>&nbsp;{-"Update"|translate}</a>
                 </li>
-                {-*<li>*}
-                    {-*<a href="#" class="dropdown"><i class="fa fa-bar-chart-o fa-fw"></i> {-"Statistics"|translate}<span*}
-                                {-*class="fa arrow"></span></a>*}
-                    {-*<ul class="nav nav-second-level">*}
+                <li>
+                    <a href="#" class="dropdown"><i class="fa fa-bar-chart-o fa-fw"></i> {-"Statistics"|translate}<span
+                                class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
                         {-*<li>*}
                             {-*<a data-cat="statistics" data-page="reports">{-"Site Reports"|translate}</a>*}
                         {-*</li>*}
-                        {-*<li>*}
-                            {-*<a data-cat="statistics" data-page="logs">{-"Log"|translate}</a>*}
-                        {-*</li>*}
-                    {-*</ul>*}
-                    {-*<!-- /.nav-second-level -->*}
-                {-*</li>*}
+                        <li>
+                            <a data-cat="statistics" data-page="logs">{-"Log"|translate}</a>
+                        </li>
+                    </ul>
+                    <!-- /.nav-second-level -->
+                </li>
                 <li>
                     <a data-cat="cunity" data-page="about"><img
                                 src="{-"core.siteurl"|setting}style/CunityRefreshed/img/cunity-logo-26.png" width="16px"

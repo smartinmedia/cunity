@@ -5,7 +5,8 @@
     "license": "AGPL-3.0",
     "require": {
         "zendframework/zendframework1": "~1",
-        "smarty/smarty": "3.1.11"
+        "smarty/smarty": "3.1.11",
+        "psr/log": "1.0.0"
     },
     "require-dev": {
         "firephp/firephp-core": "dev-master",
