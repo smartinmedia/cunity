@@ -35,6 +35,7 @@
  */
 
 namespace Cunity\Admin\Models\Pages;
+
 use Cunity\Core\Models\Db\Table\Log;
 
 /**
@@ -66,7 +67,6 @@ class Statistics extends PageAbstract
             $statisticData[$counter]['period'] = $date;
             $counter++;
         }
-
 
         $this->assignments['statisticdata'] = json_encode($statisticData);
 
