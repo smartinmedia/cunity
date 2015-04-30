@@ -103,7 +103,8 @@ class NotificationSettings extends Table
     public function updateSettings(array $values)
     {
         $res = [];
-        $res[] = (0 < $this->delete($this->getAdapter()->quoteInto('userid=?', $_SESSION['user']->userid)));
+        $this->delete($this->getAdapter()->quoteInto('userid=?', $_SESSION['user']->userid));
+
         foreach ($values as $name => $value) {
             $res[] = $this->insert(['userid' => $_SESSION['user']->userid, 'name' => $name, 'value' => $value]);
         }
