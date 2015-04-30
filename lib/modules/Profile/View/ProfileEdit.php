@@ -72,6 +72,10 @@ class ProfileEdit extends View
             'summernote',
             ['css/summernote.css', 'js/summernote.min.js']
         );
+        $this->registerCunityPlugin(
+            'bootstrap-datepicker',
+            ['css/bootstrap-datepicker.css', 'js/bootstrap-datepicker.js']
+        );
         $this->assign(
             'upload_limit',
             Cunity::get('config')->site->upload_limit

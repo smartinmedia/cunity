@@ -62,36 +62,45 @@
                             </div>
                         </div>
                         {-foreach $profileFields AS $i => $field}
-                            <div class="form-group">
-                                <label class="control-label col-md-3">{-$field.label|translate}{-if $field.required == 1}*{-/if}</label>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">{-$field.label|translate}{-if $field.required == 1}*{-/if}</label>
 
-                                <div class="col-md-9">
-                                    {-if $field.type_id == 1}
-                                        <select class="form-control" name="field[{-$field.id}]"
-                                                {-if $field.required}required{-/if}>
-                                            <option value="">{-"Make a choice"|translate}</option>
-                                            {-foreach $field.values as $j => $value}
-                                                <option value="{-$value.id}"
-                                                        {-if $field.value==$value.id}selected{-/if}>{-$value.value|translate}</option>
-                                            {-/foreach}
-                                        </select>
-                                    {-elseif $field.type_id == 3}
-                                        <textarea class="form-control" id="postmsg" name="field[{-$field.id}]"
-                                                  placeholder="{-$field.label}">{-$field.value}</textarea>
-                                    {-elseif $field.type_id == 4}
+                            <div class="col-md-9">
+                                {-if $field.type_id == 1}
+                                    <select class="form-control" name="field[{-$field.id}]"
+                                            {-if $field.required}required{-/if}>
+                                        <option value="">{-"Make a choice"|translate}</option>
+                                        {-foreach $field.values as $j => $value}
+                                            <option value="{-$value.id}"
+                                                    {-if $field.value==$value.id}selected{-/if}>{-$value.value|translate}</option>
+                                        {-/foreach}
+                                    </select>
+                                {-elseif $field.type_id == 3}
+                                    <textarea class="form-control" id="postmsg" name="field[{-$field.id}]"
+                                              placeholder="{-$field.label}">{-$field.value}</textarea>
+                                {-elseif $field.type_id == 4}
                                     <input type="text" name="field[{-$field.id}]" class="form-control"
                                            value="{-$field.value}" placeholder="{-$field.label}">
-                                    {-/if}
+                                {-elseif $field.type == "date"}
+                                    <div class="input-group date datepicker" id="datepicker{-$field.id}">
+                                        <input type="text" class="form-control" name="field[{-$field.id}]"
+                                               value="{-$field.value}"
+                                               readonly="readonly">
+                        <span class="input-group-addon">
+                            <span class="fa fa-calendar"></span>
+                        </span>
+                                    </div>
+                                {-/if}
                                 </div>
                             </div>
-                        {-/foreach}
-                        <div class="form-group">
-                            <div class="col-md-offset-3 col-md-9 clearfix">
-                                <input class="ajaxform-callback" value="generalchanged" type="hidden">
-                                <button type="submit" class="btn btn-primary pull-right"><i
-                                            class="fa fa-save"></i> {-"Save"|translate}</button>
+                            {-/foreach}
+                            <div class="form-group">
+                                <div class="col-md-offset-3 col-md-9 clearfix">
+                                    <input class="ajaxform-callback" value="generalchanged" type="hidden">
+                                    <button type="submit" class="btn btn-primary pull-right"><i
+                                                class="fa fa-save"></i> {-"Save"|translate}</button>
+                                </div>
                             </div>
-                        </div>
                     </form>
                 </div>
             </div>
@@ -189,19 +198,19 @@
                             </div>
                         </div>
                         {-*<div class="form-group">*}
-                            {-*<label class="control-label col-md-5">{-"Who is allowed to see your profile-pins?"|translate}</label>*}
+                        {-*<label class="control-label col-md-5">{-"Who is allowed to see your profile-pins?"|translate}</label>*}
 
-                            {-*<div class="col-md-7">*}
-                                {-*<select class="form-control" name="privacy[visit]" id="privacyselect-visit">*}
-                                    {-*<option value="0"*}
-                                            {-*{-if $profile.privacy.visit == 0}selected{-/if}>{-"No one"|translate}</option>*}
-                                    {-*<option value="1"*}
-                                            {-*{-if $profile.privacy.visit == 1}selected{-/if}>{-"Friends"|translate}</option>*}
-                                    {-*                                <option value="2" {-if $profile.privacy.visit == 2}selected{-/if}>{-"Friends of Friends"|translate}</option>*}
-                                    {-*<option value="3"*}
-                                            {-*{-if $profile.privacy.visit == 3}selected{-/if}>{-"Everyboy"|translate}</option>*}
-                                {-*</select>*}
-                            {-*</div>*}
+                        {-*<div class="col-md-7">*}
+                        {-*<select class="form-control" name="privacy[visit]" id="privacyselect-visit">*}
+                        {-*<option value="0"*}
+                        {-*{-if $profile.privacy.visit == 0}selected{-/if}>{-"No one"|translate}</option>*}
+                        {-*<option value="1"*}
+                        {-*{-if $profile.privacy.visit == 1}selected{-/if}>{-"Friends"|translate}</option>*}
+                        {-*                                <option value="2" {-if $profile.privacy.visit == 2}selected{-/if}>{-"Friends of Friends"|translate}</option>*}
+                        {-*<option value="3"*}
+                        {-*{-if $profile.privacy.visit == 3}selected{-/if}>{-"Everyboy"|translate}</option>*}
+                        {-*</select>*}
+                        {-*</div>*}
                         {-*</div>*}
                         <div class="form-group">
                             <label class="control-label col-md-5">{-"Who is allowed to send you messages?"|translate}</label>
@@ -219,24 +228,26 @@
                             </div>
                         </div>
                         {-*<div class="form-group">*}
-                            {-*<label class="control-label col-md-5">{-"Who is allowed to see your Newsfeed-Posts?"|translate}</label>*}
+                        {-*<label class="control-label col-md-5">{-"Who is allowed to see your Newsfeed-Posts?"|translate}</label>*}
 
-                            {-*<div class="col-md-7">*}
-                                {-*<select class="form-control" name="privacy[posts]" id="privacyselect-posts">*}
-                                    {-*<option value="0"*}
-                                            {-*{-if $profile.privacy.posts == 0}selected{-/if}>{-"No one"|translate}</option>*}
-                                    {-*<option value="1"*}
-                                            {-*{-if $profile.privacy.posts == 1}selected{-/if}>{-"Friends"|translate}</option>*}
-                                    {-*<option value="2" {-if $profile.privacy.posts == 2}selected{-/if}>{-"Friends of Friends"|translate}</option>*}
-                                    {-*<option value="3"*}
-                                            {-*{-if $profile.privacy.posts == 3}selected{-/if}>{-"Everyboy"|translate}</option>*}
-                                {-*</select>*}
-                            {-*</div>*}
+                        {-*<div class="col-md-7">*}
+                        {-*<select class="form-control" name="privacy[posts]" id="privacyselect-posts">*}
+                        {-*<option value="0"*}
+                        {-*{-if $profile.privacy.posts == 0}selected{-/if}>{-"No one"|translate}</option>*}
+                        {-*<option value="1"*}
+                        {-*{-if $profile.privacy.posts == 1}selected{-/if}>{-"Friends"|translate}</option>*}
+                        {-*<option value="2" {-if $profile.privacy.posts == 2}selected{-/if}>{-"Friends of Friends"|translate}</option>*}
+                        {-*<option value="3"*}
+                        {-*{-if $profile.privacy.posts == 3}selected{-/if}>{-"Everyboy"|translate}</option>*}
+                        {-*</select>*}
+                        {-*</div>*}
                         {-*</div>*}
                         <div class="form-group">
                             <div class="col-md-offset-5 col-md-7 clearfix">
                                 <input class="ajaxform-callback" value="privacychanged" type="hidden">
-                                <button type="submit" class="btn btn-primary pull-right" id="saveprivacy" onclick="$('#privacychangedalert').removeClass('alert-success, alert-danger').hide().html('')"><i
+                                <button type="submit" class="btn btn-primary pull-right" id="saveprivacy"
+                                        onclick="$('#privacychangedalert').removeClass('alert-success, alert-danger').hide().html('')">
+                                    <i
                                             class="fa fa-save"></i> {-"Save"|translate}</button>
                             </div>
                         </div>
@@ -523,34 +534,34 @@
                         </td>
                     </tr>
                     {-if ("register.allfriends"|setting == 0) }
-                    <tr>
-                        <td>{-"Someone add you as a friend"|translate}<input type="hidden" name="types[addfriend]"
-                                                                             value="1"></td>
-                        <td><input type="checkbox" name="alert[addfriend]" value="1"
-                                   {-if $profile.notificationSettings.addfriend == 1 or $profile.notificationSettings.addfriend == 3}checked="checked"{-/if}>
-                        </td>
-                        <td><input type="checkbox" name="mail[addfriend]" value="1"
-                                   {-if $profile.notificationSettings.addfriend == 2 or $profile.notificationSettings.addfriend == 3}checked="checked"{-/if}>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>{-"Someone confirms your friend-request"|translate}<input type="hidden"
-                                                                                      name="types[confirmfriend]"
-                                                                                      value="1">
-                        </td>
-                        <td><input type="checkbox" name="alert[confirmfriend]" value="1"
-                                   {-if $profile.notificationSettings.confirmfriend == 1 or $profile.notificationSettings.confirmfriend == 3}checked="checked"{-/if}>
-                        </td>
-                        <td><input type="checkbox" name="mail[confirmfriend]" value="1"
-                                   {-if $profile.notificationSettings.confirmfriend == 2 or $profile.notificationSettings.confirmfriend == 3}checked="checked"{-/if}>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td>{-"Someone add you as a friend"|translate}<input type="hidden" name="types[addfriend]"
+                                                                                 value="1"></td>
+                            <td><input type="checkbox" name="alert[addfriend]" value="1"
+                                       {-if $profile.notificationSettings.addfriend == 1 or $profile.notificationSettings.addfriend == 3}checked="checked"{-/if}>
+                            </td>
+                            <td><input type="checkbox" name="mail[addfriend]" value="1"
+                                       {-if $profile.notificationSettings.addfriend == 2 or $profile.notificationSettings.addfriend == 3}checked="checked"{-/if}>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>{-"Someone confirms your friend-request"|translate}<input type="hidden"
+                                                                                          name="types[confirmfriend]"
+                                                                                          value="1">
+                            </td>
+                            <td><input type="checkbox" name="alert[confirmfriend]" value="1"
+                                       {-if $profile.notificationSettings.confirmfriend == 1 or $profile.notificationSettings.confirmfriend == 3}checked="checked"{-/if}>
+                            </td>
+                            <td><input type="checkbox" name="mail[confirmfriend]" value="1"
+                                       {-if $profile.notificationSettings.confirmfriend == 2 or $profile.notificationSettings.confirmfriend == 3}checked="checked"{-/if}>
+                            </td>
+                        </tr>
                     {-/if}
-                                        {-*<tr>
-                    <td>{-"Someone commented on one of your posts or photos"|translate}</td>
-                    <td><input type="checkbox" name="alert[post_comment]" value="1"></td>
-                    <td><input type="checkbox" name="mail[post_comment]" value="1"></td>
-                    </tr>*}
+                    {-*<tr>
+<td>{-"Someone commented on one of your posts or photos"|translate}</td>
+<td><input type="checkbox" name="alert[post_comment]" value="1"></td>
+<td><input type="checkbox" name="mail[post_comment]" value="1"></td>
+</tr>*}
                     </tbody>
                 </table>
                 <div class="panel-footer clearfix">
