@@ -112,7 +112,7 @@
                             <div class="col-lg-7">
                                 <div class="input-group date datepicker" id="datepicker{-$field.id}">
                                     <input type="text" class="form-control" name="field[{-$field.id}]"
-                                           value="{-$field.value}"
+                                           value=""
                                            readonly="readonly">
                         <span class="input-group-addon">
                             <span class="fa fa-calendar"></span>
@@ -127,7 +127,7 @@
                                 <label class="control-label col-lg-4">{-"Birthday"|translate}</label>
 
                                 <div class="col-lg-7">
-                                    <div class="input-group date datepicker" id="datepicker">
+                                    <div class="input-group date datepicker" id="datepicker-birthday">
                                         <input type="text" class="form-control" name="birthday" required="required"
                                                readonly="readonly">
                         <span class="input-group-addon">
