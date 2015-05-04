@@ -72,8 +72,10 @@ class Controller extends ModuleController
      */
     private function handleRequest()
     {
-        if (Models\Login::loggedIn()) {
-            header('Location:'.Url::convertUrl('index.php?m=profile'));
+        if (Models\Login::loggedIn() &&
+            $_GET['action'] != 'logout'
+        ) {
+            header('Location:' . Url::convertUrl('index.php?m=profile'));
             exit();
         }
 
