@@ -37,47 +37,12 @@
 namespace Cunity\Core\Exceptions;
 
 /**
- * Class Exception.
+ * Class UnknownDirectory.
  */
-abstract class Exception extends \Exception
+class NotWriteable extends Exception
 {
     /**
      * @var int
      */
-    protected $errorCode = 0;
-
-    /**
-     * @var array
-     */
-    private static $errorCodes = [
-        0 => 'Unknown error',
-        1 => 'Error code does not exist',
-        2 => 'Instance not found',
-        3 => 'Unknown user',
-        4 => 'Undefined setting',
-        5 => 'Unknown file',
-        6 => 'Missing parameter',
-        7 => 'Unknown directory',
-        8 => 'Not writeable'
-    ];
-
-    /**
-     *
-     */
-    public function __construct()
-    {
-        if (!array_key_exists($this->errorCode, self::$errorCodes)) {
-            throw new ErrorNotFound();
-        }
-
-        parent::__construct(self::$errorCodes[$this->errorCode], $this->errorCode);
-    }
-
-    /**
-     * @return string
-     */
-    public function __toString()
-    {
-        return __CLASS__.": [{$this->errorCode}]: {".self::$errorCodes[$this->errorCode]."}\n";
-    }
+    protected $errorCode = 8;
 }

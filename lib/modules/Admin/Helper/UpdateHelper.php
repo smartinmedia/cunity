@@ -114,7 +114,7 @@ class UpdateHelper
         if ($settings->getSetting('core.lastupdatecheck') < mktime(0, 0, 1, date('m'), date('d'), date('Y')) ||
             $force
         ) {
-            if (!self::updateServerAvailable()) {
+            if (!self::canUpdate()) {
                 $newVersion = self::getVersion();
             } else {
                 $context = array('http' => array(
@@ -182,5 +182,44 @@ class UpdateHelper
         $config = new \Zend_Config_Xml(__DIR__.'/../../../../data/config.xml');
         $configWriter = new \Zend_Config_Writer_Xml(['config' => new \Zend_Config(Process::arrayMergeRecursiveDistinct($config->toArray(), $configuration)), 'filename' => __DIR__.'/../../../../data/config.xml']);
         $configWriter->write();
+    }
+
+    /**
+     * @return bool
+     */
+    private static function canWrite()
+    {
+        $directory = new \RecursiveDirectoryIterator(__DIR__.'/../../../');
+        $iterator = new \RecursiveIteratorIterator($directory);
+
+        /** @var \SplFileInfo $object */
+        foreach ($iterator as $name => $object) {
+            if ($object->getFilename() === '.' || $object->getFilename() === '..') {
+                continue;
+            }
+
+            if (!$object->isWritable()) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * @return bool
+     */
+    private static function canUpdate()
+    {
+        if (!self::updateServerAvailable()) {
+            return false;
+        }
+
+        if (!self::canWrite())
+        {
+            return false;
+        }
+
+        return true;
     }
 }
