@@ -58,6 +58,11 @@ class UpdateHelper
     public static $LATESTURL = 'http://server.cunity.net/latest.zip';
 
     /**
+     * @var int
+     */
+    protected static $TIMEOUT = 3;
+
+    /**
      * @return mixed
      */
     public static function hasUpdates()
@@ -67,6 +72,20 @@ class UpdateHelper
         }
 
         return version_compare(self::getVersion(), self::getRemoteVersion(), '<');
+    }
+
+    /**
+     * @return string
+     */
+    protected static function updateServerAvailable()
+    {
+        $errorReporting = error_reporting();
+        error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED & ~E_WARNING);
+        $xcontext = stream_context_create(['http' => ['timeout' => self::$TIMEOUT]]);
+        $test = file_get_contents(self::$UPDATECHECKURL, 'r', $xcontext);
+        error_reporting($errorReporting);
+
+        return $test;
     }
 
     /**
@@ -82,7 +101,11 @@ class UpdateHelper
     }
 
     /**
-     * @return string
+     * @param bool $force
+     *
+     * @return mixed
+     *
+     * @throws \Cunity\Core\Exceptions\InstanceNotFound
      */
     protected static function getRemoteVersion($force = false)
     {
@@ -91,11 +114,17 @@ class UpdateHelper
         if ($settings->getSetting('core.lastupdatecheck') < mktime(0, 0, 1, date('m'), date('d'), date('Y')) ||
             $force
         ) {
-            $context = array('http' => array(
+            if (!self::updateServerAvailable()) {
+                $newVersion = self::getVersion();
+            } else {
+                $context = array('http' => array(
                     'header' => 'Referer: '.
-                        $settings->getSetting('core.siteurl'), ));
-            $xcontext = stream_context_create($context);
-            $settings->setSetting('core.remoteversion', file_get_contents(self::$UPDATECHECKURL, 'r', $xcontext));
+                        $settings->getSetting('core.siteurl'),));
+                $xcontext = stream_context_create($context);
+                $newVersion = file_get_contents(self::$UPDATECHECKURL, 'r', $xcontext);
+            }
+
+            $settings->setSetting('core.remoteversion', $newVersion);
             $settings->setSetting('core.lastupdatecheck', time());
         }
 
