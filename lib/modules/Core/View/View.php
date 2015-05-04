@@ -38,7 +38,9 @@ namespace Cunity\Core\View;
 
 use Cunity\Admin\Helper\UpdateHelper;
 use Cunity\Core\Cunity;
-use Cunity\Core\Exception;
+use Cunity\Core\Exceptions\Exception;
+use Cunity\Core\Exceptions\UnknownDirectory;
+use Cunity\Core\Exceptions\UnknownFile;
 use Cunity\Core\Helper\UserHelper;
 use Cunity\Core\Models\Db\Table\Announcements;
 use Cunity\Core\Models\Db\Table\Menu;
@@ -125,11 +127,7 @@ class View extends Smarty
     {
         parent::__construct();
         if (!file_exists('../style/'.$this->getSetting('core.design'))) {
-            throw new \Exception(
-                "Cannot find Theme-Folder \""
-                .$this->getSetting('core.design')
-                ."\""
-            );
+            throw new UnknownDirectory;
         }
         $this->_coreRoot = str_replace(
             '%design%',
@@ -225,8 +223,7 @@ class View extends Smarty
     }
 
     /**
-     * @throws \Cunity\Core\Exception
-     * @throws \Exception
+     * @throws Exception
      */
     public function show()
     {
@@ -332,14 +329,7 @@ class View extends Smarty
                 .'.js'
                 .'"></script>';
         } else {
-            throw new Exception(
-                "Cannot load javascript-file: '"
-                .$this->_templateRoot
-                .$module
-                .$scriptName
-                .'.js'
-                ."'"
-            );
+            throw new UnknownFile;
         }
     }
 
@@ -360,14 +350,7 @@ class View extends Smarty
         if (file_exists($this->_templateRoot.$module.$fileName.'.css')) {
             $this->_headCss[] = $module.$fileName.'.css';
         } else {
-            throw new Exception(
-                "Cannot load CSS-file: '"
-                .$this->_templateRoot
-                .$module
-                .$fileName
-                .'.css'
-                ."'"
-            );
+            throw new UnknownFile;
         }
     }
 

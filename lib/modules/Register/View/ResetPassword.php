@@ -57,7 +57,7 @@ class ResetPassword extends View
     protected $_metadata = ['title' => 'Reset Password'];
 
     /**
-     * @throws \Cunity\Core\Exception
+     * @throws \Cunity\Core\Exceptions\Exception
      * @throws \Exception
      */
     public function __construct()

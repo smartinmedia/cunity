@@ -34,27 +34,16 @@
  * #####################################################################################
  */
 
-namespace Cunity\Core;
+namespace Cunity\Core\Exceptions;
 
 /**
- * Class Exception.
+ * Class UnknownDirectory
+ * @package Cunity\Core\Exceptions
  */
-class Exception extends \Exception
+class UnknownDirectory extends Exception
 {
     /**
-     * @param string $message
-     * @param int    $code
+     * @var int
      */
-    public function __construct($message, $code = 0)
-    {
-        parent::__construct($message, $code);
-    }
-
-    /**
-     * @return string
-     */
-    public function __toString()
-    {
-        return __CLASS__.": [{$this->code}]: {$this->message}\n";
-    }
+    protected $errorCode = 7;
 }

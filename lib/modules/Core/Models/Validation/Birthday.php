@@ -61,7 +61,7 @@ class Birthday extends \Zend_Validate_Abstract
     ];
 
     /**
-     * @throws \Cunity\Core\Exception
+     * @throws \Cunity\Core\Exceptions\Exception
      */
     public function __construct()
     {

@@ -34,37 +34,16 @@
  * #####################################################################################
  */
 
-namespace Cunity\Forums\View;
-
-use Cunity\Core\View\View;
+namespace Cunity\Core\Exceptions;
 
 /**
- * Class Forum.
+ * Class MissingParameter
+ * @package Cunity\Core\Exceptions
  */
-class Forum extends View
+class MissingParameter extends Exception
 {
     /**
-     * @var string
+     * @var int
      */
-    protected $_templateDir = 'forums';
-    /**
-     * @var string
-     */
-    protected $_templateFile = 'forum.tpl';
-    /**
-     * @var array
-     */
-    protected $_metadata = ['title' => 'Forum'];
-
-    /**
-     * @throws \Cunity\Core\Exceptions\Exception
-     * @throws \Exception
-     */
-    public function __construct()
-    {
-        parent::__construct();
-        $this->registerCss('forums', 'forum');
-        $this->registerScript('forums', 'forum');
-        $this->registerScript('forums', 'category-cloud');
-    }
+    protected $errorCode = 6;
 }

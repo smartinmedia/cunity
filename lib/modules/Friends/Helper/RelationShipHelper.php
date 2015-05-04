@@ -36,7 +36,8 @@
 
 namespace Cunity\Friends\Helper;
 
-use Cunity\Core\Exception;
+use Cunity\Core\Exceptions\Exception;
+use Cunity\Core\Exceptions\UnknownUser;
 use Cunity\Core\Helper\UserHelper;
 use Cunity\Core\Models\Db\Table\Users;
 use Cunity\Core\View\Ajax\View;
@@ -137,7 +138,7 @@ class RelationShipHelper
         /* @var Users $users */
         $result = $users->get($userid);
         if ($result === null) {
-            throw new Exception('No User found with the given ID!');
+            throw new UnknownUser;
         } else {
             $view = new View(true);
             $view->addData(['user' => $result->toArray(['pimg', 'username', 'firstname', 'lastname'])]);

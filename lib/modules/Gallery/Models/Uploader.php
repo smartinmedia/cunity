@@ -96,7 +96,7 @@ class Uploader
      *
      * @return string
      *
-     * @throws \Cunity\Core\Exception
+     * @throws \Cunity\Core\Exceptions\Exception
      */
     public function edit($filename, $fileName, $filePath)
     {
@@ -119,7 +119,7 @@ class Uploader
      * @param $destinationFile
      * @param $previewFile
      *
-     * @throws \Cunity\Core\Exception
+     * @throws \Cunity\Core\Exceptions\Exception
      */
     public function resize(\Zend_Config $config, $destinationFile, $previewFile)
     {

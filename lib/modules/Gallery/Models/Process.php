@@ -235,7 +235,7 @@ class Process
     }
 
     /**
-     * @throws \Cunity\Core\Exception
+     * @throws \Cunity\Core\Exceptions\Exception
      */
     private function loadAlbum()
     {

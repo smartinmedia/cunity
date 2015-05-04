@@ -36,7 +36,8 @@
 
 namespace Cunity\Core\Models\Db\Table;
 
-use Cunity\Core\Exception;
+use Cunity\Core\Exceptions\Exception;
+use Cunity\Core\Exceptions\UndefinedSetting;
 use Cunity\Core\Models\Db\Abstractables\Table;
 
 /**
@@ -129,7 +130,7 @@ class Settings extends Table
         $row = $this->fetchRow($this->select()->where('name=?', $name));
 
         if ($row === null) {
-            throw new Exception("Try to set undefined setting: \"".$name."\"");
+            throw new UndefinedSetting;
         } else {
             $row->value = $value;
 

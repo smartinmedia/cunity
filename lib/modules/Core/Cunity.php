@@ -36,6 +36,8 @@
 
 namespace Cunity\Core;
 
+use Cunity\Core\Exceptions\Exception;
+use Cunity\Core\Exceptions\InstanceNotFound;
 use Cunity\Core\Models\Db\Adapter\Mysqli;
 use Cunity\Core\Models\Db\Table\Settings;
 use Zend_Db_Table_Abstract;
@@ -83,20 +85,18 @@ class Cunity
     }
 
     /**
-     * @param String $instance
-     *
-     * @throws Exception
+     * @param $instance
      *
      * @return mixed
+     *
+     * @throws Exception
      */
     public static function get($instance)
     {
         if (isset(self::$_instances[$instance])) {
             return self::$_instances[$instance];
         } else {
-            throw new Exception(
-                "Instance of \"".$instance."\" not found!"
-            );
+            throw new InstanceNotFound;
         }
     }
 }

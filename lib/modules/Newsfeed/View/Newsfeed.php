@@ -61,7 +61,7 @@ class Newsfeed extends View
     protected $_metadata = ['title' => 'Newsfeed'];
 
     /**
-     * @throws \Cunity\Core\Exception
+     * @throws \Cunity\Core\Exceptions\Exception
      * @throws \Exception
      */
     public function __construct()

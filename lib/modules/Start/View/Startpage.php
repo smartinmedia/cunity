@@ -66,7 +66,7 @@ class Startpage extends View
     protected $_useWrapper = false;
 
     /**
-     * @throws \Cunity\Core\Exception
+     * @throws \Cunity\Core\Exceptions\Exception
      * @throws \Exception
      */
     public function __construct()

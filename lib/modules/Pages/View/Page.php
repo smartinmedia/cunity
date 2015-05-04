@@ -57,7 +57,7 @@ class Page extends View
     protected $_metadata = ['title' => 'Content page'];
 
     /**
-     * @throws \Cunity\Core\Exception
+     * @throws \Cunity\Core\Exceptions\Exception
      * @throws \Exception
      */
     public function __construct()

@@ -72,7 +72,7 @@ class UpdateHelper
     /**
      * @return mixed
      *
-     * @throws \Cunity\Core\Exception
+     * @throws \Cunity\Core\Exceptions\Exception
      */
     public static function getVersion()
     {

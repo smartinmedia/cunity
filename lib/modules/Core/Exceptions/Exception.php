@@ -34,37 +34,49 @@
  * #####################################################################################
  */
 
-namespace Cunity\Forums\View;
-
-use Cunity\Core\View\View;
+namespace Cunity\Core\Exceptions;
 
 /**
- * Class Forum.
+ * Class Exception.
  */
-class Forum extends View
+abstract class Exception extends \Exception
 {
     /**
-     * @var string
+     * @var int
      */
-    protected $_templateDir = 'forums';
-    /**
-     * @var string
-     */
-    protected $_templateFile = 'forum.tpl';
+    protected $errorCode = 0;
+
     /**
      * @var array
      */
-    protected $_metadata = ['title' => 'Forum'];
+    protected static $errorCodes = [
+        0 => 'Unknown error',
+        1 => 'Error code does not exist',
+        2 => 'Instance not found',
+        3 => 'Unknown user',
+        4 => 'Undefined setting',
+        5 => 'Unknown file',
+        6 => 'Missing parameter',
+        7 => 'UnknownDirectory'
+    ];
 
     /**
-     * @throws \Cunity\Core\Exceptions\Exception
-     * @throws \Exception
+     *
      */
     public function __construct()
     {
-        parent::__construct();
-        $this->registerCss('forums', 'forum');
-        $this->registerScript('forums', 'forum');
-        $this->registerScript('forums', 'category-cloud');
+        if (!array_key_exists($this->errorCode, self::$errorCodes)) {
+            throw new ErrorNotFound;
+        }
+
+        parent::__construct(self::$errorCodes[$this->errorCode], $this->errorCode);
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return __CLASS__.": [{$this->errorCode}]: {".self::$errorCodes[$this->errorCode]."}\n";
     }
 }

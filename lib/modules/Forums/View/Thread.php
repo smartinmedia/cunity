@@ -57,7 +57,7 @@ class Thread extends View
     protected $_metadata = ['title' => 'Topic'];
 
     /**
-     * @throws \Cunity\Core\Exception
+     * @throws \Cunity\Core\Exceptions\Exception
      * @throws \Exception
      */
     public function __construct()

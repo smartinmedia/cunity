@@ -57,7 +57,7 @@ class Searchresults extends View
     protected $_metadata = ['title' => 'Searchresults'];
 
     /**
-     * @throws \Cunity\Core\Exception
+     * @throws \Cunity\Core\Exceptions\Exception
      * @throws \Exception
      */
     public function __construct()

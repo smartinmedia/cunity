@@ -36,7 +36,7 @@
 
 namespace Cunity\Friends\Models;
 
-use Cunity\Core\Exception;
+use Cunity\Core\Exceptions\Exception;
 use Cunity\Core\Helper\UserHelper;
 use Cunity\Core\View\Ajax\View;
 use Cunity\Friends\Helper\RelationShipHelper;

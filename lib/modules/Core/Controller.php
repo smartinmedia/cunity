@@ -110,7 +110,7 @@ class Controller
     }
 
     /**
-     * @param Exception|\Exception $exception
+     * @param \Exception $exception
      */
     public static function handleAjaxException(\Exception $exception)
     {

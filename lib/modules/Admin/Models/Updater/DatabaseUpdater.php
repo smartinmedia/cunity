@@ -80,7 +80,7 @@ class DatabaseUpdater
     }
 
     /**
-     * @throws \Cunity\Core\Exception
+     * @throws \Cunity\Core\Exceptions\Exception
      */
     public function run()
     {

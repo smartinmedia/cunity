@@ -59,7 +59,7 @@ class View extends \Cunity\Core\View\View
      * @param $adminModule
      * @param $file
      *
-     * @throws \Cunity\Core\Exception
+     * @throws \Cunity\Core\Exceptions\Exception
      */
     public function registerCss($adminModule, $file)
     {

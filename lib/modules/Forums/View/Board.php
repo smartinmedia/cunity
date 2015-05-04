@@ -59,7 +59,7 @@ class Board extends View
     protected $_metadata = ['title' => 'Board'];
 
     /**
-     * @throws \Cunity\Core\Exception
+     * @throws \Cunity\Core\Exceptions\Exception
      * @throws \Exception
      */
     public function __construct()

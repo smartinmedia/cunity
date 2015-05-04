@@ -37,7 +37,8 @@
 namespace Cunity\Register\Models;
 
 use Cunity\Core\Cunity;
-use Cunity\Core\Exception;
+use Cunity\Core\Exceptions\Exception;
+use Cunity\Core\Exceptions\MissingParameter;
 use Cunity\Core\Models\Db\Table\Users;
 use Cunity\Core\Models\Generator\Url;
 use Cunity\Core\View\Ajax\View;
@@ -97,7 +98,7 @@ class Process
     private function login()
     {
         if (!isset($_POST['email']) || !isset($_POST['password'])) {
-            throw new Exception('Missing Parameters for login!');
+            throw new MissingParameter;
         }
 
         $email = trim($_POST['email']);
@@ -144,7 +145,7 @@ class Process
     private function verify()
     {
         if (!isset($_GET['x']) || empty($_GET['x'])) {
-            throw new Exception('No verify-code submitted!');
+            throw new MissingParameter;
         }
         $users = new Users();
         $user = $users->search('salt', $_GET['x']);

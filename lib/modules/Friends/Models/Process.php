@@ -36,7 +36,6 @@
 
 namespace Cunity\Friends\Models;
 
-use Cunity\Core\Exception;
 use Cunity\Core\View\Ajax\View;
 use Cunity\Friends\Helper\RelationShipHelper;
 use Cunity\Friends\Models\Db\Table\Relationships;
@@ -97,7 +96,7 @@ class Process
     }
 
     /**
-     * @throws Exception
+     * @throws \Cunity\Core\Exceptions\Exception
      */
     private function loadData()
     {
