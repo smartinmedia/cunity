@@ -98,7 +98,7 @@ class Process
     private function login()
     {
         if (!isset($_POST['email']) || !isset($_POST['password'])) {
-            throw new MissingParameter;
+            throw new MissingParameter();
         }
 
         $email = trim($_POST['email']);
@@ -145,7 +145,7 @@ class Process
     private function verify()
     {
         if (!isset($_GET['x']) || empty($_GET['x'])) {
-            throw new MissingParameter;
+            throw new MissingParameter();
         }
         $users = new Users();
         $user = $users->search('salt', $_GET['x']);

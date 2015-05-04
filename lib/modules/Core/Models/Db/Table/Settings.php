@@ -130,7 +130,7 @@ class Settings extends Table
         $row = $this->fetchRow($this->select()->where('name=?', $name));
 
         if ($row === null) {
-            throw new UndefinedSetting;
+            throw new UndefinedSetting();
         } else {
             $row->value = $value;
 

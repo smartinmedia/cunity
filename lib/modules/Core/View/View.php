@@ -127,7 +127,7 @@ class View extends Smarty
     {
         parent::__construct();
         if (!file_exists('../style/'.$this->getSetting('core.design'))) {
-            throw new UnknownDirectory;
+            throw new UnknownDirectory();
         }
         $this->_coreRoot = str_replace(
             '%design%',
@@ -329,7 +329,7 @@ class View extends Smarty
                 .'.js'
                 .'"></script>';
         } else {
-            throw new UnknownFile;
+            throw new UnknownFile();
         }
     }
 
@@ -350,7 +350,7 @@ class View extends Smarty
         if (file_exists($this->_templateRoot.$module.$fileName.'.css')) {
             $this->_headCss[] = $module.$fileName.'.css';
         } else {
-            throw new UnknownFile;
+            throw new UnknownFile();
         }
     }
 

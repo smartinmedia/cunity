@@ -37,8 +37,7 @@
 namespace Cunity\Core\Exceptions;
 
 /**
- * Class UnknownFile
- * @package Cunity\Core\Exceptions
+ * Class UnknownFile.
  */
 class UnknownFile extends Exception
 {

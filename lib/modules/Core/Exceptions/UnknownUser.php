@@ -37,8 +37,7 @@
 namespace Cunity\Core\Exceptions;
 
 /**
- * Class UnknownUser
- * @package Cunity\Core\Exceptions
+ * Class UnknownUser.
  */
 class UnknownUser extends Exception
 {

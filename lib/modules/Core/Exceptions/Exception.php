@@ -57,7 +57,7 @@ abstract class Exception extends \Exception
         4 => 'Undefined setting',
         5 => 'Unknown file',
         6 => 'Missing parameter',
-        7 => 'UnknownDirectory'
+        7 => 'UnknownDirectory',
     ];
 
     /**
@@ -66,7 +66,7 @@ abstract class Exception extends \Exception
     public function __construct()
     {
         if (!array_key_exists($this->errorCode, self::$errorCodes)) {
-            throw new ErrorNotFound;
+            throw new ErrorNotFound();
         }
 
         parent::__construct(self::$errorCodes[$this->errorCode], $this->errorCode);

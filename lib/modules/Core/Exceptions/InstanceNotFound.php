@@ -37,8 +37,7 @@
 namespace Cunity\Core\Exceptions;
 
 /**
- * Class InstanceNotFound
- * @package Cunity\Core\Exceptions
+ * Class InstanceNotFound.
  */
 class InstanceNotFound extends Exception
 {

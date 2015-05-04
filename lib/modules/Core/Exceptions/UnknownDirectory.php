@@ -37,8 +37,7 @@
 namespace Cunity\Core\Exceptions;
 
 /**
- * Class UnknownDirectory
- * @package Cunity\Core\Exceptions
+ * Class UnknownDirectory.
  */
 class UnknownDirectory extends Exception
 {

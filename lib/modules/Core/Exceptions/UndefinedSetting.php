@@ -37,8 +37,7 @@
 namespace Cunity\Core\Exceptions;
 
 /**
- * Class UndefinedSetting
- * @package Cunity\Core\Exceptions
+ * Class UndefinedSetting.
  */
 class UndefinedSetting extends Exception
 {

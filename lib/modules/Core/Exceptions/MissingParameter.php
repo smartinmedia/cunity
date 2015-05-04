@@ -37,8 +37,7 @@
 namespace Cunity\Core\Exceptions;
 
 /**
- * Class MissingParameter
- * @package Cunity\Core\Exceptions
+ * Class MissingParameter.
  */
 class MissingParameter extends Exception
 {

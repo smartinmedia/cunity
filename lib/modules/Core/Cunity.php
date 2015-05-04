@@ -96,7 +96,7 @@ class Cunity
         if (isset(self::$_instances[$instance])) {
             return self::$_instances[$instance];
         } else {
-            throw new InstanceNotFound;
+            throw new InstanceNotFound();
         }
     }
 }

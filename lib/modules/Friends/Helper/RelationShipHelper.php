@@ -138,7 +138,7 @@ class RelationShipHelper
         /* @var Users $users */
         $result = $users->get($userid);
         if ($result === null) {
-            throw new UnknownUser;
+            throw new UnknownUser();
         } else {
             $view = new View(true);
             $view->addData(['user' => $result->toArray(['pimg', 'username', 'firstname', 'lastname'])]);
