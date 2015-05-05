@@ -218,10 +218,13 @@ class ProfileEdit
     private function general()
     {
         $view = new View();
-        $message = [];
-        $this->message = $message;
+        $this->message = [];
         $this->getUserName(new Username());
         $this->validateEmail(new Email());
+        $this->user->firstname = $_POST['firstname'];
+        $this->user->lastname = $_POST['lastname'];
+        $this->user->name = $_POST['firstname'].' '.$_POST['lastname'];
+
         $res = $this->user->save();
 
         if (!$res) {

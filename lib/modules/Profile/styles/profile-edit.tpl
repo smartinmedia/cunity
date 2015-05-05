@@ -61,6 +61,23 @@
                                 <input type="text" name="username" class="form-control" value="{-$profile.username}">
                             </div>
                         </div>
+
+                        {-if ("core.fullname"|setting == 1) }
+                        <div class="form-group">
+                            <label class="control-label col-md-3">{-"Firstname"|translate}</label>
+
+                            <div class="col-md-9">
+                                <input type="text" name="firstname" class="form-control" value="{-$profile.firstname}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">{-"Lastname"|translate}</label>
+
+                            <div class="col-md-9">
+                                <input type="text" name="lastname" class="form-control" value="{-$profile.lastname}">
+                            </div>
+                        </div>
+                        {-/if}
                         {-foreach $profileFields AS $i => $field}
                         <div class="form-group">
                             <label class="control-label col-md-3">{-$field.label|translate}{-if $field.required == 1}*{-/if}</label>
