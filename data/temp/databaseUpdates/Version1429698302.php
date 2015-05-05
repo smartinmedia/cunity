@@ -47,7 +47,7 @@ class Version1429698302 extends DbUpdateVersion implements DbCommandInterface
      */
     public function execute()
     {
-        $this->_db->query("CREATE TABLE `".$this->_db->getDbprefix()."newsletter` (`id` int(11) NOT NULL AUTO_INCREMENT, `time` TIMESTAMP NOT NULL, `headline` varchar(255) NOT NULL, `subject` text NOT NULL, `userid` int(11) NOT NULL, PRIMARY KEY (`id`) ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1");
-        $this->_db->query("CREATE TABLE `".$this->_db->getDbprefix()."newsletter_user` (`id` int(11) NOT NULL AUTO_INCREMENT, `newsletterid` int(11) NOT NULL, `userid` int(11) NOT NULL, PRIMARY KEY (`id`) ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1");
+        $this->_db->query("CREATE TABLE IF NOT EXISTS `".$this->_db->getDbprefix()."newsletter` (`id` int(11) NOT NULL AUTO_INCREMENT, `time` TIMESTAMP NOT NULL, `headline` varchar(255) NOT NULL, `subject` text NOT NULL, `userid` int(11) NOT NULL, PRIMARY KEY (`id`) ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1");
+        $this->_db->query("CREATE TABLE IF NOT EXISTS `".$this->_db->getDbprefix()."newsletter_user` (`id` int(11) NOT NULL AUTO_INCREMENT, `newsletterid` int(11) NOT NULL, `userid` int(11) NOT NULL, PRIMARY KEY (`id`) ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1");
     }
 }
