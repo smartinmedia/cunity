@@ -58,7 +58,9 @@ abstract class Exception extends \Exception
         5 => 'Unknown file',
         6 => 'Missing parameter',
         7 => 'Unknown directory',
-        8 => 'Not writeable'
+        8 => 'Not writeable',
+        9 => 'Directory not writeable',
+        10 => 'File not writeable'
     ];
 
     /**

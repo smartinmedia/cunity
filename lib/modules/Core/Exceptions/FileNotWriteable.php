@@ -1,6 +1,5 @@
 <?php
 
-
 /**
  * ########################################################################################
  * ## CUNITY(R) V2.0 - An open source social network / "your private social network"     ##
@@ -35,50 +34,15 @@
  * #####################################################################################
  */
 
-namespace Cunity\Admin\Models\Pages;
-
-use Cunity\Core\View\Ajax\View;
+namespace Cunity\Core\Exceptions;
 
 /**
- * Class Modules.
+ * Class ErrorNotFound.
  */
-class Modules extends PageAbstract
+class FileNotWriteable extends Exception
 {
     /**
-     *
+     * @var int
      */
-    public function __construct()
-    {
-        if (isset($_POST) && !empty($_POST)) {
-            $this->handleRequest();
-        } else {
-            $this->loadData();
-            $this->render('modules');
-        }
-    }
-
-    /**
-     *
-     */
-    private function handleRequest()
-    {
-        $view = new View(true);
-        switch ($_POST['action']) {
-            case 'loadModules':
-                $modules = new \Cunity\Core\Models\Db\Table\Modules();
-                $view->addData(['modules' => $modules->getModules()->toArray()]);
-                $view->sendResponse();
-                break;
-        }
-    }
-
-    /**
-     *
-     */
-    private function loadData()
-    {
-        $modules = new \Cunity\Core\Models\Db\Table\Modules();
-        $installedModules = $modules->getModules()->toArray();
-        $this->assignments['installedModules'] = $installedModules;
-    }
+    protected $errorCode = 10;
 }

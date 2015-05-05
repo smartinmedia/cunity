@@ -36,6 +36,8 @@
 
 namespace Cunity\Core\Models\Db\Table;
 
+use Cunity\Core\Exceptions\DirectoryNotWriteable;
+use Cunity\Core\Exceptions\FileNotWriteable;
 use Cunity\Core\Models\Db\Abstractables\Table;
 
 /**
@@ -85,5 +87,46 @@ class Modules extends Table
         }
 
         return $this->fetchRow($where);
+    }
+
+    /**
+     * @param array|string $where
+     * @return int
+     * @throws DirectoryNotWriteable
+     * @throws FileNotWriteable
+     */
+    public function delete($where)
+    {
+        $module = new Modules();
+        $moduleData = $module->fetchRow($where);
+        $moduleDirectory = __DIR__ . '/../../../../' . ucfirst($moduleData->namespace);
+        $directory = new \RecursiveDirectoryIterator($moduleDirectory, \RecursiveIteratorIterator::CHILD_FIRST);
+        $iterator = new \RecursiveIteratorIterator($directory);
+
+        /** @var \SplFileInfo $object */
+        foreach ($iterator as $object) {
+            if ($object->isDir()) {
+                continue;
+            }
+
+            if (!unlink($object->getPathname())) {
+                throw new FileNotWriteable;
+            }
+        }
+
+        $iterator = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($moduleDirectory, \FilesystemIterator::SKIP_DOTS), \RecursiveIteratorIterator::CHILD_FIRST);
+
+        /** @var \SplFileInfo $object */
+        foreach ($iterator as $object) {
+            if (!rmdir($object->getPathname())) {
+                throw new DirectoryNotWriteable;
+            }
+        }
+
+        if (!rmdir($moduleDirectory)) {
+            throw new DirectoryNotWriteable;
+        }
+
+        return parent::delete($where);
     }
 }
