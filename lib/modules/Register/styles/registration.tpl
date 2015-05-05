@@ -113,6 +113,7 @@
                                 <div class="input-group date datepicker" id="datepicker{-$field.id}">
                                     <input type="text" class="form-control" name="field[{-$field.id}]"
                                            value=""
+                                           {-if $field.required == 1}required="required"{-/if}
                                            readonly="readonly">
                         <span class="input-group-addon">
                             <span class="fa fa-calendar"></span>
