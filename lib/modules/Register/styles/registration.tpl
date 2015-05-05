@@ -94,20 +94,18 @@
                 <div class="col-lg-8">
                     <input type="text" {-if $field.required == 1}required="required"{-/if} class="form-control"
                            id="input-{-$field.id}"
-                           placeholder="{-$field.value|translate}" name="field[{-$field.id}]"
-                           value="{-$field.value}">
+                           placeholder="{-$field.value|translate}" name="field[{-$field.id}]">
                     {-elseif $field.type == 'email'}
                     <div class="col-lg-8">
                         <input type="email" {-if $field.required == 1}required="required"{-/if} class="form-control"
                                id="input-{-$field.id}"
-                               placeholder="{-$field.value|translate}" name="field[{-$field.id}]"
-                               value="{-$field.value}">
+                               placeholder="{-$field.value|translate}" name="field[{-$field.id}]">
                         {-elseif $field.type == 'bigtext'}
                         <div class="col-lg-8">
                             <textarea {-if $field.required == 1}required="required"{-/if} class="form-control"
                                       id="input-password-repeat"
                                       placeholder="{-$field.value|translate}"
-                                      name="{-$field.id}">{-$field.value}</textarea>
+                                      name="{-$field.id}"></textarea>
                             {-elseif $field.type == 'date'}
                             <div class="col-lg-7">
                                 <div class="input-group date datepicker" id="datepicker{-$field.id}">
