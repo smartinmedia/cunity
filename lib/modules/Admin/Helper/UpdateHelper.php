@@ -215,8 +215,7 @@ class UpdateHelper
             return false;
         }
 
-        if (!self::canWrite())
-        {
+        if (!self::canWrite()) {
             return false;
         }
 

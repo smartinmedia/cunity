@@ -60,7 +60,7 @@ abstract class Exception extends \Exception
         7 => 'Unknown directory',
         8 => 'Not writeable',
         9 => 'Directory not writeable',
-        10 => 'File not writeable'
+        10 => 'File not writeable',
     ];
 
     /**

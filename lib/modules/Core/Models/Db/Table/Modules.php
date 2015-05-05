@@ -91,7 +91,9 @@ class Modules extends Table
 
     /**
      * @param array|string $where
+     *
      * @return int
+     *
      * @throws DirectoryNotWriteable
      * @throws FileNotWriteable
      */
@@ -99,7 +101,7 @@ class Modules extends Table
     {
         $module = new Modules();
         $moduleData = $module->fetchRow($where);
-        $moduleDirectory = __DIR__ . '/../../../../' . ucfirst($moduleData->namespace);
+        $moduleDirectory = __DIR__.'/../../../../'.ucfirst($moduleData->namespace);
         $directory = new \RecursiveDirectoryIterator($moduleDirectory, \RecursiveIteratorIterator::CHILD_FIRST);
         $iterator = new \RecursiveIteratorIterator($directory);
 
@@ -110,7 +112,7 @@ class Modules extends Table
             }
 
             if (!unlink($object->getPathname())) {
-                throw new FileNotWriteable;
+                throw new FileNotWriteable();
             }
         }
 
@@ -119,12 +121,12 @@ class Modules extends Table
         /** @var \SplFileInfo $object */
         foreach ($iterator as $object) {
             if (!rmdir($object->getPathname())) {
-                throw new DirectoryNotWriteable;
+                throw new DirectoryNotWriteable();
             }
         }
 
         if (!rmdir($moduleDirectory)) {
-            throw new DirectoryNotWriteable;
+            throw new DirectoryNotWriteable();
         }
 
         return parent::delete($where);
