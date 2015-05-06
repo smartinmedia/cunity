@@ -41,6 +41,7 @@ use Cunity\Core\Exceptions\ForumNotFound;
 use Cunity\Core\Exceptions\PageNotFound;
 use Cunity\Core\Exceptions\ThreadNotFound;
 use Cunity\Core\Helper\UserHelper;
+use Cunity\Core\Models\Db\Abstractables\Table;
 use Cunity\Core\Models\Generator\Url;
 use Cunity\Core\View\Ajax\View;
 use Cunity\Forums\Models\Db\Table\Boards;
@@ -129,18 +130,6 @@ class Process
     /**
      *
      */
-    private function loadBoards()
-    {
-        $boards = new Boards();
-        $res = $boards->loadBoards($_POST['id']);
-        $view = new View($res !== null && $res !== false);
-        $view->addData(['result' => $res]);
-        $view->sendResponse();
-    }
-
-    /**
-     *
-     */
     private function loadPosts()
     {
         $posts = new Posts();
@@ -171,7 +160,7 @@ class Process
             array_push($format_search, '#\[quote=(.*?)\](.*?)#is');
             array_push($format_search, '#\[/quote\]#is');
             $user = $_SESSION['user']->getTable()->get($matches1[0][1], 'username');
-            array_push($format_replace, '<div class="quotation well well-sm"><a class="quotation-user" href="'.Url::convertUrl('index.php?m=profile&action='.$user->username).'">'.$user->name.':</a>$2');
+            array_push($format_replace, '<div class="quotation well well-sm"><a class="quotation-user" href="' . Url::convertUrl('index.php?m=profile&action=' . $user->username) . '">' . $user->name . ':</a>$2');
             array_push($format_replace, '</div>');
         }
 
@@ -259,7 +248,7 @@ class Process
             throw new CategoryNotFound();
         }
         $view = new Category();
-        $view->setMetaData(['title' => $view->translate('Category').': '.$data['name']]);
+        $view->setMetaData(['title' => $view->translate('Category') . ': ' . $data['name']]);
         $view->assign('category', $data);
         $view->show();
     }
@@ -291,8 +280,7 @@ class Process
      */
     private function createForum()
     {
-        $forums = new Forums();
-        $res = $forums->add(['title' => $_POST['title'], 'description' => $_POST['description'], 'board_permissions' => (isset($_POST['board_permissions'])) ? $_POST['board_permissions'] : 0]);
+        $res = $this->create(new Forums(), ['title' => $_POST['title'], 'description' => $_POST['description'], 'board_permissions' => (isset($_POST['board_permissions'])) ? $_POST['board_permissions'] : 0]);
         $view = new View($res !== false);
         if ($res !== false) {
             $view->addData(['forum' => $res]);
@@ -305,13 +293,23 @@ class Process
      */
     private function createBoard()
     {
-        $forums = new Boards();
-        $res = $forums->add(['title' => $_POST['title'], 'description' => $_POST['description'], 'forum_id' => $_POST['forum_id']]);
+        $res = $this->create(new Boards(), ['title' => $_POST['title'], 'description' => $_POST['description'], 'forum_id' => $_POST['forum_id']]);
         $view = new View($res !== false);
         if ($res !== false) {
             $view->addData(['board' => $res]);
         }
         $view->sendResponse();
+    }
+
+    /**
+     * @param Table $object
+     * @param array $data
+     *
+     * @return mixed
+     */
+    private function create(Table $object, $data = [])
+    {
+        return $object->add($data);
     }
 
     /**
@@ -369,6 +367,15 @@ class Process
         $view->sendResponse();
     }
 
+    private function loadView($res)
+    {
+        $view = new View($res !== false);
+        if ($res !== false) {
+            $view->addData(['result' => $res]);
+        }
+        $view->sendResponse();
+    }
+
     /**
      *
      */
@@ -376,11 +383,17 @@ class Process
     {
         $cat = new Categories();
         $res = $cat->getCategories();
-        $view = new View($res !== false);
-        if ($res !== false) {
-            $view->addData(['result' => $res]);
-        }
-        $view->sendResponse();
+        $this->loadView($res);
+    }
+
+    /**
+     *
+     */
+    private function loadBoards()
+    {
+        $boards = new Boards();
+        $res = $boards->loadBoards($_POST['id']);
+        $this->loadView($res);
     }
 
     /**
