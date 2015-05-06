@@ -36,6 +36,7 @@
 
 namespace Cunity\Profile\Models;
 
+use Cunity\Core\Access\UserAccess;
 use Cunity\Core\Models\Db\Row\User;
 use Cunity\Core\Models\Db\Table\Users;
 use Cunity\Core\Models\Request;
@@ -94,7 +95,6 @@ class Profile
     private function checkUser()
     {
         /** @var Users $users */
-        /* @noinspection PhpUndefinedMethodInspection */
         $users = $_SESSION['user']->getTable();
         if (isset($_GET['action']) && !empty($_GET['action'])) {
             $result = $users->get($_GET['action'], 'username');
@@ -117,6 +117,9 @@ class Profile
      */
     protected function render()
     {
+        $users = $_SESSION['user']->getTable();
+        $user = $users->get($_GET['action'], 'username');
+        UserAccess::profilePublic($user);
         $view = new \Cunity\Profile\View\Profile();
         $view->assign('profile', $this->profileData);
         $view->setMetaData(['title' => $this->profileData['name']]);
