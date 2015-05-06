@@ -69,6 +69,7 @@ abstract class Exception extends \Exception
         8 => 'Not writeable',
         9 => 'Directory not writeable',
         10 => 'File not writeable',
+        404 => 'Page not found',
     ];
 
     /**
@@ -80,6 +81,8 @@ abstract class Exception extends \Exception
             throw new ErrorNotFound();
         }
 
+        $this->log();
+
         parent::__construct(self::$errorCodes[$this->errorCode], $this->errorCode);
     }
 
@@ -88,13 +91,21 @@ abstract class Exception extends \Exception
      */
     public function __toString()
     {
+        return __CLASS__.": [{$this->errorCode}]: {".self::$errorCodes[$this->errorCode]."}\n";
+    }
+
+    /**
+     *
+     */
+    protected function log()
+    {
         switch ($this->logLevel) {
             case LogLevel::EMERGENCY:
             case LogLevel::ALERT:
             case LogLevel::CRITICAL:
             case LogLevel::ERROR:
                 $log = new LogHelper();
-                $log->log($this->logLevel, self::$errorCodes[$this->errorCode]);
+                $log->log($this->logLevel, self::$errorCodes[$this->errorCode], $_SERVER);
                 break;
             case LogLevel::WARNING:
             case LogLevel::NOTICE:
@@ -103,7 +114,5 @@ abstract class Exception extends \Exception
             default:
                 break;
         }
-
-        return __CLASS__.": [{$this->errorCode}]: {".self::$errorCodes[$this->errorCode]."}\n";
     }
 }

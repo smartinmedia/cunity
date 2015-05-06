@@ -36,8 +36,8 @@
 
 namespace Cunity\Core;
 
+use Cunity\Core\Exceptions\PageNotFound;
 use Cunity\Core\Models\Db\Table\Modules;
-use Cunity\Core\View\PageNotFound;
 
 /**
  * Class Module.
@@ -60,12 +60,14 @@ class Module
 
     /**
      * @param $moduletag
+     *
+     * @throws Exceptions\PageNotFound
      */
     public function __construct($moduletag)
     {
         $this->_tag = $moduletag;
         if (!class_exists($this->getClassName())) {
-            new View\PageNotFound();
+            throw new PageNotFound();
         } else {
             $modules = new Modules();
             $this->_data = $modules->getModuleData($this->_tag);
@@ -73,7 +75,7 @@ class Module
             if (!in_array($moduletag, self::$FIXMODULES) &&
                 $this->_data === null
             ) {
-                new PageNotFound();
+                throw new PageNotFound();
             }
         }
     }

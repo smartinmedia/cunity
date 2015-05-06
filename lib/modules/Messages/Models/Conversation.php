@@ -36,8 +36,8 @@
 
 namespace Cunity\Messages\Models;
 
+use Cunity\Core\Exceptions\PageNotFound;
 use Cunity\Core\Models\Db\Table\Users;
-use Cunity\Core\View\PageNotFound;
 
 /**
  * Class Conversation.
@@ -63,7 +63,7 @@ class Conversation
         $conversation = $table->loadConversationDetails($_GET['action']);
         $users = explode(',', $conversation['users']);
         if (!in_array($_SESSION['user']->userid, $users)) {
-            $view = new PageNotFound();
+            throw new PageNotFound();
         } else {
             unset($users[array_search($_SESSION['user']->userid, $users)]);
         }

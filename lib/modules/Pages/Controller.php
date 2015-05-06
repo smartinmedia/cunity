@@ -36,8 +36,8 @@
 
 namespace Cunity\Pages;
 
+use Cunity\Core\Exceptions\PageNotFound;
 use Cunity\Core\ModuleController;
-use Cunity\Core\View\PageNotFound;
 use Cunity\Pages\Models\Db\Row\Page;
 use Cunity\Pages\Models\Db\Table\Pages;
 
@@ -55,7 +55,7 @@ class Controller extends ModuleController
         /** @var Page $page */
         $page = $pages->getPage($_GET['action']);
         if ($page === null) {
-            new PageNotFound();
+            throw new PageNotFound();
         }
         $page->displayPage();
     }

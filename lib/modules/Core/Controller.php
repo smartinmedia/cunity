@@ -36,9 +36,9 @@
 
 namespace Cunity\Core;
 
+use Cunity\Core\Exceptions\PageNotFound;
 use Cunity\Core\Models\Request;
 use Cunity\Core\View\Exception\View;
-use Cunity\Core\View\PageNotFound;
 use Cunity\Register\Models\Login;
 
 /**
@@ -92,12 +92,12 @@ class Controller
 
         $moduleController = new Module($_GET['m']);
         if (!Request::isAjaxRequest() && !$moduleController->isActive()) {
-            new PageNotFound();
+            throw new PageNotFound();
         } elseif ($moduleController->isValid()) {
             $classname = $moduleController->getClassName();
             new $classname();
         } else {
-            new PageNotFound();
+            throw new PageNotFound();
         }
     }
 

@@ -37,10 +37,10 @@
 namespace Cunity\Gallery\Models;
 
 use Cunity\Comments\Models\Db\Table\Comments;
+use Cunity\Core\Exceptions\PageNotFound;
 use Cunity\Core\Models\Generator\Url;
 use Cunity\Core\View\Ajax\View;
 use Cunity\Core\View\Message;
-use Cunity\Core\View\PageNotFound;
 use Cunity\Gallery\Models\Db\Table\GalleryAlbums;
 use Cunity\Gallery\Models\Db\Table\GalleryImages;
 use Cunity\Gallery\View\Album;
@@ -249,7 +249,7 @@ class Process
                 $album['owner_id'] != $_SESSION['user']->userid &&
                 !in_array($album['owner_id'], $_SESSION['user']->getFriendList())
             ) {
-                new PageNotFound();
+                throw new PageNotFound();
             }
 
             if ($album->owner_id == $_SESSION['userid'] && $album->owner_type === null) {
@@ -257,7 +257,7 @@ class Process
             }
             $view->show();
         } else {
-            new PageNotFound();
+            throw new PageNotFound();
         }
     }
 }

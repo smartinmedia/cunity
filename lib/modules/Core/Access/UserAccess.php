@@ -17,6 +17,10 @@ class UserAccess
      */
     public static function profilePublic(User $user)
     {
+        if ($user->userid === null) {
+            $user = $_SESSION['user'];
+        }
+
         switch ($user->groupid) {
             case 0:
             case 4:

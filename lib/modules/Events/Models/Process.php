@@ -37,10 +37,10 @@
 namespace Cunity\Events\Models;
 
 use Cunity\Core\Cunity;
+use Cunity\Core\Exceptions\PageNotFound;
 use Cunity\Core\Models\Generator\Url;
 use Cunity\Core\View\Ajax\View;
 use Cunity\Core\View\Message;
-use Cunity\Core\View\PageNotFound;
 use Cunity\Events\Models\Db\Table\Events;
 use Cunity\Events\Models\Db\Table\Guests;
 use Cunity\Events\View\Event;
@@ -142,7 +142,7 @@ class Process
         if (isset($_GET['x']) && $_GET['x'] == 'edit') {
             $eventData = $events->getEventData(intval($_GET['action']));
             if ($eventData['userid'] !== $_SESSION['user']->userid) {
-                new PageNotFound();
+                throw new PageNotFound();
             }
             $view = new EventEdit();
             $eventData['date'] = new DateTime($eventData['start']);
@@ -154,7 +154,7 @@ class Process
             $view = new Event();
             $data = $events->getEventData($id[0]);
             if ($data === null || $data === false) {
-                new PageNotFound();
+                throw new PageNotFound();
             }
             $data['date'] = new DateTime($data['start']);
             $data['guests'] = $guests->getGuests($id[0]);
@@ -233,7 +233,7 @@ class Process
     private function cropImage()
     {
         if (!isset($_GET['x']) || empty($_GET['x'])) {
-            new PageNotFound();
+            throw new PageNotFound();
         }
         $imageid = $_GET['x'];
         $eventid = $_GET['y'];
@@ -247,7 +247,7 @@ class Process
             $view->assign(['event' => $eventData, 'result' => $result[0], 'type' => $_GET['y'], 'image' => getimagesize('../data/uploads/'.Cunity::get('settings')->getSetting('core.filesdir').'/'.$result[0]['filename'])]);
             $view->show();
         } else {
-            new PageNotFound();
+            throw new PageNotFound();
         }
     }
 

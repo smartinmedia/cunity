@@ -34,33 +34,22 @@
  * #####################################################################################
  */
 
-namespace Cunity\Core\View;
+namespace Cunity\Core\Exceptions;
+
+use Psr\Log\LogLevel;
 
 /**
- * Class PageNotFound.
+ * Class ErrorNotFound.
  */
-class PageNotFound extends View
+class PageNotFound extends Exception
 {
     /**
-     * @var string
+     * @var int
      */
-    protected $_templateDir = 'Core';
-    /**
-     * @var string
-     */
-    protected $_templateFile = '404.tpl';
-    /**
-     * @var array
-     */
-    protected $_metadata = ['title' => '404 - Page Not Found'];
+    protected $errorCode = 404;
 
     /**
-     * @throws \Exception
+     * @var string
      */
-    public function __construct()
-    {
-        parent::__construct();
-        $this->show();
-        exit();
-    }
+    protected $logLevel = LogLevel::INFO;
 }

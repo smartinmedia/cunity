@@ -37,13 +37,13 @@
 namespace Cunity\Profile\Models;
 
 use Cunity\Core\Cunity;
+use Cunity\Core\Exceptions\PageNotFound;
 use Cunity\Core\Models\Db\Row\User;
 use Cunity\Core\Models\Generator\Url;
 use Cunity\Core\Models\Validation\Email;
 use Cunity\Core\Models\Validation\Username;
 use Cunity\Core\View\Ajax\View;
 use Cunity\Core\View\Message;
-use Cunity\Core\View\PageNotFound;
 use Cunity\Gallery\Models\Db\Table\GalleryImages;
 use Cunity\Notifications\Models\Db\Table\NotificationSettings;
 use Cunity\Profile\Models\Db\Table\ProfileFields;
@@ -93,7 +93,7 @@ class ProfileEdit
     private function cropImage()
     {
         if (!isset($_GET['x']) || empty($_GET['x'])) {
-            new PageNotFound();
+            throw new PageNotFound();
         }
         /* @noinspection PhpUnnecessaryFullyQualifiedNameInspection */
         $images = new \Cunity\Gallery\Models\Db\Table\GalleryImages();
