@@ -130,7 +130,6 @@ class Process
     private function logout()
     {
         if (Login::loggedIn()) {
-            /* @noinspection PhpUndefinedMethodInspection */
             $_SESSION['user']->logout();
         }
 

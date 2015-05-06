@@ -94,11 +94,9 @@ class Process
                     }
                 }
                 if (!empty($results)) {
-                    /* @noinspection PhpUndefinedMethodInspection */
                     /** @var Users $users */
                     $users = $_SESSION['user']->getTable();
                     if (isset($_POST['friends'])) {
-                        /* @noinspection PhpUndefinedMethodInspection */
                         $friends = $_SESSION['user']->getFriendList();
                         if (empty($friends)) {
                             return ['queryString' => $queryString, 'users' => []];

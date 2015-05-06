@@ -140,7 +140,6 @@ class Process
         $view = new View(false);
         if ($_POST['status'] == 1 || $_POST['status'] == 0) {
             $_SESSION['user']->chat_available = $_POST['status'];
-            /* @noinspection PhpUndefinedMethodInspection */
             $view->setStatus($_SESSION['user']->save() > 0);
         }
         $view->sendResponse();

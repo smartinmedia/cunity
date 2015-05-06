@@ -133,7 +133,6 @@ class RelationShipHelper
     public static function loadData()
     {
         $userid = $_POST['userid'];
-        /* @noinspection PhpUndefinedMethodInspection */
         $users = $_SESSION['user']->getTable();
         /* @var Users $users */
         $result = $users->get($userid);

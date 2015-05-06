@@ -144,7 +144,7 @@ class Process
         if (isset($_GET['x']) && $_GET['x'] == 'edit') {
             $eventData = $events->getEventData(intval($_GET['action']));
             if ($eventData['userid'] !== $_SESSION['user']->userid) {
-                throw new NotAllowed;
+                throw new NotAllowed();
             }
             $view = new EventEdit();
             $eventData['date'] = new DateTime($eventData['start']);
@@ -156,7 +156,7 @@ class Process
             $view = new Event();
             $data = $events->getEventData($id[0]);
             if ($data === null || $data === false) {
-                throw new EventNotFound;
+                throw new EventNotFound();
             }
             $data['date'] = new DateTime($data['start']);
             $data['guests'] = $guests->getGuests($id[0]);
@@ -186,7 +186,6 @@ class Process
         if (isset($_POST['receiver']) && !empty($_POST['receiver'])) {
             $conv = new Guests();
             $result = $conv->addGuests($_POST['eventid'], $_POST['receiver'], 1, true);
-            /* @noinspection PhpUnnecessaryFullyQualifiedNameInspection */
             $view = new \Cunity\Core\View\Ajax\View($result);
             $view->sendResponse();
         }
@@ -249,7 +248,7 @@ class Process
             $view->assign(['event' => $eventData, 'result' => $result[0], 'type' => $_GET['y'], 'image' => getimagesize('../data/uploads/'.Cunity::get('settings')->getSetting('core.filesdir').'/'.$result[0]['filename'])]);
             $view->show();
         } else {
-            throw new NotAllowed;
+            throw new NotAllowed();
         }
     }
 

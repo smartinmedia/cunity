@@ -97,7 +97,6 @@ class Notifier
                 ]);
             }
             if (($st == 2 || $st == 3) && in_array('mail', $ways)) {
-                /* @noinspection PhpUndefinedMethodInspection */
                 $receiverData = $_SESSION['user']->getTable()->get($receiver);
                 $online = new \DateTime($receiverData['lastAction']);
                 $now = new \DateTime();

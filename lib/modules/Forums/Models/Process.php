@@ -75,7 +75,6 @@ class Process
     {
         $forums = new Forums();
         $view = new View(false);
-        /* @noinspection PhpUndefinedMethodInspection */
         if (UserHelper::isAdmin()) {
             $view->setStatus($forums->deleteForum($_POST['id']));
         }
@@ -89,7 +88,6 @@ class Process
     {
         $boards = new Boards();
         $view = new View(false);
-        /* @noinspection PhpUndefinedMethodInspection */
         if (UserHelper::isAdmin()) {
             $view->setStatus($boards->deleteBoard($_POST['id']));
         }
@@ -103,7 +101,6 @@ class Process
     {
         $threads = new Threads();
         $view = new View(false);
-        /* @noinspection PhpUndefinedMethodInspection */
         if (UserHelper::isAdmin()) {
             $view->setStatus($threads->deleteThread($_POST['id']));
         }
@@ -189,7 +186,7 @@ class Process
         $boards = new Forums();
         $data = $boards->loadForumData($_GET['x']);
         if ($data === false) {
-            throw new ForumNotFound;
+            throw new ForumNotFound();
         }
         $view = new Forum();
         $view->setMetaData(['title' => $data['title']]);
@@ -220,7 +217,7 @@ class Process
                 $view = new Board();
                 $view->assign('board', $data);
                 if ($data === false) {
-                    throw new ForumNotFound;
+                    throw new ForumNotFound();
                 }
                 break;
             case 'thread':
@@ -229,7 +226,7 @@ class Process
                 $view = new Thread();
                 $view->assign('thread', $data);
                 if ($data === false) {
-                    throw new ThreadNotFound;
+                    throw new ThreadNotFound();
                 }
                 break;
         }
@@ -259,7 +256,7 @@ class Process
         $cat = new Categories();
         $data = $cat->getCategoryData($_GET['x']);
         if ($data === false) {
-            throw new CategoryNotFound;
+            throw new CategoryNotFound();
         }
         $view = new Category();
         $view->setMetaData(['title' => $view->translate('Category').': '.$data['name']]);

@@ -136,10 +136,8 @@ class Relationships extends Table
             return $users->fetchAll('userid!='.$_SESSION['user']->userid)->toArray();
         } elseif (!empty($friends)) {
             $friends = $this->getFriendList($status, $userid);
-
-            /* @noinspection PhpUndefinedMethodInspection */
             $users = $_SESSION['user']->getTable();
-            /* @noinspection PhpUndefinedMethodInspection */
+
             return $users->getSet($friends, 'u.userid', ['u.userid', 'u.username', 'u.name'], true)->toArray();
         }
     }

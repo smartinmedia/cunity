@@ -177,7 +177,6 @@ class View extends Smarty
      */
     public static function translate($string)
     {
-        /* @noinspection PhpUndefinedMethodInspection */
         return self::$zt->_($string);
     }
 
@@ -241,7 +240,6 @@ class View extends Smarty
         $announcements = new Announcements();
         $this->assign('announcements', $announcements->getAnnouncements());
         if ((Login::loggedIn())) {
-            /* @noinspection PhpUndefinedMethodInspection */
             $this->assign(
                 'user',
                 $_SESSION['user']->getTable()->get($_SESSION['user']->userid)
@@ -400,7 +398,6 @@ class View extends Smarty
                 ]
             );
 
-            /* @noinspection PhpUndefinedMethodInspection */
             self::$zt->addTranslation(
                 array(
                     'content' => __DIR__.'/../languages/'.$locale->getLanguage().'.csv',
@@ -408,7 +405,6 @@ class View extends Smarty
                 )
             );
 
-            /* @noinspection PhpUndefinedMethodInspection */
             $missingTranslationLog = __DIR__.'/../../../../resources/log/missing-translations.log';
 
             if (is_writeable($missingTranslationLog)) {
@@ -422,12 +418,9 @@ class View extends Smarty
                 );
             }
 
-            /* @noinspection PhpUndefinedMethodInspection */
             if (!self::$zt->isAvailable($locale->getLanguage())) {
-                /* @noinspection PhpUndefinedMethodInspection */
                 self::$zt->setLocale(self::$defaultLanguage);
             }
-            /* @noinspection PhpUndefinedMethodInspection */
             self::$zt->getLocale();
         }
     }

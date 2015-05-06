@@ -95,7 +95,6 @@ class DatabaseUpdater
                         /** @var DbUpdateVersion $dbCmd */
                         $dbCmd = new $classname(Cunity::get('db'));
                         if ($dbCmd instanceof DbCommandInterface) {
-                            /* @noinspection PhpUndefinedMethodInspection */
                             $dbCmd->execute();
                             $dbCmd->updateDatabaseTimestamp($this->versionDb);
                         }

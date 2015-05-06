@@ -58,7 +58,6 @@ class Process
     /**
      *
      */
-    /** @noinspection PhpUnusedPrivateMethodInspection */
     private function send()
     {
         $table = new Db\Table\Messages();
@@ -119,7 +118,6 @@ class Process
         }
         $view = new View($result);
         $data = $conv->loadConversationDetails($conversation_id);
-        /* @noinspection PhpUndefinedMethodInspection */
         $conversation['users'] = $_SESSION['user']->getTable()->getSet(explode(',', $data['users']), 'u.userid', ['u.userid', 'u.username', 'u.name'])->toArray();
         $usernames = '';
         foreach ($conversation['users'] as $user) {
@@ -201,7 +199,6 @@ class Process
                 $userid = $this->findConversationUser($details);
 
                 if ($userid !== null) {
-                    /* @noinspection PhpUndefinedMethodInspection */
                     $conversations[$i]['users'] = $_SESSION['user']->getTable()->get($userid)->toArray(['pimg', 'name']);
                 }
             }
@@ -222,7 +219,6 @@ class Process
         foreach ($conversations as $i => $conv) {
             if (strpos($conversations[$i]['users'], ',') === false) {
                 $userid = explode('|', $conv['users']);
-                /* @noinspection PhpUndefinedMethodInspection */
                 $conversations[$i]['users'] = $_SESSION['user']->getTable()->get($userid[1])->toArray(['pimg', 'name']);
             }
         }

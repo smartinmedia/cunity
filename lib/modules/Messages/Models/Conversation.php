@@ -63,7 +63,7 @@ class Conversation
         $conversation = $table->loadConversationDetails($_GET['action']);
         $users = explode(',', $conversation['users']);
         if (!in_array($_SESSION['user']->userid, $users)) {
-            throw new NotAllowed;
+            throw new NotAllowed();
         } else {
             unset($users[array_search($_SESSION['user']->userid, $users)]);
         }

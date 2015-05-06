@@ -64,7 +64,6 @@ class TextMail extends MailView
             isset($receiver['userid'])
         ) {
             /** @var User $user */
-            /* @noinspection PhpUndefinedMethodInspection */
             $user = $_SESSION['user']->getTable()->search(
                 'userid',
                 $receiver['userid']

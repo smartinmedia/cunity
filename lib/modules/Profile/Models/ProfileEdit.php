@@ -55,6 +55,9 @@ use Skoch\Filter\File\Crop;
  */
 class ProfileEdit
 {
+    /**
+     * @var string
+     */
     private $message;
 
     /**
@@ -95,11 +98,9 @@ class ProfileEdit
         if (!isset($_GET['x']) || empty($_GET['x'])) {
             throw new PageNotFound();
         }
-        /* @noinspection PhpUnnecessaryFullyQualifiedNameInspection */
         $images = new \Cunity\Gallery\Models\Db\Table\GalleryImages();
         $result = $images->getImageData($_GET['x']);
         $view = new ProfileCrop();
-        /* @noinspection PhpUndefinedMethodInspection */
         $user = $_SESSION['user']->getTable()->get($_SESSION['user']->userid); // Get a new user Object with all image-data
         /* @var User $user */
         $profileData = $user->toArray(['userid', 'username', 'name', 'timg', 'pimg', 'talbumid', 'palbumid']);
@@ -117,7 +118,6 @@ class ProfileEdit
         } else {
             $_SESSION['user']->titleImage = 0;
         }
-        /* @noinspection PhpUndefinedMethodInspection */
         if ($_SESSION['user']->save()) {
             $view = new View(true);
             $view->sendResponse();
@@ -127,7 +127,6 @@ class ProfileEdit
     /**
      * @throws \Zend_Db_Table_Exception
      */
-    /** @noinspection PhpUnusedPrivateMethodInspection */
     private function loadPinData()
     {
         $pinid = $_POST['id'];
@@ -142,7 +141,6 @@ class ProfileEdit
     /**
      *
      */
-    /** @noinspection PhpUnusedPrivateMethodInspection */
     private function deletePin()
     {
         if (isset($_POST['id'])) {
@@ -157,7 +155,6 @@ class ProfileEdit
     /**
      *
      */
-    /** @noinspection PhpUnusedPrivateMethodInspection */
     private function pin()
     {
         if (isset($_POST['title']) && isset($_POST['type']) && isset($_POST['content'])) {
@@ -177,7 +174,6 @@ class ProfileEdit
     /**
      *
      */
-    /** @noinspection PhpUnusedPrivateMethodInspection */
     private function notifications()
     {
         if (!empty($_POST['types'])) {
@@ -201,7 +197,6 @@ class ProfileEdit
     /**
      *
      */
-    /** @noinspection PhpUnusedPrivateMethodInspection */
     private function pinPositions()
     {
         $pins = new Db\Table\ProfilePins();
@@ -268,7 +263,6 @@ class ProfileEdit
     /**
      *
      */
-    /** @noinspection PhpUnusedPrivateMethodInspection */
     private function changePrivacy()
     {
         if (isset($_POST['privacy']) && is_array($_POST['privacy'])) {
@@ -291,7 +285,6 @@ class ProfileEdit
     /**
      *
      */
-    /** @noinspection PhpUnusedPrivateMethodInspection */
     private function changeimage()
     {
         $gimg = new GalleryImages();
@@ -308,7 +301,6 @@ class ProfileEdit
     /**
      * @throws \Exception
      */
-    /** @noinspection PhpUnusedPrivateMethodInspection */
     private function crop()
     {
         $file = new Crop([
@@ -326,16 +318,17 @@ class ProfileEdit
         } else {
             $_SESSION['user']->profileImage = $_POST['imageid'];
         }
-        /* @noinspection PhpUndefinedMethodInspection */
         if ($_SESSION['user']->save()) {
             header('Location: '.Url::convertUrl('index.php?m=profile'));
         }
     }
 
+    /**
+     *
+     */
     private function updateProfileFields()
     {
         $view = new \Cunity\Profile\View\ProfileEdit();
-        /* @noinspection PhpUndefinedMethodInspection */
         $user = $this->user->getTable()->get($_SESSION['user']->userid);
         /* @var User $user */
         $profile = $user->toArray(['userid', 'username', 'email', 'firstname', 'lastname', 'registered', 'pimg', 'timg', 'palbumid', 'talbumid']);

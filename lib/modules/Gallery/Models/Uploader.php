@@ -144,7 +144,6 @@ class Uploader
         $tempFile = fopen($_FILES['file']['tmp_name'], 'rb');
 
         if ($tempFile) {
-            /* @noinspection PhpAssignmentInConditionInspection */
             while ($buff = fread($tempFile, 4096)) {
                 fwrite($out, $buff);
             }

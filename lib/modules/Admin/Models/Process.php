@@ -86,7 +86,6 @@ class Process
                 foreach ($_POST as $key => $value) {
                     if (strpos($key, 'settings-') !== false) {
                         $setting = explode('-', $key);
-                        /* @noinspection PhpUnnecessaryFullyQualifiedNameInspection */
                         $settings = \Cunity\Core\Cunity::get('settings');
                         $res[] = $settings->setSetting(preg_replace('/_/', '.', $setting[1], 1), $value);
                     }
