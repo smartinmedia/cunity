@@ -35,6 +35,7 @@
  */
 
 namespace Cunity\Core\Exceptions;
+use Psr\Log\LogLevel;
 
 /**
  * Class UnknownDirectory.
@@ -45,4 +46,9 @@ class UnknownDirectory extends Exception
      * @var int
      */
     protected $errorCode = 7;
+
+    /**
+     * @var string
+     */
+    protected $logLevel = LogLevel::ERROR;
 }

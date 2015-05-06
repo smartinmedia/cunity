@@ -35,6 +35,7 @@
  */
 
 namespace Cunity\Core\Exceptions;
+use Psr\Log\LogLevel;
 
 /**
  * Class UnknownFile.
@@ -45,4 +46,9 @@ class UnknownFile extends Exception
      * @var int
      */
     protected $errorCode = 5;
+
+    /**
+     * @var string
+     */
+    protected $logLevel = LogLevel::ERROR;
 }

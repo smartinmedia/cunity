@@ -35,6 +35,7 @@
  */
 
 namespace Cunity\Core\Exceptions;
+use Psr\Log\LogLevel;
 
 /**
  * Class InstanceNotFound.
@@ -45,4 +46,9 @@ class InstanceNotFound extends Exception
      * @var int
      */
     protected $errorCode = 2;
+
+    /**
+     * @var string
+     */
+    protected $logLevel = LogLevel::ERROR;
 }

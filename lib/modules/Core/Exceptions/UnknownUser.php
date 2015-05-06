@@ -35,6 +35,7 @@
  */
 
 namespace Cunity\Core\Exceptions;
+use Psr\Log\LogLevel;
 
 /**
  * Class UnknownUser.
@@ -45,4 +46,9 @@ class UnknownUser extends Exception
      * @var int
      */
     protected $errorCode = 3;
+
+    /**
+     * @var string
+     */
+    protected $logLevel = LogLevel::NOTICE;
 }

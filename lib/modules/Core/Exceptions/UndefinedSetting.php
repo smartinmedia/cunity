@@ -35,6 +35,7 @@
  */
 
 namespace Cunity\Core\Exceptions;
+use Psr\Log\LogLevel;
 
 /**
  * Class UndefinedSetting.
@@ -45,4 +46,9 @@ class UndefinedSetting extends Exception
      * @var int
      */
     protected $errorCode = 4;
+
+    /**
+     * @var string
+     */
+    protected $logLevel = LogLevel::ERROR;
 }

@@ -35,6 +35,7 @@
  */
 
 namespace Cunity\Core\Exceptions;
+use Psr\Log\LogLevel;
 
 /**
  * Class ErrorNotFound.
@@ -45,4 +46,9 @@ class FileNotWriteable extends Exception
      * @var int
      */
     protected $errorCode = 10;
+
+    /**
+     * @var string
+     */
+    protected $logLevel = LogLevel::ERROR;
 }

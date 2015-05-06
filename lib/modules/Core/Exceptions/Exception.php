@@ -36,6 +36,9 @@
 
 namespace Cunity\Core\Exceptions;
 
+use Psr\Log\LogLevel;
+use Cunity\Core\Helper\LogHelper;
+
 /**
  * Class Exception.
  */
@@ -45,6 +48,11 @@ abstract class Exception extends \Exception
      * @var int
      */
     protected $errorCode = 0;
+
+    /**
+     * @var string
+     */
+    protected $logLevel = LogLevel::INFO;
 
     /**
      * @var array
@@ -80,6 +88,22 @@ abstract class Exception extends \Exception
      */
     public function __toString()
     {
-        return __CLASS__.": [{$this->errorCode}]: {".self::$errorCodes[$this->errorCode]."}\n";
+        switch ($this->logLevel) {
+            case LogLevel::EMERGENCY:
+            case LogLevel::ALERT:
+            case LogLevel::CRITICAL:
+            case LogLevel::ERROR:
+                $log = new LogHelper();
+                $log->log($this->logLevel, self::$errorCodes[$this->errorCode]);
+                break;
+            case LogLevel::WARNING:
+            case LogLevel::NOTICE:
+            case LogLevel::INFO:
+            case LogLevel::DEBUG:
+            default:
+                break;
+        }
+
+        return __CLASS__ . ": [{$this->errorCode}]: {" . self::$errorCodes[$this->errorCode] . "}\n";
     }
 }
