@@ -104,6 +104,6 @@ abstract class Exception extends \Exception
                 break;
         }
 
-        return __CLASS__ . ": [{$this->errorCode}]: {" . self::$errorCodes[$this->errorCode] . "}\n";
+        return __CLASS__.": [{$this->errorCode}]: {".self::$errorCodes[$this->errorCode]."}\n";
     }
 }

@@ -35,6 +35,7 @@
  */
 
 namespace Cunity\Core\Exceptions;
+
 use Psr\Log\LogLevel;
 
 /**
