@@ -37,7 +37,7 @@
 namespace Cunity\Profile\Models;
 
 use Cunity\Core\Access\UserAccess;
-use Cunity\Core\Exceptions\PageNotFound;
+use Cunity\Core\Exceptions\UnknownUser;
 use Cunity\Core\Models\Db\Row\User;
 use Cunity\Core\Models\Db\Table\Users;
 use Cunity\Core\Models\Request;
@@ -99,7 +99,7 @@ class Profile
         if (isset($_GET['action']) && !empty($_GET['action'])) {
             $result = $users->get($_GET['action'], 'username');
             if (!$result instanceof User || $result['name'] === null) {
-                throw new PageNotFound();
+                throw new UnknownUser;
             }
         } else {
             $result = $users->get($_SESSION['user']->userid);
@@ -108,7 +108,7 @@ class Profile
         $result = $result->toArray();
         $this->profileData = $result;
         if (isset($this->profileData['status']) && $this->profileData['status'] === 0 && $this->profileData['receiver'] == $_SESSION['user']->userid) {
-            throw new PageNotFound();
+            throw new UnknownUser;
         }
     }
 

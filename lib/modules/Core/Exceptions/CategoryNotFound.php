@@ -37,90 +37,19 @@
 namespace Cunity\Core\Exceptions;
 
 use Psr\Log\LogLevel;
-use Cunity\Core\Helper\LogHelper;
 
 /**
- * Class Exception.
+ * Class ErrorNotFound.
  */
-abstract class Exception extends \Exception
+class CategoryNotFound extends Exception
 {
     /**
      * @var int
      */
-    protected $errorCode = 0;
+    protected $errorCode = 15;
 
     /**
      * @var string
      */
     protected $logLevel = LogLevel::INFO;
-
-    /**
-     * @var array
-     */
-    private static $errorCodes = [
-        0 => 'Unknown error',
-        1 => 'Error code does not exist',
-        2 => 'Instance not found',
-        3 => 'Unknown user',
-        4 => 'Undefined setting',
-        5 => 'Unknown file',
-        6 => 'Missing parameter',
-        7 => 'Unknown directory',
-        8 => 'Not writeable',
-        9 => 'Directory not writeable',
-        10 => 'File not writeable',
-        11 => 'Module not active',
-        12 => 'Module not found',
-        13 => 'Not allowed',
-        14 => 'Event not found',
-        15 => 'Category not found',
-        16 => 'Forum not found',
-        17 => 'Thread not found',
-        18 => 'Album not found',
-        404 => 'Page not found',
-    ];
-
-    /**
-     *
-     */
-    public function __construct()
-    {
-        if (!array_key_exists($this->errorCode, self::$errorCodes)) {
-            throw new ErrorNotFound();
-        }
-
-        $this->log();
-
-        parent::__construct(self::$errorCodes[$this->errorCode], $this->errorCode);
-    }
-
-    /**
-     * @return string
-     */
-    public function __toString()
-    {
-        return __CLASS__.": [{$this->errorCode}]: {".self::$errorCodes[$this->errorCode]."}\n";
-    }
-
-    /**
-     *
-     */
-    protected function log()
-    {
-        switch ($this->logLevel) {
-            case LogLevel::EMERGENCY:
-            case LogLevel::ALERT:
-            case LogLevel::CRITICAL:
-            case LogLevel::ERROR:
-                $log = new LogHelper();
-                $log->log($this->logLevel, self::$errorCodes[$this->errorCode], $_SERVER);
-                break;
-            case LogLevel::WARNING:
-            case LogLevel::NOTICE:
-            case LogLevel::INFO:
-            case LogLevel::DEBUG:
-            default:
-                break;
-        }
-    }
 }

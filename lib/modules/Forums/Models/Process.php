@@ -36,7 +36,10 @@
 
 namespace Cunity\Forums\Models;
 
+use Cunity\Core\Exceptions\CategoryNotFound;
+use Cunity\Core\Exceptions\ForumNotFound;
 use Cunity\Core\Exceptions\PageNotFound;
+use Cunity\Core\Exceptions\ThreadNotFound;
 use Cunity\Core\Helper\UserHelper;
 use Cunity\Core\Models\Generator\Url;
 use Cunity\Core\View\Ajax\View;
@@ -186,7 +189,7 @@ class Process
         $boards = new Forums();
         $data = $boards->loadForumData($_GET['x']);
         if ($data === false) {
-            throw new PageNotFound();
+            throw new ForumNotFound;
         }
         $view = new Forum();
         $view->setMetaData(['title' => $data['title']]);
@@ -216,16 +219,19 @@ class Process
                 $data = $boards->loadBoardData($_GET['x']);
                 $view = new Board();
                 $view->assign('board', $data);
+                if ($data === false) {
+                    throw new ForumNotFound;
+                }
                 break;
             case 'thread':
                 $threads = new Threads();
                 $data = $threads->loadThreadData($_GET['x']);
                 $view = new Thread();
                 $view->assign('thread', $data);
+                if ($data === false) {
+                    throw new ThreadNotFound;
+                }
                 break;
-        }
-        if ($data === false) {
-            throw new PageNotFound();
         }
 
         $view->setMetaData(['title' => $data['title']]);
@@ -253,7 +259,7 @@ class Process
         $cat = new Categories();
         $data = $cat->getCategoryData($_GET['x']);
         if ($data === false) {
-            throw new PageNotFound();
+            throw new CategoryNotFound;
         }
         $view = new Category();
         $view->setMetaData(['title' => $view->translate('Category').': '.$data['name']]);

@@ -37,6 +37,8 @@
 namespace Cunity\Events\Models;
 
 use Cunity\Core\Cunity;
+use Cunity\Core\Exceptions\EventNotFound;
+use Cunity\Core\Exceptions\NotAllowed;
 use Cunity\Core\Exceptions\PageNotFound;
 use Cunity\Core\Models\Generator\Url;
 use Cunity\Core\View\Ajax\View;
@@ -142,7 +144,7 @@ class Process
         if (isset($_GET['x']) && $_GET['x'] == 'edit') {
             $eventData = $events->getEventData(intval($_GET['action']));
             if ($eventData['userid'] !== $_SESSION['user']->userid) {
-                throw new PageNotFound();
+                throw new NotAllowed;
             }
             $view = new EventEdit();
             $eventData['date'] = new DateTime($eventData['start']);
@@ -154,7 +156,7 @@ class Process
             $view = new Event();
             $data = $events->getEventData($id[0]);
             if ($data === null || $data === false) {
-                throw new PageNotFound();
+                throw new EventNotFound;
             }
             $data['date'] = new DateTime($data['start']);
             $data['guests'] = $guests->getGuests($id[0]);
@@ -247,7 +249,7 @@ class Process
             $view->assign(['event' => $eventData, 'result' => $result[0], 'type' => $_GET['y'], 'image' => getimagesize('../data/uploads/'.Cunity::get('settings')->getSetting('core.filesdir').'/'.$result[0]['filename'])]);
             $view->show();
         } else {
-            throw new PageNotFound();
+            throw new NotAllowed;
         }
     }
 
