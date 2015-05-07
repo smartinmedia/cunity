@@ -36,7 +36,6 @@
 
 namespace Cunity\Register;
 
-use Cunity\Admin\View\Login;
 use Cunity\Core\Models\Generator\Url;
 use Cunity\Core\ModuleController;
 

@@ -3,7 +3,6 @@
 namespace Skoch\Filter\File;
 
 use Skoch\Filter\File\Adapter\AbstractAdapter;
-use Zend_Config;
 use Zend_Filter_Exception;
 
 /**
