@@ -56,7 +56,7 @@ use Skoch\Filter\File\Crop;
 class ProfileEdit
 {
     /**
-     * @var string
+     * @var array
      */
     private $message;
 
