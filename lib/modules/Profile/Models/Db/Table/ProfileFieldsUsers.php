@@ -61,9 +61,9 @@ class ProfileFieldsUsers extends Table
 
     /**
      * @param array $config
-     * @param null  $user
+     * @param User|null $user
      */
-    public function __construct($config = [], $user = null)
+    public function __construct($config = [], User $user = null)
     {
         if (null !== $user) {
             $this->user = $user;

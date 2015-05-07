@@ -45,6 +45,7 @@ class Resize extends AbstractFile implements \Zend_Filter_Interface
      * @var null
      */
     protected $directory = null;
+
     /**
      * @var string
      */
