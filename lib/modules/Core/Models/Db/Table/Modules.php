@@ -75,7 +75,7 @@ class Modules extends Table
      * @param $moduletag
      * @param bool $onlyActive
      *
-     * @return \Zend_Db_Table_Row_Abstract
+     * @return null|\Zend_Db_Table_Row_Abstract
      */
     public function getModuleData($moduletag, $onlyActive = true)
     {
