@@ -166,11 +166,9 @@ class Users extends Table
     }
 
     /**
-     * @param array $fields
-     *
      * @return \Zend_Db_Table_Rowset_Abstract
      */
-    public function getSetIn(array $fields = ['*'])
+    public function getSetIn()
     {
         $query = $this->getGallery();
         $res = $this->fetchAll($query);
