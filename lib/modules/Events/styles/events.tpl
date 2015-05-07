@@ -1,6 +1,6 @@
 <div class="page-buttonbar clearfix">
     <h1 class="page-header pull-left">{-"Events"|translate}</h1>
-    <button class="pull-right btn btn-primary" data-toggle="modal" data-target="#createEvent" id="createEvent"><i class="fa fa-plus"></i>&nbsp;{-"Create Event"|translate}
+    <button class="pull-right btn btn-primary" data-toggle="modal" data-target="#createEvent"><i class="fa fa-plus"></i>&nbsp;{-"Create Event"|translate}
     </button>
     <button class="pull-right btn btn-primary" data-calendar-nav="today" id="today">{-"Today"|translate}</button>
     <div class="btn-group pull-right" data-toggle="buttons">
