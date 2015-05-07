@@ -36,6 +36,7 @@
 
 namespace Cunity\Admin\Models\Pages;
 
+use Cunity\Core\Cunity;
 use Cunity\Core\Models\Db\Table\Modules;
 
 /**
@@ -52,7 +53,7 @@ class Dashboard extends Statistics
 
         $modules = new Modules();
         $installedModules = $modules->getModules()->toArray();
-        $config = \Cunity\Core\Cunity::get('config');
+        $config = Cunity::get('config');
         $this->assignments['smtp_check'] = $config->mail->smtp_check;
         $this->assignments['modules'] = $installedModules;
         $this->assignments['version'] = $config->site->version;
