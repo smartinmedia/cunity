@@ -60,7 +60,7 @@ class ProfileFieldsUsers extends Table
     protected $_primary = 'id';
 
     /**
-     * @param array $config
+     * @param array     $config
      * @param User|null $user
      */
     public function __construct($config = [], User $user = null)

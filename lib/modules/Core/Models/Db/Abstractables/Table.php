@@ -93,9 +93,11 @@ abstract class Table extends \Zend_Db_Table_Abstract
     }
 
     /**
-     * @param array $data
+     * @param array        $data
      * @param array|string $where
+     *
      * @return int
+     *
      * @throws \Zend_Db_Table_Exception
      */
     public function update(array $data, $where)

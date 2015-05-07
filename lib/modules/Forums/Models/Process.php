@@ -160,7 +160,7 @@ class Process
             array_push($format_search, '#\[quote=(.*?)\](.*?)#is');
             array_push($format_search, '#\[/quote\]#is');
             $user = $_SESSION['user']->getTable()->get($matches1[0][1], 'username');
-            array_push($format_replace, '<div class="quotation well well-sm"><a class="quotation-user" href="' . Url::convertUrl('index.php?m=profile&action=' . $user->username) . '">' . $user->name . ':</a>$2');
+            array_push($format_replace, '<div class="quotation well well-sm"><a class="quotation-user" href="'.Url::convertUrl('index.php?m=profile&action='.$user->username).'">'.$user->name.':</a>$2');
             array_push($format_replace, '</div>');
         }
 
@@ -248,7 +248,7 @@ class Process
             throw new CategoryNotFound();
         }
         $view = new Category();
-        $view->setMetaData(['title' => $view->translate('Category') . ': ' . $data['name']]);
+        $view->setMetaData(['title' => $view->translate('Category').': '.$data['name']]);
         $view->assign('category', $data);
         $view->show();
     }

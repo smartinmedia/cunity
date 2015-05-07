@@ -104,7 +104,7 @@ class Process
             case 'modules':
                 Cunity::set('modules', new Modules());
                 $modules = Cunity::get('modules');
-                $modules->update(['status' => $_POST['status']], 'id = ' . $_POST['id']);
+                $modules->update(['status' => $_POST['status']], 'id = '.$_POST['id']);
                 break;
             case 'update':
                 UpdateHelper::update();
@@ -116,9 +116,9 @@ class Process
 
                 if (null !== $_REQUEST['userid']) {
                     if ('' !== $_REQUEST['groupid']) {
-                        $users->update(['groupid' => $_REQUEST['groupid']], 'userid = ' . $_REQUEST['userid']);
+                        $users->update(['groupid' => $_REQUEST['groupid']], 'userid = '.$_REQUEST['userid']);
                     } else {
-                        $users->delete('userid = ' . $_REQUEST['userid']);
+                        $users->delete('userid = '.$_REQUEST['userid']);
                     }
                 } else {
                     $users->registerNewUser($_REQUEST);
@@ -178,7 +178,7 @@ class Process
 
         if ($object instanceof Table) {
             /* @var Table $object */
-            $object->delete($primary . ' = ' . $_REQUEST['id']);
+            $object->delete($primary.' = '.$_REQUEST['id']);
         }
 
         $this->sendResponse();
