@@ -69,7 +69,7 @@ class Crop extends AbstractFile implements \Zend_Filter_Interface
      *
      * @throws Zend_Filter_Exception
      *
-     * @return \Skoch\Filter\File\Crop An instance of this filter
+     * @return \Skoch\Filter\File\Crop
      */
     public function __construct($options)
     {
