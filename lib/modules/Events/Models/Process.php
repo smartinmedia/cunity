@@ -211,9 +211,7 @@ class Process
         $view = new View();
         if (!isset($_POST['edit']) || $_POST['edit'] != 'editPhoto') {
             $events = new Events();
-            $events->updateEvent(intval($_GET['x']), array_intersect_key($_POST, array_flip(['title', 'description', 'place', 'start', 'privacy', 'guest_invitation'])));
-
-            $view->addData(['msg' => $msg]);
+            $events->updateEvent(intval($_GET['x']), array_intersect_key($_POST, array_flip(['title', 'description', 'place', 'date', 'time', 'privacy', 'guest_invitation'])));
             $view->sendResponse();
         } elseif ($_POST['edit'] == 'editPhoto') {
             $gimg = new GalleryImages();

@@ -135,6 +135,11 @@ class Events extends Table
      */
     public function updateEvent($eventid, $values)
     {
-        return (0 < $this->update($values, $this->getAdapter()->quoteInto('id=?', $eventid)));
+        $date = new \DateTime();
+        $values['start'] = $date->createFromFormat('d/m/Y', $values['date'])->format('Y-m-d').' '.$date->createFromFormat('H:i', $values['time'])->format('H:i:s');
+        unset($values['date']);
+        unset($values['time']);
+fb($values);
+        return $this->update($values, $this->getAdapter()->quoteInto('id=?', $eventid));
     }
 }

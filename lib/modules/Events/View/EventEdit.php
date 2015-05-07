@@ -67,6 +67,20 @@ class EventEdit extends View
         $this->registerCss('events', 'event');
         $this->registerCss('events', 'event-edit');
         $this->registerScript('events', 'event-edit');
+        $this->registerCunityPlugin(
+            'bootstrap-datepicker',
+            [
+                'css/bootstrap-datepicker.css',
+                'js/bootstrap-datepicker.js',
+            ]
+        );
+        $this->registerCunityPlugin(
+            'bootstrap-timepicker',
+            [
+                'css/bootstrap-timepicker.css',
+                'js/bootstrap-timepicker.min.js',
+            ]
+        );
         $this->assign('max_filesize', ini_get('upload_max_filesize'));
         $this->assign(
             'upload_limit',
