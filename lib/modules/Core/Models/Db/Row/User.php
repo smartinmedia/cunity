@@ -147,7 +147,7 @@ class User extends \Zend_Db_Table_Row_Abstract
             return $this->images;
         }
         $images = new GalleryImages();
-        $this->images = $images->fetchAll($images->select()->where('id=?', $this->profileImage)->orWhere('id=?', $this->titleImage));
+        $this->images = $images->fetchAll($images->select()->where('id=?', $this->profileImage)->orWhere('id=?', $this->titleImage))->toArray();
 
         return $this->images;
     }
