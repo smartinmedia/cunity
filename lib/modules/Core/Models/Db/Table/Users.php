@@ -149,7 +149,7 @@ class Users extends Table
      */
     public function getSet(array $values, $key = 'u.userid', array $fields = ['*'], $includeOwn = false)
     {
-        $query = $this->getGallery($fields);
+        $query = $this->getGallery();
         if (!$includeOwn) {
             $query->where('u.userid != ?', $_SESSION['user']->userid);
         }
@@ -172,7 +172,7 @@ class Users extends Table
      */
     public function getSetIn(array $fields = ['*'])
     {
-        $query = $this->getGallery($fields);
+        $query = $this->getGallery();
         $res = $this->fetchAll($query);
         $resCount = count($res);
         for ($i = 0; $i < $resCount; $i++) {
@@ -218,11 +218,9 @@ class Users extends Table
     }
 
     /**
-     * @param array $fields
-     *
      * @return \Zend_Db_Select
      */
-    protected function getGallery(array $fields)
+    protected function getGallery()
     {
         $query = $this->select()->setIntegrityCheck(false)->from(['u' => $this->getTableName()])
             ->joinLeft(['r' => $this->_dbprefix.'relations'], '(r.receiver = '.$this->getAdapter()->quote($_SESSION['user']->userid).' AND r.sender = u.userid) OR (r.sender = '.$this->getAdapter()->quote($_SESSION['user']->userid).' AND r.receiver = u.userid)')
