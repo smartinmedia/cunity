@@ -187,35 +187,9 @@ class UpdateHelper
     /**
      * @return bool
      */
-    private static function canWrite()
-    {
-        $directory = new \RecursiveDirectoryIterator(__DIR__.'/../../../');
-        $iterator = new \RecursiveIteratorIterator($directory);
-
-        /** @var \SplFileInfo $object */
-        foreach ($iterator as $name => $object) {
-            if ($object->getFilename() === '.' || $object->getFilename() === '..') {
-                continue;
-            }
-
-            if (!$object->isWritable()) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    /**
-     * @return bool
-     */
     private static function canUpdate()
     {
         if (!self::updateServerAvailable()) {
-            return false;
-        }
-
-        if (!self::canWrite()) {
             return false;
         }
 
