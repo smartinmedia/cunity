@@ -29,45 +29,45 @@
                 <div class="panel-body">
                     <div class="alert alert-block hidden" id="infoalert"></div>
                     <form action="{-"index.php?m=events&action=edit&x={-$event.id}"|URL}" method="post"
-                          class="form-horizontal ajaxform">
+                          class="form-horizontal ajaxform" id="eventEditForm">
                         <input type="hidden" name="edit" value="info">
 
                         <div class="form-group">
-                            <label class="control-label col-md-3">{-"Title"|translate}</label>
+                            <label class="control-label col-md-3">{-"Title"|translate}*</label>
 
                             <div class="col-md-9">
-                                <input type="text" name="title" class="form-control" value="{-$event.title}">
+                                <input type="text" name="title" class="form-control" value="{-$event.title}" required="required">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-md-3">{-"Description"|translate}</label>
+                            <label class="control-label col-md-3">{-"Description"|translate}*</label>
 
                             <div class="col-md-9">
-                                <textarea name="description" class="form-control"
+                                <textarea name="description" class="form-control" required="required"
                                           rows="6">{-$event.description}</textarea>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-md-3">{-"Place"|translate}</label>
+                            <label class="control-label col-md-3">{-"Place"|translate}*</label>
 
                             <div class="col-md-9">
-                                <input type="text" name="place" class="form-control" value="{-$event.place}">
+                                <input type="text" name="place" class="form-control" value="{-$event.place}" required="required">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-md-3">{-"Date"|translate}</label>
+                            <label class="control-label col-md-3">{-"Date"|translate}*</label>
 
                             <div class="col-md-5">
                                 <div class="input-group date">
                                     <input type="text" class="form-control"
-                                           placeholder="{-"Select a date"|translate}" readonly="readonly" value="{-$event.date|date_format:"%d/%m/%Y"}" name="date"><span
+                                           placeholder="{-"Select a date"|translate}" readonly="readonly" value="{-$event.date|date_format:"%d/%m/%Y"}" name="date" required="required"><span
                                             class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="input-group time">
                                     <input type="text" class="form-control" name="time"
-                                           placeholder="{-"Select a time"|translate}" value="{-$event.date|date_format:"%H:%M"}"><span class="input-group-addon"><i
+                                           placeholder="{-"Select a time"|translate}" value="{-$event.date|date_format:"%H:%M"}" required="required"><span class="input-group-addon"><i
                                                 class="fa fa-clock-o"></i></span>
                                 </div>
                             </div>
