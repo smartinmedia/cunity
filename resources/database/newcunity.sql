@@ -299,6 +299,8 @@ INSERT INTO `TABLEPREFIXmodules` (`id`, `namespace`, `name`, `iconClass`, `statu
   (6, 'memberlist', 'Memberlist', 'list', 1);
 INSERT INTO `TABLEPREFIXmodules` (`id`, `namespace`, `name`, `iconClass`, `status`) VALUES
   (7, 'forums', 'Forum', 'list', 1);
+INSERT INTO `TABLEPREFIXmodules` (`id`, `namespace`, `name`, `iconClass`, `status`) VALUES
+  (8, 'events', 'Events', 'calendar-o', 1);
 
 CREATE TABLE IF NOT EXISTS `TABLEPREFIXnotifications` (
   `id`         INT(11)      NOT NULL AUTO_INCREMENT,
