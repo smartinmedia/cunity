@@ -39,7 +39,6 @@ namespace Cunity\Core\View;
 use Cunity\Admin\Helper\UpdateHelper;
 use Cunity\Core\Cunity;
 use Cunity\Core\Exceptions\Exception;
-use Cunity\Core\Exceptions\UnknownDirectory;
 use Cunity\Core\Exceptions\UnknownFile;
 use Cunity\Core\Helper\UserHelper;
 use Cunity\Core\Models\Db\Table\Announcements;
@@ -127,7 +126,7 @@ class View extends Smarty
     {
         parent::__construct();
         if (!file_exists('../style/'.$this->getSetting('core.design'))) {
-            throw new UnknownDirectory();
+            throw new UnknownFile();
         }
         $this->_coreRoot = str_replace(
             '%design%',

@@ -43,7 +43,7 @@ abstract class AbstractFile
                 $name = $options['adapter'];
                 if (substr($name, 0, 26) != 'Skoch_Filter_File_Adapter_') {
                     $name = 'Skoch_Filter_File_Adapter_'
-                        . ucfirst(
+                        .ucfirst(
                             strtolower($name)
                         );
                 }
