@@ -39,6 +39,7 @@ namespace Cunity\Admin\Models\Pages;
 use Cunity\Comments\Models\Db\Table\Comments;
 use Cunity\Core\Cunity;
 use Cunity\Core\Models\Mail\Mail;
+use Cunity\Core\Request\Post;
 use Cunity\Core\View\Ajax\View;
 use Cunity\Pages\Models\Db\Table\Pages;
 use Cunity\Profile\Models\Db\Table\ProfileFields;
@@ -58,7 +59,7 @@ class Settings extends PageAbstract
      */
     public function __construct()
     {
-        if (isset($_POST) && !empty($_POST)) {
+        if (Post::get() !== null && Post::get() !== '') {
             $this->view = new View();
             $this->handleRequest();
         } else {
@@ -72,10 +73,10 @@ class Settings extends PageAbstract
      */
     private function handleRequest()
     {
-        switch ($_POST['action']) {
+        switch (Post::get('action')) {
             case 'sendTestMail':
                 $mail = new Mail();
-                $mail->sendMail('TestMail from cunity', 'Cunity - Testmail', ['name' => 'Cunity Admin', 'email' => $_POST['mail']]);
+                $mail->sendMail('TestMail from cunity', 'Cunity - Testmail', ['name' => 'Cunity Admin', 'email' => Post::get('mail')]);
                 $this->view->setStatus(true);
                 break;
             case 'loadPages':
@@ -85,12 +86,12 @@ class Settings extends PageAbstract
                 $this->view->addData(['pages' => $res->toArray()]);
                 break;
             case 'deletePage':
-                if (isset($_POST['id']) && !empty($_POST['id'])) {
+                if (Post::get('id') !== null && Post::get('id') !== '') {
                     $pages = new Pages();
-                    $status = $pages->deletePage($_POST['id']);
+                    $status = $pages->deletePage(Post::get('id'));
                     if ($status !== false && false) {
                         $comments = new Comments();
-                        $status = $comments->removeAllComments($_POST['id'], 'page');
+                        $status = $comments->removeAllComments(Post::get('id'), 'page');
                     } else {
                         $status = true;
                     }
@@ -102,7 +103,7 @@ class Settings extends PageAbstract
                 break;
             case 'addPage':
                 $pages = new Pages();
-                $res = $pages->addPage($_POST);
+                $res = $pages->addPage(Post::get());
                 $page = $pages->getPage($res);
                 $this->view->setStatus($res !== null && $res !== false);
                 $page->content = html_entity_decode($page->content);

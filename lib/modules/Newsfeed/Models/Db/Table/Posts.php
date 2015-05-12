@@ -38,6 +38,7 @@ namespace Cunity\Newsfeed\Models\Db\Table;
 
 use Cunity\Comments\Models\Db\Table\Comments;
 use Cunity\Core\Models\Db\Abstractables\Table;
+use Cunity\Core\Request\Post;
 use Cunity\Likes\Models\Db\Table\Likes;
 use Cunity\Notifications\Models\Notifier;
 
@@ -89,7 +90,7 @@ class Posts extends Table
             $notification = new Notifier();
             $notification->notify($data['wall_owner_id'], $_SESSION['user']->userid, 'wall_post', 'index.php?m=wall_post&action='.$data['wall_owner_id']);
         } else {
-            $wallid = $_POST['wallid'];
+            $wallid = Post::get('wall_id');
         }
         $res = $this->insert(['userid' => $data['userid'], 'wall_id' => $wallid, 'privacy' => $data['privacy'], 'content' => $data['content'], 'time' => new \Zend_Db_Expr('UTC_TIMESTAMP()'), 'type' => $data['type']]);
         if ($res !== null) {

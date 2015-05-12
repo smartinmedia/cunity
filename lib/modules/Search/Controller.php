@@ -38,6 +38,7 @@ namespace Cunity\Search;
 
 use Cunity\Core\ModuleController;
 use Cunity\Core\Request\Get;
+use Cunity\Core\Request\Post;
 use Cunity\Core\View\Ajax\View;
 use Cunity\Search\View\Searchresults;
 
@@ -63,7 +64,7 @@ class Controller extends ModuleController
             new Searchresults();
         } elseif (Get::get('action') === 'livesearch') {
             $process = new Models\Process();
-            $result = $process->find($_POST['q']);
+            $result = $process->find(Post::get('q'));
             $view = new View();
             $view->setStatus(true);
             $view->addData($result);

@@ -38,6 +38,7 @@
 namespace Cunity\Admin\Models\Pages;
 
 use Cunity\Core\Models\Db\Table\Menu;
+use Cunity\Core\Request\Post;
 use Cunity\Core\View\Ajax\View;
 
 /**
@@ -50,7 +51,7 @@ class Appearance extends PageAbstract
      */
     public function __construct()
     {
-        if (isset($_POST) && !empty($_POST)) {
+        if (Post::get() !== null && Post::get() !== '') {
             $this->handleRequest();
         } else {
             $this->loadData();
@@ -64,7 +65,7 @@ class Appearance extends PageAbstract
     private function handleRequest()
     {
         $view = new View(true);
-        switch ($_POST['action']) {
+        switch (Post::get('action')) {
             case 'loadMenu':
                 $menu = new Menu();
                 $view->addData(['main' => $menu->getMainMenu(), 'footer' => $menu->getFooterMenu()]);
@@ -72,13 +73,13 @@ class Appearance extends PageAbstract
                 break;
             case 'addMenuItem':
                 $menu = new Menu();
-                $res = $menu->addMenuItem($_POST);
+                $res = $menu->addMenuItem(Post::get());
                 $view->addData(['data' => $res]);
                 $view->sendResponse();
                 break;
             case 'updateMenu':
-                $mainMenu = explode(',', $_POST['main-menu']);
-                $footerMenu = explode(',', $_POST['footer-menu']);
+                $mainMenu = explode(',', Post::get('main-menu'));
+                $footerMenu = explode(',', Post::get('footer-menu'));
                 $menu = new Menu();
                 $res = [];
                 if ($menu->deleteBut(array_merge($mainMenu, $footerMenu))) {

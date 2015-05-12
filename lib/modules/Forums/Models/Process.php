@@ -43,6 +43,7 @@ use Cunity\Core\Exceptions\ThreadNotFound;
 use Cunity\Core\Helper\UserHelper;
 use Cunity\Core\Models\Db\Abstractables\Table;
 use Cunity\Core\Models\Generator\Url;
+use Cunity\Core\Request\Post;
 use Cunity\Core\View\Ajax\View;
 use Cunity\Forums\Models\Db\Table\Boards;
 use Cunity\Forums\Models\Db\Table\Categories;
@@ -77,7 +78,7 @@ class Process
         $forums = new Forums();
         $view = new View(false);
         if (UserHelper::isAdmin()) {
-            $view->setStatus($forums->deleteForum($_POST['id']));
+            $view->setStatus($forums->deleteForum(Post::get('id')));
         }
         $view->sendResponse();
     }
@@ -90,7 +91,7 @@ class Process
         $boards = new Boards();
         $view = new View(false);
         if (UserHelper::isAdmin()) {
-            $view->setStatus($boards->deleteBoard($_POST['id']));
+            $view->setStatus($boards->deleteBoard(Post::get('id')));
         }
         $view->sendResponse();
     }
@@ -103,7 +104,7 @@ class Process
         $threads = new Threads();
         $view = new View(false);
         if (UserHelper::isAdmin()) {
-            $view->setStatus($threads->deleteThread($_POST['id']));
+            $view->setStatus($threads->deleteThread(Post::get('id')));
         }
         $view->sendResponse();
     }
@@ -133,7 +134,7 @@ class Process
     private function loadPosts()
     {
         $posts = new Posts();
-        $res = $posts->loadPosts($_POST['id'], 20, ($_POST['page'] - 1) * 20);
+        $res = $posts->loadPosts(Post::get('id'), 20, (Post::get('page') - 1) * 20);
         $view = new View($res !== null && $res !== false);
         if ($res !== false) {
             foreach ($res as $i => $r) {
@@ -260,10 +261,10 @@ class Process
     {
         $res = false;
         $threads = new Threads();
-        if (isset($_POST['id'])) {
-            $res = $threads->loadThreads($_POST['id']);
-        } elseif (isset($_POST['cat'])) {
-            $res = $threads->loadCategoryThreads($_POST['cat']);
+        if (Post::get('id') !== null) {
+            $res = $threads->loadThreads(Post::get('id'));
+        } elseif (Post::get('cat') !== null) {
+            $res = $threads->loadCategoryThreads(Post::get('cat'));
         }
         $view = new View($res !== null && $res !== false);
         if ($res !== false) {
@@ -280,7 +281,7 @@ class Process
      */
     private function createForum()
     {
-        $res = $this->create(new Forums(), ['title' => $_POST['title'], 'description' => $_POST['description'], 'board_permissions' => (isset($_POST['board_permissions'])) ? $_POST['board_permissions'] : 0]);
+        $res = $this->create(new Forums(), ['title' => Post::get('title'), 'description' => Post::get('description'), 'board_permissions' => (Post::get('board_permissions') !== null)) ? Post::get('board_permissions') : 0]);
         $view = new View($res !== false);
         if ($res !== false) {
             $view->addData(['forum' => $res]);
@@ -293,7 +294,7 @@ class Process
      */
     private function createBoard()
     {
-        $res = $this->create(new Boards(), ['title' => $_POST['title'], 'description' => $_POST['description'], 'forum_id' => $_POST['forum_id']]);
+        $res = $this->create(new Boards(), ['title' => Post::get('title'), 'description' => Post::get('description'), 'forum_id' => Post::get('forum_id')]);
         $view = new View($res !== false);
         if ($res !== false) {
             $view->addData(['board' => $res]);
@@ -319,24 +320,24 @@ class Process
     {
         $threads = new Threads();
         $posts = new Posts();
-        $category = $_POST['category'];
+        $category = Post::get('category');
 
         if ($category === null) {
             $category = '';
         }
 
-        if ((isset($_POST['important']) && UserHelper::isAdmin())) {
+        if ((Post::get('important') !== null && UserHelper::isAdmin())) {
             $res = $threads->insert([
-                'title' => $_POST['title'],
-                'board_id' => $_POST['board_id'],
+                'title' => Post::get('title'),
+                'board_id' => Post::get('board_id'),
                 'userid' => $_SESSION['user']->userid,
                 'category' => $category,
-                'important' => $_POST['important'],
+                'important' => Post::get('important'),
             ]);
         } else {
             $res = $threads->insert([
-                'title' => $_POST['title'],
-                'board_id' => $_POST['board_id'],
+                'title' => Post::get('title'),
+                'board_id' => Post::get('board_id'),
                 'userid' => $_SESSION['user']->userid,
                 'category' => $category,
                 'important' => 0,
@@ -344,7 +345,7 @@ class Process
         }
         $view = new View(false);
         if ($res !== false) {
-            $postRes = $posts->post(['content' => $_POST['content'], 'thread_id' => $res, 'userid' => $_SESSION['user']->userid]);
+            $postRes = $posts->post(['content' => Post::get('content'), 'thread_id' => $res, 'userid' => $_SESSION['user']->userid]);
             $view->setStatus($postRes !== false);
             $view->addData(['id' => $res]);
         }
@@ -357,7 +358,7 @@ class Process
     private function postReply()
     {
         $posts = new Posts();
-        $res = $posts->post($_POST);
+        $res = $posts->post(Post::get());
         $view = new View(false);
         if ($res !== false) {
             $view->setStatus(true);
@@ -392,7 +393,7 @@ class Process
     private function loadBoards()
     {
         $boards = new Boards();
-        $res = $boards->loadBoards($_POST['id']);
+        $res = $boards->loadBoards(Post::get('id'));
         $this->loadView($res);
     }
 
@@ -402,7 +403,7 @@ class Process
     private function editForum()
     {
         $forums = new Forums();
-        $res = $forums->update(['title' => $_POST['title'], 'description' => $_POST['description'], 'board_permissions' => (isset($_POST['board_permissions'])) ? $_POST['board_permissions'] : 0], $forums->getAdapter()->quoteInto('id=?', $_POST['forum_id']));
+        $res = $forums->update(['title' => Post::get('title'), 'description' => Post::get('description'), 'board_permissions' => (Post::get('board_permissions') !== null) ? Post::get('board_permissions') : 0], $forums->getAdapter()->quoteInto('id=?', Post::get('forum_id')));
         $view = new View($res !== false && $res > 0);
         $view->sendResponse();
     }
@@ -413,7 +414,7 @@ class Process
     private function editBoard()
     {
         $boards = new Boards();
-        $res = $boards->update(['title' => $_POST['title'], 'description' => $_POST['description']], $boards->getAdapter()->quoteInto('id=?', $_POST['board_id']));
+        $res = $boards->update(['title' => Post::get('title'), 'description' => Post::get('description')], $boards->getAdapter()->quoteInto('id=?', Post::get('board_id')));
         $view = new View($res !== false && $res > 0);
         $view->sendResponse();
     }
@@ -424,10 +425,10 @@ class Process
     private function deletePost()
     {
         $posts = new Posts();
-        $data = $posts->getPost($_POST['id']);
+        $data = $posts->getPost(Post::get('id'));
         $view = new View(false);
         if (UserHelper::isAdmin() || $data['userid'] == $_SESSION['user']->userid) {
-            $view->setStatus($posts->deletePost($_POST['id']));
+            $view->setStatus($posts->deletePost(Post::get('id')));
         }
         $view->sendResponse();
     }
@@ -438,18 +439,18 @@ class Process
     private function editThread()
     {
         $threads = new Threads();
-        if ((isset($_POST['important']) && UserHelper::isAdmin())) {
+        if (Post::get('important') !== null && UserHelper::isAdmin()) {
             $res = $threads->update([
-                'title' => $_POST['title'],
-                'category' => $_POST['category'],
-                'important' => $_POST['important'],
-            ], $threads->getAdapter()->quoteInto('id=?', $_POST['thread_id']));
+                'title' => Post::get('title'),
+                'category' => Post::get('category'),
+                'important' => Post::get('important'),
+            ], $threads->getAdapter()->quoteInto('id=?', Post::get('thread_id')));
         } else {
             $res = $threads->update([
-                'title' => $_POST['title'],
-                'category' => $_POST['category'],
+                'title' => Post::get('title'),
+                'category' => Post::get('category'),
                 'important' => 0,
-            ], $threads->getAdapter()->quoteInto('id=?', $_POST['thread_id']));
+            ], $threads->getAdapter()->quoteInto('id=?', Post::get('thread_id')));
         }
         $view = new View($res !== false);
         $view->sendResponse();

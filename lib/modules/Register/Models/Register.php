@@ -41,6 +41,7 @@ use Cunity\Core\Models\Db\Table\Users;
 use Cunity\Core\Models\Validation\Email;
 use Cunity\Core\Models\Validation\Password;
 use Cunity\Core\Models\Validation\Username;
+use Cunity\Core\Request\Post;
 use Cunity\Core\View\Message;
 use Cunity\Core\View\View;
 use Cunity\Register\View\Registration;
@@ -64,21 +65,21 @@ class Register
     {
         $error_messages = [];
         $view = new ResetPassword();
-        if (!empty($_POST)) {
+        if (Post::get() !== '') {
             $users = new Users();
-            $user = $users->search('email', $_POST['email']);
+            $user = $users->search('email', Post::get('email'));
             if ($user !== null) {
                 $tokendata = json_decode($user->password_token, true);
-                if ($_POST['token'] == $tokendata['token']) {
+                if (Post::get('token') == $tokendata['token']) {
                     if (time() - $tokendata['time'] > 1800) {
                         $this->errors['token'] = 'The given token has expired! Every token is only valid for 30 minutes';
                     } else {
                         $validatePassword = new Password();
-                        if (!$validatePassword->passwordValid($_POST['password'], $_POST['password_repeat'])) {
+                        if (!$validatePassword->passwordValid(Post::get('password'), Post::get('password-repeat'))) {
                             $this->errors['password'] = implode(',', $validatePassword->getMessages());
                             $this->errors['password_repeat'] = '';
                         } else {
-                            $user->password = sha1($_POST['password'].$user->salt);
+                            $user->password = sha1(Post::get('password').$user->salt);
                             $user->password_token = null;
                             $user->save();
                             new Message('Done!', 'Your password was changed successfully! You can now login!', 'success');
@@ -127,13 +128,13 @@ class Register
                 $this->errors['birthday'] = implode(',', $validateBirthday->getMessages());
             }
         }
-        if (!$validateUsername->isValid($_POST['username'])) {
+        if (!$validateUsername->isValid(Post::get('username'))) {
             $this->errors['username'] = implode(',', $validateUsername->getMessages());
         }
         if (!$validateMail->isValid($_POST['email'])) {
             $this->errors['email'] = implode(',', $validateMail->getMessages());
         }
-        if (!$validatePassword->passwordValid($_POST['password'], $_POST['password_repeat'])) {
+        if (!$validatePassword->passwordValid(Post::get('password'), Post::get('password-repeat'))) {
             $this->errors['password'] = implode(',', $validatePassword->getMessages());
             $this->errors['password_repeat'] = '';
         }
@@ -155,7 +156,7 @@ class Register
             }
             $view->assign('error_messages', $error_messages);
             $view->assign('success', false);
-            $view->assign('values', $_POST);
+            $view->assign('values', Post::get());
         }
     }
 }

@@ -37,6 +37,7 @@
 namespace Cunity\Search\Models;
 
 use Cunity\Core\Models\Db\Table\Users;
+use Cunity\Core\Request\Post;
 
 /**
  * Class Process.
@@ -96,7 +97,7 @@ class Process
                 if (!empty($results)) {
                     /** @var Users $users */
                     $users = $_SESSION['user']->getTable();
-                    if (isset($_POST['friends'])) {
+                    if (Post::get('friends') !== null) {
                         $friends = $_SESSION['user']->getFriendList();
                         if (empty($friends)) {
                             return ['queryString' => $queryString, 'users' => []];

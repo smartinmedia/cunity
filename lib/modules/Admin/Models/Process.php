@@ -44,6 +44,7 @@ use Cunity\Core\Models\Db\Abstractables\Table;
 use Cunity\Core\Models\Db\Table\Modules;
 use Cunity\Core\Models\Db\Table\Newsletter;
 use Cunity\Core\Models\Db\Table\Users;
+use Cunity\Core\Request\Post;
 use Cunity\Core\View\Ajax\View;
 use Cunity\Profile\Models\Db\Table\ProfileFields;
 use Cunity\Profile\Models\Db\Table\ProfileFieldsValues;
@@ -83,7 +84,7 @@ class Process
         switch ($form) {
             case 'settings':
             case 'headline':
-                foreach ($_POST as $key => $value) {
+                foreach (Post::get() as $key => $value) {
                     if (strpos($key, 'settings-') !== false) {
                         $setting = explode('-', $key);
                         $settings = \Cunity\Core\Cunity::get('settings');
@@ -93,17 +94,17 @@ class Process
                 break;
             case 'config':
                 $config = new \Zend_Config_Xml('../data/config.xml');
-                $configWriter = new \Zend_Config_Writer_Xml(['config' => new \Zend_Config(self::arrayMergeRecursiveDistinct($config->toArray(), $_POST['config'])), 'filename' => '../data/config.xml']);
+                $configWriter = new \Zend_Config_Writer_Xml(['config' => new \Zend_Config(self::arrayMergeRecursiveDistinct($config->toArray(), Post::get('config'))), 'filename' => '../data/config.xml']);
                 $configWriter->write();
                 break;
             case 'mailtemplates':
                 $settings = Cunity::get('settings');
-                $res[] = $settings->setSetting('core.mail_header', $_POST['mail_header']);
-                $res[] = $settings->setSetting('core.mail_footer', $_POST['mail_footer']);
+                $res[] = $settings->setSetting('core.mail_header', Post::get('mail_header'));
+                $res[] = $settings->setSetting('core.mail_footer', Post::get('mail_footer'));
                 break;
             case 'modules':
                 $modules = new Modules();
-                $modules->update(['status' => $_POST['status']], 'id = '.$_POST['id']);
+                $modules->update(['status' => Post::get('status')], 'id = '.Post::get('id'));
                 break;
             case 'update':
                 UpdateHelper::update();
@@ -187,7 +188,7 @@ class Process
     protected function sendResponse($res = [])
     {
         $view = new View(!in_array(false, $res));
-        $view->addData(['panel' => $_POST['panel']]);
+        $view->addData(['panel' => Post::get('panel')]);
         $view->sendResponse();
     }
 

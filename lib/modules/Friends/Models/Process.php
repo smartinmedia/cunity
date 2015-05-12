@@ -36,6 +36,7 @@
 
 namespace Cunity\Friends\Models;
 
+use Cunity\Core\Request\Post;
 use Cunity\Core\View\Ajax\View;
 use Cunity\Friends\Helper\RelationShipHelper;
 use Cunity\Friends\Models\Db\Table\Relationships;
@@ -110,7 +111,7 @@ class Process
     {
         $relations = new Relationships();
         $view = new View(true);
-        $view->addData(['result' => $relations->getFullFriendList('>1', $_POST['userid'])]);
+        $view->addData(['result' => $relations->getFullFriendList('>1', Post::get('userid'))]);
         $view->sendResponse();
     }
 
@@ -138,8 +139,8 @@ class Process
     private function chatStatus()
     {
         $view = new View(false);
-        if ($_POST['status'] == 1 || $_POST['status'] == 0) {
-            $_SESSION['user']->chat_available = $_POST['status'];
+        if (Post::get('status') == 1 || Post::get('status') == 0) {
+            $_SESSION['user']->chat_available = Post::get('status');
             $view->setStatus($_SESSION['user']->save() > 0);
         }
         $view->sendResponse();

@@ -78,14 +78,14 @@ class Process
         $result = false;
         $res = $events->addEvent([
             'userid' => $_SESSION['user']->userid,
-            'title' => $_POST['title'],
-            'description' => $_POST['description'],
-            'place' => $_POST['place'],
-            'start' => $_POST['start'],
+            'title' => Post::get('title'),
+            'description' => Post::get('description'),
+            'place' => Post::get('place'),
+            'start' => Post::get('start'),
             'imageId' => 0,
             'type' => 'event',
-            'privacy' => $_POST['privacy'],
-            'guest_invitation' => (isset($_POST['guest_invitation'])) ? 1 : 0,
+            'privacy' => Post::get('privacy'),
+            'guest_invitation' => (Post::get('guest_invitation') !== null) ? 1 : 0,
         ]);
         if ($res > 0) {
             $guests = new Guests();
@@ -170,9 +170,9 @@ class Process
      */
     private function changeStatus()
     {
-        if (isset($_POST['eventid']) && isset($_POST['status'])) {
+        if (Post::get('eventid') !== null && Post::get('status') !== null) {
             $guests = new Guests();
-            $res = $guests->changeStatus($_POST['status'], $_SESSION['user']->userid, $_POST['eventid']);
+            $res = $guests->changeStatus(Post::get('status'), $_SESSION['user']->userid, Post::get('eventid'));
             $view = new View($res !== false);
             $view->sendResponse();
         }
@@ -183,9 +183,9 @@ class Process
      */
     private function invite()
     {
-        if (isset($_POST['receiver']) && !empty($_POST['receiver'])) {
+        if (Post::get('receiver') !== null && Post::get('receiver') !== '') {
             $conv = new Guests();
-            $result = $conv->addGuests($_POST['eventid'], $_POST['receiver'], 1, true);
+            $result = $conv->addGuests(Post::get('eventid'), Post::get('receiver'), 1, true);
             $view = new \Cunity\Core\View\Ajax\View($result);
             $view->sendResponse();
         }
@@ -197,7 +197,7 @@ class Process
     private function loadGuestList()
     {
         $guests = new Guests();
-        $g = $guests->getGuests($_POST['eventid']);
+        $g = $guests->getGuests(Post::get('eventid'));
         $view = new View(is_array($g));
         $view->addData(['guests' => $g]);
         $view->sendResponse();
@@ -209,14 +209,14 @@ class Process
     private function edit()
     {
         $view = new View();
-        if (!isset($_POST['edit']) || $_POST['edit'] != 'editPhoto') {
+        if (Post::get('edit') !== 'editPhoto') {
             $events = new Events();
-            $events->updateEvent(intval(Get::get('x')), array_intersect_key($_POST, array_flip(['title', 'description', 'place', 'date', 'time', 'privacy', 'guest_invitation'])));
+            $events->updateEvent(intval(Get::get('x')), array_intersect_key(Post::get(), array_flip(['title', 'description', 'place', 'date', 'time', 'privacy', 'guest_invitation'])));
             $view->addData(['msg' => 'Successfully saved']);
             $view->sendResponse();
-        } elseif ($_POST['edit'] == 'editPhoto') {
+        } elseif (Post::get('edit') === 'editPhoto') {
             $gimg = new GalleryImages();
-            $result = $gimg->uploadEventImage($_POST['eventid']);
+            $result = $gimg->uploadEventImage(Post::get('eventid'));
             if ($result !== false) {
                 $view->setStatus(true);
                 $view->addData($result);
@@ -257,18 +257,18 @@ class Process
     private function crop()
     {
         $file = new Crop([
-            'x' => $_POST['crop-x'],
-            'y' => $_POST['crop-y'],
-            'x1' => $_POST['crop-x1'],
-            'y1' => $_POST['crop-y1'],
+            'x' => Post::get('crop-x'),
+            'y' => Post::get('crop-y'),
+            'x1' => Post::get('crop-x1'),
+            'y1' => Post::get('crop-y1'),
             'thumbwidth' => 970,
             'directory' => '../data/uploads/'.Cunity::get('settings')->getSetting('core.filesdir'),
             'prefix' => 'cr_',
         ]);
-        $file->filter($_POST['crop-image']);
+        $file->filter(Post::get('crop-image'));
         $events = new Events();
-        if ($events->updateEvent($_POST['eventid'], ['imageId' => $_POST['imageid']])) {
-            header('Location: '.Url::convertUrl('index.php?m=events&action='.$_POST['eventid']));
+        if ($events->updateEvent(Post::get('eventid'), ['imageId' => Post::get('imageid')])) {
+            header('Location: '.Url::convertUrl('index.php?m=events&action='.Post::get('eventid')));
         }
     }
 }

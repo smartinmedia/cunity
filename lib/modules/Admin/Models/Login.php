@@ -37,6 +37,7 @@
 namespace Cunity\Admin\Models;
 
 use Cunity\Core\Models\Generator\Url;
+use Cunity\Core\Request\Post;
 
 /**
  * Class Login.
@@ -79,8 +80,8 @@ class Login
      */
     public function login()
     {
-        if (isset($_POST['email'])) {
-            if ($_SESSION['user']->email == $_POST['email'] && $_SESSION['user']->password == sha1($_POST['password'].$_SESSION['user']->salt)) {
+        if (Post::get('email') !== null) {
+            if ($_SESSION['user']->email == Post::get('email') && $_SESSION['user']->password == sha1(Post::get('password').$_SESSION['user']->salt)) {
                 $_SESSION['admin_loggedIn'] = true;
                 header('Location:'.Url::convertUrl('index.php?m=admin'));
                 exit();

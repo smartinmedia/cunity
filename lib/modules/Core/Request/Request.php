@@ -17,10 +17,14 @@ abstract class Request
      *
      * @return mixed
      */
-    public static function get($parameter)
+    public static function get($parameter = null)
     {
         $array = static::$requestArray;
         global ${$array};
+
+        if ($parameter === null) {
+            return ${$array};
+        }
 
         $returnValue = null;
 

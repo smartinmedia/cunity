@@ -41,6 +41,7 @@ use Cunity\Core\Exceptions\AlbumNotFound;
 use Cunity\Core\Exceptions\NotAllowed;
 use Cunity\Core\Models\Generator\Url;
 use Cunity\Core\Request\Get;
+use Cunity\Core\Request\Post;
 use Cunity\Core\View\Ajax\View;
 use Cunity\Core\View\Message;
 use Cunity\Gallery\Models\Db\Table\GalleryAlbums;
@@ -65,7 +66,7 @@ class Process
     public function __construct($action, $id = null)
     {
         if (null === $id) {
-            $id = $_POST['id'];
+            $id = Post::get('id');
         }
 
         $this->id = $id;
@@ -82,7 +83,7 @@ class Process
     {
         $albums = new GalleryAlbums();
         /** @var \Cunity\Gallery\Models\Db\Row\Album $album */
-        $album = $albums->find($_POST['albumid'])->current();
+        $album = $albums->find(Post::get('albumid'))->current();
         $view = new View($album->deleteAlbum());
         $view->sendResponse();
     }
@@ -93,7 +94,7 @@ class Process
     private function overview()
     {
         $table = new GalleryAlbums();
-        $albums = $table->loadAlbums($_POST['userid']);
+        $albums = $table->loadAlbums(Post::get('userid'));
         if ($albums !== null) {
             $view = new View(true);
             $view->addData(['result' => $albums]);
@@ -109,18 +110,18 @@ class Process
     private function create()
     {
         $table = new GalleryAlbums();
-        if (($_POST['privacy'] == 0)) {
+        if ((Post::get('privacy') == 0)) {
             $result = $table->insert([
-                'title' => $_POST['title'],
-                'description' => $_POST['description'],
+                'title' => Post::get('title'),
+                'description' => Post::get('description'),
                 'owner_id' => $_SESSION['user']->userid,
                 'type' => 'shared',
-                'user_upload' => isset($_POST['allow_upload']) ? 1 : 0,
-                'privacy' => $_POST['privacy'],
+                'user_upload' => (Post::get('allow_uplaod') !== null) ? 1 : 0,
+                'privacy' => Post::get('privacy'),
             ]);
         } else {
             $result = $table->insert([
-                'title' => $_POST['title'],
+                'title' => Post::get('title'),
                 'description' => $_POST['description'],
                 'owner_id' => $_SESSION['user']->userid,
                 'type' => null,
@@ -129,7 +130,7 @@ class Process
             ]);
         }
         $view = new View($result !== null);
-        $view->addData(['target' => Url::convertUrl('index.php?m=gallery&action='.$result.'&x='.str_replace(' ', '_', $_POST['title']))]);
+        $view->addData(['target' => Url::convertUrl('index.php?m=gallery&action=' . $result . '&x=' . str_replace(' ', '_', Post::get('title')))]);
         $view->sendResponse();
     }
 
@@ -140,7 +141,7 @@ class Process
     {
         $table = new GalleryAlbums();
         /** @var \Cunity\Gallery\Models\Db\Row\Album $album */
-        $album = $table->find($_POST['albumid'])->current();
+        $album = $table->find(Post::get('albumid'))->current();
         $result = $album->update($_POST);
         $view = new View();
         $view->setStatus($result !== null);
@@ -162,14 +163,12 @@ class Process
                 $album = $albums->fetchRow($albums->select()->where('id=?', $albumid));
             }
         } else {
-            $album = $albums->find($_POST['albumid'])->current();
+            $album = $albums->find(Post::get('albumid'))->current();
         }
-        $result = $images->uploadImage($album->id, isset($_POST['newsfeed_post']));
-        $album->addImage((isset($_POST['newsfeed_post'])) ? $result['content'] : $result['imageid']);
-        if (isset($_POST['uploadtype']) &&
-            $_POST['uploadtype'] == 'single'
-        ) {
-            header('Location: '.Url::convertUrl('index.php?m=gallery&action='.$_POST['albumid']));
+        $result = $images->uploadImage($album->id, Post::get('newsfeed_post') !== null);
+        $album->addImage((Post::get('newsfeed_post') !== null) ? $result['content'] : $result['imageid']);
+        if (Post::get('uploadtype') == 'single') {
+            header('Location: ' . Url::convertUrl('index.php?m=gallery&action=' . Post::get('albumid')));
             exit;
         } else {
             $view = new View($result !== false);
@@ -230,7 +229,7 @@ class Process
     private function loadImages()
     {
         $images = new GalleryImages();
-        $result = $images->getImages($_POST['albumid'], ['limit' => $_POST['limit'], 'offset' => $_POST['offset']]);
+        $result = $images->getImages(Post::get('albumid'), ['limit' => Post::get('limit'), 'offset' => Post::get('offset')]);
         $view = new View($result !== false);
         $view->addData(['result' => $result]);
         $view->sendResponse();

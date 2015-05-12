@@ -38,6 +38,7 @@ namespace Cunity\Core\Models\Db\Row;
 
 use Cunity\Core\Cunity;
 use Cunity\Core\Models\Db\Table\Users;
+use Cunity\Core\Request\Post;
 use Cunity\Friends\Models\Db\Table\Relationships;
 use Cunity\Gallery\Models\Db\Table\GalleryImages;
 use Cunity\Profile\Models\Db\Table\ProfileFieldsUsers;
@@ -119,10 +120,10 @@ class User extends \Zend_Db_Table_Row_Abstract
             $searchindex = new Process();
 
             return $result && $searchindex->updateUser($currentUsername, $this->username, $this->firstname.' '.$this->lastname);
-        } elseif (array_key_exists('field', $_POST)) {
+        } elseif (array_key_exists('field', Post::get())) {
             $profileFieldsUser = new ProfileFieldsUsers([], $this);
 
-            return $profileFieldsUser->update($_POST['field'], '');
+            return $profileFieldsUser->update(Post::get('field'), '');
         } else {
             return parent::save();
         }
@@ -232,7 +233,7 @@ class User extends \Zend_Db_Table_Row_Abstract
             $this->setTable(new Users());
         }
         $this->lastAction = new \Zend_Db_Expr('UTC_TIMESTAMP()');
-        $this->onlineStatus = intval(!isset($_POST['inactive']));
+        $this->onlineStatus = intval(Post::get('inactive') === null);
         $this->save();
     }
 }

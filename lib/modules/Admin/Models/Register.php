@@ -78,7 +78,7 @@ class Register
         if (!$this->validateForm()) {
             $this->renderErrors();
         } else {
-            if ($this->_users->add($_POST)) {
+            if ($this->_users->add(Post::get())) {
                 $view = new Registration();
                 $view->assign('success', true);
                 $view->render();
@@ -98,23 +98,23 @@ class Register
 
         $validateUsername->addValidator(new Zend_Validate_StringLength(['max' => 20, 'min' => 2]), true)->addValidator(new \Zend_Validate_Alnum());
 
-        if (!$validateUsername->isValid($_POST['username'])) {
+        if (!$validateUsername->isValid(Post::get('username'))) {
             $this->errors['username'] = 'Your username is invalid!';
         }
-        if (!$validateMail->isValid($_POST['email'])) {
+        if (!$validateMail->isValid(Post::get('email'))) {
             $this->errors['email'] = implode(',', $validateMail->getMessages());
         }
-        if (!$validatePassword->passwordValid($_POST['password'], $_POST['password-repeat'])) {
+        if (!$validatePassword->passwordValid(Post::get('password'), Post::get('password-repeat'))) {
             $this->errors['password'] = implode(',', $validatePassword->getMessages());
             $this->errors['password_repeat'] = '';
         }
-        if (!isset($_POST['sex']) || ($_POST['sex'] != 'm' && $_POST['sex'] != 'f')) {
+        if (Post::get('sex') !== 'm' && Post::get('sex') !== 'f')) {
             $this->errors['sex'] = 'Please select a gender';
         }
-        if (!$validateAlpha->isValid($_POST['firstname'])) {
+        if (!$validateAlpha->isValid(Post::get('firstname'))) {
             $this->errors['firstname'] = 'The Firstname is invalid';
         }
-        if (!$validateAlpha->isValid($_POST['lastname'])) {
+        if (!$validateAlpha->isValid(Post::get('lastname'))) {
             $this->errors['lastname'] = 'The Lastname is invalid';
         }
 
@@ -143,7 +143,7 @@ class Register
      */
     private function forgetPw()
     {
-        if (!isset($_POST['resetPw'])) {
+        if (!isset(Post::get('resetPw'))) {
             $view = new ForgetPw();
             $view->render();
         }

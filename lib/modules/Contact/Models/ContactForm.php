@@ -39,6 +39,7 @@ namespace Cunity\Contact\Models;
 use Cunity\Contact\Models\Db\Table\Contact;
 use Cunity\Contact\View\ContactMail;
 use Cunity\Core\Models\Db\Row\User;
+use Cunity\Core\Request\Post;
 use Cunity\Core\View\Message;
 use Cunity\Register\Models\Login;
 
@@ -66,19 +67,19 @@ class ContactForm
      */
     private function handleInput()
     {
-        if (isset($_POST['message'])) {
+        if (Post::get('message') !== null) {
             $contactDb = new Contact();
             $res = $contactDb->insert([
                 'userid' => (Login::loggedIn()) ? $this->user->userid : 0,
-                'firstname' => $_POST['firstname'],
-                'lastname' => $_POST['lastname'],
-                'email' => $_POST['email'],
-                'subject' => $_POST['subject'],
-                'message' => $_POST['message'],
+                'firstname' => Post::get('firstname'),
+                'lastname' => Post::get('lastname'),
+                'email' => Post::get('email'),
+                'subject' => Post::get('subject'),
+                'message' => Post::get('message'),
             ]);
             if ($res) {
-                $cc = (isset($_POST['send_copy']) && $_POST['send_copy'] == 1) ? ['email' => $_POST['email'], 'name' => $_POST['firstname'].' '.$_POST['lastname']] : [];
-                new ContactMail([], ['subject' => $_POST['subject'], 'message' => $_POST['message']], $cc);
+                $cc = (Post::get('send_copy') == 1) ? ['email' => Post::get('email'), 'name' => Post::get('firstname').' '.Post::get('lastname')] : [];
+                new ContactMail([], ['subject' => Post::get('subject'), 'message' => Post::get('message')], $cc);
                 new Message('Finished!', 'Your Message was sent successfully!', 'success');
             } else {
                 new Message('Sorry!', 'There was an error in our system, please try again later', 'danger');

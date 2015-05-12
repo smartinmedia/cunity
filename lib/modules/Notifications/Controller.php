@@ -38,6 +38,7 @@ namespace Cunity\Notifications;
 
 use Cunity\Core\ModuleController;
 use Cunity\Core\Request\Get;
+use Cunity\Core\Request\Post;
 use Cunity\Core\View\Ajax\View;
 use Cunity\Notifications\Models\Db\Table\Notifications;
 
@@ -65,7 +66,7 @@ class Controller extends ModuleController
         } elseif (Get::get('action') === 'markRead') {
             $view = new View();
             $n = new Notifications();
-            $view->setStatus($n->read($_POST['id']));
+            $view->setStatus($n->read(Post::get('id')));
             $view->sendResponse();
         }
     }

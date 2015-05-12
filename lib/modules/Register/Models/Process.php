@@ -41,6 +41,7 @@ use Cunity\Core\Exceptions\Exception;
 use Cunity\Core\Exceptions\MissingParameter;
 use Cunity\Core\Models\Db\Table\Users;
 use Cunity\Core\Models\Generator\Url;
+use Cunity\Core\Request\Post;
 use Cunity\Core\View\Ajax\View;
 use Cunity\Core\View\Message;
 use Cunity\Register\View\ForgetPw;
@@ -72,7 +73,7 @@ class Process
             $register->renderErrors();
         } else {
             $users = new Users();
-            if ($users->registerNewUser($_POST)) {
+            if ($users->registerNewUser(Post::get())) {
                 $view = new Registration();
                 $view->assign('success', true);
                 $view->render();
@@ -86,7 +87,7 @@ class Process
     private function validate()
     {
         $users = new Users();
-        $res = $users->search($_POST['field'], $_POST['val']);
+        $res = $users->search(Post::get('field'), Post::get('val'));
         $view = new View(true);
         $view->addData(['valid' => ($res === null)]);
         $view->sendResponse();
@@ -97,12 +98,12 @@ class Process
      */
     private function login()
     {
-        if (!isset($_POST['email']) || !isset($_POST['password'])) {
+        if (Post::get('email') === null || Post::get('password') === null) {
             throw new MissingParameter();
         }
 
-        $email = trim($_POST['email']);
-        $password = trim($_POST['password']);
+        $email = trim(Post::get('email'));
+        $password = trim(Post::get('password'));
         $users = new Users();
         $user = $users->search('email', $email);
         if ($user !== null) {
@@ -112,7 +113,7 @@ class Process
                 } elseif ($user->groupid == 4) {
                     new Message('Sorry', 'Your Account is blocked! Please contact the Administrator', 'danger');
                 } else {
-                    $user->setLogin(isset($_POST['save-login']));
+                    $user->setLogin(isset(Post::get('save-login')));
                     header('Location:'.Url::convertUrl('index.php?m=profile'));
                     exit();
                 }
@@ -167,13 +168,13 @@ class Process
      */
     private function forgetPw()
     {
-        if (!isset($_POST['resetPw'])) {
+        if (Post::get('resetPw') === null) {
             $view = new ForgetPw();
             $view->render();
             exit;
         } else {
             $users = new Users();
-            $user = $users->search('email', $_POST['email']);
+            $user = $users->search('email', Post::get('email'));
             if ($user !== null) {
                 $token = rand(123123, 999999);
                 $user->password_token = json_encode(['token' => $token, 'time' => time()]);

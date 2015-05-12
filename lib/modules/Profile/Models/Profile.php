@@ -42,6 +42,7 @@ use Cunity\Core\Models\Db\Row\User;
 use Cunity\Core\Models\Db\Table\Users;
 use Cunity\Core\Models\Request;
 use Cunity\Core\Request\Get;
+use Cunity\Core\Request\Post;
 use Cunity\Core\View\Ajax\View;
 
 /**
@@ -74,7 +75,7 @@ class Profile
         switch (Get::get('action')) {
             case 'getpins':
                 $pins = new Db\Table\ProfilePins();
-                $result = $pins->getAllByUser($_POST['userid']);
+                $result = $pins->getAllByUser(Post::get('userid'));
                 $view = new View(true);
                 if (!is_array($result)) {
                     $result = $result->toArray();

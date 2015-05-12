@@ -37,6 +37,7 @@
 namespace Cunity\Gallery\Models\Db\Table;
 
 use Cunity\Core\Models\Db\Abstractables\Table;
+use Cunity\Core\Request\Post;
 use Cunity\Gallery\Models\Db\Row\Album;
 use Cunity\Gallery\Models\Uploader;
 use Cunity\Newsfeed\Models\Db\Table\Posts;
@@ -153,15 +154,15 @@ class GalleryImages extends Table
             } else {
                 list($owner_id, $owner_type) = $uploader_data;
             }
-            $imageid = $this->insert(['owner_id' => $owner_id, 'owner_type' => $owner_type, 'albumid' => $albumid, 'filename' => $file, 'caption' => (!empty($_POST['content'])) ? $_POST['content'] : '']);
+            $imageid = $this->insert(['owner_id' => $owner_id, 'owner_type' => $owner_type, 'albumid' => $albumid, 'filename' => $file, 'caption' => (Post::get('content') !== '') ? Post::get('content') : '']);
             if ($newsfeed_post) {
                 $posts = new Posts();
 
                 return $posts->post([
-                    'wall_owner_id' => $_POST['wall_owner_id'],
-                    'wall_owner_type' => $_POST['wall_owner_type'],
-                    'wall_id' => $_POST['wall_id'],
-                    'privacy' => $_POST['privacy'],
+                    'wall_owner_id' => Post::get('wall_owner_id'),
+                    'wall_owner_type' => Post::get('wall_owner_type'),
+                    'wall_id' => Post::get('wall_id'),
+                    'privacy' => Post::get('privacy'),
                     'userid' => $owner_id,
                     'content' => $imageid,
                     'type' => 'image',

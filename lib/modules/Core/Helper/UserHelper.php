@@ -37,6 +37,7 @@
 namespace Cunity\Core\Helper;
 
 use Cunity\Core\Exceptions\UnknownUser;
+use Cunity\Core\Request\Post;
 
 /**
  * Class UserHelper.
@@ -48,7 +49,7 @@ class UserHelper
      */
     public static function breakOnMissingUserId()
     {
-        if (!isset($_POST['userid'])) {
+        if (Post::get('userid') === null) {
             throw new UnknownUser();
         }
     }

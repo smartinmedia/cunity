@@ -37,6 +37,7 @@
 namespace Cunity\Comments\Helper;
 
 use Cunity\Comments\Models\Db;
+use Cunity\Core\Request\Post;
 use Cunity\Core\View\Ajax\View;
 
 /**
@@ -72,7 +73,7 @@ abstract class AbstractCommentsHelper
      */
     protected function add()
     {
-        $res = $this->table->addComment($_POST['ref_id'], $_POST['ref_name'], $_POST['content']);
+        $res = $this->table->addComment(Post::get('ref_id'), Post::get('ref_name'), Post::get('content'));
         $this->view->setStatus($res !== false);
         $this->view->addData($res);
     }
@@ -82,7 +83,7 @@ abstract class AbstractCommentsHelper
      */
     protected function remove()
     {
-        $res = $this->table->removeComment($_POST['comment_id']);
+        $res = $this->table->removeComment(Post::get('comment_id'));
         $this->view->setStatus($res !== false);
     }
 
@@ -91,7 +92,7 @@ abstract class AbstractCommentsHelper
      */
     protected function removeAll()
     {
-        $res = $this->table->removeAllComments($_POST['ref_id'], $_POST['ref_name']);
+        $res = $this->table->removeAllComments(Post::get('ref_id'), Post::get('ref_name'));
         $this->view->setStatus($res !== false);
     }
 
@@ -100,7 +101,7 @@ abstract class AbstractCommentsHelper
      */
     protected function get()
     {
-        $res = $this->table->get($_POST['ref_id'], $_POST['ref_name'], $_POST['last'], $_POST['limit']);
+        $res = $this->table->get(Post::get('ref_id'), Post::get('ref_name'), Post::get('last'), Post::get('limit'));
         $this->view->setStatus($res !== false);
         $this->view->addData(['comments' => $res]);
     }

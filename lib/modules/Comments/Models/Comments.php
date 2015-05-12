@@ -36,7 +36,8 @@
 
 namespace Cunity\Comments\Models;
 
-use Cunity\Core\Helper\AbstractCommentsHelper;
+use Cunity\Comments\Helper\AbstractCommentsHelper;
+use Cunity\Core\Request\Post;
 use Cunity\Core\View\Ajax\View;
 
 /**
@@ -49,7 +50,7 @@ class Comments extends AbstractCommentsHelper
      */
     public function __construct($action)
     {
-        if (!isset($_POST['ref_name']) || !isset($_POST['ref_id'])) {
+        if (Post::get('ref_name') === null || Post::get('ref_id') === null) {
             $this->view = new View();
             $this->view->setStatus(false);
             $this->view->sendResponse();

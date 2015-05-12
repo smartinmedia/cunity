@@ -81,9 +81,9 @@ class ProfileEdit
     {
         if (Get::get('action') == 'cropImage') {
             $this->cropImage();
-        } elseif (isset($_POST['edit']) && !empty($_POST['edit'])) {
-            if (method_exists($this, $_POST['edit'])) {
-                call_user_func([$this, $_POST['edit']]);
+        } elseif (Post::get('edit') !== null && Post::get('edit') !== '') {
+            if (method_exists($this, Post::get('edit'))) {
+                call_user_func([$this, Post::get('edit')]);
             }
         } else {
             $this->updateProfileFields();
@@ -113,7 +113,7 @@ class ProfileEdit
      */
     public function deleteImage()
     {
-        if ($_POST['type'] == 'profile') {
+        if (Post::get('type') === 'profile') {
             $this->user->profileImage = 0;
         } else {
             $this->user->titleImage = 0;
@@ -129,7 +129,7 @@ class ProfileEdit
      */
     private function loadPinData()
     {
-        $pinid = $_POST['id'];
+        $pinid = Post::get('id');
         $pins = new Db\Table\ProfilePins();
         $data = $pins->find($pinid)->current()->toArray();
         $data['content'] = htmlspecialchars_decode($data['content']);
@@ -143,11 +143,11 @@ class ProfileEdit
      */
     private function deletePin()
     {
-        if (isset($_POST['id'])) {
+        if (Post::get('id') !== null) {
             $pins = new Db\Table\ProfilePins();
-            $result = $pins->delete($pins->getAdapter()->quoteInto('id=?', $_POST['id']));
+            $result = $pins->delete($pins->getAdapter()->quoteInto('id=?', Post::get('id')));
             $view = new View(($result > 0));
-            $view->addData(['id' => $_POST['id']]);
+            $view->addData(['id' => Post::get('id')]);
             $view->sendResponse();
         }
     }
@@ -157,16 +157,16 @@ class ProfileEdit
      */
     private function pin()
     {
-        if (isset($_POST['title']) && isset($_POST['type']) && isset($_POST['content'])) {
+        if (Post::get('title') !== null && Post::get('type') !== null && Post::get('content') !== null) {
             $pins = new Db\Table\ProfilePins();
-            if (isset($_POST['editPin'])) {
-                $pins->update(['title' => $_POST['title'], 'content' => $_POST['content'], 'type' => $_POST['type'], 'iconclass' => $_POST['iconClass']], $pins->getAdapter()->quoteInto('id=?', $_POST['editPin']));
-                $res = $_POST['editPin'];
+            if (Post::get('editPin') !== null) {
+                $pins->update(['title' => Post::get('title'), 'content' => Post::get('content'), 'type' => Post::get('type'), 'iconclass' => Post::get('iconClass')], $pins->getAdapter()->quoteInto('id=?', Post::get('editPin')));
+                $res = Post::get('editPin');
             } else {
-                $res = $pins->insert(['userid' => $this->user->userid, 'title' => $_POST['title'], 'content' => $_POST['content'], 'type' => $_POST['type'], 'iconclass' => $_POST['iconClass']]);
+                $res = $pins->insert(['userid' => $this->user->userid, 'title' => Post::get('title'), 'content' => Post::get('content'), 'type' => Post::get('type'), 'iconclass' => Post::get('iconClass')]);
             }
             $view = new View(true);
-            $view->addData(['title' => $_POST['title'], 'type' => $_POST['type'], 'content' => htmlspecialchars_decode($_POST['content']), 'iconclass' => $_POST['iconClass'], 'id' => $res, 'updated' => isset($_POST['editPin'])]);
+            $view->addData(['title' => Post::get('title'), 'type' => Post::get('type'), 'content' => htmlspecialchars_decode(Post::get('content')), 'iconclass' => Post::get('iconClass'), 'id' => $res, 'updated' => isset(Post::get('editPin'))]);
             $view->sendResponse();
         }
     }
@@ -176,7 +176,7 @@ class ProfileEdit
      */
     private function notifications()
     {
-        if (!empty($_POST['types'])) {
+        if (Post::get('types') !== '') {
             $result = [];
             $result = $this->generateResult($result);
             $settings = new NotificationSettings();
@@ -200,9 +200,9 @@ class ProfileEdit
     private function pinPositions()
     {
         $pins = new Db\Table\ProfilePins();
-        if (isset($_POST['pins'])) {
-            foreach ($_POST['pins'] as $i => $pin) {
-                $pins->updatePosition($_POST['column'], $i, $pin);
+        if (Post::get('pins') !== null) {
+            foreach (Post::get('pins') as $i => $pin) {
+                $pins->updatePosition(Post::get('column'), $i, $pin);
             }
         }
     }
@@ -216,9 +216,9 @@ class ProfileEdit
         $this->message = [];
         $this->getUserName(new Username());
         $this->validateEmail(new Email());
-        $this->user->firstname = $_POST['firstname'];
-        $this->user->lastname = $_POST['lastname'];
-        $this->user->name = $_POST['firstname'].' '.$_POST['lastname'];
+        $this->user->firstname = Post::get('firstname');
+        $this->user->lastname = Post::get('lastname');
+        $this->user->name = Post::get('firstname').' '.Post::get('lastname');
 
         $res = $this->user->save();
 
@@ -243,9 +243,9 @@ class ProfileEdit
     {
         $status = false;
         $view = new View();
-        if (sha1($_POST['old-password'].$this->user->salt) === $this->user->password) {
-            if ($_POST['new-password'] === $_POST['new-password-rep']) {
-                $this->user->password = sha1($_POST['new-password'].$this->user->salt);
+        if (sha1(Post::get('old-password').$this->user->salt) === $this->user->password) {
+            if (Post::get('new-password') === Post::get('new-password-rep')) {
+                $this->user->password = sha1(Post::get('new-password').$this->user->salt);
                 $this->user->save();
                 $status = true;
                 $message = $view->translate('Password changed successfully!');
@@ -265,9 +265,9 @@ class ProfileEdit
      */
     private function changePrivacy()
     {
-        if (isset($_POST['privacy']) && is_array($_POST['privacy'])) {
+        if (Post::get('privacy') !== null && is_array(Post::get('privacy'))) {
             $table = new Db\Table\Privacy();
-            $res = $table->updatePrivacy($this->user->userid, $_POST['privacy']);
+            $res = $table->updatePrivacy($this->user->userid, Post::get('privacy'));
             $view = new View();
             $view->setStatus($res);
 
@@ -304,19 +304,19 @@ class ProfileEdit
     private function crop()
     {
         $file = new Crop([
-            'x' => $_POST['crop-x'],
-            'y' => $_POST['crop-y'],
-            'x1' => $_POST['crop-x1'],
-            'y1' => $_POST['crop-y1'],
-            'thumbwidth' => ($_POST['type'] == 'title') ? 970 : 150,
+            'x' => Post::get('crop-x'),
+            'y' => Post::get('crop-y'),
+            'x1' => Post::get('crop-x1'),
+            'y1' => Post::get('crop-y1'),
+            'thumbwidth' => (Post::get('type') == 'title') ? 970 : 150,
             'directory' => '../data/uploads/'.Cunity::get('settings')->getSetting('core.filesdir'),
             'prefix' => 'cr_',
         ]);
-        $file->filter($_POST['crop-image']);
-        if ($_POST['type'] == 'title') {
-            $this->user->titleImage = $_POST['imageid'];
+        $file->filter(Post::get('crop-image'));
+        if (Post::get('type') == 'title') {
+            $this->user->titleImage = Post::get('imageid');
         } else {
-            $this->user->profileImage = $_POST['imageid'];
+            $this->user->profileImage = Post::get('imageid');
         }
         if ($this->user->save()) {
             header('Location: '.Url::convertUrl('index.php?m=profile'));
@@ -347,8 +347,8 @@ class ProfileEdit
      */
     private function getUserName(Username $validateUsername)
     {
-        if ($validateUsername->isValid($_POST['username'])) {
-            $this->user->username = $_POST['username'];
+        if ($validateUsername->isValid(Post::get('username'))) {
+            $this->user->username = Post::get('username');
         } else {
             $this->message[] = implode(',', $validateUsername->getMessages());
         }
@@ -359,8 +359,8 @@ class ProfileEdit
      */
     private function validateEmail(Email $validateMail)
     {
-        if ($validateMail->isValid($_POST['email'])) {
-            $this->user->email = $_POST['email'];
+        if ($validateMail->isValid(Post::get('email'))) {
+            $this->user->email = Post::get('email');
         } else {
             $this->message[] = implode(',', $validateMail->getMessages());
         }
@@ -373,12 +373,12 @@ class ProfileEdit
      */
     private function generateResult($result)
     {
-        foreach ($_POST['types'] as $key => $v) {
-            if (isset($_POST['alert'][$key]) && isset($_POST['mail'][$key])) {
+        foreach (Post::get('types') as $key => $v) {
+            if (isset(Post::get('alert')[$key]) && isset(Post::get('mail')[$key])) {
                 $result[$key] = 3;
-            } elseif (isset($_POST['alert'][$key]) && !isset($_POST['mail'][$key])) {
+            } elseif (isset(Post::get('alert')[$key]) && !isset(Post::get('mail')[$key])) {
                 $result[$key] = 1;
-            } elseif (!isset($_POST['alert'][$key]) && isset($_POST['mail'][$key])) {
+            } elseif (!isset(Post::get('alert')[$key]) && isset(Post::get('mail')[$key])) {
                 $result[$key] = 2;
             } else {
                 $result[$key] = 0;

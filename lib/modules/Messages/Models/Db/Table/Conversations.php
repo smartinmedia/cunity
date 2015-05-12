@@ -37,6 +37,7 @@
 namespace Cunity\Messages\Models\Db\Table;
 
 use Cunity\Core\Models\Db\Abstractables\Table;
+use Cunity\Core\Request\Post;
 use Cunity\Notifications\Models\Notifier;
 
 /**
@@ -112,9 +113,9 @@ class Conversations extends Table
             $this->insert(['userid' => intval($users), 'conversation_id' => intval($cid)]);
             if ($notify) {
                 if ($invitation) {
-                    Notifier::notify($_POST['userid'], $_SESSION['user']->userid, 'addConversation', 'index.php?m=messages&action='.$cid);
+                    Notifier::notify(Post::get('userid'), $_SESSION['user']->userid, 'addConversation', 'index.php?m=messages&action='.$cid);
                 } else {
-                    Notifier::notify($_POST['userid'], $_SESSION['user']->userid, 'message', 'index.php?m=messages&action='.$cid);
+                    Notifier::notify(Post::get('userid'), $_SESSION['user']->userid, 'message', 'index.php?m=messages&action='.$cid);
                 }
             }
         }

@@ -37,6 +37,7 @@
 
 namespace Cunity\Admin\Models\Pages;
 
+use Cunity\Core\Request\Post;
 use Cunity\Core\View\Ajax\View;
 
 /**
@@ -49,7 +50,7 @@ class Modules extends PageAbstract
      */
     public function __construct()
     {
-        if (isset($_POST) && !empty($_POST)) {
+        if (Post::get() !== null && Post::get() !== '') {
             $this->handleRequest();
         } else {
             $this->loadData();
@@ -63,7 +64,7 @@ class Modules extends PageAbstract
     private function handleRequest()
     {
         $view = new View(true);
-        switch ($_POST['action']) {
+        switch (Post::get('action')) {
             case 'loadModules':
                 $modules = new \Cunity\Core\Models\Db\Table\Modules();
                 $view->addData(['modules' => $modules->getModules()->toArray()]);
