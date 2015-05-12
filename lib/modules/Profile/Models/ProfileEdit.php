@@ -66,16 +66,10 @@ class ProfileEdit
     protected $user = null;
 
     /**
-     * @var View
-     */
-    protected $view;
-
-    /**
      * @param User $user
      */
-    public function __construct(View $view, User $user = null)
+    public function __construct(User $user = null)
     {
-        $this->view = $view;
         $this->user = $user;
         $this->handleRequest();
     }
@@ -125,8 +119,8 @@ class ProfileEdit
             $this->user->titleImage = 0;
         }
         if ($this->user->save()) {
-            $this->view = new View(true);
-            $this->view->sendResponse();
+            $view = new View(true);
+            $view->sendResponse();
         }
     }
 
