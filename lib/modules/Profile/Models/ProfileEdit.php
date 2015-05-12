@@ -101,7 +101,7 @@ class ProfileEdit
         $images = new \Cunity\Gallery\Models\Db\Table\GalleryImages();
         $result = $images->getImageData($_GET['x']);
         $view = new ProfileCrop();
-        $user = $_SESSION['user']->getTable()->get($_SESSION['user']->userid); // Get a new user Object with all image-data
+        $user = $this->user->getTable()->get($this->user->userid); // Get a new user Object with all image-data
         /* @var User $user */
         $profileData = $user->toArray(['userid', 'username', 'name', 'timg', 'pimg', 'talbumid', 'palbumid']);
         $view->assign(['profile' => $profileData, 'result' => $result[0], 'type' => $_GET['y'], 'image' => getimagesize('../data/uploads/'.Cunity::get('settings')->getSetting('core.filesdir').'/'.$result[0]['filename'])]);
@@ -114,11 +114,11 @@ class ProfileEdit
     public function deleteImage()
     {
         if ($_POST['type'] == 'profile') {
-            $_SESSION['user']->profileImage = 0;
+            $this->user->profileImage = 0;
         } else {
-            $_SESSION['user']->titleImage = 0;
+            $this->user->titleImage = 0;
         }
-        if ($_SESSION['user']->save()) {
+        if ($this->user->save()) {
             $view = new View(true);
             $view->sendResponse();
         }
@@ -267,7 +267,7 @@ class ProfileEdit
     {
         if (isset($_POST['privacy']) && is_array($_POST['privacy'])) {
             $table = new Db\Table\Privacy();
-            $res = $table->updatePrivacy($_SESSION['user']->userid, $_POST['privacy']);
+            $res = $table->updatePrivacy($this->user->userid, $_POST['privacy']);
             $view = new View();
             $view->setStatus($res);
 
@@ -314,11 +314,11 @@ class ProfileEdit
         ]);
         $file->filter($_POST['crop-image']);
         if ($_POST['type'] == 'title') {
-            $_SESSION['user']->titleImage = $_POST['imageid'];
+            $this->user->titleImage = $_POST['imageid'];
         } else {
-            $_SESSION['user']->profileImage = $_POST['imageid'];
+            $this->user->profileImage = $_POST['imageid'];
         }
-        if ($_SESSION['user']->save()) {
+        if ($this->user->save()) {
             header('Location: '.Url::convertUrl('index.php?m=profile'));
         }
     }
@@ -329,7 +329,7 @@ class ProfileEdit
     private function updateProfileFields()
     {
         $view = new \Cunity\Profile\View\ProfileEdit();
-        $user = $this->user->getTable()->get($_SESSION['user']->userid);
+        $user = $this->user->getTable()->get($this->user->userid);
         /* @var User $user */
         $profile = $user->toArray(['userid', 'username', 'email', 'firstname', 'lastname', 'registered', 'pimg', 'timg', 'palbumid', 'talbumid']);
         $table = new Db\Table\Privacy();
