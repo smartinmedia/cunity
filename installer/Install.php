@@ -34,6 +34,10 @@
  * #####################################################################################
  */
 use Cunity\Admin\Models\Process;
+use Cunity\Core\Request\Get;
+use Cunity\Core\Request\Request;
+use Cunity\Core\Request\Session;
+use Cunity\Core\Request\Server;
 
 require_once __DIR__.'/../vendor/autoload.php';
 
@@ -62,13 +66,13 @@ class Install
      */
     public function __construct()
     {
-        if (array_key_exists('action', $_REQUEST) &&
-            $_REQUEST['type'] === 'ajax' &&
-            $_REQUEST['action'] != 'prepareDatabase'
+        if (array_key_exists('action', Request::get()) &&
+            Request::get('type') === 'ajax' &&
+            Request::get('action') != 'prepareDatabase'
         ) {
             \Cunity\Core\Cunity::init();
-        } elseif (array_key_exists('action', $_REQUEST) &&
-            $_REQUEST['type'] != 'ajax') {
+        } elseif (array_key_exists('action', Request::get()) &&
+            Request::get('type') != 'ajax') {
             $this->init();
         }
 
@@ -94,11 +98,11 @@ class Install
      */
     private function initTranslator()
     {
-        if (isset($_GET['lang']) && (file_exists('installer/lang/'.$_GET['lang'].'.php') || $_GET['lang'] == 'en')) {
-            self::$lang = $_GET['lang'];
-            $_SESSION['lang'] = self::$lang;
-        } elseif (isset($_SESSION['lang']) && (file_exists('installer/lang/'.$_SESSION['lang'].'.php') || $_SESSION['lang'] == 'en')) {
-            self::$lang = $_SESSION['lang'];
+        if (Get::get('lang') !== null && (file_exists('installer/lang/'.Get::get('lang').'.php') || Get::get('lang') == 'en')) {
+            self::$lang = Get::get('lang');
+            Session::set('lang', self::$lang);
+        } elseif (Session::get('lang') !== null && (file_exists('installer/lang/'.Session::get('lang').'.php') || Session::get('lang') == 'en')) {
+            self::$lang = Session::get('lang');
         } else {
             self::$lang = 'en';
         }
@@ -112,10 +116,10 @@ class Install
      */
     private function handleRequest()
     {
-        if (isset($_REQUEST['action']) &&
-            method_exists($this, $_REQUEST['action'])
+        if (Request::get('action') !== null &&
+            method_exists($this, Request::get('action'))
         ) {
-            call_user_func([$this, $_REQUEST['action']]);
+            call_user_func([$this, Request::get('action')]);
         }
     }
 
@@ -124,7 +128,7 @@ class Install
      */
     private function prepareDatabase()
     {
-        if ($_REQUEST['db-name'] == '') {
+        if (Request::get('db-name') == '') {
             $this->outputAjaxResponse('databasename cannot be empty', false);
         }
 
@@ -132,7 +136,7 @@ class Install
             $this->outputAjaxResponse('gdlib', false);
         }
 
-        $connection = mysqli_connect($_REQUEST['db-host'], $_REQUEST['db-user'], $_REQUEST['db-password'], $_REQUEST['db-name']);
+        $connection = mysqli_connect(Request::get('db-host'), Request::get('db-user'), Request::get('db-password'), Request::get('db-name'));
 
         if ($connection === false) {
             $this->outputAjaxResponse('could not connect to database', false);
@@ -180,7 +184,7 @@ class Install
      */
     private function executeSql($connection)
     {
-        $dbPrefix = $_REQUEST['db-prefix'];
+        $dbPrefix = Request::get('db-prefix');
 
         if ($dbPrefix !== '') {
             $dbPrefix .= '_';
@@ -196,7 +200,7 @@ class Install
      */
     private function prepareConfig()
     {
-        foreach ($_REQUEST['general'] as $setting => $value) {
+        foreach (Request::get('general') as $setting => $value) {
             if ($setting == 'core.siteurl' &&
                 substr($value, -1) != '/'
             ) {
@@ -205,7 +209,7 @@ class Install
             $this->writeConfigToDatabase($setting, $value);
         }
 
-        $this->writeConfigToFile($_REQUEST['config']);
+        $this->writeConfigToFile(Request::get('config'));
     }
 
     /**
@@ -224,11 +228,11 @@ class Install
         $databaseConfig = [];
         $databaseConfig['db'] = [];
         $databaseConfig['db']['params'] = [];
-        $databaseConfig['db']['params']['host'] = $_REQUEST['db-host'];
-        $databaseConfig['db']['params']['username'] = $_REQUEST['db-user'];
-        $databaseConfig['db']['params']['password'] = $_REQUEST['db-password'];
-        $databaseConfig['db']['params']['dbname'] = $_REQUEST['db-name'];
-        $databaseConfig['db']['params']['table_prefix'] = $_REQUEST['db-prefix'];
+        $databaseConfig['db']['params']['host'] = Request::get('db-host');
+        $databaseConfig['db']['params']['username'] = Request::get('db-user');
+        $databaseConfig['db']['params']['password'] = Request::get('db-password');
+        $databaseConfig['db']['params']['dbname'] = Request::get('db-name');
+        $databaseConfig['db']['params']['table_prefix'] = Request::get('db-prefix');
 
         $this->writeConfigToFile($databaseConfig, false);
     }
@@ -268,7 +272,7 @@ class Install
     private function prepareAdmin()
     {
         $user = new \Cunity\Core\Models\Db\Table\Users();
-        $user->registerNewUser($_REQUEST, 3, false);
+        $user->registerNewUser(Request::get(), 3, false);
 
         $this->outputAjaxResponse();
     }
@@ -377,7 +381,7 @@ $installer = new Install();
         </style>
     </head>
     <body>
-    <?php if (!isset($_GET['lang'])) {
+    <?php if (Get::get('lang') === null) {
     ?>
         <div class="container" id="splashscreen">
             <img src="img/cunity-logo.gif" class="logo">
@@ -1017,7 +1021,7 @@ Refund Policy<br />
             $('#checkDatabase').click(function () {
                 $.ajax({
                     type: "GET",
-                    url: '<?php echo $_SERVER['PHP_SELF'] ?>',
+                    url: '<?php echo Server::get('PHP_SELF') ?>',
                     data: $('#databaseForm').serialize()
                 }).done(function (data) {
                     data = $.parseJSON(data);
@@ -1065,7 +1069,7 @@ Refund Policy<br />
 
                 $.ajax({
                     type: "GET",
-                    url: '<?php echo $_SERVER['PHP_SELF'] ?>',
+                    url: '<?php echo Server::get('PHP_SELF') ?>',
                     data: $('#' + formId).serialize()
                 });
             });
