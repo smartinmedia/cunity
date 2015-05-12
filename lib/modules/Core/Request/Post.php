@@ -3,8 +3,7 @@
 namespace Cunity\Core\Request;
 
 /**
- * Class Post
- * @package Cunity\Core\Request
+ * Class Post.
  */
 class Post extends Request
 {

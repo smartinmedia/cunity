@@ -35,6 +35,7 @@
  */
 
 namespace Cunity\Pages\Models\Db\Row;
+
 use Cunity\Core\Request\Get;
 
 /**

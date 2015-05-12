@@ -3,8 +3,7 @@
 namespace Cunity\Core\Request;
 
 /**
- * Interface Request
- * @package Cunity\Core\Request
+ * Interface Request.
  */
 abstract class Request
 {
@@ -15,6 +14,7 @@ abstract class Request
 
     /**
      * @param $parameter
+     *
      * @return mixed
      */
     public static function get($parameter)

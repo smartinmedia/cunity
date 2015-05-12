@@ -3,8 +3,7 @@
 namespace Cunity\Core\Request;
 
 /**
- * Class Session
- * @package Cunity\Core\Request
+ * Class Session.
  */
 class Session extends Request
 {

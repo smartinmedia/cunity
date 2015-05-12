@@ -39,7 +39,6 @@ namespace Cunity\Profile;
 use Cunity\Core\ModuleController;
 use Cunity\Core\Request\Get;
 use Cunity\Core\Request\Session;
-use Cunity\Core\View\View;
 use Cunity\Register\Models\Login;
 
 /**

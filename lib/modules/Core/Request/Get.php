@@ -3,8 +3,7 @@
 namespace Cunity\Core\Request;
 
 /**
- * Class Get
- * @package Cunity\Core\Request
+ * Class Get.
  */
 class Get extends Request
 {
