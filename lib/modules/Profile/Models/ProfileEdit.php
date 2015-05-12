@@ -66,11 +66,11 @@ class ProfileEdit
     private $user = null;
 
     /**
-     *
+     * @param User $user
      */
-    public function __construct()
+    public function __construct(User $user = null)
     {
-        $this->user = $_SESSION['user'];
+        $this->user = $user;
         $this->handleRequest();
     }
 

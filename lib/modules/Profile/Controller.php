@@ -61,7 +61,7 @@ class Controller extends ModuleController
         if (isset($_GET['action']) && ($_GET['action'] == 'edit' ||
                 $_GET['action'] == 'cropImage')
         ) {
-            new Models\ProfileEdit();
+            new Models\ProfileEdit($_SESSION['user']);
         } else {
             new Models\Profile();
         }
