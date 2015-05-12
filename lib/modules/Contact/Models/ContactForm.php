@@ -38,6 +38,7 @@ namespace Cunity\Contact\Models;
 
 use Cunity\Contact\Models\Db\Table\Contact;
 use Cunity\Contact\View\ContactMail;
+use Cunity\Core\Models\Db\Row\User;
 use Cunity\Core\View\Message;
 use Cunity\Register\Models\Login;
 
@@ -47,10 +48,16 @@ use Cunity\Register\Models\Login;
 class ContactForm
 {
     /**
+     * @var User
+     */
+    protected $user;
+
+    /**
      *
      */
-    public function __construct()
+    public function __construct(User $user)
     {
+        $this->user = $user;
         $this->handleInput();
     }
 
@@ -62,7 +69,7 @@ class ContactForm
         if (isset($_POST['message'])) {
             $contactDb = new Contact();
             $res = $contactDb->insert([
-                'userid' => (Login::loggedIn()) ? $_SESSION['user']->userid : 0,
+                'userid' => (Login::loggedIn()) ? $this->user->userid : 0,
                 'firstname' => $_POST['firstname'],
                 'lastname' => $_POST['lastname'],
                 'email' => $_POST['email'],

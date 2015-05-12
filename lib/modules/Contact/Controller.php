@@ -59,7 +59,7 @@ class Controller extends ModuleController
         if (!isset($_GET['action']) || empty($_GET['action'])) {
             new View\ContactForm();
         } elseif (isset($_GET['action']) && $_GET['action'] == 'sendContact') {
-            new Models\ContactForm();
+            new Models\ContactForm($_SESSION['user']);
         }
     }
 }
