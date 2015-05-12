@@ -44,6 +44,7 @@ use Cunity\Core\Helper\UserHelper;
 use Cunity\Core\Models\Db\Table\Announcements;
 use Cunity\Core\Models\Db\Table\Menu;
 use Cunity\Core\Models\Generator\Url;
+use Cunity\Core\Request\Get;
 use Cunity\Register\Models\Login;
 use Smarty;
 use Zend_Locale;
@@ -225,7 +226,7 @@ class View extends Smarty
      */
     public function show()
     {
-        if (Login::loggedIn() && $_GET['m'] !== 'admin') {
+        if (Login::loggedIn() && Get::get('m') !== 'admin') {
             $this->registerScript('search', 'livesearch');
             $this->registerScript('messages', 'message-modal');
             $this->registerScript('notifications', 'notifications');
@@ -260,7 +261,7 @@ class View extends Smarty
                 'js/bootstrapValidator.min.js',
             ]
         );
-        $this->_metadata['module'] = $_GET['m'];
+        $this->_metadata['module'] = Get::get('m');
         $this->assign('meta', $this->_metadata);
         $this->assign('script_head', implode("\n", $this->_headScripts));
         $this->assign('css_head', base64_encode(implode(',', $this->_headCss)));

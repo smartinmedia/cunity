@@ -37,6 +37,7 @@
 namespace Cunity\Newsfeed;
 
 use Cunity\Core\ModuleController;
+use Cunity\Core\Request\Get;
 use Cunity\Newsfeed\Models\Db\Table\Walls;
 use Cunity\Register\Models\Login;
 
@@ -69,17 +70,14 @@ class Controller extends ModuleController
      */
     private function handleRequest()
     {
-        if (!isset($_GET['action']) || empty($_GET['action'])) {
+        if (Get::get('action') === null || Get::get('action') === '') {
             new View\Newsfeed();
         } elseif (
-            isset(
-                $_GET['action']) &&
-            !empty(
-            $_GET['action']
-            ) &&
-            in_array($_GET['action'], $this->_allowedActions)
+            Get::get('action') !== null &&
+            Get::get('action') !== '' &&
+            in_array(Get::get('action'), $this->_allowedActions)
         ) {
-            new Models\Process($_GET['action']);
+            new Models\Process(Get::get('action'));
         }
     }
 

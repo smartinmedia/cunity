@@ -37,6 +37,7 @@
 namespace Cunity\Search;
 
 use Cunity\Core\ModuleController;
+use Cunity\Core\Request\Get;
 use Cunity\Core\View\Ajax\View;
 use Cunity\Search\View\Searchresults;
 
@@ -58,9 +59,9 @@ class Controller extends ModuleController
      */
     private function handleRequest()
     {
-        if (isset($_GET['q']) && !empty($_GET['q']) && empty($_GET['action'])) {
+        if (Get::get('q') !== null && Get::get('q') !== '' && Get::get('action') === '') {
             new Searchresults();
-        } elseif (isset($_GET['action']) && $_GET['action'] == 'livesearch') {
+        } elseif (Get::get('action') === 'livesearch') {
             $process = new Models\Process();
             $result = $process->find($_POST['q']);
             $view = new View();

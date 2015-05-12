@@ -38,6 +38,7 @@ namespace Cunity\Admin;
 
 use Cunity\Core\Models\Request;
 use Cunity\Core\ModuleController;
+use Cunity\Core\Request\Get;
 use Cunity\Register\Models\Login;
 
 /**
@@ -50,8 +51,8 @@ class Controller extends ModuleController
      */
     public function __construct()
     {
-        $action = $_GET['action'];
-        if (isset($action) && $action !== '') {
+        $action = Get::get('action');
+        if ($action !== null && $action !== '') {
             Login::loginRequired();
 
             switch ($action) {

@@ -40,6 +40,7 @@ use Cunity\Comments\Models\Db\Table\Comments;
 use Cunity\Core\Exceptions\AlbumNotFound;
 use Cunity\Core\Exceptions\NotAllowed;
 use Cunity\Core\Models\Generator\Url;
+use Cunity\Core\Request\Get;
 use Cunity\Core\View\Ajax\View;
 use Cunity\Core\View\Message;
 use Cunity\Gallery\Models\Db\Table\GalleryAlbums;
@@ -241,7 +242,7 @@ class Process
     private function loadAlbum()
     {
         $albums = new GalleryAlbums();
-        $album = $albums->getAlbumData($_GET['action']);
+        $album = $albums->getAlbumData(Get::get('action'));
         if ($album !== false) {
             $view = new Album();
             $view->setMetaData(['title' => $album['title'], 'description' => $album['description']]);

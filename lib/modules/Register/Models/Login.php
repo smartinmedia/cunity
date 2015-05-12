@@ -40,6 +40,7 @@ use Cunity\Core\Models\Db\Row\User;
 use Cunity\Core\Models\Db\Table\Users;
 use Cunity\Core\Models\Generator\Url;
 use Cunity\Core\Models\Request;
+use Cunity\Core\Request\Get;
 use Cunity\Core\View\Ajax\View;
 
 /**
@@ -57,7 +58,7 @@ class Login
             if ($res !== false && $res instanceof User) {
                 $res->setLogin(true);
                 header('Location:'.Url::convertUrl('index.php?m=profile'));
-            } elseif (!isset($_GET['m']) || $_GET['m'] != 'start') {
+            } elseif (Get::get('m') !== 'start') {
                 if (!Request::isAjaxRequest()) {
                     header('Location:'.Url::convertUrl('index.php?m=start'));
                 } else {

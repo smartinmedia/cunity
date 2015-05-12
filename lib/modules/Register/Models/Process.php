@@ -143,11 +143,11 @@ class Process
      */
     private function verify()
     {
-        if (!isset($_GET['x']) || empty($_GET['x'])) {
+        if (Get::get('x') === null || Get::get('x') === '') {
             throw new MissingParameter();
         }
         $users = new Users();
-        $user = $users->search('salt', $_GET['x']);
+        $user = $users->search('salt', Get::get('x'));
         if ($user !== null) {
             $user->groupid = 1;
             $user->save();

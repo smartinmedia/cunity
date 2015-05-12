@@ -37,6 +37,7 @@
 namespace Cunity\Admin\View;
 
 use Cunity\Admin\View\Abstractables\View;
+use Cunity\Core\Request\Get;
 
 /**
  * Class Mailing.
@@ -49,7 +50,7 @@ class Mailing extends View
     public function __construct()
     {
         parent::__construct();
-        $this->_templateFile = 'mailing/'.$_GET['x'].'.tpl';
-        $this->registerCss('mailing', $_GET['x']);
+        $this->_templateFile = 'mailing/'.Get::get('x').'.tpl';
+        $this->registerCss('mailing', Get::get('x'));
     }
 }

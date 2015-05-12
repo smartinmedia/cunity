@@ -66,7 +66,7 @@ class Process
         if ($_POST['source'] == 'chat') {
             $conversation->markAsRead($_POST['conversation_id']);
         }
-        $c = $conversation->loadConversationDetails($_GET['action']);
+        $c = $conversation->loadConversationDetails(Get::get('action'));
         $users = explode(',', $c['users']);
         unset($users[array_search($_SESSION['user']->userid, $users)]);
         $view = new View($res !== false);

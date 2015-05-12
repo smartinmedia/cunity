@@ -37,6 +37,7 @@
 namespace Cunity\Admin\View;
 
 use Cunity\Admin\View\Abstractables\View;
+use Cunity\Core\Request\Get;
 
 /**
  * Class Cunity.
@@ -49,7 +50,7 @@ class Cunity extends View
     public function __construct()
     {
         parent::__construct();
-        $this->_templateFile = 'cunity/'.$_GET['x'].'.tpl';
-        $this->registerCss('cunity', $_GET['x']);
+        $this->_templateFile = 'cunity/'.Get::get('x').'.tpl';
+        $this->registerCss('cunity', Get::get('x'));
     }
 }

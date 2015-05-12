@@ -41,6 +41,7 @@ use Cunity\Core\Exceptions\UnknownUser;
 use Cunity\Core\Models\Db\Row\User;
 use Cunity\Core\Models\Db\Table\Users;
 use Cunity\Core\Models\Request;
+use Cunity\Core\Request\Get;
 use Cunity\Core\View\Ajax\View;
 
 /**
@@ -70,7 +71,7 @@ class Profile
      */
     private function handleAjaxAction()
     {
-        switch ($_GET['action']) {
+        switch (Get::get('action')) {
             case 'getpins':
                 $pins = new Db\Table\ProfilePins();
                 $result = $pins->getAllByUser($_POST['userid']);
@@ -96,8 +97,8 @@ class Profile
     {
         /** @var Users $users */
         $users = $_SESSION['user']->getTable();
-        if (isset($_GET['action']) && !empty($_GET['action'])) {
-            $result = $users->get($_GET['action'], 'username');
+        if (Get::get('action') !== null && Get::get('action') !== '') {
+            $result = $users->get(Get::get('action'), 'username');
             if (!$result instanceof User || $result['name'] === null) {
                 throw new UnknownUser();
             }
@@ -118,7 +119,7 @@ class Profile
     protected function render()
     {
         $users = $_SESSION['user']->getTable();
-        $user = $users->get($_GET['action'], 'username');
+        $user = $users->get(Get::get('action'), 'username');
         UserAccess::profilePublic($user);
         $view = new \Cunity\Profile\View\Profile();
         $view->assign('profile', $this->profileData);

@@ -37,6 +37,8 @@
 namespace Cunity\Profile;
 
 use Cunity\Core\ModuleController;
+use Cunity\Core\Request\Get;
+use Cunity\Core\Request\Session;
 use Cunity\Core\View\View;
 use Cunity\Register\Models\Login;
 
@@ -59,10 +61,10 @@ class Controller extends ModuleController
      */
     private function handleRequest()
     {
-        if (isset($_GET['action']) && ($_GET['action'] == 'edit' ||
-                $_GET['action'] == 'cropImage')
+        if (Get::get('action') == 'edit' ||
+            Get::get('action') == 'cropImage'
         ) {
-            new Models\ProfileEdit(new View(true), $_SESSION['user']);
+            new Models\ProfileEdit(Session::get('user'));
         } else {
             new Models\Profile();
         }

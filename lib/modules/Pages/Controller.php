@@ -53,7 +53,7 @@ class Controller extends ModuleController
     {
         $pages = new Pages();
         /** @var Page $page */
-        $page = $pages->getPage($_GET['action']);
+        $page = $pages->getPage(Get::get('action'));
         if ($page === null) {
             throw new PageNotFound();
         }

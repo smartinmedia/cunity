@@ -37,6 +37,7 @@
 namespace Cunity\Events;
 
 use Cunity\Core\ModuleController;
+use Cunity\Core\Request\Get;
 use Cunity\Register\Models\Login;
 
 /**
@@ -72,21 +73,17 @@ class Controller extends ModuleController
      */
     private function handleRequest()
     {
-        if (!isset($_GET['action']) || empty($_GET['action'])) {
+        if (Get::get('action') !== null || Get::get('action') == '') {
             new View\Events();
         } elseif (
-            isset(
-                $_GET['action']
-            ) &&
-            !empty(
-            $_GET['action']
-            ) &&
+            Get::get('action') !== null &&
+            Get::get('action') !== '' &&
             in_array(
-                $_GET['action'],
+                Get::get('action'),
                 $this->_allowedActions
             )
         ) {
-            new Models\Process($_GET['action']);
+            new Models\Process(Get::get('action'));
         } else {
             new Models\Process('loadEvent');
         }

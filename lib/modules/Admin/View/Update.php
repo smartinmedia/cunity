@@ -37,6 +37,7 @@
 namespace Cunity\Admin\View;
 
 use Cunity\Admin\View\Abstractables\View;
+use Cunity\Core\Request\Get;
 
 class Update extends View
 {
@@ -46,7 +47,7 @@ class Update extends View
     public function __construct()
     {
         parent::__construct();
-        $this->_templateFile = 'update/'.$_GET['x'].'.tpl';
-        $this->registerCss('update', $_GET['x']);
+        $this->_templateFile = 'update/'.Get::get('x').'.tpl';
+        $this->registerCss('update', Get::get('x'));
     }
 }

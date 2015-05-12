@@ -37,6 +37,7 @@
 namespace Cunity\Memberlist;
 
 use Cunity\Core\ModuleController;
+use Cunity\Core\Request\Get;
 use Cunity\Register\Models\Login;
 
 /**
@@ -58,7 +59,7 @@ class Controller extends ModuleController
      */
     private function handleRequest()
     {
-        if (isset($_GET['action']) && $_GET['action'] == 'load') {
+        if (Get::get('action') == 'load') {
             $p = new Models\Process();
             $p->getAll();
         } else {

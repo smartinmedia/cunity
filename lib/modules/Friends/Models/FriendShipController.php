@@ -52,8 +52,8 @@ class FriendShipController
      */
     public function __construct()
     {
-        if (method_exists($this, $_GET['action'])) {
-            call_user_func([$this, $_GET['action']]);
+        if (method_exists($this, Get::get('action'))) {
+            call_user_func([$this, Get::get('action')]);
         }
     }
 

@@ -36,6 +36,7 @@
 
 namespace Cunity\Search\View;
 
+use Cunity\Core\Request\Get;
 use Cunity\Core\View\View;
 
 /**
@@ -64,7 +65,7 @@ class Searchresults extends View
     {
         parent::__construct();
         $this->registerScript('search', 'searchresults');
-        $this->assign('queryString', $_GET['q']);
+        $this->assign('queryString', Get::get('q'));
         $this->show();
     }
 

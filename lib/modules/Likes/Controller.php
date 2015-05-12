@@ -50,6 +50,6 @@ class Controller extends ModuleController
     public function __construct()
     {
         Login::loginRequired();
-        new Models\Likes($_GET['action']);
+        new Models\Likes(Get::get('action'));
     }
 }

@@ -38,6 +38,7 @@ namespace Cunity\Register;
 
 use Cunity\Core\Models\Generator\Url;
 use Cunity\Core\ModuleController;
+use Cunity\Core\Request\Get;
 
 /**
  * Class Controller.
@@ -72,28 +73,25 @@ class Controller extends ModuleController
     private function handleRequest()
     {
         if (Models\Login::loggedIn() &&
-            $_GET['action'] != 'logout'
+            Get::get('action') !== 'logout'
         ) {
             header('Location:'.Url::convertUrl('index.php?m=profile'));
             exit();
         }
 
-        if (!isset($_GET['action']) || empty($_GET['action'])) {
+        if (Get::get('action') === null || Get::get('action') === '') {
             $view = new View\Registration();
             $view->assign('success', false);
             $view->render();
         } elseif (
-            isset(
-                $_GET['action']
-            ) && !empty(
-            $_GET['action']
-            ) &&
+            Get::get('action') !== null &&
+            Get::get('action') !== '' &&
             in_array(
-                $_GET['action'],
+                Get::get('action'),
                 $this->_allowedActions
             )
         ) {
-            new Models\Process($_GET['action']);
+            new Models\Process(Get::get('action'));
         }
     }
 }

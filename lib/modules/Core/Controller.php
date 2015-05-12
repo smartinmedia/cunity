@@ -39,6 +39,7 @@ namespace Cunity\Core;
 use Cunity\Core\Exceptions\ModuleNotActive;
 use Cunity\Core\Exceptions\ModuleNotFound;
 use Cunity\Core\Models\Request;
+use Cunity\Core\Request\Get;
 use Cunity\Core\View\Exception\View;
 use Cunity\Register\Models\Login;
 
@@ -77,7 +78,7 @@ class Controller
      */
     protected function handleQuery()
     {
-        if (!isset($_GET['m']) || empty($_GET['m'])) {
+        if (Get::get('m') === null || Get::get('m') == '') {
             if (Login::loggedIn()) {
                 header(
                     'Location:'
@@ -87,11 +88,11 @@ class Controller
                 );
                 exit();
             } else {
-                $_GET['m'] = 'start';
+                Get::set('m', 'start');
             }
         }
 
-        $moduleController = new Module($_GET['m']);
+        $moduleController = new Module(Get::get('m'));
         if (!Request::isAjaxRequest() && !$moduleController->isActive()) {
             throw new ModuleNotActive();
         } elseif ($moduleController->isValid()) {

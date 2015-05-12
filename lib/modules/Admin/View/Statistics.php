@@ -37,6 +37,7 @@
 namespace Cunity\Admin\View;
 
 use Cunity\Admin\View\Abstractables\View;
+use Cunity\Core\Request\Get;
 
 /**
  * Class Statistics.
@@ -49,7 +50,7 @@ class Statistics extends View
     public function __construct()
     {
         parent::__construct();
-        $this->_templateFile = 'statistics/'.$_GET['x'].'.tpl';
-        $this->registerCss('statistics', $_GET['x']);
+        $this->_templateFile = 'statistics/'.Get::get('x').'.tpl';
+        $this->registerCss('statistics', Get::get('x'));
     }
 }

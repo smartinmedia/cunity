@@ -37,6 +37,7 @@
 namespace Cunity\Comments;
 
 use Cunity\Core\ModuleController;
+use Cunity\Core\Request\Get;
 use Cunity\Register\Models\Login;
 
 /**
@@ -50,6 +51,6 @@ class Controller extends ModuleController
     public function __construct()
     {
         Login::loginRequired();
-        new Models\Process($_GET['action']);
+        new Models\Process(Get::get('action'));
     }
 }

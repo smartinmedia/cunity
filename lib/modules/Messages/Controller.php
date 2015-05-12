@@ -37,6 +37,7 @@
 namespace Cunity\Messages;
 
 use Cunity\Core\ModuleController;
+use Cunity\Core\Request\Get;
 use Cunity\Register\Models\Login;
 
 /**
@@ -75,14 +76,14 @@ class Controller extends ModuleController
      */
     private function handleRequest()
     {
-        if (!isset($_GET['action']) || empty($_GET['action'])) {
+        if (Get::get('action') === null || Get::get('action') === '') {
             new View\Inbox();
-        } elseif (isset($_GET['action']) &&
-            !empty($_GET['action']) &&
-            in_array($_GET['action'], $this->_allowedActions)
+        } elseif (Get::get('action') !== null &&
+            Get::get('action') !== '' &&
+            in_array(Get::get('action'), $this->_allowedActions)
         ) {
-            new Models\Process($_GET['action']);
-        } elseif (isset($_GET['action']) && !empty($_GET['action'])) {
+            new Models\Process(Get::get('action'));
+        } elseif (Get::get('action') !== null && Get::get('action') !== '') {
             new Models\Conversation();
         }
     }

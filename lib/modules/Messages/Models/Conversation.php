@@ -38,6 +38,7 @@ namespace Cunity\Messages\Models;
 
 use Cunity\Core\Exceptions\NotAllowed;
 use Cunity\Core\Models\Db\Table\Users;
+use Cunity\Core\Request\Get;
 
 /**
  * Class Conversation.
@@ -60,14 +61,14 @@ class Conversation
         $table = new Db\Table\Conversations();
         $userTable = new Users();
         $view = new \Cunity\Messages\View\Conversation();
-        $conversation = $table->loadConversationDetails($_GET['action']);
+        $conversation = $table->loadConversationDetails(Get::get('action'));
         $users = explode(',', $conversation['users']);
         if (!in_array($_SESSION['user']->userid, $users)) {
             throw new NotAllowed();
         } else {
             unset($users[array_search($_SESSION['user']->userid, $users)]);
         }
-        $table->markAsRead($_GET['action']);
+        $table->markAsRead(Get::get('action'));
         if (!empty($users)) {
             $conversation['users'] = $userTable->getSet($users, 'u.userid', ['u.userid', 'u.username', 'u.name'])->toArray();
             $usernames = '';

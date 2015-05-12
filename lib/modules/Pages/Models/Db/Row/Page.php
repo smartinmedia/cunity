@@ -35,6 +35,7 @@
  */
 
 namespace Cunity\Pages\Models\Db\Row;
+use Cunity\Core\Request\Get;
 
 /**
  * Class Page.
@@ -46,7 +47,7 @@ class Page extends \Zend_Db_Table_Row_Abstract
      */
     public function displayPage()
     {
-        if (isset($_GET['x']) && $_GET['x'] == 'textonly') {
+        if (Get::get('x') === 'textonly') {
             echo $this->content;
         } else {
             $this->content = html_entity_decode($this->content);

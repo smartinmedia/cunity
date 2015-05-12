@@ -173,7 +173,7 @@ class Process
     private function forum()
     {
         $boards = new Forums();
-        $data = $boards->loadForumData($_GET['x']);
+        $data = $boards->loadForumData(Get::get('x'));
         if ($data === false) {
             throw new ForumNotFound();
         }
@@ -202,7 +202,7 @@ class Process
         switch ($type) {
             case 'board':
                 $boards = new Boards();
-                $data = $boards->loadBoardData($_GET['x']);
+                $data = $boards->loadBoardData(Get::get('x'));
                 $view = new Board();
                 $view->assign('board', $data);
                 if ($data === false) {
@@ -211,7 +211,7 @@ class Process
                 break;
             case 'thread':
                 $threads = new Threads();
-                $data = $threads->loadThreadData($_GET['x']);
+                $data = $threads->loadThreadData(Get::get('x'));
                 $view = new Thread();
                 $view->assign('thread', $data);
                 if ($data === false) {
@@ -239,11 +239,11 @@ class Process
      */
     private function category()
     {
-        if (!isset($_GET['x']) || empty($_GET['x'])) {
+        if (!isset(Get::get('x')) || empty(Get::get('x'))) {
             throw new PageNotFound();
         }
         $cat = new Categories();
-        $data = $cat->getCategoryData($_GET['x']);
+        $data = $cat->getCategoryData(Get::get('x'));
         if ($data === false) {
             throw new CategoryNotFound();
         }

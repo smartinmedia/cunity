@@ -115,8 +115,8 @@ class Process
      */
     private function loadEvents()
     {
-        $start = date('Y-m-d H:i:s', ($_GET['from'] / 1000));
-        $end = date('Y-m-d H:i:s', ($_GET['to'] / 1000));
+        $start = date('Y-m-d H:i:s', (Get::get('from') / 1000));
+        $end = date('Y-m-d H:i:s', (Get::get('to') / 1000));
 
         $events = new Events();
         $result = $events->fetchBetween($start, $end);
@@ -141,8 +141,8 @@ class Process
     private function loadEvent()
     {
         $events = new Events();
-        if (isset($_GET['x']) && $_GET['x'] == 'edit') {
-            $eventData = $events->getEventData(intval($_GET['action']));
+        if (Get::get('x') == 'edit') {
+            $eventData = $events->getEventData(intval(Get::get('action')));
             if ($eventData['userid'] !== $_SESSION['user']->userid) {
                 throw new NotAllowed();
             }
@@ -152,7 +152,7 @@ class Process
             $view->show();
         } else {
             $guests = new Guests();
-            $id = explode('-', $_GET['action']);
+            $id = explode('-', Get::get('action'));
             $view = new Event();
             $data = $events->getEventData($id[0]);
             if ($data === null || $data === false) {
@@ -211,7 +211,7 @@ class Process
         $view = new View();
         if (!isset($_POST['edit']) || $_POST['edit'] != 'editPhoto') {
             $events = new Events();
-            $events->updateEvent(intval($_GET['x']), array_intersect_key($_POST, array_flip(['title', 'description', 'place', 'date', 'time', 'privacy', 'guest_invitation'])));
+            $events->updateEvent(intval(Get::get('x')), array_intersect_key($_POST, array_flip(['title', 'description', 'place', 'date', 'time', 'privacy', 'guest_invitation'])));
             $view->addData(['msg' => 'Successfully saved']);
             $view->sendResponse();
         } elseif ($_POST['edit'] == 'editPhoto') {
@@ -232,11 +232,11 @@ class Process
      */
     private function cropImage()
     {
-        if (!isset($_GET['x']) || empty($_GET['x'])) {
+        if (Get::get('action') === null || Get::get('x') === '') {
             throw new PageNotFound();
         }
-        $imageid = $_GET['x'];
-        $eventid = $_GET['y'];
+        $imageid = Get::get('x');
+        $eventid = Get::get('y');
         $images = new GalleryImages();
         $events = new Events();
         $eventData = $events->getEventData($eventid);
@@ -244,7 +244,7 @@ class Process
         if ($eventData['userid'] == $_SESSION['user']->userid) {
             $view = new EventCrop();
             $eventData['date'] = new DateTime($data['start']);
-            $view->assign(['event' => $eventData, 'result' => $result[0], 'type' => $_GET['y'], 'image' => getimagesize('../data/uploads/'.Cunity::get('settings')->getSetting('core.filesdir').'/'.$result[0]['filename'])]);
+            $view->assign(['event' => $eventData, 'result' => $result[0], 'type' => Get::get('y'), 'image' => getimagesize('../data/uploads/'.Cunity::get('settings')->getSetting('core.filesdir').'/'.$result[0]['filename'])]);
             $view->show();
         } else {
             throw new NotAllowed();

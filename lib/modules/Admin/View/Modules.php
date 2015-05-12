@@ -37,6 +37,7 @@
 namespace Cunity\Admin\View;
 
 use Cunity\Admin\View\Abstractables\View;
+use Cunity\Core\Request\Get;
 
 /**
  * Class Modules.
@@ -49,7 +50,7 @@ class Modules extends View
     public function __construct()
     {
         parent::__construct();
-        $this->_templateFile = 'modules/'.$_GET['x'].'.tpl';
-        $this->registerCss('modules', $_GET['x']);
+        $this->_templateFile = 'modules/'.Get::get('x').'.tpl';
+        $this->registerCss('modules', Get::get('x'));
     }
 }

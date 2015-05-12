@@ -79,7 +79,7 @@ class ProfileEdit
      */
     private function handleRequest()
     {
-        if ($_GET['action'] == 'cropImage') {
+        if (Get::get('action') == 'cropImage') {
             $this->cropImage();
         } elseif (isset($_POST['edit']) && !empty($_POST['edit'])) {
             if (method_exists($this, $_POST['edit'])) {
@@ -95,16 +95,16 @@ class ProfileEdit
      */
     private function cropImage()
     {
-        if (!isset($_GET['x']) || empty($_GET['x'])) {
+        if (Get::get('x') === null || Get::get('x') === '') {
             throw new PageNotFound();
         }
         $images = new \Cunity\Gallery\Models\Db\Table\GalleryImages();
-        $result = $images->getImageData($_GET['x']);
+        $result = $images->getImageData(Get::get('x'));
         $view = new ProfileCrop();
         $user = $this->user->getTable()->get($this->user->userid); // Get a new user Object with all image-data
         /* @var User $user */
         $profileData = $user->toArray(['userid', 'username', 'name', 'timg', 'pimg', 'talbumid', 'palbumid']);
-        $view->assign(['profile' => $profileData, 'result' => $result[0], 'type' => $_GET['y'], 'image' => getimagesize('../data/uploads/'.Cunity::get('settings')->getSetting('core.filesdir').'/'.$result[0]['filename'])]);
+        $view->assign(['profile' => $profileData, 'result' => $result[0], 'type' => Get::get('y'), 'image' => getimagesize('../data/uploads/'.Cunity::get('settings')->getSetting('core.filesdir').'/'.$result[0]['filename'])]);
         $view->show();
     }
 

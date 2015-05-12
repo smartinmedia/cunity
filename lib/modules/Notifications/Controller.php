@@ -37,6 +37,7 @@
 namespace Cunity\Notifications;
 
 use Cunity\Core\ModuleController;
+use Cunity\Core\Request\Get;
 use Cunity\Core\View\Ajax\View;
 use Cunity\Notifications\Models\Db\Table\Notifications;
 
@@ -58,10 +59,10 @@ class Controller extends ModuleController
      */
     private function handleRequest()
     {
-        if (isset($_GET['action']) && $_GET['action'] == 'get') {
+        if (Get::get('action') === 'get') {
             $process = new Models\Process();
             $process->get();
-        } elseif (isset($_GET['action']) && $_GET['action'] == 'markRead') {
+        } elseif (Get::get('action') === 'markRead') {
             $view = new View();
             $n = new Notifications();
             $view->setStatus($n->read($_POST['id']));

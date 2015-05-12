@@ -36,6 +36,7 @@
 
 namespace Cunity\Events\View;
 
+use Cunity\Core\Request\Get;
 use Cunity\Core\View\View;
 
 /**
@@ -68,6 +69,6 @@ class EventCrop extends View
         $this->registerCss('events', 'event');
         $this->registerCss('profile', 'imgareaselect-animated');
         $this->registerCss('events', 'event-crop');
-        $this->assign('eventid', $_GET['y']);
+        $this->assign('eventid', Get::get('y'));
     }
 }
