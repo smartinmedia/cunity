@@ -72,7 +72,13 @@ class UpdateHelper
             return false;
         }
 
-        $returnValue = version_compare(self::getVersion(self::isBeta()), self::getRemoteVersion(false, self::isBeta()), '<');
+        $versionType = 'stable';
+
+        if (self::isBeta()) {
+            $versionType = 'beta';
+        }
+
+        $returnValue = version_compare(self::getVersion($versionType), self::getRemoteVersion(false, $versionType), '<');
 
         return $returnValue;
     }
@@ -113,17 +119,7 @@ class UpdateHelper
     public static function getVersion($type = 'stable')
     {
         $config = Cunity::get('config');
-        $version = $config->site->version;
-
-        switch ($type) {
-            case 'alpha':
-            case 'beta':
-                break;
-            default:
-                $version = explode('.', $version);
-                $version = $version[0].'.'.$version[1];
-                break;
-        }
+        $version = self::getVersionByType($type, $config->site->version);
 
         return $version;
     }
@@ -156,17 +152,7 @@ class UpdateHelper
             $settings->setSetting('core.lastupdatecheck', time());
         }
 
-        $remoteVersion = $settings->getSetting('core.remoteversion');
-
-        switch ($type) {
-            case 'alpha':
-            case 'beta':
-                break;
-            default:
-                $remoteVersion = explode('.', $remoteVersion);
-                $remoteVersion = $remoteVersion[0].'.'.$remoteVersion[1];
-                break;
-        }
+        $remoteVersion = self::getVersionByType($type, $settings->getSetting('core.remoteversion'));
 
         return $remoteVersion;
     }
@@ -260,5 +246,24 @@ class UpdateHelper
         }
 
         return true;
+    }
+
+    /**
+     * @param $type
+     * @param $version
+     * @return array|string
+     */
+    protected static function getVersionByType($type, $version)
+    {
+        switch ($type) {
+            case 'alpha':
+            case 'beta':
+                break;
+            default:
+                $version = explode('.', $version);
+                $version = $version[0] . '.' . $version[1];
+                break;
+        }
+        return $version;
     }
 }
