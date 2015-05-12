@@ -130,7 +130,7 @@ class Process
             ]);
         }
         $view = new View($result !== null);
-        $view->addData(['target' => Url::convertUrl('index.php?m=gallery&action=' . $result . '&x=' . str_replace(' ', '_', Post::get('title')))]);
+        $view->addData(['target' => Url::convertUrl('index.php?m=gallery&action='.$result.'&x='.str_replace(' ', '_', Post::get('title')))]);
         $view->sendResponse();
     }
 
@@ -168,7 +168,7 @@ class Process
         $result = $images->uploadImage($album->id, Post::get('newsfeed_post') !== null);
         $album->addImage((Post::get('newsfeed_post') !== null) ? $result['content'] : $result['imageid']);
         if (Post::get('uploadtype') == 'single') {
-            header('Location: ' . Url::convertUrl('index.php?m=gallery&action=' . Post::get('albumid')));
+            header('Location: '.Url::convertUrl('index.php?m=gallery&action='.Post::get('albumid')));
             exit;
         } else {
             $view = new View($result !== false);
