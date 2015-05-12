@@ -37,6 +37,8 @@
 
 namespace Cunity\Admin\Models\Pages;
 
+use Cunity\Core\Models\Db\Table\Modules;
+
 /**
  * Class Cunity.
  */
@@ -56,7 +58,7 @@ class Cunity extends PageAbstract
      */
     private function loadData()
     {
-        $modules = new \Cunity\Core\Models\Db\Table\Modules();
+        $modules = new Modules();
         $installedModules = $modules->getModules()->toArray();
         $config = \Cunity\Core\Cunity::get('config');
         $this->assignments['smtp_check'] = $config->mail->smtp_check;

@@ -105,6 +105,7 @@ class UpdateHelper
 
     /**
      * @param string $type
+     *
      * @return array|string
      *
      * @throws \Cunity\Core\Exceptions\InstanceNotFound
@@ -120,7 +121,7 @@ class UpdateHelper
                 break;
             default:
                 $version = explode('.', $version);
-                $version = $version[0] . '.' . $version[1];
+                $version = $version[0].'.'.$version[1];
                 break;
         }
 
@@ -145,7 +146,7 @@ class UpdateHelper
                 $newVersion = self::getVersion();
             } else {
                 $context = array('http' => array(
-                    'header' => 'Referer: ' .
+                    'header' => 'Referer: '.
                         $settings->getSetting('core.siteurl'),));
                 $xcontext = stream_context_create($context);
                 $newVersion = file_get_contents(self::$UPDATECHECKURL, 'r', $xcontext);
@@ -163,7 +164,7 @@ class UpdateHelper
                 break;
             default:
                 $remoteVersion = explode('.', $remoteVersion);
-                $remoteVersion = $remoteVersion[0] . '.' . $remoteVersion[1];
+                $remoteVersion = $remoteVersion[0].'.'.$remoteVersion[1];
                 break;
         }
 
@@ -189,7 +190,7 @@ class UpdateHelper
     private static function getUpdateFile()
     {
         $ch = curl_init(self::$LATESTURL);
-        $updateFile = __DIR__ . '/../../../../data/temp/latest.zip';
+        $updateFile = __DIR__.'/../../../../data/temp/latest.zip';
         $targetFile = fopen($updateFile, 'w+');
         curl_setopt($ch, CURLOPT_FILE, $targetFile);
         curl_setopt($ch, CURLOPT_TIMEOUT, 3600);
@@ -206,7 +207,7 @@ class UpdateHelper
     {
         $zip = new ZipArchive();
         $zip->open($updateFile);
-        $zip->extractTo(__DIR__ . '/../../../../');
+        $zip->extractTo(__DIR__.'/../../../../');
         $zip->close();
     }
 
@@ -218,8 +219,8 @@ class UpdateHelper
         $configuration = [];
         $configuration['site'] = [];
         $configuration['site']['version'] = self::getRemoteVersion();
-        $config = new \Zend_Config_Xml(__DIR__ . '/../../../../data/config.xml');
-        $configWriter = new \Zend_Config_Writer_Xml(['config' => new \Zend_Config(Process::arrayMergeRecursiveDistinct($config->toArray(), $configuration)), 'filename' => __DIR__ . '/../../../../data/config.xml']);
+        $config = new \Zend_Config_Xml(__DIR__.'/../../../../data/config.xml');
+        $configWriter = new \Zend_Config_Writer_Xml(['config' => new \Zend_Config(Process::arrayMergeRecursiveDistinct($config->toArray(), $configuration)), 'filename' => __DIR__.'/../../../../data/config.xml']);
         $configWriter->write();
     }
 
@@ -228,7 +229,7 @@ class UpdateHelper
      */
     private static function canWrite()
     {
-        $directory = new \RecursiveDirectoryIterator(__DIR__ . '/../../../');
+        $directory = new \RecursiveDirectoryIterator(__DIR__.'/../../../');
         $iterator = new \RecursiveIteratorIterator($directory);
 
         /** @var \SplFileInfo $object */

@@ -102,17 +102,14 @@ class Process
                 $res[] = $settings->setSetting('core.mail_footer', $_POST['mail_footer']);
                 break;
             case 'modules':
-                Cunity::set('modules', new Modules());
-                $modules = Cunity::get('modules');
+                $modules = new Modules();
                 $modules->update(['status' => $_POST['status']], 'id = '.$_POST['id']);
                 break;
             case 'update':
                 UpdateHelper::update();
                 break;
             case 'users':
-                Cunity::set('users', new Users());
-                /** @var Users $users */
-                $users = Cunity::get('users');
+                $users = new Users();
 
                 if (null !== $_REQUEST['userid']) {
                     if ('' !== $_REQUEST['groupid']) {

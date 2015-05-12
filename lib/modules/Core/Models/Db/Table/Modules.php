@@ -39,12 +39,15 @@ namespace Cunity\Core\Models\Db\Table;
 use Cunity\Core\Exceptions\DirectoryNotWriteable;
 use Cunity\Core\Exceptions\FileNotWriteable;
 use Cunity\Core\Models\Db\Abstractables\Table;
+use Cunity\Core\Traits\Singleton;
 
 /**
  * Class Modules.
  */
 class Modules extends Table
 {
+    use Singleton;
+
     /**
      * @var string
      */

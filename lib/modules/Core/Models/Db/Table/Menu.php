@@ -36,7 +36,6 @@
 
 namespace Cunity\Core\Models\Db\Table;
 
-use Cunity\Core\Cunity;
 use Cunity\Core\Models\Db\Abstractables\Table;
 
 /**
@@ -73,9 +72,7 @@ class Menu extends Table
 
         foreach ($menu as $_menu) {
             if ($_menu['type'] === 'module') {
-                Cunity::set('modules', new Modules());
-                /** @var Modules $modules */
-                $modules = Cunity::get('modules');
+                $modules = new Modules();
                 $moduleName = $_menu['content'];
                 $module = $modules->fetchRow('namespace = "'.$moduleName.'"')->toArray();
                 if ($module['status'] == 1) {
