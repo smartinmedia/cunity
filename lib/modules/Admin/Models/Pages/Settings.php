@@ -49,11 +49,17 @@ use Cunity\Profile\Models\Db\Table\ProfileFields;
 class Settings extends PageAbstract
 {
     /**
+     * @var View
+     */
+    protected $view;
+
+    /**
      *
      */
     public function __construct()
     {
         if (isset($_POST) && !empty($_POST)) {
+            $this->view = new View();
             $this->handleRequest();
         } else {
             $this->loadData();
@@ -66,18 +72,17 @@ class Settings extends PageAbstract
      */
     private function handleRequest()
     {
-        $view = new View();
         switch ($_POST['action']) {
             case 'sendTestMail':
                 $mail = new Mail();
                 $mail->sendMail('TestMail from cunity', 'Cunity - Testmail', ['name' => 'Cunity Admin', 'email' => $_POST['mail']]);
-                $view->setStatus(true);
+                $this->view->setStatus(true);
                 break;
             case 'loadPages':
                 $pages = new Pages();
                 $res = $pages->loadPages();
-                $view->setStatus($res !== null);
-                $view->addData(['pages' => $res->toArray()]);
+                $this->view->setStatus($res !== null);
+                $this->view->addData(['pages' => $res->toArray()]);
                 break;
             case 'deletePage':
                 if (isset($_POST['id']) && !empty($_POST['id'])) {
@@ -89,22 +94,22 @@ class Settings extends PageAbstract
                     } else {
                         $status = true;
                     }
-                    $view->setStatus($status);
-                    $view->sendResponse();
+                    $this->view->setStatus($status);
+                    $this->view->sendResponse();
                 } else {
-                    $view->setStatus(false);
+                    $this->view->setStatus(false);
                 }
                 break;
             case 'addPage':
                 $pages = new Pages();
                 $res = $pages->addPage($_POST);
                 $page = $pages->getPage($res);
-                $view->setStatus($res !== null && $res !== false);
+                $this->view->setStatus($res !== null && $res !== false);
                 $page->content = html_entity_decode($page->content);
-                $view->addData(['page' => $page->toArray()]);
+                $this->view->addData(['page' => $page->toArray()]);
                 break;
         }
-        $view->sendResponse();
+        $this->view->sendResponse();
     }
 
     /**
