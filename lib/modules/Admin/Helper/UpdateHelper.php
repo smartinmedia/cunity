@@ -117,10 +117,10 @@ class UpdateHelper
         switch ($type) {
             case 'alpha':
             case 'beta':
-                $version = explode('.', $version);
-                $version = $version[0] . '.' . $version[1];
                 break;
             default:
+                $version = explode('.', $version);
+                $version = $version[0] . '.' . $version[1];
                 break;
         }
 
@@ -160,10 +160,10 @@ class UpdateHelper
         switch ($type) {
             case 'alpha':
             case 'beta':
-                $remoteVersion = explode('.', $remoteVersion);
-                $remoteVersion = $remoteVersion[0] . '.' . $remoteVersion[1];
                 break;
             default:
+                $remoteVersion = explode('.', $remoteVersion);
+                $remoteVersion = $remoteVersion[0] . '.' . $remoteVersion[1];
                 break;
         }
 
