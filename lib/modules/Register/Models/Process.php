@@ -115,7 +115,8 @@ class Process
                 } elseif ($user->groupid == 4) {
                     new Message('Sorry', 'Your Account is blocked! Please contact the Administrator', 'danger');
                 } else {
-                    $user->setLogin(isset(Post::get('save-login')));
+                    $cookie = Post::get('save-login') !== null;
+                    $user->setLogin($cookie);
                     header('Location:'.Url::convertUrl('index.php?m=profile'));
                     exit();
                 }
