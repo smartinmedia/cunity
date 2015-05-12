@@ -42,8 +42,8 @@ use Cunity\Core\Models\Db\Row\User;
 use Cunity\Core\Models\Generator\Url;
 use Cunity\Core\Models\Validation\Email;
 use Cunity\Core\Models\Validation\Username;
-use Cunity\Core\View\Ajax\View;
 use Cunity\Core\View\Message;
+use Cunity\Core\View\View;
 use Cunity\Gallery\Models\Db\Table\GalleryImages;
 use Cunity\Notifications\Models\Db\Table\NotificationSettings;
 use Cunity\Profile\Models\Db\Table\ProfileFields;
@@ -58,18 +58,24 @@ class ProfileEdit
     /**
      * @var array
      */
-    private $message;
+    protected $message;
 
     /**
      * @var User
      */
-    private $user = null;
+    protected $user = null;
+
+    /**
+     * @var View
+     */
+    protected $view;
 
     /**
      * @param User $user
      */
-    public function __construct(User $user = null)
+    public function __construct(View $view, User $user = null)
     {
+        $this->view = $view;
         $this->user = $user;
         $this->handleRequest();
     }
@@ -119,8 +125,8 @@ class ProfileEdit
             $this->user->titleImage = 0;
         }
         if ($this->user->save()) {
-            $view = new View(true);
-            $view->sendResponse();
+            $this->view = new View(true);
+            $this->view->sendResponse();
         }
     }
 

@@ -37,6 +37,7 @@
 namespace Cunity\Profile;
 
 use Cunity\Core\ModuleController;
+use Cunity\Core\View\View;
 use Cunity\Register\Models\Login;
 
 /**
@@ -61,7 +62,7 @@ class Controller extends ModuleController
         if (isset($_GET['action']) && ($_GET['action'] == 'edit' ||
                 $_GET['action'] == 'cropImage')
         ) {
-            new Models\ProfileEdit($_SESSION['user']);
+            new Models\ProfileEdit(new View(true), $_SESSION['user']);
         } else {
             new Models\Profile();
         }
