@@ -125,7 +125,8 @@ class UpdateHelper
     }
 
     /**
-     * @param bool $force
+     * @param bool   $force
+     * @param string $type
      *
      * @return mixed
      *
@@ -251,6 +252,7 @@ class UpdateHelper
     /**
      * @param $type
      * @param $version
+     *
      * @return array|string
      */
     protected static function getVersionByType($type, $version)
@@ -261,9 +263,10 @@ class UpdateHelper
                 break;
             default:
                 $version = explode('.', $version);
-                $version = $version[0] . '.' . $version[1];
+                $version = $version[0].'.'.$version[1];
                 break;
         }
+
         return $version;
     }
 }
