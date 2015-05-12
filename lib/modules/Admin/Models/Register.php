@@ -39,6 +39,7 @@ namespace Cunity\Admin\Models;
 use Cunity\Core\Models\Db\Table\Users;
 use Cunity\Core\Models\Validation\Email;
 use Cunity\Core\Models\Validation\Password;
+use Cunity\Core\Request\Post;
 use Cunity\Register\View\ForgetPw;
 use Cunity\Register\View\Registration;
 use Zend_Validate;

@@ -36,6 +36,8 @@
 
 namespace Cunity\Messages\Models;
 
+use Cunity\Core\Request\Get;
+use Cunity\Core\Request\Post;
 use Cunity\Core\Request\Session;
 use Cunity\Core\View\Ajax\View;
 use Cunity\Friends\Models\Db\Table\Relationships;
@@ -160,7 +162,7 @@ class Process
     private function loadConversationMessages()
     {
         $messages = new Db\Table\Messages();
-        $result = $messages->loadByConversation(Post::get('conversation_id'), $_POST['offset'], $_POST['refresh']);
+        $result = $messages->loadByConversation(Post::get('conversation_id'), Post::get('offset'), Post::get('refresh'));
         $view = new View($result !== null);
         $view->addData(['messages' => $result]);
         $view->sendResponse();

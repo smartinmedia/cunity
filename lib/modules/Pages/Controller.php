@@ -38,6 +38,7 @@ namespace Cunity\Pages;
 
 use Cunity\Core\Exceptions\PageNotFound;
 use Cunity\Core\ModuleController;
+use Cunity\Core\Request\Get;
 use Cunity\Pages\Models\Db\Row\Page;
 use Cunity\Pages\Models\Db\Table\Pages;
 

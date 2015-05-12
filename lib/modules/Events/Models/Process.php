@@ -41,6 +41,8 @@ use Cunity\Core\Exceptions\EventNotFound;
 use Cunity\Core\Exceptions\NotAllowed;
 use Cunity\Core\Exceptions\PageNotFound;
 use Cunity\Core\Models\Generator\Url;
+use Cunity\Core\Request\Get;
+use Cunity\Core\Request\Post;
 use Cunity\Core\Request\Session;
 use Cunity\Core\View\Ajax\View;
 use Cunity\Core\View\Message;

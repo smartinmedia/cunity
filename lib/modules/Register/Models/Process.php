@@ -41,6 +41,7 @@ use Cunity\Core\Exceptions\Exception;
 use Cunity\Core\Exceptions\MissingParameter;
 use Cunity\Core\Models\Db\Table\Users;
 use Cunity\Core\Models\Generator\Url;
+use Cunity\Core\Request\Get;
 use Cunity\Core\Request\Post;
 use Cunity\Core\Request\Session;
 use Cunity\Core\View\Ajax\View;

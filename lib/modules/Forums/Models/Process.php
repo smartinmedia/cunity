@@ -43,6 +43,7 @@ use Cunity\Core\Exceptions\ThreadNotFound;
 use Cunity\Core\Helper\UserHelper;
 use Cunity\Core\Models\Db\Abstractables\Table;
 use Cunity\Core\Models\Generator\Url;
+use Cunity\Core\Request\Get;
 use Cunity\Core\Request\Post;
 use Cunity\Core\Request\Session;
 use Cunity\Core\View\Ajax\View;

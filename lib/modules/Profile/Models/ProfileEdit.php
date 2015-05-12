@@ -42,6 +42,8 @@ use Cunity\Core\Models\Db\Row\User;
 use Cunity\Core\Models\Generator\Url;
 use Cunity\Core\Models\Validation\Email;
 use Cunity\Core\Models\Validation\Username;
+use Cunity\Core\Request\Get;
+use Cunity\Core\Request\Post;
 use Cunity\Core\View\Message;
 use Cunity\Core\View\View;
 use Cunity\Gallery\Models\Db\Table\GalleryImages;

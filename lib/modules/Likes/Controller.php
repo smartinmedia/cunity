@@ -37,6 +37,7 @@
 namespace Cunity\Likes;
 
 use Cunity\Core\ModuleController;
+use Cunity\Core\Request\Get;
 use Cunity\Register\Models\Login;
 
 /**

@@ -38,6 +38,7 @@ namespace Cunity\Friends\Models;
 
 use Cunity\Core\Exceptions\Exception;
 use Cunity\Core\Helper\UserHelper;
+use Cunity\Core\Request\Get;
 use Cunity\Core\Request\Post;
 use Cunity\Core\Request\Session;
 use Cunity\Core\View\Ajax\View;
