@@ -67,6 +67,24 @@
                                    data-bv-emailaddress-message="{-"Please enter a valid email-address!"|translate}">
                         </div>
                     </div>
+
+
+                    <div class="form-group">
+                        <label for="beta" class="col-sm-4 control-label">{-"Beta"|translate}</label>
+
+                        <div class="col-sm-8">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="hidden" name="settings-core.beta" value="0" />
+                                    <input type="checkbox" name="settings-core.beta"
+                                            {-if "core.beta"|setting == 1}
+                                                checked="checked"
+                                            {-/if}
+                                           value="1">&nbsp;{-"Use beta version"|translate}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
                     <input type="hidden" name="form" value="settings">
                     <input type="hidden" name="panel" value="general-panel">
                     <input class="ajaxform-callback" type="hidden" value="showPanelResult">
