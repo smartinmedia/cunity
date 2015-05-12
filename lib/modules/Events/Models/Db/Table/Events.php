@@ -37,6 +37,7 @@
 namespace Cunity\Events\Models\Db\Table;
 
 use Cunity\Core\Models\Db\Abstractables\Table;
+use Cunity\Core\Request\Session;
 use Cunity\Friends\Models\Generator\FriendQuery;
 
 /**
@@ -94,7 +95,7 @@ class Events extends Table
                 ->getAdapter()
                 ->select()
                 ->from(['e' => $this->getTableName()], ['*'])
-                ->joinLeft(['g' => $this->_dbprefix.'events_guests'], 'g.eventid=e.id AND g.userid='.$this->getAdapter()->quote($_SESSION['user']->userid), ['guestid', 'status'])
+                ->joinLeft(['g' => $this->_dbprefix.'events_guests'], 'g.eventid=e.id AND g.userid='.$this->getAdapter()->quote(Session::get('user')->userid), ['guestid', 'status'])
                 ->joinLeft(['u' => $this->_dbprefix.'users'], 'e.userid = u.userid', ['username', 'name'])
                 ->joinLeft(['i' => $this->_dbprefix.'gallery_images'], 'i.id=e.imageId', ['filename'])
                 ->joinLeft(['gc' => $this->_dbprefix.'events_guests'], 'g.eventid=e.id', new \Zend_Db_Expr('COUNT(gc.guestid) AS guestcount'))
@@ -117,7 +118,7 @@ class Events extends Table
     public function fetchBetween($start, $end)
     {
         $query = $this->getAdapter()->select()->from(['e' => $this->getTableName()], ['*', new \Zend_Db_Expr('UNIX_TIMESTAMP(start)*1000 AS start'), new \Zend_Db_Expr('UNIX_TIMESTAMP(start)*1000 AS end')])
-            ->joinLeft(['g' => $this->_dbprefix.'events_guests'], 'g.eventid=e.id AND g.userid='.$this->getAdapter()->quote($_SESSION['user']->userid), ['guestid', 'status'])
+            ->joinLeft(['g' => $this->_dbprefix.'events_guests'], 'g.eventid=e.id AND g.userid='.$this->getAdapter()->quote(Session::get('user')->userid), ['guestid', 'status'])
             ->joinLeft(['u' => $this->_dbprefix.'users'], 'e.userid = u.userid', ['username', 'name'])
             ->joinLeft(['pi' => $this->_dbprefix.'gallery_images'], "pi.id = u.profileImage AND e.type = 'birthday'", 'filename AS pimg')
             ->where('e.start BETWEEN '.$this->getAdapter()->quote($start).' AND '.$this->getAdapter()->quote($end))

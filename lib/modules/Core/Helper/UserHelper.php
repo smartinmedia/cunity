@@ -38,6 +38,7 @@ namespace Cunity\Core\Helper;
 
 use Cunity\Core\Exceptions\UnknownUser;
 use Cunity\Core\Request\Post;
+use Cunity\Core\Request\Session;
 
 /**
  * Class UserHelper.
@@ -59,6 +60,6 @@ class UserHelper
      */
     public static function isAdmin()
     {
-        return (array_key_exists('user', $_SESSION) && $_SESSION['user']->groupid === 3);
+        return (array_key_exists('user', Session::get()) && Session::get('user')->groupid === 3);
     }
 }

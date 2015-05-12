@@ -39,6 +39,7 @@ namespace Cunity\Core\Models\Db\Row;
 use Cunity\Core\Cunity;
 use Cunity\Core\Models\Db\Table\Users;
 use Cunity\Core\Request\Post;
+use Cunity\Core\Request\Session;
 use Cunity\Friends\Models\Db\Table\Relationships;
 use Cunity\Gallery\Models\Db\Table\GalleryImages;
 use Cunity\Profile\Models\Db\Table\ProfileFieldsUsers;
@@ -92,8 +93,8 @@ class User extends \Zend_Db_Table_Row_Abstract
         }
         $this->password_token = null;
         $this->save();
-        $_SESSION['loggedIn'] = true;
-        $_SESSION['user'] = $this;
+        Session::set('loggedIn', true);
+        Session::set('user', $this);
     }
 
     /**
@@ -186,7 +187,7 @@ class User extends \Zend_Db_Table_Row_Abstract
     public function getRelationship($user = 0)
     {
         if ($user == 0) {
-            $user = $_SESSION['user']->userid;
+            $user = Session::get('user')->userid;
         }
 
         $rel = new Relationships();

@@ -39,6 +39,7 @@ namespace Cunity\Friends\Models;
 use Cunity\Core\Exceptions\Exception;
 use Cunity\Core\Helper\UserHelper;
 use Cunity\Core\Request\Post;
+use Cunity\Core\Request\Session;
 use Cunity\Core\View\Ajax\View;
 use Cunity\Friends\Helper\RelationShipHelper;
 use Cunity\Notifications\Models\Notifier;
@@ -65,9 +66,9 @@ class FriendShipController
     {
         UserHelper::breakOnMissingUserId();
         $notification = new Notifier();
-        $notification->notify($_SESSION['user']->userid, Post::get('userid'), 'confirmfriend', 'index.php?m=confirmfriend&action='.Post::get('userid'));
+        $notification->notify(Session::get('user')->userid, Post::get('userid'), 'confirmfriend', 'index.php?m=confirmfriend&action='.Post::get('userid'));
         $relations = new Db\Table\Relationships();
-        $res = $relations->insert(['sender' => $_SESSION['user']->userid, 'receiver' => Post::get('userid'), 'status' => 1]);
+        $res = $relations->insert(['sender' => Session::get('user')->userid, 'receiver' => Post::get('userid'), 'status' => 1]);
         if ($res) {
             $view = new View($res !== false);
             $view->sendResponse();
@@ -120,7 +121,7 @@ class FriendShipController
     private function load()
     {
         $relations = new Db\Table\Relationships();
-        $userid = (Post::get('userid') == 0) ? $_SESSION['user']->userid : Post::get('userid');
+        $userid = (Post::get('userid') == 0) ? Session::get('user')->userid : Post::get('userid');
         $view = new View(true);
         $view->addData(['result' => $relations->getFullFriendList('>1', $userid)]);
         $view->sendResponse();

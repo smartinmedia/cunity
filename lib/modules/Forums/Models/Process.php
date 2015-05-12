@@ -44,6 +44,7 @@ use Cunity\Core\Helper\UserHelper;
 use Cunity\Core\Models\Db\Abstractables\Table;
 use Cunity\Core\Models\Generator\Url;
 use Cunity\Core\Request\Post;
+use Cunity\Core\Request\Session;
 use Cunity\Core\View\Ajax\View;
 use Cunity\Forums\Models\Db\Table\Boards;
 use Cunity\Forums\Models\Db\Table\Categories;
@@ -160,7 +161,7 @@ class Process
             }
             array_push($format_search, '#\[quote=(.*?)\](.*?)#is');
             array_push($format_search, '#\[/quote\]#is');
-            $user = $_SESSION['user']->getTable()->get($matches1[0][1], 'username');
+            $user = Session::get('user')->getTable()->get($matches1[0][1], 'username');
             array_push($format_replace, '<div class="quotation well well-sm"><a class="quotation-user" href="'.Url::convertUrl('index.php?m=profile&action='.$user->username).'">'.$user->name.':</a>$2');
             array_push($format_replace, '</div>');
         }
@@ -281,7 +282,7 @@ class Process
      */
     private function createForum()
     {
-        $res = $this->create(new Forums(), ['title' => Post::get('title'), 'description' => Post::get('description'), 'board_permissions' => (Post::get('board_permissions') !== null)) ? Post::get('board_permissions') : 0]);
+        $res = $this->create(new Forums(), ['title' => Post::get('title'), 'description' => Post::get('description'), 'board_permissions' => (Post::get('board_permissions') !== null) ? Post::get('board_permissions') : 0]);
         $view = new View($res !== false);
         if ($res !== false) {
             $view->addData(['forum' => $res]);
@@ -330,7 +331,7 @@ class Process
             $res = $threads->insert([
                 'title' => Post::get('title'),
                 'board_id' => Post::get('board_id'),
-                'userid' => $_SESSION['user']->userid,
+                'userid' => Session::get('user')->userid,
                 'category' => $category,
                 'important' => Post::get('important'),
             ]);
@@ -338,14 +339,14 @@ class Process
             $res = $threads->insert([
                 'title' => Post::get('title'),
                 'board_id' => Post::get('board_id'),
-                'userid' => $_SESSION['user']->userid,
+                'userid' => Session::get('user')->userid,
                 'category' => $category,
                 'important' => 0,
             ]);
         }
         $view = new View(false);
         if ($res !== false) {
-            $postRes = $posts->post(['content' => Post::get('content'), 'thread_id' => $res, 'userid' => $_SESSION['user']->userid]);
+            $postRes = $posts->post(['content' => Post::get('content'), 'thread_id' => $res, 'userid' => Session::get('user')->userid]);
             $view->setStatus($postRes !== false);
             $view->addData(['id' => $res]);
         }
@@ -427,7 +428,7 @@ class Process
         $posts = new Posts();
         $data = $posts->getPost(Post::get('id'));
         $view = new View(false);
-        if (UserHelper::isAdmin() || $data['userid'] == $_SESSION['user']->userid) {
+        if (UserHelper::isAdmin() || $data['userid'] == Session::get('user')->userid) {
             $view->setStatus($posts->deletePost(Post::get('id')));
         }
         $view->sendResponse();

@@ -38,6 +38,7 @@ namespace Cunity\Messages\Models\Db\Table;
 
 use Cunity\Core\Models\Db\Abstractables\Table;
 use Cunity\Core\Request\Post;
+use Cunity\Core\Request\Session;
 use Cunity\Notifications\Models\Notifier;
 
 /**
@@ -87,7 +88,7 @@ class Conversations extends Table
      */
     public function getConversationIds()
     {
-        $res = $this->fetchRow($this->select()->from($this, new \Zend_Db_Expr('GROUP_CONCAT(conversation_id) AS c'))->where('userid=?', $_SESSION['user']->userid))->toArray();
+        $res = $this->fetchRow($this->select()->from($this, new \Zend_Db_Expr('GROUP_CONCAT(conversation_id) AS c'))->where('userid=?', Session::get('user')->userid))->toArray();
 
         return $res['c'];
     }
@@ -106,16 +107,16 @@ class Conversations extends Table
             foreach ($users as $user) {
                 $this->insert(['userid' => intval($user), 'conversation_id' => intval($cid)]);
                 if ($notify) {
-                    Notifier::notify($user, $_SESSION['user']->userid, 'addConversation', 'index.php?m=messages&action='.$cid);
+                    Notifier::notify($user, Session::get('user')->userid, 'addConversation', 'index.php?m=messages&action='.$cid);
                 }
             }
         } else {
             $this->insert(['userid' => intval($users), 'conversation_id' => intval($cid)]);
             if ($notify) {
                 if ($invitation) {
-                    Notifier::notify(Post::get('userid'), $_SESSION['user']->userid, 'addConversation', 'index.php?m=messages&action='.$cid);
+                    Notifier::notify(Post::get('userid'), Session::get('user')->userid, 'addConversation', 'index.php?m=messages&action='.$cid);
                 } else {
-                    Notifier::notify(Post::get('userid'), $_SESSION['user']->userid, 'message', 'index.php?m=messages&action='.$cid);
+                    Notifier::notify(Post::get('userid'), Session::get('user')->userid, 'message', 'index.php?m=messages&action='.$cid);
                 }
             }
         }
@@ -130,7 +131,7 @@ class Conversations extends Table
      */
     public function markAsRead($conversation_id)
     {
-        return (0 <= $this->update(['status' => 0], [$this->getAdapter()->quoteInto('conversation_id=?', $conversation_id), $this->getAdapter()->quoteInto('userid = ?', $_SESSION['user']->userid)]));
+        return (0 <= $this->update(['status' => 0], [$this->getAdapter()->quoteInto('conversation_id=?', $conversation_id), $this->getAdapter()->quoteInto('userid = ?', Session::get('user')->userid)]));
     }
 
     /**
@@ -140,7 +141,7 @@ class Conversations extends Table
      */
     public function markAsUnRead($conversation_id)
     {
-        return (0 < $this->update(['status' => 1], [$this->getAdapter()->quoteInto('conversation_id=?', $conversation_id), $this->getAdapter()->quoteInto('userid != ?', $_SESSION['user']->userid)]));
+        return (0 < $this->update(['status' => 1], [$this->getAdapter()->quoteInto('conversation_id=?', $conversation_id), $this->getAdapter()->quoteInto('userid != ?', Session::get('user')->userid)]));
     }
 
     /**
@@ -150,7 +151,7 @@ class Conversations extends Table
      */
     public function deactivateConversation($conversation_id)
     {
-        return $this->update(['status' => 2], [$this->getAdapter()->quoteInto('conversation_id=?', $conversation_id), $this->getAdapter()->quoteInto('userid != ?', $_SESSION['user']->userid)]);
+        return $this->update(['status' => 2], [$this->getAdapter()->quoteInto('conversation_id=?', $conversation_id), $this->getAdapter()->quoteInto('userid != ?', Session::get('user')->userid)]);
     }
 
     /**

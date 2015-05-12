@@ -42,6 +42,7 @@ use Cunity\Core\Models\Db\Row\User;
 use Cunity\Core\Models\Generator\Privacy;
 use Cunity\Core\Models\Generator\Unique;
 use Cunity\Core\Request\Post;
+use Cunity\Core\Request\Session;
 use Cunity\Core\Traits\Singleton;
 use Cunity\Profile\Models\Db\Table\ProfileFieldsUsers;
 use Cunity\Register\View\VerifyMail;
@@ -155,7 +156,7 @@ class Users extends Table
     {
         $query = $this->getGallery();
         if (!$includeOwn) {
-            $query->where('u.userid != ?', $_SESSION['user']->userid);
+            $query->where('u.userid != ?', Session::get('user')->userid);
         }
         if (!empty($values)) {
             $query->where($key.' IN(?)', $values);
@@ -207,9 +208,9 @@ class Users extends Table
                 ->setIntegrityCheck(false)
                 ->from(['u' => $this->getTableName()])
                 ->joinLeft(['fr' => $this->_dbprefix.'relations'], '(fr.sender = u.userid OR fr.receiver = u.userid) AND status = 2', new \Zend_Db_Expr('COUNT(DISTINCT fr.relation_id) AS friendscount'))
-                ->joinLeft(['a' => $this->_dbprefix.'gallery_albums'], 'u.userid=a.owner_id AND a.owner_type IS NULL AND (((a.privacy = 2 OR (a.privacy = 1 AND a.owner_id IN ('.new \Zend_Db_Expr($this->getAdapter()->select()->from($this->_dbprefix.'relations', new \Zend_Db_Expr('(CASE WHEN sender = '.$_SESSION['user']->userid.' THEN receiver WHEN receiver = '.$_SESSION['user']->userid.' THEN sender END)'))->where('status > 0')->where('sender=?', $_SESSION['user']->userid)->orWhere('receiver=?', $_SESSION['user']->userid)).')))) OR (a.owner_type IS NULL AND a.owner_id = '.$_SESSION['user']->userid.' ))', new \Zend_Db_Expr('COUNT(DISTINCT a.id) AS albumscount'))
+                ->joinLeft(['a' => $this->_dbprefix.'gallery_albums'], 'u.userid=a.owner_id AND a.owner_type IS NULL AND (((a.privacy = 2 OR (a.privacy = 1 AND a.owner_id IN ('.new \Zend_Db_Expr($this->getAdapter()->select()->from($this->_dbprefix.'relations', new \Zend_Db_Expr('(CASE WHEN sender = '.Session::get('user')->userid.' THEN receiver WHEN receiver = '.Session::get('user')->userid.' THEN sender END)'))->where('status > 0')->where('sender=?', Session::get('user')->userid)->orWhere('receiver=?', Session::get('user')->userid)).')))) OR (a.owner_type IS NULL AND a.owner_id = '.Session::get('user')->userid.' ))', new \Zend_Db_Expr('COUNT(DISTINCT a.id) AS albumscount'))
                 ->joinLeft(['p' => $this->_dbprefix.'privacy'], 'p.userid=u.userid', new \Zend_Db_Expr("GROUP_CONCAT(CONCAT(p.type,':',p.value)) AS privacy"))
-                ->joinLeft(['r' => $this->_dbprefix.'relations'], '(r.receiver = '.$this->getAdapter()->quote($_SESSION['user']->userid).' AND r.sender = u.userid) OR (r.sender = '.$this->getAdapter()->quote($_SESSION['user']->userid).' AND r.receiver = u.userid)')
+                ->joinLeft(['r' => $this->_dbprefix.'relations'], '(r.receiver = '.$this->getAdapter()->quote(Session::get('user')->userid).' AND r.sender = u.userid) OR (r.sender = '.$this->getAdapter()->quote(Session::get('user')->userid).' AND r.receiver = u.userid)')
                 ->joinLeft(['pi' => $this->_dbprefix.'gallery_images'], 'pi.id = u.profileImage', ['filename AS pimg', 'albumid AS palbumid'])
                 ->joinLeft(['ti' => $this->_dbprefix.'gallery_images'], 'ti.id = u.titleImage', ['filename AS timg', 'albumid AS talbumid'])
                 ->where('u.'.$key.' = ?', $userid)
@@ -225,7 +226,7 @@ class Users extends Table
     protected function getGallery()
     {
         $query = $this->select()->setIntegrityCheck(false)->from(['u' => $this->getTableName()])
-            ->joinLeft(['r' => $this->_dbprefix.'relations'], '(r.receiver = '.$this->getAdapter()->quote($_SESSION['user']->userid).' AND r.sender = u.userid) OR (r.sender = '.$this->getAdapter()->quote($_SESSION['user']->userid).' AND r.receiver = u.userid)')
+            ->joinLeft(['r' => $this->_dbprefix.'relations'], '(r.receiver = '.$this->getAdapter()->quote(Session::get('user')->userid).' AND r.sender = u.userid) OR (r.sender = '.$this->getAdapter()->quote(Session::get('user')->userid).' AND r.receiver = u.userid)')
             ->joinLeft(['pi' => $this->_dbprefix.'gallery_images'], 'pi.id = u.profileImage', ['filename AS pimg', 'albumid AS palbumid'])
             ->joinLeft(['ti' => $this->_dbprefix.'gallery_images'], 'ti.id = u.titleImage', ['filename AS timg', 'albumid AS talbumid'])
             ->joinLeft(['p' => $this->_dbprefix.'privacy'], 'p.userid=u.userid', new \Zend_Db_Expr("GROUP_CONCAT(CONCAT(p.type,':',p.value)) AS privacy"))

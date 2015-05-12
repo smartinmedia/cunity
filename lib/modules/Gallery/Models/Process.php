@@ -42,6 +42,7 @@ use Cunity\Core\Exceptions\NotAllowed;
 use Cunity\Core\Models\Generator\Url;
 use Cunity\Core\Request\Get;
 use Cunity\Core\Request\Post;
+use Cunity\Core\Request\Session;
 use Cunity\Core\View\Ajax\View;
 use Cunity\Core\View\Message;
 use Cunity\Gallery\Models\Db\Table\GalleryAlbums;
@@ -114,7 +115,7 @@ class Process
             $result = $table->insert([
                 'title' => Post::get('title'),
                 'description' => Post::get('description'),
-                'owner_id' => $_SESSION['user']->userid,
+                'owner_id' => Session::get('user')->userid,
                 'type' => 'shared',
                 'user_upload' => (Post::get('allow_uplaod') !== null) ? 1 : 0,
                 'privacy' => Post::get('privacy'),
@@ -123,7 +124,7 @@ class Process
             $result = $table->insert([
                 'title' => Post::get('title'),
                 'description' => $_POST['description'],
-                'owner_id' => $_SESSION['user']->userid,
+                'owner_id' => Session::get('user')->userid,
                 'type' => null,
                 'user_upload' => isset($_POST['allow_upload']) ? 1 : 0,
                 'privacy' => $_POST['privacy'],
@@ -157,9 +158,9 @@ class Process
         $images = new GalleryImages();
         if (isset($_POST['newsfeed_post'])) {
             /** @var \Cunity\Gallery\Models\Db\Row\Album $album */
-            $album = $albums->fetchRow($albums->select()->where('type=?', 'newsfeed')->where('owner_id=?', $_SESSION['user']->userid)->where('owner_type IS NULL'));
+            $album = $albums->fetchRow($albums->select()->where('type=?', 'newsfeed')->where('owner_id=?', Session::get('user')->userid)->where('owner_type IS NULL'));
             if ($album === null) {
-                $albumid = $albums->newNewsfeedAlbums($_SESSION['user']->userid);
+                $albumid = $albums->newNewsfeedAlbums(Session::get('user')->userid);
                 $album = $albums->fetchRow($albums->select()->where('id=?', $albumid));
             }
         } else {
@@ -247,13 +248,13 @@ class Process
             $view->setMetaData(['title' => $album['title'], 'description' => $album['description']]);
             $view->assign('album', $album);
             if ($album['privacy'] == 1 &&
-                $album['owner_id'] != $_SESSION['user']->userid &&
-                !in_array($album['owner_id'], $_SESSION['user']->getFriendList())
+                $album['owner_id'] != Session::get('user')->userid &&
+                !in_array($album['owner_id'], Session::get('user')->getFriendList())
             ) {
                 throw new NotAllowed();
             }
 
-            if ($album->owner_id == $_SESSION['userid'] && $album->owner_type === null) {
+            if ($album->owner_id == Session::get('userid') && $album->owner_type === null) {
                 $view->registerScript('gallery', 'album-edit');
             }
             $view->show();

@@ -36,6 +36,7 @@
 
 namespace Cunity\Contact\View;
 
+use Cunity\Core\Request\Session;
 use Cunity\Core\View\View;
 use Cunity\Register\Models\Login;
 
@@ -67,7 +68,7 @@ class ContactForm extends View
     {
         parent::__construct();
         if (Login::loggedIn()) {
-            $user = $_SESSION['user'];
+            $user = Session::get('user');
             $userData = [
                 'firstname' => $user->firstname,
                 'lastname' => $user->lastname,

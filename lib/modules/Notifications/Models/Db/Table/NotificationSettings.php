@@ -37,6 +37,7 @@
 namespace Cunity\Notifications\Models\Db\Table;
 
 use Cunity\Core\Models\Db\Abstractables\Table;
+use Cunity\Core\Request\Session;
 
 /**
  * Class NotificationSettings.
@@ -80,7 +81,7 @@ class NotificationSettings extends Table
     public function getSettings($userid = null)
     {
         if (null === $userid) {
-            $userid = $_SESSION['user']->userid;
+            $userid = Session::get('user')->userid;
         }
 
         /** @var $res \Zend_Db_Table_Row */
@@ -103,10 +104,10 @@ class NotificationSettings extends Table
     public function updateSettings(array $values)
     {
         $res = [];
-        $this->delete($this->getAdapter()->quoteInto('userid=?', $_SESSION['user']->userid));
+        $this->delete($this->getAdapter()->quoteInto('userid=?', Session::get('user')->userid));
 
         foreach ($values as $name => $value) {
-            $res[] = $this->insert(['userid' => $_SESSION['user']->userid, 'name' => $name, 'value' => $value]);
+            $res[] = $this->insert(['userid' => Session::get('user')->userid, 'name' => $name, 'value' => $value]);
         }
 
         return !in_array(false, $res);

@@ -42,6 +42,7 @@ use Cunity\Core\Exceptions\MissingParameter;
 use Cunity\Core\Models\Db\Table\Users;
 use Cunity\Core\Models\Generator\Url;
 use Cunity\Core\Request\Post;
+use Cunity\Core\Request\Session;
 use Cunity\Core\View\Ajax\View;
 use Cunity\Core\View\Message;
 use Cunity\Register\View\ForgetPw;
@@ -131,7 +132,7 @@ class Process
     private function logout()
     {
         if (Login::loggedIn()) {
-            $_SESSION['user']->logout();
+            Session::get('user')->logout();
         }
 
         header('Location:'.Url::convertUrl('index.php?m=start'));
@@ -197,7 +198,7 @@ class Process
         $config = Cunity::get('config');
         $functions = $config->registerFunctions->toArray();
         foreach ($functions['module'] as $module) {
-            call_user_func(["Cunity\\".ucfirst($module)."\Controller", 'onUnregister'], $_SESSION['user']);
+            call_user_func(["Cunity\\".ucfirst($module)."\Controller", 'onUnregister'], Session::get('user'));
         }
     }
 

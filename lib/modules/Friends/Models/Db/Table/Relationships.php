@@ -39,6 +39,7 @@ namespace Cunity\Friends\Models\Db\Table;
 use Cunity\Core\Cunity;
 use Cunity\Core\Models\Db\Abstractables\Table;
 use Cunity\Core\Models\Db\Table\Users;
+use Cunity\Core\Request\Session;
 
 /**
  * Class Relationships.
@@ -131,12 +132,12 @@ class Relationships extends Table
 
         if ($settings->getSetting('register.allfriends')) {
             /** @var Users $users */
-            $users = $_SESSION['user']->getTable();
+            $users = Session::get('user')->getTable();
 
-            return $users->fetchAll('userid!='.$_SESSION['user']->userid)->toArray();
+            return $users->fetchAll('userid!='.Session::get('user')->userid)->toArray();
         } elseif (!empty($friends)) {
             $friends = $this->getFriendList($status, $userid);
-            $users = $_SESSION['user']->getTable();
+            $users = Session::get('user')->getTable();
 
             return $users->getSet($friends, 'u.userid', ['u.userid', 'u.username', 'u.name'], true)->toArray();
         }
@@ -151,7 +152,7 @@ class Relationships extends Table
     public function getFriendList($status = '>1', $userid = 0)
     {
         if ($userid == 0) {
-            $userid = $_SESSION['user']->userid;
+            $userid = Session::get('user')->userid;
         } else {
             $userid = intval($userid);
         }
@@ -199,7 +200,7 @@ class Relationships extends Table
     public function getFriendRequests($userid = 0)
     {
         if ($userid == 0) {
-            $userid = $_SESSION['user']->userid;
+            $userid = Session::get('user')->userid;
         }
         $res = $this->fetchAll($this->select()->from($this, ['sender'])->where('receiver=?', $userid)->where('status=1'));
         $result = [];

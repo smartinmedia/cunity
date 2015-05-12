@@ -41,6 +41,7 @@ use Cunity\Core\Models\Db\Table\Users;
 use Cunity\Core\Models\Generator\Url;
 use Cunity\Core\Models\Request;
 use Cunity\Core\Request\Get;
+use Cunity\Core\Request\Session;
 use Cunity\Core\View\Ajax\View;
 
 /**
@@ -78,7 +79,7 @@ class Login
      */
     public static function loggedIn()
     {
-        return (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] === true && isset($_SESSION['user']) && $_SESSION['user'] instanceof User);
+        return (Session::get('loggedIn') === true && Session::get('user') instanceof User);
     }
 
     /**

@@ -37,6 +37,7 @@
 namespace Cunity\Newsfeed\Models;
 
 use Cunity\Core\Request\Post;
+use Cunity\Core\Request\Session;
 use Cunity\Core\View\Ajax\View;
 
 /**
@@ -67,7 +68,7 @@ class Process
             $table = new Db\Table\Posts();
             $videoData = ['video' => json_decode(html_entity_decode(Post::get('youtubedata')), true), 'content' => Post::get('content')];
             $content = (Post::get('type') == 'video') ? json_encode($videoData) : Post::get('content');
-            $res = $table->post(['userid' => $_SESSION['user']->userid, 'wall_owner_id' => Post::get('wall_owner_id'), 'wall_owner_type' => $_POST['wall_owner_type'], 'privacy' => $_POST['privacy'], 'content' => $content, 'type' => Post::get('type')]);
+            $res = $table->post(['userid' => Session::get('user')->userid, 'wall_owner_id' => Post::get('wall_owner_id'), 'wall_owner_type' => $_POST['wall_owner_type'], 'privacy' => $_POST['privacy'], 'content' => $content, 'type' => Post::get('type')]);
             $view->setStatus($res !== false);
             if (Post::get('type') == 'video') {
                 $view->addData(array_merge($res, ['content' => $videoData]));

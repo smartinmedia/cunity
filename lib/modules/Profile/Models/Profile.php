@@ -43,6 +43,7 @@ use Cunity\Core\Models\Db\Table\Users;
 use Cunity\Core\Models\Request;
 use Cunity\Core\Request\Get;
 use Cunity\Core\Request\Post;
+use Cunity\Core\Request\Session;
 use Cunity\Core\View\Ajax\View;
 
 /**
@@ -97,19 +98,19 @@ class Profile
     private function checkUser()
     {
         /** @var Users $users */
-        $users = $_SESSION['user']->getTable();
+        $users = Session::get('user')->getTable();
         if (Get::get('action') !== null && Get::get('action') !== '') {
             $result = $users->get(Get::get('action'), 'username');
             if (!$result instanceof User || $result['name'] === null) {
                 throw new UnknownUser();
             }
         } else {
-            $result = $users->get($_SESSION['user']->userid);
+            $result = $users->get(Session::get('user')->userid);
         }
         // Get a new user Object with all image-data
         $result = $result->toArray();
         $this->profileData = $result;
-        if (isset($this->profileData['status']) && $this->profileData['status'] === 0 && $this->profileData['receiver'] == $_SESSION['user']->userid) {
+        if (isset($this->profileData['status']) && $this->profileData['status'] === 0 && $this->profileData['receiver'] == Session::get('user')->userid) {
             throw new UnknownUser();
         }
     }
@@ -119,7 +120,7 @@ class Profile
      */
     protected function render()
     {
-        $users = $_SESSION['user']->getTable();
+        $users = Session::get('user')->getTable();
         $user = $users->get(Get::get('action'), 'username');
         UserAccess::profilePublic($user);
         $view = new \Cunity\Profile\View\Profile();

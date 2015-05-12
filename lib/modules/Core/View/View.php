@@ -45,6 +45,7 @@ use Cunity\Core\Models\Db\Table\Announcements;
 use Cunity\Core\Models\Db\Table\Menu;
 use Cunity\Core\Models\Generator\Url;
 use Cunity\Core\Request\Get;
+use Cunity\Core\Request\Session;
 use Cunity\Register\Models\Login;
 use Smarty;
 use Zend_Locale;
@@ -242,7 +243,7 @@ class View extends Smarty
         if ((Login::loggedIn())) {
             $this->assign(
                 'user',
-                $_SESSION['user']->getTable()->get($_SESSION['user']->userid)
+                Session::get('user')->getTable()->get(Session::get('user')->userid)
             );
         } else {
             $this->assign('user', []);

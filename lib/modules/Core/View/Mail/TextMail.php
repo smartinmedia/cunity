@@ -37,6 +37,7 @@
 namespace Cunity\Core\View\Mail;
 
 use Cunity\Core\Models\Db\Row\User;
+use Cunity\Core\Request\Session;
 
 /**
  * Class TextMail.
@@ -64,7 +65,7 @@ class TextMail extends MailView
             isset($receiver['userid'])
         ) {
             /** @var User $user */
-            $user = $_SESSION['user']->getTable()->search(
+            $user = Session::get('user')->getTable()->search(
                 'userid',
                 $receiver['userid']
             );

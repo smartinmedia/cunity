@@ -41,6 +41,7 @@ use Cunity\Core\Exceptions\UnknownUser;
 use Cunity\Core\Helper\UserHelper;
 use Cunity\Core\Models\Db\Table\Users;
 use Cunity\Core\Request\Post;
+use Cunity\Core\Request\Session;
 use Cunity\Core\View\Ajax\View;
 use Cunity\Friends\Models\Db\Table\Relationships;
 use Cunity\Notifications\Models\Notifier;
@@ -57,7 +58,7 @@ class RelationShipHelper
     {
         UserHelper::breakOnMissingUserId();
         $relations = new Relationships();
-        $res = $relations->updateRelation(Post::get('userid'), $_SESSION['user']->userid, ['status' => $_POST['status']]);
+        $res = $relations->updateRelation(Post::get('userid'), Session::get('user')->userid, ['status' => Post::get('status')]);
         if ($res) {
             $view = new View($res !== false);
             $view->sendResponse();
@@ -71,7 +72,7 @@ class RelationShipHelper
     {
         UserHelper::breakOnMissingUserId();
         $relations = new Relationships();
-        $res = $relations->deleteRelation($_SESSION['user']->userid, Post::get('userid'));
+        $res = $relations->deleteRelation(Session::get('user')->userid, Post::get('userid'));
         if ($res) {
             $view = new View($res !== false);
             $view->sendResponse();
@@ -85,10 +86,10 @@ class RelationShipHelper
     {
         UserHelper::breakOnMissingUserId();
         $relations = new Relationships();
-        $res = $relations->updateRelation($_SESSION['user']->userid, Post::get('userid'), ['status' => 2]);
+        $res = $relations->updateRelation(Session::get('user')->userid, Post::get('userid'), ['status' => 2]);
         if ($res) {
             if ($notify) {
-                Notifier::notify(Post::get('userid'), $_SESSION['user']->userid, 'confirmfriend', 'index.php?m=profile&action='.$_SESSION['user']->username);
+                Notifier::notify(Post::get('userid'), Session::get('user')->userid, 'confirmfriend', 'index.php?m=profile&action='.Session::get('user')->username);
             }
 
             $view = new View($res !== false);
@@ -103,7 +104,7 @@ class RelationShipHelper
     {
         UserHelper::breakOnMissingUserId();
         $relations = new Relationships();
-        $res = $relations->updateRelation($_SESSION['user']->userid, Post::get('userid'), ['status' => 0, 'sender' => $_SESSION['user']->userid, 'receiver' => Post::get('userid')]);
+        $res = $relations->updateRelation(Session::get('user')->userid, Post::get('userid'), ['status' => 0, 'sender' => Session::get('user')->userid, 'receiver' => Post::get('userid')]);
         if ($res) {
             $view = new View($res !== false);
             $view->sendResponse();
@@ -117,10 +118,10 @@ class RelationShipHelper
     {
         UserHelper::breakOnMissingUserId();
         $relations = new Relationships();
-        $res = $relations->insert(['sender' => $_SESSION['user']->userid, 'receiver' => Post::get('userid'), 'status' => 1]);
+        $res = $relations->insert(['sender' => Session::get('user')->userid, 'receiver' => Post::get('userid'), 'status' => 1]);
         if ($res) {
             if ($notify) {
-                Notifier::notify(Post::get('userid'), $_SESSION['user']->userid, 'addfriend', 'index.php?m=profile&action='.$_SESSION['user']->username);
+                Notifier::notify(Post::get('userid'), Session::get('user')->userid, 'addfriend', 'index.php?m=profile&action='.Session::get('user')->username);
             }
 
             $view = new View($res !== false);
@@ -134,7 +135,7 @@ class RelationShipHelper
     public static function loadData()
     {
         $userid = Post::get('userid');
-        $users = $_SESSION['user']->getTable();
+        $users = Session::get('user')->getTable();
         /* @var Users $users */
         $result = $users->get($userid);
         if ($result === null) {

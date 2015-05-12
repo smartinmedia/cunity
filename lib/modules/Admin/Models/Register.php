@@ -108,7 +108,7 @@ class Register
             $this->errors['password'] = implode(',', $validatePassword->getMessages());
             $this->errors['password_repeat'] = '';
         }
-        if (Post::get('sex') !== 'm' && Post::get('sex') !== 'f')) {
+        if (Post::get('sex') !== 'm' && Post::get('sex') !== 'f') {
             $this->errors['sex'] = 'Please select a gender';
         }
         if (!$validateAlpha->isValid(Post::get('firstname'))) {

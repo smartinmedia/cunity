@@ -3,6 +3,7 @@
 namespace Cunity\Core\Helper;
 
 use Cunity\Core\Models\Db\Table\Log;
+use Cunity\Core\Request\Session;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 
@@ -179,7 +180,7 @@ class LogHelper implements LoggerInterface
     protected function save()
     {
         $log = new Log();
-        $userid = $_SESSION['user']->userid;
+        $userid = Session::get('user')->userid;
 
         if ($userid === null) {
             $userid = 0;

@@ -36,6 +36,7 @@
 
 namespace Cunity\Messages\Models;
 
+use Cunity\Core\Request\Session;
 use Cunity\Core\View\Ajax\View;
 use Cunity\Friends\Models\Db\Table\Relationships;
 use Cunity\Messages\Models\Db\Table\Conversations;
@@ -61,16 +62,16 @@ class Process
     private function send()
     {
         $table = new Db\Table\Messages();
-        $res = $table->insert(['sender' => $_SESSION['user']->userid, 'conversation' => Post::get('conversation_id'), 'message' => Post::get('message'), 'source' => Post::get('source')]);
+        $res = $table->insert(['sender' => Session::get('user')->userid, 'conversation' => Post::get('conversation_id'), 'message' => Post::get('message'), 'source' => Post::get('source')]);
         $conversation = new Conversations();
         if (Post::get('source') === 'chat') {
             $conversation->markAsRead(Post::get('conversation_id'));
         }
         $c = $conversation->loadConversationDetails(Get::get('action'));
         $users = explode(',', $c['users']);
-        unset($users[array_search($_SESSION['user']->userid, $users)]);
+        unset($users[array_search(Session::get('user')->userid, $users)]);
         $view = new View($res !== false);
-        $view->addData(['data' => ['conversation_id' => Post::get('conversation_id'), 'message' => Post::get('message'), 'time' => date('Y-m-d H:i:s', time()), 'sender' => $_SESSION['user']->userid, 'id' => $res]]);
+        $view->addData(['data' => ['conversation_id' => Post::get('conversation_id'), 'message' => Post::get('message'), 'time' => date('Y-m-d H:i:s', time()), 'sender' => Session::get('user')->userid, 'id' => $res]]);
         $view->sendResponse();
     }
 
@@ -87,13 +88,13 @@ class Process
         }
         if ($conversation_id == 0) {
             $conversation_id = $conv->getNewConversationId();
-            Post::get('receiver')[] = $_SESSION['user']->userid;
+            Post::get('receiver')[] = Session::get('user')->userid;
             $result = $conv->addUsersToConversation($conversation_id, Post::get('receiver'));
         } else {
             $result = true;
         }
         if ($result) {
-            $result = (0 < $messages->insert(['sender' => $_SESSION['user']->userid, 'conversation' => $conversation_id, 'message' => Post::get('message'), 'source' => Post::get('source')]));
+            $result = (0 < $messages->insert(['sender' => Session::get('user')->userid, 'conversation' => $conversation_id, 'message' => Post::get('message'), 'source' => Post::get('source')]));
         }
         $view = new View($result);
         $view->sendResponse();
@@ -109,7 +110,7 @@ class Process
         $conversation_id = $conv->getConversationId(intval(Post::get('userid')));
         if ($conversation_id == 0) {
             $conversation_id = $conv->getNewConversationId();
-            $result = $conv->addUsersToConversation($conversation_id, [$_SESSION['user']->userid, Post::get('userid')], false);
+            $result = $conv->addUsersToConversation($conversation_id, [Session::get('user')->userid, Post::get('userid')], false);
             $messages = [];
         } else {
             $result = true;
@@ -118,7 +119,7 @@ class Process
         }
         $view = new View($result);
         $data = $conv->loadConversationDetails($conversation_id);
-        $conversation['users'] = $_SESSION['user']->getTable()->getSet(explode(',', $data['users']), 'u.userid', ['u.userid', 'u.username', 'u.name'])->toArray();
+        $conversation['users'] = Session::get('user')->getTable()->getSet(explode(',', $data['users']), 'u.userid', ['u.userid', 'u.username', 'u.name'])->toArray();
         $usernames = '';
         foreach ($conversation['users'] as $user) {
             $usernames .= $user['name'].'|'.$user['userid'].',';
@@ -172,11 +173,11 @@ class Process
     {
         $conv = new Db\Table\Conversations();
         $res = false;
-        $leaveResult = $conv->leave($_SESSION['user']->userid, Post::get('conversation_id'));
+        $leaveResult = $conv->leave(Session::get('user')->userid, Post::get('conversation_id'));
         if ($leaveResult) {
             if (Post::get('delMsg') == 'true') {
                 $messages = new Db\Table\Messages();
-                $res = $messages->deleteByUser($_SESSION['user']->userid, Post::get('conversation_id'));
+                $res = $messages->deleteByUser(Session::get('user')->userid, Post::get('conversation_id'));
             } else {
                 $res = true;
             }
@@ -191,7 +192,7 @@ class Process
     private function load()
     {
         $table = new Db\Table\Conversations();
-        $conversations = $table->loadConversations($_SESSION['user']->userid);
+        $conversations = $table->loadConversations(Session::get('user')->userid);
         $view = new View(true);
         foreach ($conversations as $i => $conv) {
             $details = $table->loadConversationDetails($conv['conversation_id']);
@@ -199,7 +200,7 @@ class Process
                 $userid = $this->findConversationUser($details);
 
                 if ($userid !== null) {
-                    $conversations[$i]['users'] = $_SESSION['user']->getTable()->get($userid)->toArray(['pimg', 'name']);
+                    $conversations[$i]['users'] = Session::get('user')->getTable()->get($userid)->toArray(['pimg', 'name']);
                 }
             }
         }
@@ -214,12 +215,12 @@ class Process
     private function loadUnread()
     {
         $table = new Db\Table\Conversations();
-        $conversations = $table->loadConversations($_SESSION['user']->userid, 1);
+        $conversations = $table->loadConversations(Session::get('user')->userid, 1);
         $view = new View(true);
         foreach ($conversations as $i => $conv) {
             if (strpos($conversations[$i]['users'], ',') === false) {
                 $userid = explode('|', $conv['users']);
-                $conversations[$i]['users'] = $_SESSION['user']->getTable()->get($userid[1])->toArray(['pimg', 'name']);
+                $conversations[$i]['users'] = Session::get('user')->getTable()->get($userid[1])->toArray(['pimg', 'name']);
             }
         }
         $view->addData(['conversations' => $conversations]);
@@ -234,8 +235,8 @@ class Process
         $relations = new Relationships();
         $table = new Db\Table\Conversations();
         $messages = new Db\Table\Messages();
-        $friends = $relations->loadOnlineFriends($_SESSION['user']->userid);
-        $conversations = $table->loadConversations($_SESSION['user']->userid, 1);
+        $friends = $relations->loadOnlineFriends(Session::get('user')->userid);
+        $conversations = $table->loadConversations(Session::get('user')->userid, 1);
         $view = new View(true);
         foreach ($conversations as $i => $conv) {
             $conversations[$i]['messages'] = $messages->loadByConversation($conv['conversation'], 0, (Post::get('chatboxes') !== null && is_array(Post::get('chatboxes')) && array_key_exists($conv['conversation'], Post::get('chatboxes'))) ? Post::get('chatboxes')[$conv['conversation']] : 0);
@@ -271,7 +272,7 @@ class Process
         }
 
         foreach ($userid as $id) {
-            if ($id != $_SESSION['user']->userid) {
+            if ($id != Session::get('user')->userid) {
                 break;
             }
         }

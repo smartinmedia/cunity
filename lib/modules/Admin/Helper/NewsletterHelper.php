@@ -4,6 +4,7 @@ namespace Cunity\Admin\Helper;
 
 use Cunity\Core\Models\Db\Table\Users;
 use Cunity\Core\Models\Mail\Mail;
+use Cunity\Core\Request\Session;
 
 /**
  * Class NewsletterHelper.
@@ -17,7 +18,7 @@ class NewsletterHelper
         if (!$isTest) {
             $users = $users->fetchAll('groupid != 0 AND groupid != 4')->toArray();
         } else {
-            $users = [$users->fetchRow('userid = '.$_SESSION['user']->userid)->toArray()];
+            $users = [$users->fetchRow('userid = '.Session::get('user')->userid)->toArray()];
         }
 
         $mailer = new Mail();

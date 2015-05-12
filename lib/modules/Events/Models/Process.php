@@ -41,6 +41,7 @@ use Cunity\Core\Exceptions\EventNotFound;
 use Cunity\Core\Exceptions\NotAllowed;
 use Cunity\Core\Exceptions\PageNotFound;
 use Cunity\Core\Models\Generator\Url;
+use Cunity\Core\Request\Session;
 use Cunity\Core\View\Ajax\View;
 use Cunity\Core\View\Message;
 use Cunity\Events\Models\Db\Table\Events;
@@ -77,7 +78,7 @@ class Process
         $events = new Events();
         $result = false;
         $res = $events->addEvent([
-            'userid' => $_SESSION['user']->userid,
+            'userid' => Session::get('user')->userid,
             'title' => Post::get('title'),
             'description' => Post::get('description'),
             'place' => Post::get('place'),
@@ -91,7 +92,7 @@ class Process
             $guests = new Guests();
             $walls = new Walls();
             $gallery_albums = new GalleryAlbums();
-            $guests->addGuests($res, $_SESSION['user']->userid, 2, false);
+            $guests->addGuests($res, Session::get('user')->userid, 2, false);
             $result = $walls->createWall($res, 'event') && $gallery_albums->insert([
                     'title' => '',
                     'description' => '',
@@ -143,7 +144,7 @@ class Process
         $events = new Events();
         if (Get::get('x') == 'edit') {
             $eventData = $events->getEventData(intval(Get::get('action')));
-            if ($eventData['userid'] !== $_SESSION['user']->userid) {
+            if ($eventData['userid'] !== Session::get('user')->userid) {
                 throw new NotAllowed();
             }
             $view = new EventEdit();
@@ -172,7 +173,7 @@ class Process
     {
         if (Post::get('eventid') !== null && Post::get('status') !== null) {
             $guests = new Guests();
-            $res = $guests->changeStatus(Post::get('status'), $_SESSION['user']->userid, Post::get('eventid'));
+            $res = $guests->changeStatus(Post::get('status'), Session::get('user')->userid, Post::get('eventid'));
             $view = new View($res !== false);
             $view->sendResponse();
         }
@@ -241,7 +242,7 @@ class Process
         $events = new Events();
         $eventData = $events->getEventData($eventid);
         $result = $images->getImageData($imageid);
-        if ($eventData['userid'] == $_SESSION['user']->userid) {
+        if ($eventData['userid'] == Session::get('user')->userid) {
             $view = new EventCrop();
             $eventData['date'] = new DateTime($data['start']);
             $view->assign(['event' => $eventData, 'result' => $result[0], 'type' => Get::get('y'), 'image' => getimagesize('../data/uploads/'.Cunity::get('settings')->getSetting('core.filesdir').'/'.$result[0]['filename'])]);

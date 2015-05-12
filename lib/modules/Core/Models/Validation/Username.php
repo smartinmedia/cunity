@@ -37,6 +37,7 @@
 namespace Cunity\Core\Models\Validation;
 
 use Cunity\Core\Models\Db\Table\Users;
+use Cunity\Core\Request\Session;
 use Cunity\Register\Models\Login;
 
 /**
@@ -82,7 +83,7 @@ class Username extends \Zend_Validate_Alnum
         $users = new Users();
         $user = $users->search('username', $value);
         if ($user !== null &&
-            (Login::loggedIn() && ($user->userid !== $_SESSION['user']->userid))
+            (Login::loggedIn() && ($user->userid !== Session::get('user')->userid))
         ) {
             $this->_error(self::USED);
 

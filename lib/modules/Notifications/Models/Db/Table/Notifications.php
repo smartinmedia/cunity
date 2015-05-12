@@ -38,6 +38,7 @@ namespace Cunity\Notifications\Models\Db\Table;
 
 use Cunity\Core\Models\Db\Abstractables\Table;
 use Cunity\Core\Models\Generator\Url;
+use Cunity\Core\Request\Session;
 use Cunity\Notifications\Models\Notifier;
 
 /**
@@ -83,7 +84,7 @@ class Notifications extends Table
         $query = $this->getAdapter()->select()->from(['n' => $this->_name])
             ->joinLeft(['u' => $this->_dbprefix.'users'], 'n.ref_userid=u.userid', ['name', 'username'])
             ->joinLeft(['pi' => $this->_dbprefix.'gallery_images'], 'pi.id = u.profileImage', ['filename AS pimg', 'albumid AS palbumid'])
-            ->where('n.userid=?', $_SESSION['user']->userid)
+            ->where('n.userid=?', Session::get('user')->userid)
             ->order('n.unread DESC')
             ->limit(5);
         $res = $this->getAdapter()->fetchAll($query);

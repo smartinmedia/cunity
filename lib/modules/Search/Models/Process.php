@@ -38,6 +38,7 @@ namespace Cunity\Search\Models;
 
 use Cunity\Core\Models\Db\Table\Users;
 use Cunity\Core\Request\Post;
+use Cunity\Core\Request\Session;
 
 /**
  * Class Process.
@@ -90,15 +91,15 @@ class Process
             if (!empty($hits)) {
                 $results = [];
                 foreach ($hits as $hit) {
-                    if ($hit->username != $_SESSION['user']->username) {
+                    if ($hit->username != Session::get('user')->username) {
                         $results[] = $hit->username;
                     }
                 }
                 if (!empty($results)) {
                     /** @var Users $users */
-                    $users = $_SESSION['user']->getTable();
+                    $users = Session::get('user')->getTable();
                     if (Post::get('friends') !== null) {
-                        $friends = $_SESSION['user']->getFriendList();
+                        $friends = Session::get('user')->getFriendList();
                         if (empty($friends)) {
                             return ['queryString' => $queryString, 'users' => []];
                         } else {

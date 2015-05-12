@@ -4,6 +4,7 @@ namespace Cunity\Core\Access;
 
 use Cunity\Core\Exceptions\UnknownUser;
 use Cunity\Core\Models\Db\Row\User;
+use Cunity\Core\Request\Session;
 
 /**
  * Class UserAccess.
@@ -18,7 +19,7 @@ class UserAccess
     public static function profilePublic(User $user)
     {
         if ($user->userid === null) {
-            $user = $_SESSION['user'];
+            $user = Session::get('user');
         }
 
         switch ($user->groupid) {

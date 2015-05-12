@@ -38,6 +38,7 @@ namespace Cunity\Friends\Models\Generator;
 
 use Cunity\Core\Cunity;
 use Cunity\Core\Models\Db\Adapter\Mysqli;
+use Cunity\Core\Request\Session;
 use Zend_Db_Expr;
 
 /**
@@ -59,12 +60,12 @@ class FriendQuery
         if ($settings->getSetting('register.allfriends')) {
             return new Zend_Db_Expr(Cunity::get('db')->select()
                 ->from(Mysqli::getDbprefix().'users', 'userid')
-                ->where('userid!=?', $_SESSION['user']->userid));
+                ->where('userid!=?', Session::get('user')->userid));
         } else {
             return new Zend_Db_Expr(Cunity::get('db')->select()
-                ->from(Mysqli::getDbprefix().'relations', new Zend_Db_Expr('(CASE WHEN sender = '.$_SESSION['user']->userid.' THEN receiver WHEN receiver = '.$_SESSION['user']->userid.' THEN sender END)'))
+                ->from(Mysqli::getDbprefix().'relations', new Zend_Db_Expr('(CASE WHEN sender = '.Session::get('user')->userid.' THEN receiver WHEN receiver = '.Session::get('user')->userid.' THEN sender END)'))
                 ->where('status'.$status)
-                ->where('sender=? OR receiver=?', $_SESSION['user']->userid));
+                ->where('sender=? OR receiver=?', Session::get('user')->userid));
         }
     }
 }
