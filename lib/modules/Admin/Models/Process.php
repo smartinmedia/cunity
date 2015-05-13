@@ -225,7 +225,6 @@ class Process
                 break;
         }
 
-        /* @var Table $object */
         $this->sendResponse();
     }
 }
