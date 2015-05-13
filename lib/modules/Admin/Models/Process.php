@@ -94,7 +94,7 @@ class Process
                 break;
             case 'config':
                 $config = new \Zend_Config_Xml('../data/config.xml');
-                $configWriter = new \Zend_Config_Writer_Xml(['config' => new \Zend_Config(self::arrayMergeRecursiveDistinct($config->toArray(), Post::get('config'))), 'filename' => '../data/config.xml']);
+                $configWriter = new \Zend_Config_Writer_Xml(['config' => new \Zend_Config(self::arrayMergeRecursiveDistinct($config->toArray(), Post::get('config', []))), 'filename' => '../data/config.xml']);
                 $configWriter->write();
                 break;
             case 'mailtemplates':

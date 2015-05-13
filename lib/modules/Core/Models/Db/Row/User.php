@@ -124,7 +124,7 @@ class User extends \Zend_Db_Table_Row_Abstract
         } elseif (Post::get('field') !== null) {
             $profileFieldsUser = new ProfileFieldsUsers([], $this);
 
-            return $profileFieldsUser->update(Post::get('field'), '');
+            return $profileFieldsUser->update(Post::get('field', []), '');
         } else {
             return parent::save();
         }

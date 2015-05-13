@@ -75,7 +75,7 @@ class Process
             $register->renderErrors();
         } else {
             $users = new Users();
-            if ($users->registerNewUser(Post::get())) {
+            if ($users->registerNewUser(Post::get(null, []))) {
                 $view = new Registration();
                 $view->assign('success', true);
                 $view->render();

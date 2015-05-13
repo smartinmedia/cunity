@@ -104,7 +104,7 @@ class Settings extends PageAbstract
                 break;
             case 'addPage':
                 $pages = new Pages();
-                $res = $pages->addPage(Request::get());
+                $res = $pages->addPage(Request::get(null, []));
                 $page = $pages->getPage($res);
                 $this->view->setStatus($res !== null && $res !== false);
                 $page->content = html_entity_decode($page->content);

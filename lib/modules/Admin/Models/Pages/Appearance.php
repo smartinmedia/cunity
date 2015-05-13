@@ -73,7 +73,7 @@ class Appearance extends PageAbstract
                 break;
             case 'addMenuItem':
                 $menu = new Menu();
-                $res = $menu->addMenuItem(Post::get());
+                $res = $menu->addMenuItem(Post::get(null, []));
                 $view->addData(['data' => $res]);
                 $view->sendResponse();
                 break;

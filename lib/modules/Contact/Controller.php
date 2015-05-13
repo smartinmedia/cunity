@@ -36,6 +36,7 @@
 
 namespace Cunity\Contact;
 
+use Cunity\Core\Models\Db\Row\User;
 use Cunity\Core\ModuleController;
 use Cunity\Core\Request\Get;
 use Cunity\Core\Request\Session;
@@ -61,7 +62,7 @@ class Controller extends ModuleController
         if (Get::get('action') !== null || Get::get('action') == '') {
             new View\ContactForm();
         } elseif (Get::get('action') !== null && Get::get('action') == 'sendContact') {
-            new Models\ContactForm(Session::get('user'));
+            new Models\ContactForm(Session::get('user', new User()));
         }
     }
 }

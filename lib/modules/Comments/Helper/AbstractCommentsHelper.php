@@ -101,7 +101,7 @@ abstract class AbstractCommentsHelper
      */
     protected function get()
     {
-        $res = $this->table->get(Post::get('ref_id'), Post::get('ref_name'), Post::get('last'), Post::get('limit'));
+        $res = $this->table->get(Post::get('ref_id'), Post::get('ref_name'), Post::get('last', true), Post::get('limit'));
         $this->view->setStatus($res !== false);
         $this->view->addData(['comments' => $res]);
     }

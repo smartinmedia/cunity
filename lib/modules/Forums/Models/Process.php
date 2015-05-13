@@ -360,7 +360,7 @@ class Process
     private function postReply()
     {
         $posts = new Posts();
-        $res = $posts->post(Post::get());
+        $res = $posts->post(Post::get(null, []));
         $view = new View(false);
         if ($res !== false) {
             $view->setStatus(true);

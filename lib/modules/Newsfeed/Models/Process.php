@@ -109,13 +109,13 @@ class Process
     {
         if (Post::get('wall_owner_id') === null || Post::get('wall_owner_id') == 0) {
             $newsfeed = new Db\Table\Walls();
-            $res = $newsfeed->getNewsfeed(Post::get('offset'), Post::get('refresh'), Post::get('filter'));
+            $res = $newsfeed->getNewsfeed(Post::get('offset'), Post::get('refresh'), Post::get('filter', []));
             $view = new View(true);
             $view->addData(['posts' => $res]);
             $view->sendResponse();
         } elseif (Post::get('wall_owner_id') !== null && Post::get('wall_owner_id') > 0 && isset($_POST['wall_owner_type']) && !empty($_POST['wall_owner_type'])) {
             $newsfeed = new Db\Table\Walls();
-            $res = $newsfeed->getWall(Post::get('wall_owner_id'), $_POST['wall_owner_type'], Post::get('offset'), Post::get('refresh'), Post::get('filter'));
+            $res = $newsfeed->getWall(Post::get('wall_owner_id'), $_POST['wall_owner_type'], Post::get('offset'), Post::get('refresh'), Post::get('filter', []));
             $view = new View(true);
             $view->addData(['posts' => $res]);
             $view->sendResponse();

@@ -14,9 +14,9 @@ abstract class Request
 
     /**
      * @param null $parameter
-     * @param null $returnValue
+     * @param null|mixed $returnValue
      *
-     * @return null
+     * @return mixed|null
      */
     public static function get($parameter = null, $returnValue = null)
     {
