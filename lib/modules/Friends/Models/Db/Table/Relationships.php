@@ -186,7 +186,7 @@ class Relationships extends Table
         if (!empty($friends)) {
             $users = new Users();
 
-            return $users->getSet($friends, 'u.userid', ['u.userid', 'u.username', 'u.name'])->toArray();
+            return $users->getSet($friends, 'u.userid')->toArray();
         }
 
         return;

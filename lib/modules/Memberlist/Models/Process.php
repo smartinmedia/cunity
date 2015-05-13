@@ -51,7 +51,7 @@ class Process
     {
         $table = new Users();
 
-        $result = $table->getSet([], 'userid', ['username', 'name', 'userid']);
+        $result = $table->getSet([], 'userid');
         $view = new View($result !== null);
         $view->addData(['result' => $result->toArray()]);
         $view->sendResponse();

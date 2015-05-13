@@ -71,7 +71,7 @@ class Conversation
         }
         $table->markAsRead(Get::get('action'));
         if (!empty($users)) {
-            $conversation['users'] = $userTable->getSet($users, 'u.userid', ['u.userid', 'u.username', 'u.name'])->toArray();
+            $conversation['users'] = $userTable->getSet($users, 'u.userid')->toArray();
             $usernames = '';
             foreach ($conversation['users'] as $user) {
                 $usernames .= $user['name'].',';

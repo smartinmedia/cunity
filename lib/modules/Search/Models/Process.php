@@ -106,7 +106,7 @@ class Process
                             $userresult = $users->getSet($results, 'u.username');
                         }
                     } else {
-                        $userresult = $users->getSet($results, 'u.username', ['u.userid', 'u.username', 'u.name']);
+                        $userresult = $users->getSet($results, 'u.username');
                     }
 
                     return ['queryString' => $queryString, 'users' => $userresult->toArray()];
