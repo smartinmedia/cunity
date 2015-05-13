@@ -168,7 +168,7 @@ class ProfileEdit
                 $res = $pins->insert(['userid' => $this->user->userid, 'title' => Post::get('title'), 'content' => Post::get('content'), 'type' => Post::get('type'), 'iconclass' => Post::get('iconClass')]);
             }
             $view = new View(true);
-            $view->addData(['title' => Post::get('title'), 'type' => Post::get('type'), 'content' => htmlspecialchars_decode(Post::get('content')), 'iconclass' => Post::get('iconClass'), 'id' => $res, 'updated' => isset(Post::get('editPin'))]);
+            $view->addData(['title' => Post::get('title'), 'type' => Post::get('type'), 'content' => htmlspecialchars_decode(Post::get('content')), 'iconclass' => Post::get('iconClass'), 'id' => $res, 'updated' => (Post::get('editPin') !== null)]);
             $view->sendResponse();
         }
     }
