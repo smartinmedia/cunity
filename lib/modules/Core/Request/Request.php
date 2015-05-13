@@ -13,20 +13,23 @@ abstract class Request
     protected static $requestArray = '_REQUEST';
 
     /**
-     * @param $parameter
+     * @param null $parameter
+     * @param null $returnValue
      *
-     * @return mixed
+     * @return null
      */
-    public static function get($parameter = null)
+    public static function get($parameter = null, $returnValue = null)
     {
         $array = static::$requestArray;
         global ${$array};
 
         if ($parameter === null) {
-            return ${$array};
+            if (count(${$array}) === 0) {
+                return $returnValue;
+            } else {
+                return ${$array};
+            }
         }
-
-        $returnValue = null;
 
         if (array_key_exists($parameter, ${$array})) {
             $returnValue = ${$array}[$parameter];

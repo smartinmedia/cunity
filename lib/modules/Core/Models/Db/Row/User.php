@@ -121,7 +121,7 @@ class User extends \Zend_Db_Table_Row_Abstract
             $searchindex = new Process();
 
             return $result && $searchindex->updateUser($currentUsername, $this->username, $this->firstname.' '.$this->lastname);
-        } elseif (array_key_exists('field', Post::get())) {
+        } elseif (Post::get('field') !== null) {
             $profileFieldsUser = new ProfileFieldsUsers([], $this);
 
             return $profileFieldsUser->update(Post::get('field'), '');

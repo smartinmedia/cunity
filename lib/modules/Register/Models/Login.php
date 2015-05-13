@@ -79,7 +79,9 @@ class Login
      */
     public static function loggedIn()
     {
-        return (Session::get('loggedIn') === true && Session::get('user') instanceof User);
+        $user = (Session::get('loggedIn') === true && Session::get('user') instanceof User);
+
+        return $user;
     }
 
     /**

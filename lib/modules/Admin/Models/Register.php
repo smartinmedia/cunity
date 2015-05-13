@@ -79,7 +79,7 @@ class Register
         if (!$this->validateForm()) {
             $this->renderErrors();
         } else {
-            if ($this->_users->add(Post::get())) {
+            if ($this->_users->add(Post::get(null, []))) {
                 $view = new Registration();
                 $view->assign('success', true);
                 $view->render();

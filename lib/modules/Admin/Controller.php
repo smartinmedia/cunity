@@ -62,7 +62,7 @@ class Controller extends ModuleController
                 case 'save':
                 case 'delete':
                 case 'insert':
-                    new Models\Process($_REQUEST['form'], $action);
+                    new Models\Process(\Cunity\Core\Request\Request::get('form'), $action);
                     break;
                 default:
                     $model = "\Cunity\Admin\Models\\Pages\\".ucfirst($action);

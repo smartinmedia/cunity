@@ -65,7 +65,7 @@ class Register
     {
         $error_messages = [];
         $view = new ResetPassword();
-        if (Post::get() !== '') {
+        if (Post::get() !== null) {
             $users = new Users();
             $user = $users->search('email', Post::get('email'));
             if ($user !== null) {

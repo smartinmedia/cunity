@@ -84,7 +84,7 @@ class Process
         switch ($form) {
             case 'settings':
             case 'headline':
-                foreach (Post::get() as $key => $value) {
+                foreach (Post::get(null, []) as $key => $value) {
                     if (strpos($key, 'settings-') !== false) {
                         $setting = explode('-', $key);
                         $settings = \Cunity\Core\Cunity::get('settings');

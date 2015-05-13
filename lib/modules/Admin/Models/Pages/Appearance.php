@@ -51,7 +51,7 @@ class Appearance extends PageAbstract
      */
     public function __construct()
     {
-        if (Post::get() !== null && Post::get() !== '') {
+        if (Post::get() !== null) {
             $this->handleRequest();
         } else {
             $this->loadData();

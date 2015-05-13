@@ -106,7 +106,7 @@ class Users extends Table
             'lastname' => $data['lastname'],
         ]);
 
-        if (array_key_exists('field', Post::get())) {
+        if (Post::get('field') !== null) {
             $profileFieldsUser = new ProfileFieldsUsers([], $this->search('userid', $result));
             $profileFieldsUser->update($_REQUEST['field'], '');
         }
