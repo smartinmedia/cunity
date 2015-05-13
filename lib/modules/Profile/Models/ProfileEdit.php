@@ -121,7 +121,7 @@ class ProfileEdit
             $this->user->titleImage = 0;
         }
         if ($this->user->save()) {
-            $view = new View(true);
+            $view = new \Cunity\Core\View\Ajax\View(true);
             $view->sendResponse();
         }
     }
@@ -183,7 +183,7 @@ class ProfileEdit
             $result = $this->generateResult($result);
             $settings = new NotificationSettings();
             $res = $settings->updateSettings($result);
-            $view = new View($res);
+            $view = new \Cunity\Core\View\Ajax\View($res);
 
             if ($res) {
                 $message = $view->translate('Notification settings changed successfully!');
@@ -214,7 +214,7 @@ class ProfileEdit
      */
     private function general()
     {
-        $view = new View();
+        $view = new \Cunity\Core\View\Ajax\View();
         $this->message = [];
         $this->getUserName(new Username());
         $this->validateEmail(new Email());
@@ -244,7 +244,7 @@ class ProfileEdit
     private function changePassword()
     {
         $status = false;
-        $view = new View();
+        $view = new \Cunity\Core\View\Ajax\View();
         if (sha1(Post::get('old-password').$this->user->salt) === $this->user->password) {
             if (Post::get('new-password') === Post::get('new-password-rep')) {
                 $this->user->password = sha1(Post::get('new-password').$this->user->salt);
@@ -270,7 +270,7 @@ class ProfileEdit
         if (Post::get('privacy') !== null && is_array(Post::get('privacy'))) {
             $table = new Db\Table\Privacy();
             $res = $table->updatePrivacy($this->user->userid, Post::get('privacy'));
-            $view = new View();
+            $view = new \Cunity\Core\View\Ajax\View();
             $view->setStatus($res);
 
             if ($res) {
