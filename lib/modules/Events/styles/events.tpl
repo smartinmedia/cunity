@@ -15,7 +15,7 @@
 <div class="calendar-head clearfix">
     <button class="btn btn-primary pull-left" data-calendar-nav="prev" id="prev"><i class="fa fa-chevron-left"></i><span
                 class="visible-md">&nbsp;{-"Prev"|translate}</span></button>
-    <h2 class="calendar-month pull-left">April 2014</h2>
+    <h2 class="calendar-month pull-left">{-$smarty.now|date_format:"%B"} {-$smarty.now|date_format:"%Y"}</h2>
     <button class="btn btn-primary pull-right" data-calendar-nav="next" id="next"><span
                 class="visible-md">{-"Next"|translate}
             &nbsp;</span><i class="fa fa-chevron-right"></i></button>
