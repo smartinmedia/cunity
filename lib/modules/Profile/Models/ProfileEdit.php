@@ -292,7 +292,7 @@ class ProfileEdit
         $gimg = new GalleryImages();
         $result = $gimg->uploadProfileImage();
         if ($result !== false) {
-            $view = new View(true);
+            $view = new \Cunity\Core\View\Ajax\View(true);
             $view->addData($result);
             $view->sendResponse();
         } else {

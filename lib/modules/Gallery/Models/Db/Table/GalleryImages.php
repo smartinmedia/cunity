@@ -155,7 +155,7 @@ class GalleryImages extends Table
             } else {
                 list($owner_id, $owner_type) = $uploader_data;
             }
-            $imageid = $this->insert(['owner_id' => $owner_id, 'owner_type' => $owner_type, 'albumid' => $albumid, 'filename' => $file, 'caption' => (Post::get('content') !== '') ? Post::get('content') : '']);
+            $imageid = $this->insert(['owner_id' => $owner_id, 'owner_type' => $owner_type, 'albumid' => $albumid, 'filename' => $file, 'caption' => (Post::get('content', '') !== '') ? Post::get('content') : '']);
             if ($newsfeed_post) {
                 $posts = new Posts();
 
