@@ -76,7 +76,7 @@ class Controller extends ModuleController
      */
     private function handleRequest()
     {
-        if (Get::get('action') === null || Get::get('action') === '') {
+        if (!Get::hasAction()) {
             new View\Inbox();
         } elseif (Get::hasAction() &&
             in_array(Get::get('action'), $this->_allowedActions)

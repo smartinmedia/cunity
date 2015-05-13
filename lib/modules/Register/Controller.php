@@ -79,7 +79,7 @@ class Controller extends ModuleController
             exit();
         }
 
-        if (Get::get('action') === null || Get::get('action') === '') {
+        if (!Get::hasAction()) {
             $view = new View\Registration();
             $view->assign('success', false);
             $view->render();

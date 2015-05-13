@@ -60,7 +60,7 @@ class Controller extends ModuleController
      */
     private function handleRequest()
     {
-        if (Get::get('q') !== null && Get::get('q') !== '' && Get::get('action') === '') {
+        if (Get::get('q') !== null && Get::get('q') !== '' && Get::hasAction()) {
             new Searchresults();
         } elseif (Get::get('action') === 'livesearch') {
             $process = new Models\Process();

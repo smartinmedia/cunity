@@ -235,7 +235,7 @@ class Process
      */
     private function cropImage()
     {
-        if (Get::get('action') === null || Get::get('x') === '') {
+        if (!Get::hasAction()) {
             throw new PageNotFound();
         }
         $imageid = Get::get('x');
