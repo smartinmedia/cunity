@@ -45,6 +45,7 @@ use Cunity\Core\Models\Db\Table\Modules;
 use Cunity\Core\Models\Db\Table\Newsletter;
 use Cunity\Core\Models\Db\Table\Users;
 use Cunity\Core\Request\Post;
+use Cunity\Core\Request\Request;
 use Cunity\Core\View\Ajax\View;
 use Cunity\Profile\Models\Db\Table\ProfileFields;
 use Cunity\Profile\Models\Db\Table\ProfileFieldsValues;
@@ -104,7 +105,7 @@ class Process
                 break;
             case 'modules':
                 $modules = new Modules();
-                $modules->update(['status' => Post::get('status')], 'id = '.Post::get('id'));
+                $modules->update(['status' => Post::get('status')], 'id = ' . Post::get('id'));
                 break;
             case 'update':
                 UpdateHelper::update();
@@ -112,14 +113,14 @@ class Process
             case 'users':
                 $users = new Users();
 
-                if (null !== $_REQUEST['userid']) {
-                    if ('' !== $_REQUEST['groupid']) {
-                        $users->update(['groupid' => $_REQUEST['groupid']], 'userid = '.$_REQUEST['userid']);
+                if (Request::get('userid') !== null) {
+                    if (Request::get('groupid') !== null) {
+                        $users->update(['groupid' => Request::get('groupid')], 'userid = ' . Request::get('userid'));
                     } else {
-                        $users->delete('userid = '.$_REQUEST['userid']);
+                        $users->delete('userid = ' . Request::get('userid'));
                     }
                 } else {
-                    $users->registerNewUser($_REQUEST);
+                    $users->registerNewUser(Request::get(null, []));
                 }
                 break;
         }
@@ -176,7 +177,7 @@ class Process
 
         if ($object instanceof Table) {
             /* @var Table $object */
-            $object->delete($primary.' = '.$_REQUEST['id']);
+            $object->delete($primary . ' = ' . Request::get('id'));
         }
 
         $this->sendResponse();
@@ -200,8 +201,8 @@ class Process
         switch ($form) {
             case 'profilefields':
                 $object = new ProfileFields();
-                $newId = $object->insert($_REQUEST);
-                $possibleValues = explode(',', $_REQUEST['possiblevalues']);
+                $newId = $object->insert(Request::get(null, []));
+                $possibleValues = explode(',', Request::get('possiblevalues'));
                 $sorting = 1;
 
                 foreach ($possibleValues as $_value) {
@@ -212,14 +213,14 @@ class Process
 
                 break;
             case 'newsletter':
-                NewsletterHelper::sendMails($_REQUEST['subject'], $_REQUEST['message'], ($_REQUEST['type'] === 'test'));
+                NewsletterHelper::sendMails(Request::get('subject'), Request::get('message'), (Request::get('type') === 'test'));
 
-                if ($_REQUEST['type'] !== 'test') {
+                if (Request::get('type') !== 'test') {
                     $object = new Newsletter();
                 }
             default:
                 if (is_object($object)) {
-                    $object->insert($_REQUEST);
+                    $object->insert(Request::get(null, []));
                 }
                 break;
         }
