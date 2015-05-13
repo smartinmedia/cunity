@@ -22,11 +22,17 @@ abstract class AbstractFile
      */
     public function __construct($options)
     {
+        if ($options instanceof \Zend_Config) {
+            $options = $options->toArray();
+        }
+
         if (!is_array($options)) {
             throw new Zend_Filter_Exception(
                 'Invalid options argument provided to filter'
             );
         }
+
+        return $options;
     }
 
     /**

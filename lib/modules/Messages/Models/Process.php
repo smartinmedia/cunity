@@ -137,7 +137,7 @@ class Process
      */
     private function invite()
     {
-        if (isset(Post::get('receiver')) && !empty(Post::get('receiver'))) {
+        if (Post::hasAction()) {
             $conv = new Db\Table\Conversations();
             $result = $conv->addUsersToConversation(Post::get('conversation_id'), Post::get('receiver'), true);
             $view = new View($result);
