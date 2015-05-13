@@ -408,7 +408,8 @@ $installer = new Install();
                 </form>
             </div>
         </div>
-    <?php 
+    <?php
+
 } else {
     ?>
         <div class="container" id="installation-container">
@@ -985,7 +986,8 @@ Refund Policy<br />
                 </div>
             </div>
         </div>
-    <?php 
+    <?php
+
 } ?>
     <footer>
         <small class="copyright">Powered by <a href="http://cunity.net/" target="_blank">Cunity</a></small>

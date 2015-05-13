@@ -13,7 +13,7 @@ abstract class Request
     protected static $requestArray = '_REQUEST';
 
     /**
-     * @param null $parameter
+     * @param null       $parameter
      * @param null|mixed $returnValue
      *
      * @return mixed|null

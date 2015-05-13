@@ -110,7 +110,6 @@ class Gd extends
      */
     public function crop($x, $y, $x1, $y1, $file, $target, $thumbwidth)
     {
-        /* @noinspection PhpUnusedLocalVariableInspection */
         list(, , $type) = getimagesize($file);
 
         $source = false;
