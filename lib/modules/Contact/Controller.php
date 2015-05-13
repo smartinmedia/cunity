@@ -61,7 +61,7 @@ class Controller extends ModuleController
     {
         if (Get::get('action') !== null || Get::get('action') == '') {
             new View\ContactForm();
-        } elseif (Get::get('action') !== null && Get::get('action') == 'sendContact') {
+        } elseif (Get::get('action') == 'sendContact') {
             new Models\ContactForm(Session::get('user', new User()));
         }
     }

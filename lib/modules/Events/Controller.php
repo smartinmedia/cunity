@@ -76,8 +76,7 @@ class Controller extends ModuleController
         if (Get::get('action') === null || Get::get('action') == '') {
             new View\Events();
         } elseif (
-            Get::get('action') !== null &&
-            Get::get('action') !== '' &&
+            Get::hasAction() &&
             in_array(
                 Get::get('action'),
                 $this->_allowedActions

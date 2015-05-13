@@ -13,7 +13,7 @@ abstract class Request
     protected static $requestArray = '_REQUEST';
 
     /**
-     * @param null       $parameter
+     * @param null $parameter
      * @param null|mixed $returnValue
      *
      * @return mixed|null
@@ -48,5 +48,16 @@ abstract class Request
         global ${$array};
 
         ${$array}[$parameter] = $value;
+    }
+
+    /**
+     * @return bool
+     */
+    public static function hasAction()
+    {
+        $array = static::$requestArray;
+        global ${$array};
+
+        return (array_key_exists('action', ${$array}) && ${$array}['action'] !== '');
     }
 }

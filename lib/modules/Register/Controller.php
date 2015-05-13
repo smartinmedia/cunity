@@ -75,7 +75,7 @@ class Controller extends ModuleController
         if (Models\Login::loggedIn() &&
             Get::get('action') !== 'logout'
         ) {
-            header('Location:'.Url::convertUrl('index.php?m=profile'));
+            header('Location:' . Url::convertUrl('index.php?m=profile'));
             exit();
         }
 
@@ -84,8 +84,7 @@ class Controller extends ModuleController
             $view->assign('success', false);
             $view->render();
         } elseif (
-            Get::get('action') !== null &&
-            Get::get('action') !== '' &&
+            Get::hasAction() &&
             in_array(
                 Get::get('action'),
                 $this->_allowedActions

@@ -99,7 +99,7 @@ class Profile
     {
         /** @var Users $users */
         $users = Session::get('user')->getTable();
-        if (Get::get('action') !== null && Get::get('action') !== '') {
+        if (Get::hasAction()) {
             $result = $users->get(Get::get('action'), 'username');
             if (!$result instanceof User || $result['name'] === null) {
                 throw new UnknownUser();

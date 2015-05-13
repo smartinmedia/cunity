@@ -76,18 +76,14 @@ class Controller extends ModuleController
         if (Get::get('action') === null || Get::get('action') === '') {
             new View\Albums();
         } elseif (
-            Get::get('action') !== null &&
-            Get::get('action') !== '' &&
+            Get::hasAction() &&
             in_array(
                 Get::get('action'),
                 $this->_allowedActions
             )
         ) {
             new Models\Process(Get::get('action'));
-        } elseif (
-            Get::get('action') !== null &&
-            Get::get('action') !== ''
-        ) {
+        } elseif (Get::hasAction()) {
             new Models\Process('loadAlbum');
         }
     }
