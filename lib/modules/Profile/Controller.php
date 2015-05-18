@@ -37,9 +37,8 @@
 namespace Cunity\Profile;
 
 use Cunity\Core\ModuleController;
+use Cunity\Core\Request\Get;
 use Cunity\Core\Request\Session;
-use Cunity\Core\View\View;
-use Cunity\Profile\View\Profile;
 use Cunity\Register\Models\Login;
 
 /**
@@ -48,40 +47,25 @@ use Cunity\Register\Models\Login;
 class Controller extends ModuleController
 {
     /**
-     * @var View
-     */
-    protected $view;
-
-    /**
      *
      */
     public function __construct()
     {
         Login::loginRequired();
-        parent::__construct();
-        $this->view = new Profile();
+        $this->handleRequest();
     }
 
     /**
      *
      */
-    public function overview()
+    private function handleRequest()
     {
-    }
-
-    /**
-     *
-     */
-    public function edit()
-    {
-        $this->view = new Models\ProfileEdit(Session::get('user'));
-    }
-
-    /**
-     *
-     */
-    public function cropImage()
-    {
-        $this->view = new Models\ProfileEdit(Session::get('user'));
+        if (Get::get('action') == 'edit' ||
+            Get::get('action') == 'cropImage'
+        ) {
+            new Models\ProfileEdit(Session::get('user'));
+        } else {
+            new Models\Profile();
+        }
     }
 }
