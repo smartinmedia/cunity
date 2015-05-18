@@ -23,7 +23,7 @@ abstract class Request
         $array = static::$requestArray;
         global ${$array};
 
-        if ($parameter === null) {
+        if ($parameter === null || !is_array(${$array})) {
             if (count(${$array}) === 0) {
                 return $returnValue;
             } else {
