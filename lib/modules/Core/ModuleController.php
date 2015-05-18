@@ -36,11 +36,66 @@
 
 namespace Cunity\Core;
 
+use Cunity\Core\Request\Request;
+use Cunity\Core\Exceptions\ActionNotFound;
+use Cunity\Core\View\Ajax\View;
+use Cunity\Filesharing\View\Filesharing;
+
 /**
  * Interface ModuleController.
  */
 abstract class ModuleController
 {
+    /**
+     * @var string
+     */
+    protected $action = 'overview';
+
+    /**
+     * @var bool
+     */
+    protected $isAjax = false;
+
+    /**
+     * @var bool
+     */
+    protected $status = false;
+
+    /**
+     * @var \Cunity\Core\View\View
+     */
+    protected $view;
+
+    /**
+     * @var bool
+     */
+    protected $useOldStructure = true;
+
+    /**
+     *
+     */
+    public function __construct()
+    {
+        $this->useOldStructure = false;
+
+        if (Request::hasAction()) {
+            $this->action = Request::get('action');
+        }
+
+        $action = $this->action;
+        $this->$action();
+    }
+
+    /**
+     * @param $name
+     * @param $arguments
+     * @throws ActionNotFound
+     */
+    public function __call($name, $arguments)
+    {
+        throw new ActionNotFound();
+    }
+
     /**
      * @param $user
      *
@@ -57,5 +112,20 @@ abstract class ModuleController
      */
     public static function onUnregister($user)
     {
+    }
+
+    /**
+     *
+     */
+    public function __destruct()
+    {
+        if (!$this->useOldStructure) {
+            if ($this->isAjax) {
+                $view = new View($this->status);
+                $view->sendResponse();
+            } else {
+                $this->view->show();
+            }
+        }
     }
 }
