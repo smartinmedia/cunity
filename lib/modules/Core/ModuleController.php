@@ -39,7 +39,6 @@ namespace Cunity\Core;
 use Cunity\Core\Request\Request;
 use Cunity\Core\Exceptions\ActionNotFound;
 use Cunity\Core\View\Ajax\View;
-use Cunity\Filesharing\View\Filesharing;
 
 /**
  * Interface ModuleController.
