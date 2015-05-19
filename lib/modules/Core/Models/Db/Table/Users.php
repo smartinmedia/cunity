@@ -150,8 +150,6 @@ class Users extends Table
      * @param bool   $includeOwn
      *
      * @return \Zend_Db_Table_Rowset_Abstract
-     *
-     * @internal param array $fields
      */
     public function getSet(array $values, $key = 'u.userid', $includeOwn = false)
     {
