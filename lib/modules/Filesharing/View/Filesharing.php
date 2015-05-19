@@ -39,7 +39,7 @@ namespace Cunity\Filesharing\View;
 use Cunity\Core\View\View;
 
 /**
- * Class Board.
+ * Class Filesharing.
  */
 class Filesharing extends View
 {
