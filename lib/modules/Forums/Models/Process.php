@@ -242,7 +242,7 @@ class Process
      */
     private function category()
     {
-        if (!isset(Get::get('x')) || empty(Get::get('x'))) {
+        if (Get::get('x', '') == '') {
             throw new PageNotFound();
         }
         $cat = new Categories();
