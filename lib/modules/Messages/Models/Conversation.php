@@ -4,11 +4,11 @@
  * ########################################################################################
  * ## CUNITY(R) V2.0 - An open source social network / "your private social network"     ##
  * ########################################################################################
- * ##  Copyright (C) 2011 - 2014 Smart In Media GmbH & Co. KG                            ##
+ * ##  Copyright (C) 2011 - 2015 Smart In Media GmbH & Co. KG                            ##
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -36,16 +36,16 @@
 
 namespace Cunity\Messages\Models;
 
+use Cunity\Core\Exceptions\NotAllowed;
 use Cunity\Core\Models\Db\Table\Users;
-use Cunity\Core\View\PageNotFound;
+use Cunity\Core\Request\Get;
+use Cunity\Core\Request\Session;
 
 /**
- * Class Conversation
- * @package Cunity\Messages\Models
+ * Class Conversation.
  */
 class Conversation
 {
-
     /**
      *
      */
@@ -62,25 +62,25 @@ class Conversation
         $table = new Db\Table\Conversations();
         $userTable = new Users();
         $view = new \Cunity\Messages\View\Conversation();
-        $conversation = $table->loadConversationDetails($_GET['action']);
-        $users = explode(",", $conversation['users']);
-        if (!in_array($_SESSION['user']->userid, $users)) {
-            $view = new PageNotFound();
+        $conversation = $table->loadConversationDetails(Get::get('action'));
+        $users = explode(',', $conversation['users']);
+        if (!in_array(Session::get('user')->userid, $users)) {
+            throw new NotAllowed();
         } else {
-            unset($users[array_search($_SESSION['user']->userid, $users)]);
+            unset($users[array_search(Session::get('user')->userid, $users)]);
         }
-        $table->markAsRead($_GET['action']);
+        $table->markAsRead(Get::get('action'));
         if (!empty($users)) {
-            $conversation['users'] = $userTable->getSet($users, "u.userid", ["u.userid", "u.username", "u.name"])->toArray();
-            $usernames = "";
+            $conversation['users'] = $userTable->getSet($users, 'u.userid')->toArray();
+            $usernames = '';
             foreach ($conversation['users'] as $user) {
-                $usernames .= $user['name'] . ',';
+                $usernames .= $user['name'].',';
             }
-            $view->setMetaData(["title" => substr($usernames, 0, -1)]);
+            $view->setMetaData(['title' => substr($usernames, 0, -1)]);
         } else {
-            $view->setMetaData(["title" => "Conversation"]);
+            $view->setMetaData(['title' => 'Conversation']);
         }
-        $view->assign("conversation", $conversation);
+        $view->assign('conversation', $conversation);
         $view->show();
     }
 }

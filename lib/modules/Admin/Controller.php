@@ -4,11 +4,11 @@
  * ########################################################################################
  * ## CUNITY(R) V2.0 - An open source social network / "your private social network"     ##
  * ########################################################################################
- * ##  Copyright (C) 2011 - 2014 Smart In Media GmbH & Co. KG                            ##
+ * ##  Copyright (C) 2011 - 2015 Smart In Media GmbH & Co. KG                            ##
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -38,39 +38,38 @@ namespace Cunity\Admin;
 
 use Cunity\Core\Models\Request;
 use Cunity\Core\ModuleController;
+use Cunity\Core\Request\Get;
 use Cunity\Register\Models\Login;
 
 /**
- * Class Controller
- * @package Cunity\Admin
+ * Class Controller.
  */
 class Controller extends ModuleController
 {
-
     /**
      *
      */
     public function __construct()
     {
-        $action = $_GET['action'];
-        if (isset($action) && $action !== '') {
+        $action = Get::get('action');
+        if ($action !== null && $action !== '') {
             Login::loginRequired();
 
             switch ($action) {
                 case 'login':
-                    new Models\Login("login");
+                    new Models\Login('login');
                     break;
                 case 'save':
                 case 'delete':
                 case 'insert':
-                    new Models\Process($_REQUEST['form'], $action);
+                    new Models\Process(\Cunity\Core\Request\Request::get('form'), $action);
                     break;
                 default:
-                    $model = "\Cunity\Admin\Models\\Pages\\" . ucfirst($action);
+                    $model = "\Cunity\Admin\Models\\Pages\\".ucfirst($action);
                     if (!Models\Login::loggedIn()) {
                         new View\Login();
                     } elseif (Request::isAjaxRequest()) {
-                        new $model;
+                        new $model();
                     }
                     break;
             }

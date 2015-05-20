@@ -4,11 +4,11 @@
  * ########################################################################################
  * ## CUNITY(R) V2.0 - An open source social network / "your private social network"     ##
  * ########################################################################################
- * ##  Copyright (C) 2011 - 2014 Smart In Media GmbH & Co. KG                            ##
+ * ##  Copyright (C) 2011 - 2015 Smart In Media GmbH & Co. KG                            ##
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -36,20 +36,20 @@
 
 namespace Cunity\Admin\Models\Pages;
 
+use Cunity\Core\Models\Db\Table\Log;
+
 /**
- * Class Statistics
- * @package Cunity\Admin\Models\Pages
+ * Class Statistics.
  */
 class Statistics extends PageAbstract
 {
-
     /**
      *
      */
     public function __construct()
     {
         $this->loadData();
-        $this->render("statistics");
+        $this->render('statistics');
     }
 
     /**
@@ -69,5 +69,34 @@ class Statistics extends PageAbstract
         }
 
         $this->assignments['statisticdata'] = json_encode($statisticData);
+
+        $log = new Log();
+        $logData = $log->fetchAll(null, 'id desc')->toArray();
+
+        foreach ($logData as $index => $log) {
+            switch ($log['level']) {
+                case 'emergency':
+                case 'alert':
+                case 'critical':
+                case 'error':
+                    $logData[$index]['label'] = 'danger';
+                    break;
+                case 'warning':
+                    $logData[$index]['label'] = 'warning';
+                    break;
+                case 'notice':
+                case 'info':
+                    $logData[$index]['label'] = 'info';
+                    break;
+                case 'debug':
+                    $logData[$index]['label'] = 'info';
+                    break;
+                default:
+                    $logData[$index]['label'] = 'default';
+                    break;
+            }
+        }
+
+        $this->assignments['logdata'] = $logData;
     }
 }

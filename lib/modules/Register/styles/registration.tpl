@@ -94,25 +94,24 @@
                 <div class="col-lg-8">
                     <input type="text" {-if $field.required == 1}required="required"{-/if} class="form-control"
                            id="input-{-$field.id}"
-                           placeholder="{-$field.value|translate}" name="field[{-$field.id}]"
-                           value="{-$field.value}">
+                           placeholder="{-$field.value|translate}" name="field[{-$field.id}]">
                     {-elseif $field.type == 'email'}
                     <div class="col-lg-8">
                         <input type="email" {-if $field.required == 1}required="required"{-/if} class="form-control"
                                id="input-{-$field.id}"
-                               placeholder="{-$field.value|translate}" name="field[{-$field.id}]"
-                               value="{-$field.value}">
+                               placeholder="{-$field.value|translate}" name="field[{-$field.id}]">
                         {-elseif $field.type == 'bigtext'}
                         <div class="col-lg-8">
                             <textarea {-if $field.required == 1}required="required"{-/if} class="form-control"
                                       id="input-password-repeat"
                                       placeholder="{-$field.value|translate}"
-                                      name="{-$field.id}">{-$field.value}</textarea>
+                                      name="{-$field.id}"></textarea>
                             {-elseif $field.type == 'date'}
                             <div class="col-lg-7">
                                 <div class="input-group date datepicker" id="datepicker{-$field.id}">
                                     <input type="text" class="form-control" name="field[{-$field.id}]"
-                                           value="{-$field.value}"
+                                           value=""
+                                           {-if $field.required == 1}required="required"{-/if}
                                            readonly="readonly">
                         <span class="input-group-addon">
                             <span class="fa fa-calendar"></span>
@@ -127,7 +126,7 @@
                                 <label class="control-label col-lg-4">{-"Birthday"|translate}</label>
 
                                 <div class="col-lg-7">
-                                    <div class="input-group date datepicker" id="datepicker">
+                                    <div class="input-group date datepicker" id="datepicker-birthday">
                                         <input type="text" class="form-control" name="birthday" required="required"
                                                readonly="readonly">
                         <span class="input-group-addon">

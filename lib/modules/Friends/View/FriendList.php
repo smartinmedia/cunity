@@ -4,11 +4,11 @@
  * ########################################################################################
  * ## CUNITY(R) V2.0 - An open source social network / "your private social network"     ##
  * ########################################################################################
- * ##  Copyright (C) 2011 - 2014 Smart In Media GmbH & Co. KG                            ##
+ * ##  Copyright (C) 2011 - 2015 Smart In Media GmbH & Co. KG                            ##
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -39,38 +39,36 @@ namespace Cunity\Friends\View;
 use Cunity\Core\View\View;
 
 /**
- * Class FriendList
- * @package Cunity\Friends\View
+ * Class FriendList.
  */
 class FriendList extends View
 {
-
     /**
      * @var string
      */
-    protected $_templateDir = "friends";
+    protected $_templateDir = 'friends';
     /**
      * @var string
      */
-    protected $_templateFile = "friendslist.tpl";
+    protected $_templateFile = 'friendslist.tpl';
     /**
      * @var string
      */
-    protected $_languageFolder = "Friends/languages";
+    protected $_languageFolder = 'Friends/languages';
     /**
      * @var array
      */
-    protected $_metadata = ["title" => "My friends"];
+    protected $_metadata = ['title' => 'My friends'];
 
     /**
-     * @throws \Cunity\Core\Exception
+     * @throws \Cunity\Core\Exceptions\Exception
      * @throws \Exception
      */
     public function __construct()
     {
         parent::__construct();
-        $this->registerScript("friends", "friendslist");
-        $this->registerCss("friends", "friends");
+        $this->registerScript('friends', 'friendslist');
+        $this->registerCss('friends', 'friends');
         $this->show();
     }
 }

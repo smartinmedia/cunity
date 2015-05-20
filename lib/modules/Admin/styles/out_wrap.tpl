@@ -74,7 +74,7 @@
 
     </nav>
     <!-- /.navbar-static-top -->
-    {-if $isAdmin && $hasUpdate }<div class="alert alert-warning alert-dismissible" role="alert">New Update available</div>{-/if}
+    {-if $isAdmin && $hasUpdate }<div class="alert alert-warning alert-dismissible" role="alert">{-"New Update available"|translate}</div>{-/if}
     <nav class="navbar-default navbar-static-side" role="navigation">
         <div class="sidebar-collapse">
             <ul class="nav" id="side-menu">
@@ -127,26 +127,35 @@
                     <a data-cat="users" data-page="view"><i class="fa fa-group fa-fw"></i> {-"Userlist"|translate}</a>
                 </li>
                 <li>
-                    <a data-cat="mailing" data-page="contact"><i
-                                class="fa fa-envelope-o fa-fw"></i>&nbsp;{-"Messages"|translate}</a>
+                    <a href="#" class="dropdown"><i class="fa fa-envelope-o fa-fw"></i> {-"Messages"|translate}<span
+                                class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a data-cat="mailing" data-page="contact">{-"Messages"|translate}</a>
+                        </li>
+                        <li>
+                            <a data-cat="mailing" data-page="newsletter">{-"Newsletter"|translate}</a>
+                        </li>
+                    </ul>
+                    <!-- /.nav-second-level -->
                 </li>
                 <li>
                     <a data-cat="update" data-page="update"><i
                                 class="fa fa-undo fa-fw"></i>&nbsp;{-"Update"|translate}</a>
                 </li>
-                {-*<li>*}
-                    {-*<a href="#" class="dropdown"><i class="fa fa-bar-chart-o fa-fw"></i> {-"Statistics"|translate}<span*}
-                                {-*class="fa arrow"></span></a>*}
-                    {-*<ul class="nav nav-second-level">*}
+                <li>
+                    <a href="#" class="dropdown"><i class="fa fa-bar-chart-o fa-fw"></i> {-"Statistics"|translate}<span
+                                class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
                         {-*<li>*}
                             {-*<a data-cat="statistics" data-page="reports">{-"Site Reports"|translate}</a>*}
                         {-*</li>*}
-                        {-*<li>*}
-                            {-*<a data-cat="statistics" data-page="logs">{-"Log"|translate}</a>*}
-                        {-*</li>*}
-                    {-*</ul>*}
-                    {-*<!-- /.nav-second-level -->*}
-                {-*</li>*}
+                        <li>
+                            <a data-cat="statistics" data-page="logs">{-"Log"|translate}</a>
+                        </li>
+                    </ul>
+                    <!-- /.nav-second-level -->
+                </li>
                 <li>
                     <a data-cat="cunity" data-page="about"><img
                                 src="{-"core.siteurl"|setting}style/CunityRefreshed/img/cunity-logo-26.png" width="16px"

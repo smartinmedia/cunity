@@ -4,11 +4,11 @@
  * ########################################################################################
  * ## CUNITY(R) V2.0 - An open source social network / "your private social network"     ##
  * ########################################################################################
- * ##  Copyright (C) 2011 - 2014 Smart In Media GmbH & Co. KG                            ##
+ * ##  Copyright (C) 2011 - 2015 Smart In Media GmbH & Co. KG                            ##
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -37,16 +37,16 @@
 namespace Cunity\Search;
 
 use Cunity\Core\ModuleController;
+use Cunity\Core\Request\Get;
+use Cunity\Core\Request\Post;
 use Cunity\Core\View\Ajax\View;
 use Cunity\Search\View\Searchresults;
 
 /**
- * Class Controller
- * @package Cunity\Search
+ * Class Controller.
  */
 class Controller extends ModuleController
 {
-
     /**
      *
      */
@@ -60,11 +60,11 @@ class Controller extends ModuleController
      */
     private function handleRequest()
     {
-        if (isset($_GET['q']) && !empty($_GET['q']) && empty($_GET['action'])) {
+        if (Get::get('q') !== null && Get::get('q') !== '' && Get::hasAction()) {
             new Searchresults();
-        } elseif (isset($_GET['action']) && $_GET['action'] == "livesearch") {
+        } elseif (Get::get('action') === 'livesearch') {
             $process = new Models\Process();
-            $result = $process->find($_POST['q']);
+            $result = $process->find(Post::get('q'));
             $view = new View();
             $view->setStatus(true);
             $view->addData($result);
@@ -74,6 +74,7 @@ class Controller extends ModuleController
 
     /**
      * @param $user
+     *
      * @return mixed|void
      */
     public static function onRegister($user)
@@ -85,6 +86,7 @@ class Controller extends ModuleController
 
     /**
      * @param $user
+     *
      * @return mixed|void
      */
     public static function onUnregister($user)

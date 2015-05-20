@@ -1,1 +1,1 @@
-<div class="alert alert-danger alert-block" style="margin:20px 10px"><h4 class="alert-heading">Fatal Error</h4><p>{-$MESSAGE}</p></div>
+<div class="alert alert-danger alert-block" style="margin:20px 10px"><h2 class="alert-heading">{-"Oops, that should not have happen"|translate}</h2><p>{-"There are no errors but the following issue accoured"|translate}:</p><p><h4>{-$CODE} - {-$MESSAGE}</h4></p></div>

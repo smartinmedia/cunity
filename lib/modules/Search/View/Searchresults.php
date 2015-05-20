@@ -4,11 +4,11 @@
  * ########################################################################################
  * ## CUNITY(R) V2.0 - An open source social network / "your private social network"     ##
  * ########################################################################################
- * ##  Copyright (C) 2011 - 2014 Smart In Media GmbH & Co. KG                            ##
+ * ##  Copyright (C) 2011 - 2015 Smart In Media GmbH & Co. KG                            ##
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -36,37 +36,36 @@
 
 namespace Cunity\Search\View;
 
+use Cunity\Core\Request\Get;
 use Cunity\Core\View\View;
 
 /**
- * Class Searchresults
- * @package Cunity\Search\View
+ * Class Searchresults.
  */
 class Searchresults extends View
 {
-
     /**
      * @var string
      */
-    protected $_templateDir = "search";
+    protected $_templateDir = 'search';
     /**
      * @var string
      */
-    protected $_templateFile = "searchresults.tpl";
+    protected $_templateFile = 'searchresults.tpl';
     /**
      * @var array
      */
-    protected $_metadata = ["title" => "Searchresults"];
+    protected $_metadata = ['title' => 'Searchresults'];
 
     /**
-     * @throws \Cunity\Core\Exception
+     * @throws \Cunity\Core\Exceptions\Exception
      * @throws \Exception
      */
     public function __construct()
     {
         parent::__construct();
-        $this->registerScript("search", "searchresults");
-        $this->assign("queryString", $_GET['q']);
+        $this->registerScript('search', 'searchresults');
+        $this->assign('queryString', Get::get('q'));
         $this->show();
     }
 

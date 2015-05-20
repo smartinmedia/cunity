@@ -4,11 +4,11 @@
  * ########################################################################################
  * ## CUNITY(R) V2.0 - An open source social network / "your private social network"     ##
  * ########################################################################################
- * ##  Copyright (C) 2011 - 2014 Smart In Media GmbH & Co. KG                            ##
+ * ##  Copyright (C) 2011 - 2015 Smart In Media GmbH & Co. KG                            ##
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -36,15 +36,64 @@
 
 namespace Cunity\Core;
 
+use Cunity\Core\Request\Request;
+use Cunity\Core\Exceptions\ActionNotFound;
+use Cunity\Core\View\Ajax\View;
+
 /**
- * Interface ModuleController
- * @package Cunity\Core
+ * Interface ModuleController.
  */
 abstract class ModuleController
 {
+    /**
+     * @var string
+     */
+    protected $action = 'overview';
+
+    /**
+     * @var bool
+     */
+    protected $status = false;
+
+    /**
+     * @var \Cunity\Core\View\View
+     */
+    protected $view;
+
+    /**
+     * @var bool
+     */
+    protected $useOldStructure = true;
+
+    /**
+     *
+     */
+    public function __construct()
+    {
+        $this->useOldStructure = false;
+
+        if (Request::hasAction()) {
+            $this->action = Request::get('action');
+        }
+
+        $action = $this->action;
+        $this->$action();
+    }
+
+    /**
+     * @param $name
+     * @param $arguments
+     *
+     * @throws ActionNotFound
+     */
+    public function __call($name, $arguments)
+    {
+        throw new ActionNotFound();
+    }
 
     /**
      * @param $user
+     *
      * @return mixed
      */
     public static function onRegister($user)
@@ -53,9 +102,25 @@ abstract class ModuleController
 
     /**
      * @param $user
+     *
      * @return mixed
      */
     public static function onUnregister($user)
     {
+    }
+
+    /**
+     *
+     */
+    public function __destruct()
+    {
+        if (!$this->useOldStructure) {
+            if (\Cunity\Core\Models\Request::isAjaxRequest()) {
+                $view = new View($this->status);
+                $view->sendResponse();
+            } else {
+                $this->view->show();
+            }
+        }
     }
 }

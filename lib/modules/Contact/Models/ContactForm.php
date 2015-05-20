@@ -4,11 +4,11 @@
  * ########################################################################################
  * ## CUNITY(R) V2.0 - An open source social network / "your private social network"     ##
  * ########################################################################################
- * ##  Copyright (C) 2011 - 2014 Smart In Media GmbH & Co. KG                            ##
+ * ##  Copyright (C) 2011 - 2015 Smart In Media GmbH & Co. KG                            ##
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -38,20 +38,27 @@ namespace Cunity\Contact\Models;
 
 use Cunity\Contact\Models\Db\Table\Contact;
 use Cunity\Contact\View\ContactMail;
+use Cunity\Core\Models\Db\Row\User;
+use Cunity\Core\Request\Post;
 use Cunity\Core\View\Message;
 use Cunity\Register\Models\Login;
 
 /**
- * Class ContactForm
- * @package Cunity\Contact\Models
+ * Class ContactForm.
  */
 class ContactForm
 {
     /**
+     * @var User
+     */
+    protected $user;
+
+    /**
      *
      */
-    public function __construct()
+    public function __construct(User $user)
     {
+        $this->user = $user;
         $this->handleInput();
     }
 
@@ -60,22 +67,22 @@ class ContactForm
      */
     private function handleInput()
     {
-        if (isset($_POST['message'])) {
+        if (Post::get('message') !== null) {
             $contactDb = new Contact();
             $res = $contactDb->insert([
-                "userid" => (Login::loggedIn()) ? $_SESSION['user']->userid : 0,
-                "firstname" => $_POST['firstname'],
-                "lastname" => $_POST['lastname'],
-                "email" => $_POST['email'],
-                "subject" => $_POST['subject'],
-                "message" => $_POST['message'],
+                'userid' => (Login::loggedIn()) ? $this->user->userid : 0,
+                'firstname' => Post::get('firstname'),
+                'lastname' => Post::get('lastname'),
+                'email' => Post::get('email'),
+                'subject' => Post::get('subject'),
+                'message' => Post::get('message'),
             ]);
             if ($res) {
-                $cc = (isset($_POST['send_copy']) && $_POST['send_copy'] == 1) ? ["email" => $_POST['email'], "name" => $_POST['firstname'] . " " . $_POST['lastname']] : [];
-                new ContactMail([], ["subject" => $_POST['subject'], "message" => $_POST['message']], $cc);
-                new Message("Finished!", "Your Message was sent successfully!", "success");
+                $cc = (Post::get('send_copy') == 1) ? ['email' => Post::get('email'), 'name' => Post::get('firstname').' '.Post::get('lastname')] : [];
+                new ContactMail([], ['subject' => Post::get('subject'), 'message' => Post::get('message')], $cc);
+                new Message('Finished!', 'Your Message was sent successfully!', 'success');
             } else {
-                new Message("Sorry!", "There was an error in our system, please try again later", "danger");
+                new Message('Sorry!', 'There was an error in our system, please try again later', 'danger');
             }
         }
     }

@@ -4,11 +4,11 @@
  * ########################################################################################
  * ## CUNITY(R) V2.0 - An open source social network / "your private social network"     ##
  * ########################################################################################
- * ##  Copyright (C) 2011 - 2014 Smart In Media GmbH & Co. KG                            ##
+ * ##  Copyright (C) 2011 - 2015 Smart In Media GmbH & Co. KG                            ##
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -36,16 +36,13 @@
 
 namespace Cunity\Core\Models\Db\Table;
 
-use Cunity\Core\Cunity;
 use Cunity\Core\Models\Db\Abstractables\Table;
 
 /**
- * Class Menu
- * @package Cunity\Core\Models\Db\Table
+ * Class Menu.
  */
 class Menu extends Table
 {
-
     /**
      * @var string
      */
@@ -69,15 +66,13 @@ class Menu extends Table
      */
     public function getMainMenu()
     {
-        $res = $this->fetchAll($this->select()->where("menu='main'")->order("pos"));
+        $res = $this->fetchAll($this->select()->where("menu='main'")->order('pos'));
         $menu = $res->toArray();
         $menus = [];
 
         foreach ($menu as $_menu) {
             if ($_menu['type'] === 'module') {
-                Cunity::set('modules', New Modules());
-                /** @var Modules $modules */
-                $modules = Cunity::get('modules');
+                $modules = new Modules();
                 $moduleName = $_menu['content'];
                 $module = $modules->fetchRow('namespace = "'.$moduleName.'"')->toArray();
                 if ($module['status'] == 1) {
@@ -85,6 +80,7 @@ class Menu extends Table
                 }
             }
         }
+
         return $menus;
     }
 
@@ -93,34 +89,36 @@ class Menu extends Table
      */
     public function getFooterMenu()
     {
-        $res = $this->fetchAll($this->select()->where("menu='footer'")->order("pos"));
+        $res = $this->fetchAll($this->select()->where("menu='footer'")->order('pos'));
+
         return $res->toArray();
     }
 
     /**
-     *
      * @param array $data
+     *
      * @return array
      */
     public function addMenuItem(array $data)
     {
         $res = $this->insert([
-            "type" => $data['type'],
-            "menu" => $data['menu'],
-            "title" => html_entity_decode($data['title']),
-            "content" => $data['content'],
-            "iconClass" => $data['iconClass']
+            'type' => $data['type'],
+            'menu' => $data['menu'],
+            'title' => html_entity_decode($data['title']),
+            'content' => $data['content'],
+            'iconClass' => $data['iconClass'],
         ]);
+
         return $this->find($res)->current()->toArray();
     }
 
     /**
-     *
      * @param array $not
-     * @return boolean
+     *
+     * @return bool
      */
     public function deleteBut(array $not)
     {
-        return (false !== $this->delete($this->getAdapter()->quoteInto("id NOT IN (?)", $not)));
+        return (false !== $this->delete($this->getAdapter()->quoteInto('id NOT IN (?)', $not)));
     }
 }

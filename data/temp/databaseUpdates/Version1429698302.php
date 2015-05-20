@@ -4,7 +4,7 @@
  * ########################################################################################
  * ## CUNITY(R) V2.0 - An open source social network / "your private social network"     ##
  * ########################################################################################
- * ##  Copyright (C) 2011 - 2014 Smart In Media GmbH & Co. KG                            ##
+ * ##  Copyright (C) 2011 - 2015 Smart In Media GmbH & Co. KG                            ##
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
@@ -34,34 +34,20 @@
  * #####################################################################################
  */
 
-namespace Cunity\Core\View;
+use Cunity\Admin\Models\Updater\DbCommandInterface;
+use Cunity\Admin\Models\Updater\DbUpdateVersion;
 
 /**
- * Class PageNotFound
- * @package Cunity\Core\View
+ * Class Version1429698302
  */
-class PageNotFound extends View
+class Version1429698302 extends DbUpdateVersion implements DbCommandInterface
 {
     /**
-     * @var string
+     *
      */
-    protected $_templateDir = "Core";
-    /**
-     * @var string
-     */
-    protected $_templateFile = "404.tpl";
-    /**
-     * @var array
-     */
-    protected $_metadata = ["title" => "404 - Page Not Found"];
-
-    /**
-     * @throws \Exception
-     */
-    public function __construct()
+    public function execute()
     {
-        parent::__construct();
-        $this->show();
-        exit();
+        $this->_db->query("CREATE TABLE IF NOT EXISTS `".$this->_db->getDbprefix()."newsletter` (`id` int(11) NOT NULL AUTO_INCREMENT, `time` TIMESTAMP NOT NULL, `headline` varchar(255) NOT NULL, `subject` text NOT NULL, `userid` int(11) NOT NULL, PRIMARY KEY (`id`) ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1");
+        $this->_db->query("CREATE TABLE IF NOT EXISTS `".$this->_db->getDbprefix()."newsletter_user` (`id` int(11) NOT NULL AUTO_INCREMENT, `newsletterid` int(11) NOT NULL, `userid` int(11) NOT NULL, PRIMARY KEY (`id`) ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1");
     }
 }

@@ -4,11 +4,11 @@
  * ########################################################################################
  * ## CUNITY(R) V2.0 - An open source social network / "your private social network"     ##
  * ########################################################################################
- * ##  Copyright (C) 2011 - 2014 Smart In Media GmbH & Co. KG                            ##
+ * ##  Copyright (C) 2011 - 2015 Smart In Media GmbH & Co. KG                            ##
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -37,21 +37,20 @@
 namespace Cunity\Admin\View;
 
 use Cunity\Admin\View\Abstractables\View;
+use Cunity\Core\Request\Get;
 
 /**
- * Class Modules
- * @package Cunity\Admin\View
+ * Class Modules.
  */
 class Modules extends View
 {
-
     /**
      *
      */
     public function __construct()
     {
         parent::__construct();
-        $this->_templateFile = "modules/" . $_GET['x'] . ".tpl";
-        $this->registerCss("modules", $_GET['x']);
+        $this->_templateFile = 'modules/'.Get::get('x').'.tpl';
+        $this->registerCss('modules', Get::get('x'));
     }
 }

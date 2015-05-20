@@ -4,11 +4,11 @@
  * ########################################################################################
  * ## CUNITY(R) V2.0 - An open source social network / "your private social network"     ##
  * ########################################################################################
- * ##  Copyright (C) 2011 - 2014 Smart In Media GmbH & Co. KG                            ##
+ * ##  Copyright (C) 2011 - 2015 Smart In Media GmbH & Co. KG                            ##
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -39,28 +39,29 @@ namespace Cunity\Events\Models\Generator;
 use Cunity\Core\Cunity;
 use Cunity\Core\Models\Db\Abstractables\Table;
 use Cunity\Core\Models\Db\Adapter\Mysqli;
+use Cunity\Core\Request\Session;
 use Zend_Db_Expr;
 
 /**
- * Class EventsQuery
- * @package Events\Models\Generator
+ * Class EventsQuery.
  */
 class EventsQuery extends Table
 {
-
     /**
      * @param string $status
+     *
      * @return Zend_Db_Expr
+     *
      * @throws \Exception
      */
-    public static function getEventsListQuery($status = "> 0")
+    public static function getEventsListQuery($status = '> 0')
     {
         return new Zend_Db_Expr(
-            Cunity::get("db")
+            Cunity::get('db')
                 ->select()
-                ->from(Mysqli::getDbprefix() . "events_guests", "eventid")
-                ->where("status" . $status)
-                ->where("userid=?", $_SESSION['user']->userid)
+                ->from(Mysqli::getDbprefix().'events_guests', 'eventid')
+                ->where('status'.$status)
+                ->where('userid=?', Session::get('user')->userid)
         );
     }
 }

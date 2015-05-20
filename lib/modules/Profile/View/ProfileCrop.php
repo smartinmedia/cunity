@@ -4,11 +4,11 @@
  * ########################################################################################
  * ## CUNITY(R) V2.0 - An open source social network / "your private social network"     ##
  * ########################################################################################
- * ##  Copyright (C) 2011 - 2014 Smart In Media GmbH & Co. KG                            ##
+ * ##  Copyright (C) 2011 - 2015 Smart In Media GmbH & Co. KG                            ##
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -39,36 +39,34 @@ namespace Cunity\Profile\View;
 use Cunity\Core\View\View;
 
 /**
- * Class ProfileCrop
- * @package Cunity\Profile\View
+ * Class ProfileCrop.
  */
 class ProfileCrop extends View
 {
-
     /**
      * @var string
      */
-    protected $_templateDir = "profile";
+    protected $_templateDir = 'profile';
     /**
      * @var string
      */
-    protected $_templateFile = "profile-crop.tpl";
+    protected $_templateFile = 'profile-crop.tpl';
     /**
      * @var array
      */
-    protected $_metadata = ["title" => "Crop Image"];
+    protected $_metadata = ['title' => 'Crop Image'];
 
     /**
-     * @throws \Cunity\Core\Exception
+     * @throws \Cunity\Core\Exceptions\Exception
      * @throws \Exception
      */
     public function __construct()
     {
         parent::__construct();
-        $this->registerScript("profile", "jquery.imgareaselect.pack");
-        $this->registerScript("profile", "profile-crop");
-        $this->registerCss("profile", "profile");
-        $this->registerCss("profile", "imgareaselect-animated");
-        $this->registerCss("profile", "profile-crop");
+        $this->registerScript('profile', 'jquery.imgareaselect.pack');
+        $this->registerScript('profile', 'profile-crop');
+        $this->registerCss('profile', 'profile');
+        $this->registerCss('profile', 'imgareaselect-animated');
+        $this->registerCss('profile', 'profile-crop');
     }
 }

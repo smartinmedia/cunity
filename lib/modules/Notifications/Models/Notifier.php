@@ -4,11 +4,11 @@
  * ########################################################################################
  * ## CUNITY(R) V2.0 - An open source social network / "your private social network"     ##
  * ########################################################################################
- * ##  Copyright (C) 2011 - 2014 Smart In Media GmbH & Co. KG                            ##
+ * ##  Copyright (C) 2011 - 2015 Smart In Media GmbH & Co. KG                            ##
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -36,19 +36,18 @@
 
 namespace Cunity\Notifications\Models;
 
+use Cunity\Core\Request\Session;
 use Cunity\Notifications\View\NotificationMail;
 
 /**
- * Class Notifier
- * @package Cunity\Notifications\Models
+ * Class Notifier.
  */
 class Notifier
 {
-
     /**
      * @var Notifier
      */
-    static private $instance = null;
+    private static $instance = null;
     /**
      * @var Db\Table\Notifications|null
      */
@@ -69,7 +68,7 @@ class Notifier
     {
         $this->db = new Db\Table\Notifications();
         $this->settings = new Db\Table\NotificationSettings();
-        $data = new \Zend_Config_Xml("modules/Notifications/lang/types.xml");
+        $data = new \Zend_Config_Xml('modules/Notifications/lang/types.xml');
         $this->types = $data->types;
     }
 
@@ -80,7 +79,7 @@ class Notifier
      * @param $target
      * @param array $ways
      */
-    public static function notify($receiver, $sender, $type, $target, $ways = ["alert", "mail"])
+    public static function notify($receiver, $sender, $type, $target, $ways = ['alert', 'mail'])
     {
         if (is_array($receiver)) {
             foreach ($receiver as $user) {
@@ -90,47 +89,48 @@ class Notifier
             /** @var Notifier $obj */
             $obj = self::getInstance();
             $st = $obj->settings->getSetting($type, $receiver);
-            if (($st == 1 || $st == 3) && in_array("alert", $ways)) {
+            if (($st == 1 || $st == 3) && in_array('alert', $ways)) {
                 $obj->db->insertNotification([
-                    "userid" => $receiver,
-                    "ref_userid" => $sender,
-                    "type" => $type,
-                    "target" => $target
+                    'userid' => $receiver,
+                    'ref_userid' => $sender,
+                    'type' => $type,
+                    'target' => $target,
                 ]);
             }
-            if (($st == 2 || $st == 3) && in_array("mail", $ways)) {
-                /** @noinspection PhpUndefinedMethodInspection */
-                $receiverData = $_SESSION['user']->getTable()->get($receiver);
+            if (($st == 2 || $st == 3) && in_array('mail', $ways)) {
+                $receiverData = Session::get('user')->getTable()->get($receiver);
                 $online = new \DateTime($receiverData['lastAction']);
                 $now = new \DateTime();
                 $diff = $now->diff($online, true);
                 if ($diff->i > 3) {
                     $notificationData = self::getNotificationData($type);
-                    new NotificationMail(["email" => $receiverData->email, "name" => $receiverData->name], ["message" => \sprintf($notificationData, $_SESSION['user']->name), "target" => $target]);
+                    new NotificationMail(['email' => $receiverData->email, 'name' => $receiverData->name], ['message' => \sprintf($notificationData, Session::get('user')->name), 'target' => $target]);
                 }
             }
         }
     }
 
     /**
-     * @return null
      */
     public static function getInstance()
     {
         if (self::$instance === null) {
-            self::$instance = new self;
+            self::$instance = new self();
         }
+
         return self::$instance;
     }
 
     /**
      * @param $type
+     *
      * @return mixed
      */
     public static function getNotificationData($type)
     {
         $obj = self::getInstance();
         $temp = $obj->types->toArray();
+
         return $temp[$type];
     }
 }

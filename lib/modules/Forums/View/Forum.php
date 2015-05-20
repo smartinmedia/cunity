@@ -4,11 +4,11 @@
  * ########################################################################################
  * ## CUNITY(R) V2.0 - An open source social network / "your private social network"     ##
  * ########################################################################################
- * ##  Copyright (C) 2011 - 2014 Smart In Media GmbH & Co. KG                            ##
+ * ##  Copyright (C) 2011 - 2015 Smart In Media GmbH & Co. KG                            ##
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -39,34 +39,32 @@ namespace Cunity\Forums\View;
 use Cunity\Core\View\View;
 
 /**
- * Class Forum
- * @package Cunity\Forums\View
+ * Class Forum.
  */
 class Forum extends View
 {
-
     /**
      * @var string
      */
-    protected $_templateDir = "forums";
+    protected $_templateDir = 'forums';
     /**
      * @var string
      */
-    protected $_templateFile = "forum.tpl";
+    protected $_templateFile = 'forum.tpl';
     /**
      * @var array
      */
-    protected $_metadata = ["title" => "Forum"];
+    protected $_metadata = ['title' => 'Forum'];
 
     /**
-     * @throws \Cunity\Core\Exception
+     * @throws \Cunity\Core\Exceptions\Exception
      * @throws \Exception
      */
     public function __construct()
     {
         parent::__construct();
-        $this->registerCss("forums", "forum");
-        $this->registerScript("forums", "forum");
-        $this->registerScript("forums", "category-cloud");
+        $this->registerCss('forums', 'forum');
+        $this->registerScript('forums', 'forum');
+        $this->registerScript('forums', 'category-cloud');
     }
 }

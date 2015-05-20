@@ -4,11 +4,11 @@
  * ########################################################################################
  * ## CUNITY(R) V2.0 - An open source social network / "your private social network"     ##
  * ########################################################################################
- * ##  Copyright (C) 2011 - 2014 Smart In Media GmbH & Co. KG                            ##
+ * ##  Copyright (C) 2011 - 2015 Smart In Media GmbH & Co. KG                            ##
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -39,40 +39,39 @@ namespace Cunity\Newsfeed\View;
 use Cunity\Core\View\View;
 
 /**
- * Class Newsfeed
- * @package Cunity\Newsfeed\View
+ * Class Newsfeed.
  */
 class Newsfeed extends View
 {
     /**
      * @var string
      */
-    protected $_templateDir = "newsfeed";
+    protected $_templateDir = 'newsfeed';
     /**
      * @var string
      */
-    protected $_templateFile = "newsfeed.tpl";
+    protected $_templateFile = 'newsfeed.tpl';
     /**
      * @var string
      */
-    protected $_languageFolder = "Newsfeed/languages";
+    protected $_languageFolder = 'Newsfeed/languages';
     /**
      * @var array
      */
-    protected $_metadata = ["title" => "Newsfeed"];
+    protected $_metadata = ['title' => 'Newsfeed'];
 
     /**
-     * @throws \Cunity\Core\Exception
+     * @throws \Cunity\Core\Exceptions\Exception
      * @throws \Exception
      */
     public function __construct()
     {
         parent::__construct();
-        $this->registerScript("newsfeed", "newsfeed");
-        $this->registerCss("newsfeed", "newsfeed");
-        $this->registerCss("gallery", "lightbox");
-        $this->registerScript("gallery", "jquery.blueimp-gallery");
-        $this->registerScript("gallery", "lightbox");
+        $this->registerScript('newsfeed', 'newsfeed');
+        $this->registerCss('newsfeed', 'newsfeed');
+        $this->registerCss('gallery', 'lightbox');
+        $this->registerScript('gallery', 'jquery.blueimp-gallery');
+        $this->registerScript('gallery', 'lightbox');
         $this->show();
     }
 }

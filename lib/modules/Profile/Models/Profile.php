@@ -4,11 +4,11 @@
  * ########################################################################################
  * ## CUNITY(R) V2.0 - An open source social network / "your private social network"     ##
  * ########################################################################################
- * ##  Copyright (C) 2011 - 2014 Smart In Media GmbH & Co. KG                            ##
+ * ##  Copyright (C) 2011 - 2015 Smart In Media GmbH & Co. KG                            ##
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -36,19 +36,21 @@
 
 namespace Cunity\Profile\Models;
 
+use Cunity\Core\Access\UserAccess;
+use Cunity\Core\Exceptions\UnknownUser;
 use Cunity\Core\Models\Db\Row\User;
 use Cunity\Core\Models\Db\Table\Users;
 use Cunity\Core\Models\Request;
+use Cunity\Core\Request\Get;
+use Cunity\Core\Request\Post;
+use Cunity\Core\Request\Session;
 use Cunity\Core\View\Ajax\View;
-use Cunity\Core\View\PageNotFound;
 
 /**
- * Class Profile
- * @package Cunity\Profile\Models
+ * Class Profile.
  */
 class Profile
 {
-
     /**
      * @var array
      */
@@ -71,10 +73,10 @@ class Profile
      */
     private function handleAjaxAction()
     {
-        switch ($_GET['action']) {
+        switch (Get::get('action')) {
             case 'getpins':
                 $pins = new Db\Table\ProfilePins();
-                $result = $pins->getAllByUser($_POST['userid']);
+                $result = $pins->getAllByUser(Post::get('userid'));
                 $view = new View(true);
                 if (!is_array($result)) {
                     $result = $result->toArray();
@@ -84,7 +86,7 @@ class Profile
                 } else {
                     $result = [];
                 }
-                $view->addData(["result" => $result]);
+                $view->addData(['result' => $result]);
                 $view->sendResponse();
                 break;
         }
@@ -96,21 +98,20 @@ class Profile
     private function checkUser()
     {
         /** @var Users $users */
-        /** @noinspection PhpUndefinedMethodInspection */
-        $users = $_SESSION['user']->getTable();
-        if (isset($_GET['action']) && !empty($_GET['action'])) {
-            $result = $users->get($_GET['action'], "username");
+        $users = Session::get('user')->getTable();
+        if (Get::hasAction()) {
+            $result = $users->get(Get::get('action'), 'username');
             if (!$result instanceof User || $result['name'] === null) {
-                new PageNotFound();
+                throw new UnknownUser();
             }
         } else {
-            $result = $users->get($_SESSION['user']->userid);
+            $result = $users->get(Session::get('user')->userid);
         }
         // Get a new user Object with all image-data
         $result = $result->toArray();
         $this->profileData = $result;
-        if (isset($this->profileData['status']) && $this->profileData['status'] === 0 && $this->profileData['receiver'] == $_SESSION['user']->userid) {
-            new PageNotFound();
+        if (isset($this->profileData['status']) && $this->profileData['status'] === 0 && $this->profileData['receiver'] == Session::get('user')->userid) {
+            throw new UnknownUser();
         }
     }
 
@@ -119,9 +120,12 @@ class Profile
      */
     protected function render()
     {
+        $users = Session::get('user')->getTable();
+        $user = $users->get(Get::get('action'), 'username');
+        UserAccess::profilePublic($user);
         $view = new \Cunity\Profile\View\Profile();
         $view->assign('profile', $this->profileData);
-        $view->setMetaData(["title" => $this->profileData['name']]);
+        $view->setMetaData(['title' => $this->profileData['name']]);
         $view->render();
     }
 }

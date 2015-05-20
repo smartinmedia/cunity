@@ -4,11 +4,11 @@
  * ########################################################################################
  * ## CUNITY(R) V2.0 - An open source social network / "your private social network"     ##
  * ########################################################################################
- * ##  Copyright (C) 2011 - 2014 Smart In Media GmbH & Co. KG                            ##
+ * ##  Copyright (C) 2011 - 2015 Smart In Media GmbH & Co. KG                            ##
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -40,11 +40,11 @@ use Cunity\Admin\Models\Process;
 use Cunity\Admin\Models\Updater\DatabaseUpdater;
 use Cunity\Core\Cunity;
 use Cunity\Core\Helper\UserHelper;
+use Cunity\Core\Models\Db\Table\Settings;
 use ZipArchive;
 
 /**
- * Class UpdateHelper
- * @package Cunity\Admin\Helper
+ * Class UpdateHelper.
  */
 class UpdateHelper
 {
@@ -59,7 +59,12 @@ class UpdateHelper
     public static $LATESTURL = 'http://server.cunity.net/latest.zip';
 
     /**
-     * @return mixed
+     * @var int
+     */
+    protected static $TIMEOUT = 3;
+
+    /**
+     * @return bool|mixed
      */
     public static function hasUpdates()
     {
@@ -67,40 +72,90 @@ class UpdateHelper
             return false;
         }
 
-        return version_compare(self::getVersion(), self::getRemoteVersion(), '<');
+        $versionType = 'stable';
+
+        if (self::isBeta()) {
+            $versionType = 'beta';
+        }
+
+        $returnValue = version_compare(self::getVersion($versionType), self::getRemoteVersion(false, $versionType), '<');
+
+        return $returnValue;
     }
 
     /**
-     * @return mixed
-     * @throws \Cunity\Core\Exception
+     *
      */
-    public static function getVersion()
+    protected static function isBeta()
     {
-        $config = Cunity::get("config");
+        /** @var Settings $settings */
+        $settings = Cunity::get('settings');
+        $beta = $settings->getSetting('core.beta');
 
-        return $config->site->version;
+        return ($beta == 1);
     }
 
     /**
      * @return string
      */
-    protected static function getRemoteVersion($force = false)
+    protected static function updateServerAvailable()
     {
-        $settings = Cunity::get("settings");
+        $errorReporting = error_reporting();
+        error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED & ~E_WARNING);
+        $xcontext = stream_context_create(['http' => ['timeout' => self::$TIMEOUT]]);
+        $test = file_get_contents(self::$UPDATECHECKURL, 'r', $xcontext);
+        error_reporting($errorReporting);
+
+        return $test;
+    }
+
+    /**
+     * @param string $type
+     *
+     * @return array|string
+     *
+     * @throws \Cunity\Core\Exceptions\InstanceNotFound
+     */
+    public static function getVersion($type = 'stable')
+    {
+        $config = Cunity::get('config');
+        $version = self::getVersionByType($type, $config->site->version);
+
+        return $version;
+    }
+
+    /**
+     * @param bool   $force
+     * @param string $type
+     *
+     * @return mixed
+     *
+     * @throws \Cunity\Core\Exceptions\InstanceNotFound
+     */
+    protected static function getRemoteVersion($force = false, $type = 'stable')
+    {
+        $settings = Cunity::get('settings');
 
         if ($settings->getSetting('core.lastupdatecheck') < mktime(0, 0, 1, date('m'), date('d'), date('Y')) ||
             $force
         ) {
-            $context = array('http' =>
-                array(
-                    'header' => 'Referer: ' .
-                        $settings->getSetting('core.siteurl')));
-            $xcontext = stream_context_create($context);
-            $settings->setSetting('core.remoteversion', file_get_contents(self::$UPDATECHECKURL, 'r', $xcontext));
+            if (!self::canUpdate()) {
+                $newVersion = self::getVersion();
+            } else {
+                $context = array('http' => array(
+                    'header' => 'Referer: '.
+                        $settings->getSetting('core.siteurl'),));
+                $xcontext = stream_context_create($context);
+                $newVersion = file_get_contents(self::$UPDATECHECKURL, 'r', $xcontext);
+            }
+
+            $settings->setSetting('core.remoteversion', $newVersion);
             $settings->setSetting('core.lastupdatecheck', time());
         }
 
-        return $settings->getSetting('core.remoteversion');
+        $remoteVersion = self::getVersionByType($type, $settings->getSetting('core.remoteversion'));
+
+        return $remoteVersion;
     }
 
     /**
@@ -122,12 +177,13 @@ class UpdateHelper
     private static function getUpdateFile()
     {
         $ch = curl_init(self::$LATESTURL);
-        $updateFile = __DIR__ . '/../../../../data/temp/latest.zip';
+        $updateFile = __DIR__.'/../../../../data/temp/latest.zip';
         $targetFile = fopen($updateFile, 'w+');
         curl_setopt($ch, CURLOPT_FILE, $targetFile);
         curl_setopt($ch, CURLOPT_TIMEOUT, 3600);
         curl_exec($ch);
         fclose($targetFile);
+
         return $updateFile;
     }
 
@@ -138,7 +194,7 @@ class UpdateHelper
     {
         $zip = new ZipArchive();
         $zip->open($updateFile);
-        $zip->extractTo(__DIR__ . '/../../../../');
+        $zip->extractTo(__DIR__.'/../../../../');
         $zip->close();
     }
 
@@ -150,8 +206,67 @@ class UpdateHelper
         $configuration = [];
         $configuration['site'] = [];
         $configuration['site']['version'] = self::getRemoteVersion();
-        $config = new \Zend_Config_Xml(__DIR__ . '/../../../../data/config.xml');
-        $configWriter = new \Zend_Config_Writer_Xml(["config" => new \Zend_Config(Process::arrayMergeRecursiveDistinct($config->toArray(), $configuration)), "filename" => __DIR__ . '/../../../../data/config.xml']);
+        $config = new \Zend_Config_Xml(__DIR__.'/../../../../data/config.xml');
+        $configWriter = new \Zend_Config_Writer_Xml(['config' => new \Zend_Config(Process::arrayMergeRecursiveDistinct($config->toArray(), $configuration)), 'filename' => __DIR__.'/../../../../data/config.xml']);
         $configWriter->write();
+    }
+
+    /**
+     * @return bool
+     */
+    private static function canWrite()
+    {
+        $directory = new \RecursiveDirectoryIterator(__DIR__.'/../../../');
+        $iterator = new \RecursiveIteratorIterator($directory);
+
+        /** @var \SplFileInfo $object */
+        foreach ($iterator as $name => $object) {
+            if ($object->getFilename() === '.' || $object->getFilename() === '..') {
+                continue;
+            }
+
+            if (!$object->isWritable()) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * @return bool
+     */
+    private static function canUpdate()
+    {
+        if (!self::updateServerAvailable()) {
+            return false;
+        }
+
+        if (!self::canWrite()) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * @param $type
+     * @param $version
+     *
+     * @return array|string
+     */
+    protected static function getVersionByType($type, $version)
+    {
+        switch ($type) {
+            case 'alpha':
+            case 'beta':
+                break;
+            default:
+                $version = explode('.', $version);
+                $version = $version[0].'.'.$version[1];
+                break;
+        }
+
+        return $version;
     }
 }

@@ -9,18 +9,18 @@
         <ul class="dropdown-menu dropdown-checkbox-menu" role="menu" style="left:0;right:auto">
             <li class="dropdown-header">{-"Filter the albums you want to see"|translate}</li>
             <li>
-                <label class="checkbox">
-                    <input type="checkbox" class="albums-filter" value="own">{-"My Albums"|translate}
+                <label>
+                    <input type="checkbox" class="albums-filter" value="own">&nbsp;{-"My Albums"|translate}
                 </label>
             </li>
             <li>
-                <label class="checkbox">
-                    <input type="checkbox" class="albums-filter" value="foreign">{-"Friends Albums"|translate}
+                <label>
+                    <input type="checkbox" class="albums-filter" value="foreign">&nbsp;{-"Friends Albums"|translate}
                 </label>
             </li>
             <li>
-                <label class="checkbox">
-                    <input type="checkbox" class="albums-filter" value="shared">{-"Shared Albums"|translate}
+                <label>
+                    <input type="checkbox" class="albums-filter" value="shared">&nbsp;{-"Shared Albums"|translate}
                 </label>
             </li>
             <li>

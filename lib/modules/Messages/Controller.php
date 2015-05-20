@@ -4,11 +4,11 @@
  * ########################################################################################
  * ## CUNITY(R) V2.0 - An open source social network / "your private social network"     ##
  * ########################################################################################
- * ##  Copyright (C) 2011 - 2014 Smart In Media GmbH & Co. KG                            ##
+ * ##  Copyright (C) 2011 - 2015 Smart In Media GmbH & Co. KG                            ##
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -37,30 +37,29 @@
 namespace Cunity\Messages;
 
 use Cunity\Core\ModuleController;
+use Cunity\Core\Request\Get;
 use Cunity\Register\Models\Login;
 
 /**
- * Class Controller
- * @package Cunity\Messages
+ * Class Controller.
  */
 class Controller extends ModuleController
 {
-
     /**
      * @var array
      */
     private $_allowedActions = [
-        "send",
-        "load",
-        "loadConversationMessages",
-        "deletemessage",
-        "startConversation",
-        "leaveConversation",
-        "loadUnread",
-        "invite",
-        "chatHearthBeat",
-        "getConversation",
-        "markAsRead"
+        'send',
+        'load',
+        'loadConversationMessages',
+        'deletemessage',
+        'startConversation',
+        'leaveConversation',
+        'loadUnread',
+        'invite',
+        'chatHearthBeat',
+        'getConversation',
+        'markAsRead',
     ];
 
     /**
@@ -77,14 +76,13 @@ class Controller extends ModuleController
      */
     private function handleRequest()
     {
-        if (!isset($_GET['action']) || empty($_GET['action'])) {
+        if (!Get::hasAction()) {
             new View\Inbox();
-        } elseif (isset($_GET['action']) &&
-            !empty($_GET['action']) &&
-            in_array($_GET['action'], $this->_allowedActions)
+        } elseif (Get::hasAction() &&
+            in_array(Get::get('action'), $this->_allowedActions)
         ) {
-            new Models\Process($_GET['action']);
-        } elseif (isset($_GET['action']) && !empty($_GET['action'])) {
+            new Models\Process(Get::get('action'));
+        } elseif (Get::hasAction()) {
             new Models\Conversation();
         }
     }

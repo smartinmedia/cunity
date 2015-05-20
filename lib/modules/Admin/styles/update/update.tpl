@@ -17,9 +17,9 @@
             </div>
         {-else }
         <div class="panel panel-default panel-success">
-            <div class="panel-heading">No update available</div>
+            <div class="panel-heading">{-"No update available"|translate}</div>
             <div class="panel-body">
-                <p>Congratulations, you already have the latest Cunity version</p>
+                <p>{-"Congratulations, you already have the latest Cunity version"|translate}</p>
             </div>
         </div>
         {-/if}

@@ -4,11 +4,11 @@
  * ########################################################################################
  * ## CUNITY(R) V2.0 - An open source social network / "your private social network"     ##
  * ########################################################################################
- * ##  Copyright (C) 2011 - 2014 Smart In Media GmbH & Co. KG                            ##
+ * ##  Copyright (C) 2011 - 2015 Smart In Media GmbH & Co. KG                            ##
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -36,16 +36,14 @@
 
 namespace Cunity\Core\Models\Db\Table;
 
-use Cunity\Core\Exception;
+use Cunity\Core\Exceptions\Exception;
 use Cunity\Core\Models\Db\Abstractables\Table;
 
 /**
- * Class Settings
- * @package Core\Models\Db\Table
+ * Class Settings.
  */
 class Settings extends Table
 {
-
     /**
      * @var string
      */
@@ -81,6 +79,7 @@ class Settings extends Table
 
     /**
      * @param $name
+     *
      * @return string
      */
     public function __get($name)
@@ -91,7 +90,9 @@ class Settings extends Table
     /**
      * @param $name
      * @param $value
+     *
      * @return bool
+     *
      * @throws Exception
      */
     public function __set($name, $value)
@@ -101,6 +102,7 @@ class Settings extends Table
 
     /**
      * @param $name
+     *
      * @return string
      */
     public function getSetting($name)
@@ -108,25 +110,31 @@ class Settings extends Table
         if (isset($this->settings[$name])) {
             return $this->settings[$name];
         }
-        $row = $this->fetchRow($this->select()->where("name=?", $name));
+        $row = $this->fetchRow($this->select()->where('name=?', $name));
         $this->settings[$name] = $row->value;
+
         return $row->value;
     }
 
     /**
      * @param $name
      * @param $value
+     *
      * @return bool
+     *
      * @throws Exception
      */
     public function setSetting($name, $value)
     {
-        $row = $this->fetchRow($this->select()->where("name=?", $name));
+        $row = $this->fetchRow($this->select()->where('name=?', $name));
 
         if ($row === null) {
-            throw new Exception("Try to set undefined setting: \"" . $name . "\"");
+            $insertStatus = $this->insert(['name' => $name, 'value' => $value]);
+
+            return $insertStatus;
         } else {
             $row->value = $value;
+
             return (false !== $row->save());
         }
     }

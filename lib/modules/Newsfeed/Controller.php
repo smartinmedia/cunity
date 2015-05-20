@@ -4,11 +4,11 @@
  * ########################################################################################
  * ## CUNITY(R) V2.0 - An open source social network / "your private social network"     ##
  * ########################################################################################
- * ##  Copyright (C) 2011 - 2014 Smart In Media GmbH & Co. KG                            ##
+ * ##  Copyright (C) 2011 - 2015 Smart In Media GmbH & Co. KG                            ##
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -37,12 +37,12 @@
 namespace Cunity\Newsfeed;
 
 use Cunity\Core\ModuleController;
+use Cunity\Core\Request\Get;
 use Cunity\Newsfeed\Models\Db\Table\Walls;
 use Cunity\Register\Models\Login;
 
 /**
- * Class Controller
- * @package Newsfeed
+ * Class Controller.
  */
 class Controller extends ModuleController
 {
@@ -50,10 +50,10 @@ class Controller extends ModuleController
      * @var array
      */
     private $_allowedActions = [
-        "send",
-        "load",
-        "delete",
-        "loadPost"
+        'send',
+        'load',
+        'delete',
+        'loadPost',
     ];
 
     /**
@@ -70,22 +70,19 @@ class Controller extends ModuleController
      */
     private function handleRequest()
     {
-        if (!isset($_GET['action']) || empty($_GET['action'])) {
+        if (!Get::hasAction()) {
             new View\Newsfeed();
         } elseif (
-            isset(
-                $_GET['action']) &&
-            !empty(
-            $_GET['action']
-            ) &&
-            in_array($_GET['action'], $this->_allowedActions)
+            Get::hasAction() &&
+            in_array(Get::get('action'), $this->_allowedActions)
         ) {
-            new Models\Process($_GET['action']);
+            new Models\Process(Get::get('action'));
         }
     }
 
     /**
      * @param $user
+     *
      * @return mixed|void
      */
     public static function onRegister($user)
@@ -97,12 +94,13 @@ class Controller extends ModuleController
 
     /**
      * @param $user
+     *
      * @return mixed|void
      */
     public static function onUnregister($user)
     {
         parent::onUnregister($user);
         $walls = new Walls();
-        $walls->deleteWallByOwner($user->userid, "profile");
+        $walls->deleteWallByOwner($user->userid, 'profile');
     }
 }

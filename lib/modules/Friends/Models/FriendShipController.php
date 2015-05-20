@@ -4,11 +4,11 @@
  * ########################################################################################
  * ## CUNITY(R) V2.0 - An open source social network / "your private social network"     ##
  * ########################################################################################
- * ##  Copyright (C) 2011 - 2014 Smart In Media GmbH & Co. KG                            ##
+ * ##  Copyright (C) 2011 - 2015 Smart In Media GmbH & Co. KG                            ##
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -36,26 +36,27 @@
 
 namespace Cunity\Friends\Models;
 
-use Cunity\Core\Exception;
+use Cunity\Core\Exceptions\Exception;
 use Cunity\Core\Helper\UserHelper;
+use Cunity\Core\Request\Get;
+use Cunity\Core\Request\Post;
+use Cunity\Core\Request\Session;
 use Cunity\Core\View\Ajax\View;
 use Cunity\Friends\Helper\RelationShipHelper;
 use Cunity\Notifications\Models\Notifier;
 
 /**
- * Class FriendShipController
- * @package Cunity\Friends\Models
+ * Class FriendShipController.
  */
 class FriendShipController
 {
-
     /**
      *
      */
     public function __construct()
     {
-        if (method_exists($this, $_GET['action'])) {
-            call_user_func([$this, $_GET['action']]);
+        if (method_exists($this, Get::get('action'))) {
+            call_user_func([$this, Get::get('action')]);
         }
     }
 
@@ -66,9 +67,9 @@ class FriendShipController
     {
         UserHelper::breakOnMissingUserId();
         $notification = new Notifier();
-        $notification->notify($_SESSION['user']->userid, $_POST['userid'], 'confirmfriend', 'index.php?m=confirmfriend&action=' . $_POST['userid']);
+        $notification->notify(Session::get('user')->userid, Post::get('userid'), 'confirmfriend', 'index.php?m=confirmfriend&action='.Post::get('userid'));
         $relations = new Db\Table\Relationships();
-        $res = $relations->insert(["sender" => $_SESSION['user']->userid, "receiver" => $_POST['userid'], "status" => 1]);
+        $res = $relations->insert(['sender' => Session::get('user')->userid, 'receiver' => Post::get('userid'), 'status' => 1]);
         if ($res) {
             $view = new View($res !== false);
             $view->sendResponse();
@@ -121,9 +122,9 @@ class FriendShipController
     private function load()
     {
         $relations = new Db\Table\Relationships();
-        $userid = ($_POST['userid'] == 0) ? $_SESSION['user']->userid : $_POST['userid'];
+        $userid = (Post::get('userid') == 0) ? Session::get('user')->userid : Post::get('userid');
         $view = new View(true);
-        $view->addData(["result" => $relations->getFullFriendList(">1", $userid)]);
+        $view->addData(['result' => $relations->getFullFriendList('>1', $userid)]);
         $view->sendResponse();
     }
 }

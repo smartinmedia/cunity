@@ -4,11 +4,11 @@
  * ########################################################################################
  * ## CUNITY(R) V2.0 - An open source social network / "your private social network"     ##
  * ########################################################################################
- * ##  Copyright (C) 2011 - 2014 Smart In Media GmbH & Co. KG                            ##
+ * ##  Copyright (C) 2011 - 2015 Smart In Media GmbH & Co. KG                            ##
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -36,18 +36,17 @@
 
 namespace Cunity\Pages;
 
+use Cunity\Core\Exceptions\PageNotFound;
 use Cunity\Core\ModuleController;
-use Cunity\Core\View\PageNotFound;
+use Cunity\Core\Request\Get;
 use Cunity\Pages\Models\Db\Row\Page;
 use Cunity\Pages\Models\Db\Table\Pages;
 
 /**
- * Class Controller
- * @package Cunity\Pages
+ * Class Controller.
  */
 class Controller extends ModuleController
 {
-
     /**
      *
      */
@@ -55,9 +54,9 @@ class Controller extends ModuleController
     {
         $pages = new Pages();
         /** @var Page $page */
-        $page = $pages->getPage($_GET['action']);
+        $page = $pages->getPage(Get::get('action'));
         if ($page === null) {
-            new PageNotFound();
+            throw new PageNotFound();
         }
         $page->displayPage();
     }

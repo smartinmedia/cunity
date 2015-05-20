@@ -4,11 +4,11 @@
  * ########################################################################################
  * ## CUNITY(R) V2.0 - An open source social network / "your private social network"     ##
  * ########################################################################################
- * ##  Copyright (C) 2011 - 2014 Smart In Media GmbH & Co. KG                            ##
+ * ##  Copyright (C) 2011 - 2015 Smart In Media GmbH & Co. KG                            ##
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -37,11 +37,11 @@
 namespace Cunity\Core\Models\Validation;
 
 use Cunity\Core\Models\Db\Table\Users;
+use Cunity\Core\Request\Session;
 use Cunity\Register\Models\Login;
 
 /**
- * Class Username
- * @package Cunity\Core\Models\Validation
+ * Class Username.
  */
 class Username extends \Zend_Validate_Alnum
 {
@@ -62,13 +62,14 @@ class Username extends \Zend_Validate_Alnum
      * @var array
      */
     protected $_messageTemplates = [
-        self::USED => "This username is already in use",
-        self::LENGTH => "The username-length should be between 2 and 20 characters!",
-        self::INVALID => "The username contains not allowed characters!"
+        self::USED => 'This username is already in use',
+        self::LENGTH => 'The username-length should be between 2 and 20 characters!',
+        self::INVALID => 'The username contains not allowed characters!',
     ];
 
     /**
      * @param string $value
+     *
      * @return bool
      */
     public function isValid($value)
@@ -76,21 +77,25 @@ class Username extends \Zend_Validate_Alnum
         $this->_setValue($value);
         if (empty($value) || strlen($value) < 2 || strlen($value) > 20) {
             $this->_error(self::LENGTH);
+
             return false;
         }
         $users = new Users();
-        $user = $users->search("username", $value);
+        $user = $users->search('username', $value);
         if ($user !== null &&
-            (Login::loggedIn() && ($user->userid !== $_SESSION['user']->userid))
+            (Login::loggedIn() && ($user->userid !== Session::get('user')->userid))
         ) {
             $this->_error(self::USED);
+
             return false;
         }
         $status = preg_match('/^[A-Za-z0-9_.-]*$/', $value);
         if (false === $status || !$status) {
             $this->_error(self::INVALID);
+
             return false;
         }
+
         return true;
     }
 }

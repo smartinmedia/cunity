@@ -4,11 +4,11 @@
  * ########################################################################################
  * ## CUNITY(R) V2.0 - An open source social network / "your private social network"     ##
  * ########################################################################################
- * ##  Copyright (C) 2011 - 2014 Smart In Media GmbH & Co. KG                            ##
+ * ##  Copyright (C) 2011 - 2015 Smart In Media GmbH & Co. KG                            ##
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -36,26 +36,29 @@
 
 namespace Cunity\Admin\Models;
 
+use Cunity\Admin\Helper\NewsletterHelper;
 use Cunity\Admin\Helper\UpdateHelper;
 use Cunity\Contact\Models\Db\Table\Contact;
 use Cunity\Core\Cunity;
 use Cunity\Core\Models\Db\Abstractables\Table;
 use Cunity\Core\Models\Db\Table\Modules;
+use Cunity\Core\Models\Db\Table\Newsletter;
 use Cunity\Core\Models\Db\Table\Users;
+use Cunity\Core\Request\Post;
+use Cunity\Core\Request\Request;
 use Cunity\Core\View\Ajax\View;
 use Cunity\Profile\Models\Db\Table\ProfileFields;
 use Cunity\Profile\Models\Db\Table\ProfileFieldsValues;
 
 /**
- * Class Process
- * @package Cunity\Admin\Models
+ * Class Process.
  */
 class Process
 {
     /**
      * @var array
      */
-    private $validForms = ['config', 'settings', 'mailtemplates', 'modules', 'users', 'profilefields', 'contact', 'headline', 'update'];
+    private $validForms = ['config', 'settings', 'mailtemplates', 'modules', 'users', 'profilefields', 'contact', 'headline', 'update', 'newsletter'];
 
     /**
      * @param $form
@@ -72,6 +75,7 @@ class Process
 
     /**
      * @param $form
+     *
      * @throws \Exception
      * @throws \Zend_Config_Exception
      */
@@ -79,48 +83,44 @@ class Process
     {
         $res = [];
         switch ($form) {
-            case "settings":
-            case "headline":
-                foreach ($_POST as $key => $value) {
-                    if (strpos($key, "settings-") !== false) {
-                        $setting = explode("-", $key);
-                        /** @noinspection PhpUnnecessaryFullyQualifiedNameInspection */
-                        $settings = \Cunity\Core\Cunity::get("settings");
+            case 'settings':
+            case 'headline':
+                foreach (Post::get(null, []) as $key => $value) {
+                    if (strpos($key, 'settings-') !== false) {
+                        $setting = explode('-', $key);
+                        $settings = \Cunity\Core\Cunity::get('settings');
                         $res[] = $settings->setSetting(preg_replace('/_/', '.', $setting[1], 1), $value);
                     }
                 }
                 break;
-            case "config":
-                $config = new \Zend_Config_Xml("../data/config.xml");
-                $configWriter = new \Zend_Config_Writer_Xml(["config" => new \Zend_Config(self::arrayMergeRecursiveDistinct($config->toArray(), $_POST['config'])), "filename" => "../data/config.xml"]);
+            case 'config':
+                $config = new \Zend_Config_Xml('../data/config.xml');
+                $configWriter = new \Zend_Config_Writer_Xml(['config' => new \Zend_Config(self::arrayMergeRecursiveDistinct($config->toArray(), Post::get('config', []))), 'filename' => '../data/config.xml']);
                 $configWriter->write();
                 break;
-            case "mailtemplates":
-                $settings = Cunity::get("settings");
-                $res[] = $settings->setSetting("core.mail_header", $_POST['mail_header']);
-                $res[] = $settings->setSetting("core.mail_footer", $_POST['mail_footer']);
+            case 'mailtemplates':
+                $settings = Cunity::get('settings');
+                $res[] = $settings->setSetting('core.mail_header', Post::get('mail_header'));
+                $res[] = $settings->setSetting('core.mail_footer', Post::get('mail_footer'));
                 break;
             case 'modules':
-                Cunity::set('modules', new Modules());
-                $modules = Cunity::get("modules");
-                $modules->update(['status' => $_POST['status']], 'id = ' . $_POST['id']);
+                $modules = new Modules();
+                $modules->update(['status' => Post::get('status')], 'id = ' . Post::get('id'));
                 break;
             case 'update':
                 UpdateHelper::update();
                 break;
             case 'users':
-                Cunity::set('users', new Users());
-                /** @var Users $users */
-                $users = Cunity::get("users");
+                $users = new Users();
 
-                if (null !== $_REQUEST['userid']) {
-                    if ('' !== $_REQUEST['groupid']) {
-                        $users->update(['groupid' => $_REQUEST['groupid']], 'userid = ' . $_REQUEST['userid']);
+                if (Request::get('userid') !== null) {
+                    if (Request::get('groupid') !== null) {
+                        $users->update(['groupid' => Request::get('groupid')], 'userid = ' . Request::get('userid'));
                     } else {
-                        $users->delete('userid = ' . $_REQUEST['userid']);
+                        $users->delete('userid = ' . Request::get('userid'));
                     }
                 } else {
-                    $users->registerNewUser($_REQUEST);
+                    $users->registerNewUser(Request::get(null, []));
                 }
                 break;
         }
@@ -131,7 +131,9 @@ class Process
     /**
      * @param array $array1
      * @param array $array2
+     *
      * @return array
+     *
      * @author Daniel <daniel (at) danielsmedegaardbuus (dot) dk>
      * @author Gabriel Sobrinho <gabriel (dot) sobrinho (at) gmail (dot) com>
      */
@@ -156,10 +158,14 @@ class Process
     private function delete($form)
     {
         $primary = 'id';
+        $object = new \stdClass();
 
         switch ($form) {
             case 'profilefields':
                 $object = new ProfileFields();
+                break;
+            case 'modules':
+                $object = new Modules();
                 break;
             case 'contact':
                 $primary = 'contact_id';
@@ -169,8 +175,11 @@ class Process
                 break;
         }
 
-        /** @var Table $object */
-        $object->delete($primary . ' = ' . $_REQUEST['id']);
+        if ($object instanceof Table) {
+            /* @var Table $object */
+            $object->delete($primary . ' = ' . Request::get('id'));
+        }
+
         $this->sendResponse();
     }
 
@@ -180,7 +189,7 @@ class Process
     protected function sendResponse($res = [])
     {
         $view = new View(!in_array(false, $res));
-        $view->addData(["panel" => $_POST['panel']]);
+        $view->addData(['panel' => Post::get('panel')]);
         $view->sendResponse();
     }
 
@@ -189,11 +198,13 @@ class Process
      */
     private function insert($form)
     {
+        $object = new \stdClass();
+
         switch ($form) {
             case 'profilefields':
                 $object = new ProfileFields();
-                $newId = $object->insert($_REQUEST);
-                $possibleValues = explode(',', $_REQUEST['possiblevalues']);
+                $newId = $object->insert(Request::get(null, []));
+                $possibleValues = explode(',', Request::get('possiblevalues'));
                 $sorting = 1;
 
                 foreach ($possibleValues as $_value) {
@@ -203,11 +214,21 @@ class Process
                 }
 
                 break;
+            case 'newsletter':
+                NewsletterHelper::sendMails(Request::get('subject'), Request::get('message'), (Request::get('type') === 'test'));
+
+                if (Request::get('type') !== 'test') {
+                    $object = new Newsletter();
+                }
             default:
                 break;
         }
 
-        /** @var Table $object */
+        if ($object instanceof Table) {
+            /* @var Table $object */
+            $object->insert(Request::get(null, []));
+        }
+
         $this->sendResponse();
     }
 }

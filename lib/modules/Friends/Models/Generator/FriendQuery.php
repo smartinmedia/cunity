@@ -4,11 +4,11 @@
  * ########################################################################################
  * ## CUNITY(R) V2.0 - An open source social network / "your private social network"     ##
  * ########################################################################################
- * ##  Copyright (C) 2011 - 2014 Smart In Media GmbH & Co. KG                            ##
+ * ##  Copyright (C) 2011 - 2015 Smart In Media GmbH & Co. KG                            ##
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -38,25 +38,34 @@ namespace Cunity\Friends\Models\Generator;
 
 use Cunity\Core\Cunity;
 use Cunity\Core\Models\Db\Adapter\Mysqli;
+use Cunity\Core\Request\Session;
 use Zend_Db_Expr;
 
 /**
- * Class FriendQuery
- * @package Friends\Models\Generator
+ * Class FriendQuery.
  */
 class FriendQuery
 {
-
     /**
      * @param string $status
+     *
      * @return Zend_Db_Expr
+     *
      * @throws \Exception
      */
-    public static function getFriendListQuery($status = "> 0")
+    public static function getFriendListQuery($status = '> 0')
     {
-        return new Zend_Db_Expr(Cunity::get("db")->select()
-            ->from(Mysqli::getDbprefix() . "relations", new Zend_Db_Expr("(CASE WHEN sender = " . $_SESSION['user']->userid . " THEN receiver WHEN receiver = " . $_SESSION['user']->userid . " THEN sender END)"))
-            ->where("status" . $status)
-            ->where("sender=? OR receiver=?", $_SESSION['user']->userid));
+        $settings = Cunity::get('settings');
+
+        if ($settings->getSetting('register.allfriends')) {
+            return new Zend_Db_Expr(Cunity::get('db')->select()
+                ->from(Mysqli::getDbprefix().'users', 'userid')
+                ->where('userid!=?', Session::get('user')->userid));
+        } else {
+            return new Zend_Db_Expr(Cunity::get('db')->select()
+                ->from(Mysqli::getDbprefix().'relations', new Zend_Db_Expr('(CASE WHEN sender = '.Session::get('user')->userid.' THEN receiver WHEN receiver = '.Session::get('user')->userid.' THEN sender END)'))
+                ->where('status'.$status)
+                ->where('sender=? OR receiver=?', Session::get('user')->userid));
+        }
     }
 }

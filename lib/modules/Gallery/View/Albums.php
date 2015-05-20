@@ -4,11 +4,11 @@
  * ########################################################################################
  * ## CUNITY(R) V2.0 - An open source social network / "your private social network"     ##
  * ########################################################################################
- * ##  Copyright (C) 2011 - 2014 Smart In Media GmbH & Co. KG                            ##
+ * ##  Copyright (C) 2011 - 2015 Smart In Media GmbH & Co. KG                            ##
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -39,34 +39,32 @@ namespace Cunity\Gallery\View;
 use Cunity\Core\View\View;
 
 /**
- * Class Albums
- * @package Cunity\Gallery\View
+ * Class Albums.
  */
 class Albums extends View
 {
-
     /**
      * @var string
      */
-    protected $_templateDir = "gallery";
+    protected $_templateDir = 'gallery';
     /**
      * @var string
      */
-    protected $_templateFile = "albums.tpl";
+    protected $_templateFile = 'albums.tpl';
     /**
      * @var array
      */
-    protected $_metadata = ["title" => "Albums"];
+    protected $_metadata = ['title' => 'Albums'];
 
     /**
-     * @throws \Cunity\Core\Exception
+     * @throws \Cunity\Core\Exceptions\Exception
      * @throws \Exception
      */
     public function __construct()
     {
         parent::__construct();
-        $this->registerCss("gallery", "albums");
-        $this->registerScript("gallery", "albums");
+        $this->registerCss('gallery', 'albums');
+        $this->registerScript('gallery', 'albums');
         $this->show();
     }
 }

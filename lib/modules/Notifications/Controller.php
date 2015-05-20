@@ -4,11 +4,11 @@
  * ########################################################################################
  * ## CUNITY(R) V2.0 - An open source social network / "your private social network"     ##
  * ########################################################################################
- * ##  Copyright (C) 2011 - 2014 Smart In Media GmbH & Co. KG                            ##
+ * ##  Copyright (C) 2011 - 2015 Smart In Media GmbH & Co. KG                            ##
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -37,16 +37,16 @@
 namespace Cunity\Notifications;
 
 use Cunity\Core\ModuleController;
+use Cunity\Core\Request\Get;
+use Cunity\Core\Request\Post;
 use Cunity\Core\View\Ajax\View;
 use Cunity\Notifications\Models\Db\Table\Notifications;
 
 /**
- * Class Controller
- * @package Cunity\Notifications
+ * Class Controller.
  */
 class Controller extends ModuleController
 {
-
     /**
      *
      */
@@ -60,13 +60,13 @@ class Controller extends ModuleController
      */
     private function handleRequest()
     {
-        if (isset($_GET['action']) && $_GET['action'] == "get") {
+        if (Get::get('action') === 'get') {
             $process = new Models\Process();
             $process->get();
-        } elseif (isset($_GET['action']) && $_GET['action'] == "markRead") {
+        } elseif (Get::get('action') === 'markRead') {
             $view = new View();
             $n = new Notifications();
-            $view->setStatus($n->read($_POST['id']));
+            $view->setStatus($n->read(Post::get('id')));
             $view->sendResponse();
         }
     }

@@ -4,11 +4,11 @@
  * ########################################################################################
  * ## CUNITY(R) V2.0 - An open source social network / "your private social network"     ##
  * ########################################################################################
- * ##  Copyright (C) 2011 - 2014 Smart In Media GmbH & Co. KG                            ##
+ * ##  Copyright (C) 2011 - 2015 Smart In Media GmbH & Co. KG                            ##
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -39,8 +39,7 @@ namespace Cunity\Admin\Models\Pages;
 use Cunity\Admin\Helper\UpdateHelper;
 
 /**
- * Class Update
- * @package Cunity\Admin\Models\Pages
+ * Class Update.
  */
 class Update extends PageAbstract
 {
@@ -50,6 +49,6 @@ class Update extends PageAbstract
     public function __construct()
     {
         $this->assignments['hasUpdate'] = UpdateHelper::hasUpdates();
-        $this->render("update");
+        $this->render('update');
     }
 }

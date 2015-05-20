@@ -4,11 +4,11 @@
  * ########################################################################################
  * ## CUNITY(R) V2.0 - An open source social network / "your private social network"     ##
  * ########################################################################################
- * ##  Copyright (C) 2011 - 2014 Smart In Media GmbH & Co. KG                            ##
+ * ##  Copyright (C) 2011 - 2015 Smart In Media GmbH & Co. KG                            ##
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -37,11 +37,11 @@
 namespace Cunity\Core\Models\Validation;
 
 use Cunity\Core\Models\Db\Table\Users;
+use Cunity\Core\Request\Session;
 use Cunity\Register\Models\Login;
 
 /**
- * Class Email
- * @package Cunity\Core\Models\Validation
+ * Class Email.
  */
 class Email extends \Zend_Validate_EmailAddress
 {
@@ -58,12 +58,13 @@ class Email extends \Zend_Validate_EmailAddress
      * @var array
      */
     protected $_messageTemplates = [
-        self::USED => "This E-Mail address is already in use",
-        self::EMPTYSTRING => "Please enter an email!"
+        self::USED => 'This E-Mail address is already in use',
+        self::EMPTYSTRING => 'Please enter an email!',
     ];
 
     /**
      * @param string $value
+     *
      * @return bool
      */
     public function isValid($value)
@@ -75,9 +76,9 @@ class Email extends \Zend_Validate_EmailAddress
         if (empty($value)) {
             $this->_error(self::EMPTYSTRING);
         } else {
-            $user = $users->search("email", $value);
+            $user = $users->search('email', $value);
             if (($user !== null && !Login::loggedIn()) ||
-                (Login::loggedIn() && $user->userid !== $_SESSION['user']->userid)
+                (Login::loggedIn() && $user->userid !== Session::get('user')->userid)
             ) {
                 $this->_error(self::USED);
                 $returnValue = false;

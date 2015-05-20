@@ -4,11 +4,11 @@
  * ########################################################################################
  * ## CUNITY(R) V2.0 - An open source social network / "your private social network"     ##
  * ########################################################################################
- * ##  Copyright (C) 2011 - 2014 Smart In Media GmbH & Co. KG                            ##
+ * ##  Copyright (C) 2011 - 2015 Smart In Media GmbH & Co. KG                            ##
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -39,39 +39,37 @@ namespace Cunity\Events\View;
 use Cunity\Core\View\View;
 
 /**
- * Class Event
- * @package Cunity\Events\View
+ * Class Event.
  */
 class Event extends View
 {
-
     /**
      * @var string
      */
-    protected $_templateDir = "events";
+    protected $_templateDir = 'events';
     /**
      * @var string
      */
-    protected $_templateFile = "event.tpl";
+    protected $_templateFile = 'event.tpl';
     /**
      * @var array
      */
-    protected $_metadata = ["title" => "Event"];
+    protected $_metadata = ['title' => 'Event'];
 
     /**
-     * @throws \Cunity\Core\Exception
+     * @throws \Cunity\Core\Exceptions\Exception
      * @throws \Exception
      */
     public function __construct()
     {
         parent::__construct();
-        $this->registerCss("events", "event");
-        $this->registerCss("newsfeed", "newsfeed");
-        $this->registerScript("newsfeed", "newsfeed");
-        $this->registerScript("events", "event");
+        $this->registerCss('events', 'event');
+        $this->registerCss('newsfeed', 'newsfeed');
+        $this->registerScript('newsfeed', 'newsfeed');
+        $this->registerScript('events', 'event');
 
-        $this->registerCss("gallery", "lightbox");
-        $this->registerScript("gallery", "jquery.blueimp-gallery");
-        $this->registerScript("gallery", "lightbox");
+        $this->registerCss('gallery', 'lightbox');
+        $this->registerScript('gallery', 'jquery.blueimp-gallery');
+        $this->registerScript('gallery', 'lightbox');
     }
 }

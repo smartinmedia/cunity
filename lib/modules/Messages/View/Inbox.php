@@ -4,11 +4,11 @@
  * ########################################################################################
  * ## CUNITY(R) V2.0 - An open source social network / "your private social network"     ##
  * ########################################################################################
- * ##  Copyright (C) 2011 - 2014 Smart In Media GmbH & Co. KG                            ##
+ * ##  Copyright (C) 2011 - 2015 Smart In Media GmbH & Co. KG                            ##
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -39,34 +39,32 @@ namespace Cunity\Messages\View;
 use Cunity\Core\View\View;
 
 /**
- * Class Inbox
- * @package Cunity\Messages\View
+ * Class Inbox.
  */
 class Inbox extends View
 {
-
     /**
      * @var string
      */
-    protected $_templateDir = "messages";
+    protected $_templateDir = 'messages';
     /**
      * @var string
      */
-    protected $_templateFile = "inbox.tpl";
+    protected $_templateFile = 'inbox.tpl';
     /**
      * @var array
      */
-    protected $_metadata = ["title" => "My Conversations"];
+    protected $_metadata = ['title' => 'My Conversations'];
 
     /**
-     * @throws \Cunity\Core\Exception
+     * @throws \Cunity\Core\Exceptions\Exception
      * @throws \Exception
      */
     public function __construct()
     {
         parent::__construct();
-        $this->registerScript("messages", "inbox");
-        $this->registerCss("messages", "inbox");
+        $this->registerScript('messages', 'inbox');
+        $this->registerCss('messages', 'inbox');
         $this->render();
     }
 

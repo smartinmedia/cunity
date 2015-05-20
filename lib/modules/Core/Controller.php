@@ -4,11 +4,11 @@
  * ########################################################################################
  * ## CUNITY(R) V2.0 - An open source social network / "your private social network"     ##
  * ########################################################################################
- * ##  Copyright (C) 2011 - 2014 Smart In Media GmbH & Co. KG                            ##
+ * ##  Copyright (C) 2011 - 2015 Smart In Media GmbH & Co. KG                            ##
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -36,14 +36,15 @@
 
 namespace Cunity\Core;
 
+use Cunity\Core\Exceptions\ModuleNotActive;
+use Cunity\Core\Exceptions\ModuleNotFound;
 use Cunity\Core\Models\Request;
+use Cunity\Core\Request\Get;
 use Cunity\Core\View\Exception\View;
-use Cunity\Core\View\PageNotFound;
 use Cunity\Register\Models\Login;
 
 /**
- * Class Controller
- * @package Core
+ * Class Controller.
  */
 class Controller
 {
@@ -60,8 +61,8 @@ class Controller
 
         //use the filesdir hash as unique session name
         session_name(
-            "cunity-"
-            . Cunity::get("settings")->getSetting("core.filesdir")
+            'cunity-'
+            .Cunity::get('settings')->getSetting('core.filesdir')
         );
         session_start();
         if (Models\Request::isAjaxRequest()) {
@@ -77,28 +78,28 @@ class Controller
      */
     protected function handleQuery()
     {
-        if (!isset($_GET['m']) || empty($_GET['m'])) {
+        if (Get::get('m') === null || Get::get('m') == '') {
             if (Login::loggedIn()) {
                 header(
-                    "Location:"
-                    . Models\Generator\Url::convertUrl(
-                        "index.php?m=profile"
+                    'Location:'
+                    .Models\Generator\Url::convertUrl(
+                        'index.php?m=profile'
                     )
                 );
                 exit();
             } else {
-                $_GET['m'] = 'start';
+                Get::set('m', 'start');
             }
         }
 
-        $moduleController = new Module($_GET['m']);
+        $moduleController = new Module(Get::get('m'));
         if (!Request::isAjaxRequest() && !$moduleController->isActive()) {
-            new PageNotFound();
+            throw new ModuleNotActive();
         } elseif ($moduleController->isValid()) {
             $classname = $moduleController->getClassName();
-            new $classname;
+            new $classname();
         } else {
-            new PageNotFound;
+            throw new ModuleNotFound();
         }
     }
 
@@ -111,14 +112,13 @@ class Controller
     }
 
     /**
-     * @param Exception|\Exception $exception
+     * @param \Exception $exception
      */
     public static function handleAjaxException(\Exception $exception)
     {
-        /** @noinspection PhpUnnecessaryFullyQualifiedNameInspection */
         $view = new \Cunity\Core\View\Ajax\View();
         $view->setStatus(false);
-        $view->addData(["msg" => $exception->getMessage()]);
+        $view->addData(['msg' => $exception->getMessage()]);
         $view->sendResponse();
     }
 

@@ -4,11 +4,11 @@
  * ########################################################################################
  * ## CUNITY(R) V2.0 - An open source social network / "your private social network"     ##
  * ########################################################################################
- * ##  Copyright (C) 2011 - 2014 Smart In Media GmbH & Co. KG                            ##
+ * ##  Copyright (C) 2011 - 2015 Smart In Media GmbH & Co. KG                            ##
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -36,12 +36,12 @@
 
 namespace Cunity\Likes\Models;
 
+use Cunity\Core\Request\Post;
 use Cunity\Core\View\Ajax\View;
 use Cunity\Gallery\Models\Process;
 
 /**
- * Class Likes
- * @package Likes\Models
+ * Class Likes.
  */
 class Likes
 {
@@ -61,7 +61,7 @@ class Likes
     public function __construct($action)
     {
         $this->view = new View();
-        if (!isset($_POST['ref_name']) || !isset($_POST['ref_id'])) {
+        if (Post::get('ref_name') === null || Post::get('ref_id') === null) {
             $this->view->setStatus(false);
         } else {
             $this->table = new Db\Table\Likes();
@@ -77,10 +77,10 @@ class Likes
      */
     private function like()
     {
-        $res = $this->table->like($_POST['ref_id'], $_POST['ref_name']);
+        $res = $this->table->like(Post::get('ref_id'), Post::get('ref_name'));
         $this->view->setStatus($res !== false);
-        if ($_POST['ref_name'] == 'image') {
-            new Process('loadImage', $_POST['ref_id']);
+        if (Post::get('ref_name') == 'image') {
+            new Process('loadImage', Post::get('ref_id'));
         }
     }
 
@@ -89,10 +89,10 @@ class Likes
      */
     private function dislike()
     {
-        $res = $this->table->dislike($_POST['ref_id'], $_POST['ref_name']);
+        $res = $this->table->dislike(Post::get('ref_id'), Post::get('ref_name'));
         $this->view->setStatus($res !== false);
-        if ($_POST['ref_name'] == 'image') {
-            new Process('loadImage', $_POST['ref_id']);
+        if (Post::get('ref_name') === 'image') {
+            new Process('loadImage', Post::get('ref_id'));
         }
     }
 
@@ -101,10 +101,10 @@ class Likes
      */
     private function unlike()
     {
-        $res = $this->table->unlike($_POST['ref_id'], $_POST['ref_name']);
+        $res = $this->table->unlike(Post::get('ref_id'), Post::get('ref_name'));
         $this->view->setStatus($res !== false);
-        if ($_POST['ref_name'] == 'image') {
-            new Process('loadImage', $_POST['ref_id']);
+        if (Post::get('ref_name') == 'image') {
+            new Process('loadImage', Post::get('ref_id'));
         }
     }
 
@@ -113,8 +113,8 @@ class Likes
      */
     private function get()
     {
-        $res = $this->table->getLikes($_POST['ref_id'], $_POST['ref_name'], $_POST['dislike']);
+        $res = $this->table->getLikes(Post::get('ref_id'), Post::get('ref_name'), Post::get('dislike'));
         $this->view->setStatus($res !== false);
-        $this->view->addData(["likes" => $res]);
+        $this->view->addData(['likes' => $res]);
     }
 }

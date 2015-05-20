@@ -4,11 +4,11 @@
  * ########################################################################################
  * ## CUNITY(R) V2.0 - An open source social network / "your private social network"     ##
  * ########################################################################################
- * ##  Copyright (C) 2011 - 2014 Smart In Media GmbH & Co. KG                            ##
+ * ##  Copyright (C) 2011 - 2015 Smart In Media GmbH & Co. KG                            ##
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -36,14 +36,14 @@
 
 namespace Cunity\Friends\Models;
 
-use Cunity\Core\Exception;
+use Cunity\Core\Request\Post;
+use Cunity\Core\Request\Session;
 use Cunity\Core\View\Ajax\View;
 use Cunity\Friends\Helper\RelationShipHelper;
 use Cunity\Friends\Models\Db\Table\Relationships;
 
 /**
- * Class Process
- * @package Cunity\Friends\Models
+ * Class Process.
  */
 class Process
 {
@@ -98,7 +98,7 @@ class Process
     }
 
     /**
-     * @throws Exception
+     * @throws \Cunity\Core\Exceptions\Exception
      */
     private function loadData()
     {
@@ -112,7 +112,7 @@ class Process
     {
         $relations = new Relationships();
         $view = new View(true);
-        $view->addData(["result" => $relations->getFullFriendList(">1", $_POST['userid'])]);
+        $view->addData(['result' => $relations->getFullFriendList('>1', Post::get('userid'))]);
         $view->sendResponse();
     }
 
@@ -122,14 +122,14 @@ class Process
     private function loadOnline()
     {
         $view = new View(false);
-        if ($_SESSION['user']->chat_available == 1) {
+        if (Session::get('user')->chat_available == 1) {
             $relations = new Relationships();
-            $friends = $relations->loadOnlineFriends($_SESSION['user']->userid);
-            $view->addData(["result" => $friends]);
+            $friends = $relations->loadOnlineFriends(Session::get('user')->userid);
+            $view->addData(['result' => $friends]);
             $view->setStatus(true);
         } else {
             $view->setStatus(true);
-            $view->addData(["result" => [], "msg" => "disabled"]);
+            $view->addData(['result' => [], 'msg' => 'disabled']);
         }
         $view->sendResponse();
     }
@@ -140,10 +140,9 @@ class Process
     private function chatStatus()
     {
         $view = new View(false);
-        if ($_POST['status'] == 1 || $_POST['status'] == 0) {
-            $_SESSION['user']->chat_available = $_POST['status'];
-            /** @noinspection PhpUndefinedMethodInspection */
-            $view->setStatus($_SESSION['user']->save() > 0);
+        if (Post::get('status') == 1 || Post::get('status') == 0) {
+            Session::get('user')->chat_available = Post::get('status');
+            $view->setStatus(Session::get('user')->save() > 0);
         }
         $view->sendResponse();
     }

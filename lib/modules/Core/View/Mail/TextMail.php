@@ -4,11 +4,11 @@
  * ########################################################################################
  * ## CUNITY(R) V2.0 - An open source social network / "your private social network"     ##
  * ########################################################################################
- * ##  Copyright (C) 2011 - 2014 Smart In Media GmbH & Co. KG                            ##
+ * ##  Copyright (C) 2011 - 2015 Smart In Media GmbH & Co. KG                            ##
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -35,22 +35,23 @@
  */
 
 namespace Cunity\Core\View\Mail;
+
 use Cunity\Core\Models\Db\Row\User;
+use Cunity\Core\Request\Session;
 
 /**
- * Class TextMail
- * @package Cunity\Core\View\Mail
+ * Class TextMail.
  */
 class TextMail extends MailView
 {
     /**
      * @var string
      */
-    protected $_templateDir = "core";
+    protected $_templateDir = 'core';
     /**
      * @var string
      */
-    protected $_templateFile = "textmail.tpl";
+    protected $_templateFile = 'textmail.tpl';
 
     /**
      * @param $receiver
@@ -64,9 +65,8 @@ class TextMail extends MailView
             isset($receiver['userid'])
         ) {
             /** @var User $user */
-            /** @noinspection PhpUndefinedMethodInspection */
-            $user = $_SESSION['user']->getTable()->search(
-                "userid",
+            $user = Session::get('user')->getTable()->search(
+                'userid',
                 $receiver['userid']
             );
             if ($user !== null) {
@@ -79,16 +79,16 @@ class TextMail extends MailView
         $this->_subject = $this->translate(
             $text['subject']['text']
         );
-        $this->assign("name", $receiver["name"]);
+        $this->assign('name', $receiver['name']);
         if (isset($text['content'])) {
             $this->assign(
-                "content", $this->translate(
+                'content', $this->translate(
                     $text['content']['text']
                 )
             );
         } else {
             $this->assign(
-                "content", $this->translate(
+                'content', $this->translate(
                     $text['subject']['text']
                 )
             );

@@ -4,11 +4,11 @@
  * ########################################################################################
  * ## CUNITY(R) V2.0 - An open source social network / "your private social network"     ##
  * ########################################################################################
- * ##  Copyright (C) 2011 - 2014 Smart In Media GmbH & Co. KG                            ##
+ * ##  Copyright (C) 2011 - 2015 Smart In Media GmbH & Co. KG                            ##
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -37,11 +37,11 @@
 namespace Cunity\Comments\Helper;
 
 use Cunity\Comments\Models\Db;
+use Cunity\Core\Request\Post;
 use Cunity\Core\View\Ajax\View;
 
 /**
- * Class AbstractCommentsHelper
- * @package Cunity\Core\Helper
+ * Class AbstractCommentsHelper.
  */
 abstract class AbstractCommentsHelper
 {
@@ -73,7 +73,7 @@ abstract class AbstractCommentsHelper
      */
     protected function add()
     {
-        $res = $this->table->addComment($_POST['ref_id'], $_POST['ref_name'], $_POST['content']);
+        $res = $this->table->addComment(Post::get('ref_id'), Post::get('ref_name'), Post::get('content'));
         $this->view->setStatus($res !== false);
         $this->view->addData($res);
     }
@@ -83,7 +83,7 @@ abstract class AbstractCommentsHelper
      */
     protected function remove()
     {
-        $res = $this->table->removeComment($_POST['comment_id']);
+        $res = $this->table->removeComment(Post::get('comment_id'));
         $this->view->setStatus($res !== false);
     }
 
@@ -92,7 +92,7 @@ abstract class AbstractCommentsHelper
      */
     protected function removeAll()
     {
-        $res = $this->table->removeAllComments($_POST['ref_id'], $_POST['ref_name']);
+        $res = $this->table->removeAllComments(Post::get('ref_id'), Post::get('ref_name'));
         $this->view->setStatus($res !== false);
     }
 
@@ -101,8 +101,8 @@ abstract class AbstractCommentsHelper
      */
     protected function get()
     {
-        $res = $this->table->get($_POST['ref_id'], $_POST['ref_name'], $_POST['last'], $_POST['limit']);
+        $res = $this->table->get(Post::get('ref_id'), Post::get('ref_name'), Post::get('last', true), Post::get('limit'));
         $this->view->setStatus($res !== false);
-        $this->view->addData(["comments" => $res]);
+        $this->view->addData(['comments' => $res]);
     }
 }

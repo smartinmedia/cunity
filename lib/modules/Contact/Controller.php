@@ -4,11 +4,11 @@
  * ########################################################################################
  * ## CUNITY(R) V2.0 - An open source social network / "your private social network"     ##
  * ########################################################################################
- * ##  Copyright (C) 2011 - 2014 Smart In Media GmbH & Co. KG                            ##
+ * ##  Copyright (C) 2011 - 2015 Smart In Media GmbH & Co. KG                            ##
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -36,11 +36,13 @@
 
 namespace Cunity\Contact;
 
+use Cunity\Core\Models\Db\Row\User;
 use Cunity\Core\ModuleController;
+use Cunity\Core\Request\Get;
+use Cunity\Core\Request\Session;
 
 /**
- * Class Controller
- * @package Cunity\Contact
+ * Class Controller.
  */
 class Controller extends ModuleController
 {
@@ -57,10 +59,10 @@ class Controller extends ModuleController
      */
     private function handleRequest()
     {
-        if (!isset($_GET['action']) || empty($_GET['action'])) {
+        if (Get::get('action') !== null || Get::get('action') == '') {
             new View\ContactForm();
-        } elseif (isset($_GET['action']) && $_GET['action'] == "sendContact") {
-            new Models\ContactForm();
+        } elseif (Get::get('action') == 'sendContact') {
+            new Models\ContactForm(Session::get('user', new User()));
         }
     }
 }

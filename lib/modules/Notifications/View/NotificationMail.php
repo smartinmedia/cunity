@@ -4,11 +4,11 @@
  * ########################################################################################
  * ## CUNITY(R) V2.0 - An open source social network / "your private social network"     ##
  * ########################################################################################
- * ##  Copyright (C) 2011 - 2014 Smart In Media GmbH & Co. KG                            ##
+ * ##  Copyright (C) 2011 - 2015 Smart In Media GmbH & Co. KG                            ##
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -39,20 +39,18 @@ namespace Cunity\Notifications\View;
 use Cunity\Core\View\Mail\MailView;
 
 /**
- * Class NotificationMail
- * @package Notifications\View
+ * Class NotificationMail.
  */
 class NotificationMail extends MailView
 {
-
     /**
      * @var string
      */
-    protected $_templateDir = "notifications";
+    protected $_templateDir = 'notifications';
     /**
      * @var string
      */
-    protected $_templateFile = "notification-mail.tpl";
+    protected $_templateFile = 'notification-mail.tpl';
 
     /**
      * @param array $receiver
@@ -63,7 +61,7 @@ class NotificationMail extends MailView
         parent::__construct();
         $this->_receiver = $receiver;
         $this->_subject = $data['message'];
-        $this->assign("message", $data['message']);
+        $this->assign('message', $data['message']);
         $this->show();
     }
 }

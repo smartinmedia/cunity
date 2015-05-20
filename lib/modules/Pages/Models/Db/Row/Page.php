@@ -4,11 +4,11 @@
  * ########################################################################################
  * ## CUNITY(R) V2.0 - An open source social network / "your private social network"     ##
  * ########################################################################################
- * ##  Copyright (C) 2011 - 2014 Smart In Media GmbH & Co. KG                            ##
+ * ##  Copyright (C) 2011 - 2015 Smart In Media GmbH & Co. KG                            ##
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -36,25 +36,25 @@
 
 namespace Cunity\Pages\Models\Db\Row;
 
+use Cunity\Core\Request\Get;
+
 /**
- * Class Page
- * @package Cunity\Pages\Models\Db\Row
+ * Class Page.
  */
 class Page extends \Zend_Db_Table_Row_Abstract
 {
-
     /**
      *
      */
     public function displayPage()
     {
-        if (isset($_GET['x']) && $_GET['x'] == "textonly") {
+        if (Get::get('x') === 'textonly') {
             echo $this->content;
         } else {
             $this->content = html_entity_decode($this->content);
             $view = new \Cunity\Pages\View\Page();
-            $view->setMetaData(["title" => $this->title]);
-            $view->assign("page", $this->_data);
+            $view->setMetaData(['title' => $this->title]);
+            $view->assign('page', $this->_data);
             $view->show();
         }
     }

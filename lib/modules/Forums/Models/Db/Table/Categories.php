@@ -4,11 +4,11 @@
  * ########################################################################################
  * ## CUNITY(R) V2.0 - An open source social network / "your private social network"     ##
  * ########################################################################################
- * ##  Copyright (C) 2011 - 2014 Smart In Media GmbH & Co. KG                            ##
+ * ##  Copyright (C) 2011 - 2015 Smart In Media GmbH & Co. KG                            ##
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -39,12 +39,10 @@ namespace Cunity\Forums\Models\Db\Table;
 use Cunity\Core\Models\Db\Abstractables\Table;
 
 /**
- * Class Categories
- * @package Cunity\Forums\Models\Db\Table
+ * Class Categories.
  */
 class Categories extends Table
 {
-
     /**
      * @var string
      */
@@ -67,27 +65,30 @@ class Categories extends Table
      */
     public function getCategories()
     {
-        $query = $this->getAdapter()->select()->from(["c" => $this->_name])
-            ->joinLeft(["t" => $this->_dbprefix . "forums_threads"], "t.category=c.id", new \Zend_Db_Expr("COUNT(DISTINCT t.id) AS threadCount"))
-            ->joinLeft(["pc" => $this->_dbprefix . "forums_posts"], "pc.thread_id=t.id", new \Zend_Db_Expr("COUNT(DISTINCT pc.id) AS postcount"))
-            ->group("c.id");
+        $query = $this->getAdapter()->select()->from(['c' => $this->_name])
+            ->joinLeft(['t' => $this->_dbprefix.'forums_threads'], 't.category=c.id', new \Zend_Db_Expr('COUNT(DISTINCT t.id) AS threadCount'))
+            ->joinLeft(['pc' => $this->_dbprefix.'forums_posts'], 'pc.thread_id=t.id', new \Zend_Db_Expr('COUNT(DISTINCT pc.id) AS postcount'))
+            ->group('c.id');
         $res = $this->getAdapter()->fetchAll($query);
         if ($res !== null && $res !== false) {
             return $res;
         }
+
         return false;
     }
 
     /**
      * @param $tag
+     *
      * @return array|bool
      */
     public function getCategoryData($tag)
     {
-        $res = $this->fetchRow($this->select()->where("tag=?", $tag));
+        $res = $this->fetchRow($this->select()->where('tag=?', $tag));
         if ($res !== null && $res !== false) {
             return $res->toArray();
         }
+
         return false;
     }
 }

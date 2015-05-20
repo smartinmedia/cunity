@@ -4,11 +4,11 @@
  * ########################################################################################
  * ## CUNITY(R) V2.0 - An open source social network / "your private social network"     ##
  * ########################################################################################
- * ##  Copyright (C) 2011 - 2014 Smart In Media GmbH & Co. KG                            ##
+ * ##  Copyright (C) 2011 - 2015 Smart In Media GmbH & Co. KG                            ##
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -40,46 +40,44 @@ use Cunity\Core\View\View;
 use Cunity\Profile\Models\Db\Table\ProfileFields;
 
 /**
- * Class Startpage
- * @package Cunity\Start\View
+ * Class Startpage.
  */
 class Startpage extends View
 {
-
     /**
      * @var string
      */
-    protected $_templateDir = "start";
+    protected $_templateDir = 'start';
     /**
      * @var string
      */
-    protected $_templateFile = "startpage.tpl";
+    protected $_templateFile = 'startpage.tpl';
     /**
      * @var string
      */
-    protected $_languageFolder = "start/languages";
+    protected $_languageFolder = 'start/languages';
     /**
      * @var array
      */
-    protected $_metadata = ["title" => "Welcome"];
+    protected $_metadata = ['title' => 'Welcome'];
     /**
      * @var bool
      */
     protected $_useWrapper = false;
 
     /**
-     * @throws \Cunity\Core\Exception
+     * @throws \Cunity\Core\Exceptions\Exception
      * @throws \Exception
      */
     public function __construct()
     {
         parent::__construct();
         $this->assign('success', false);
-        $this->registerScript("register", "registration");
-        $this->registerCss("register", "style");
+        $this->registerScript('register', 'registration');
+        $this->registerCss('register', 'style');
         $this->registerCunityPlugin(
-            "bootstrap-datepicker",
-            ["css/bootstrap-datepicker.css", "js/bootstrap-datepicker.js"]
+            'bootstrap-datepicker',
+            ['css/bootstrap-datepicker.css', 'js/bootstrap-datepicker.js']
         );
         $profileFields = new ProfileFields();
         $this->assign('profileFields', $profileFields->getRegistrationFields());

@@ -4,11 +4,11 @@
  * ########################################################################################
  * ## CUNITY(R) V2.0 - An open source social network / "your private social network"     ##
  * ########################################################################################
- * ##  Copyright (C) 2011 - 2014 Smart In Media GmbH & Co. KG                            ##
+ * ##  Copyright (C) 2011 - 2015 Smart In Media GmbH & Co. KG                            ##
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -39,27 +39,33 @@ namespace Cunity\Admin\Models\Pages;
 use Cunity\Comments\Models\Db\Table\Comments;
 use Cunity\Core\Cunity;
 use Cunity\Core\Models\Mail\Mail;
+use Cunity\Core\Request\Post;
+use Cunity\Core\Request\Request;
 use Cunity\Core\View\Ajax\View;
 use Cunity\Pages\Models\Db\Table\Pages;
 use Cunity\Profile\Models\Db\Table\ProfileFields;
 
 /**
- * Class Settings
- * @package Cunity\Admin\Models\Pages
+ * Class Settings.
  */
 class Settings extends PageAbstract
 {
+    /**
+     * @var View
+     */
+    protected $view;
 
     /**
      *
      */
     public function __construct()
     {
-        if (isset($_POST) && !empty($_POST)) {
+        if (Post::get() !== null) {
+            $this->view = new View();
             $this->handleRequest();
         } else {
             $this->loadData();
-            $this->render("settings");
+            $this->render('settings');
         }
     }
 
@@ -68,45 +74,44 @@ class Settings extends PageAbstract
      */
     private function handleRequest()
     {
-        $view = new View();
-        switch ($_POST['action']) {
-            case "sendTestMail":
+        switch (Request::get('action')) {
+            case 'sendTestMail':
                 $mail = new Mail();
-                $mail->sendMail("TestMail from cunity", "Cunity - Testmail", ["name" => "Cunity Admin", "email" => $_POST['mail']]);
-                $view->setStatus(true);
+                $mail->sendMail('TestMail from cunity', 'Cunity - Testmail', ['name' => 'Cunity Admin', 'email' => Request::get('mail')]);
+                $this->view->setStatus(true);
                 break;
-            case "loadPages":
+            case 'loadPages':
                 $pages = new Pages();
                 $res = $pages->loadPages();
-                $view->setStatus($res !== null);
-                $view->addData(["pages" => $res->toArray()]);
+                $this->view->setStatus($res !== null);
+                $this->view->addData(['pages' => $res->toArray()]);
                 break;
-            case "deletePage":
-                if (isset($_POST['id']) && !empty($_POST['id'])) {
+            case 'deletePage':
+                if (Request::get('id') !== null && Request::get('id') !== '') {
                     $pages = new Pages();
-                    $status = $pages->deletePage($_POST['id']);
+                    $status = $pages->deletePage(Request::get('id'));
                     if ($status !== false && false) {
                         $comments = new Comments();
-                        $status = $comments->removeAllComments($_POST['id'], "page");
+                        $status = $comments->removeAllComments(Request::get('id'), 'page');
                     } else {
                         $status = true;
                     }
-                    $view->setStatus($status);
-                    $view->sendResponse();
+                    $this->view->setStatus($status);
+                    $this->view->sendResponse();
                 } else {
-                    $view->setStatus(false);
+                    $this->view->setStatus(false);
                 }
                 break;
             case 'addPage':
                 $pages = new Pages();
-                $res = $pages->addPage($_POST);
+                $res = $pages->addPage(Request::get(null, []));
                 $page = $pages->getPage($res);
-                $view->setStatus($res !== null && $res !== false);
+                $this->view->setStatus($res !== null && $res !== false);
                 $page->content = html_entity_decode($page->content);
-                $view->addData(["page" => $page->toArray()]);
+                $this->view->addData(['page' => $page->toArray()]);
                 break;
         }
-        $view->sendResponse();
+        $this->view->sendResponse();
     }
 
     /**
@@ -114,22 +119,22 @@ class Settings extends PageAbstract
      */
     private function loadData()
     {
-        $langIterator = new \DirectoryIterator("modules/Core/languages");
-        $designIterator = new \DirectoryIterator("../style");
+        $langIterator = new \DirectoryIterator('modules/Core/languages');
+        $designIterator = new \DirectoryIterator('../style');
         foreach ($designIterator as $design) {
             if ($design->isDir() && $design->isReadable() && !$design->isDot()) {
-                $this->assignments['availableDesigns'][] = [$design->getBasename(), file_get_contents($design->getRealPath() . DIRECTORY_SEPARATOR . "name.txt")];
+                $this->assignments['availableDesigns'][] = [$design->getBasename(), file_get_contents($design->getRealPath().DIRECTORY_SEPARATOR.'name.txt')];
             }
         }
 
         foreach ($langIterator as $lang) {
-            if ($lang->isReadable() && $lang->getExtension() == "csv") {
+            if ($lang->isReadable() && $lang->getExtension() == 'csv') {
                 $this->assignments['availableLanguages'][] = $lang->getBasename('.csv');
             }
         }
         $profileFields = new ProfileFields();
         $this->assignments['profileFields'] = $profileFields->getAll();
         $this->assignments['fieldTypes'] = ProfileFields::$types;
-        $this->assignments["config"] = Cunity::get("config");
+        $this->assignments['config'] = Cunity::get('config');
     }
 }

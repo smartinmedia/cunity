@@ -5,11 +5,11 @@
  * ########################################################################################
  * ## CUNITY(R) V2.0 - An open source social network / "your private social network"     ##
  * ########################################################################################
- * ##  Copyright (C) 2011 - 2014 Smart In Media GmbH & Co. KG                            ##
+ * ##  Copyright (C) 2011 - 2015 Smart In Media GmbH & Co. KG                            ##
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -38,21 +38,20 @@
 namespace Cunity\Admin\Models\Pages;
 
 use Cunity\Contact\Models\Db\Table\Contact;
+use Cunity\Core\Models\Db\Table\Newsletter;
 
 /**
- * Class Mailing
- * @package Cunity\Admin\Models\Pages
+ * Class Mailing.
  */
 class Mailing extends PageAbstract
 {
-
     /**
      *
      */
     public function __construct()
     {
         $this->loadData();
-        $this->render("mailing");
+        $this->render('mailing');
     }
 
     /**
@@ -62,11 +61,14 @@ class Mailing extends PageAbstract
     {
         $modules = new \Cunity\Core\Models\Db\Table\Modules();
         $installedModules = $modules->getModules()->toArray();
-        $config = \Cunity\Core\Cunity::get("config");
+        $config = \Cunity\Core\Cunity::get('config');
         $this->assignments['smtp_check'] = $config->mail->smtp_check;
         $this->assignments['modules'] = $installedModules;
         $messages = new Contact();
         $allMessages = $messages->fetchAll();
         $this->assignments['messages'] = $allMessages;
+        $newsletter = new Newsletter();
+        $allNewsletters = $newsletter->fetchAll(null, 'time desc');
+        $this->assignments['newsletters'] = $allNewsletters;
     }
 }

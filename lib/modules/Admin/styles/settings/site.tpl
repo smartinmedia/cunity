@@ -46,17 +46,6 @@
                             <span class="help-block"><strong>{-"Take care!"|translate}</strong>&nbsp;{-"If the URL is not correct, Cunity will not work correctly!"|translate}</span>
                         </div>
                     </div>
-                    {-*<div class="form-group">*}
-                        {-*<label for="cunity-description"*}
-                               {-*class="col-sm-4 control-label">{-"Description for this Cunity"|translate}</label>*}
-
-                        {-*<div class="col-sm-8">*}
-                            {-*<textarea id="cunity-description" rows="3" class="form-control"*}
-                                      {-*name="settings-core.description"*}
-                                      {-*data-bv-stringlength data-bv-stringlength-min="10"*}
-                                      {-*data-bv-stringlength-message="{-"Your description is too short (min. 10 chars)"|translate}">{-"core.description"|setting}</textarea>*}
-                        {-*</div>*}
-                    {-*</div>*}
                     <div class="form-group">
                         <label for="contact-mail" class="col-sm-4 control-label">{-"Contact E-Mail"|translate}</label>
 
@@ -65,6 +54,24 @@
                                    id="contact-mail"
                                    name="settings-core.contact_mail" required
                                    data-bv-emailaddress-message="{-"Please enter a valid email-address!"|translate}">
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="beta" class="col-sm-4 control-label">{-"Beta"|translate}</label>
+
+                        <div class="col-sm-8">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="hidden" name="settings-core.beta" value="0" />
+                                    <input type="checkbox" name="settings-core.beta"
+                                            {-if "core.beta"|setting == 1}
+                                                checked="checked"
+                                            {-/if}
+                                           value="1">&nbsp;{-"Use beta version"|translate}
+                                </label>
+                            </div>
                         </div>
                     </div>
                     <input type="hidden" name="form" value="settings">

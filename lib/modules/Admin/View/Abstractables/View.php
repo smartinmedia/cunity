@@ -4,11 +4,11 @@
  * ########################################################################################
  * ## CUNITY(R) V2.0 - An open source social network / "your private social network"     ##
  * ########################################################################################
- * ##  Copyright (C) 2011 - 2014 Smart In Media GmbH & Co. KG                            ##
+ * ##  Copyright (C) 2011 - 2015 Smart In Media GmbH & Co. KG                            ##
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -37,8 +37,7 @@
 namespace Cunity\Admin\View\Abstractables;
 
 /**
- * Class View
- * @package Admin\View\Abstractables
+ * Class View.
  */
 class View extends \Cunity\Core\View\View
 {
@@ -53,16 +52,17 @@ class View extends \Cunity\Core\View\View
     public function __construct()
     {
         parent::__construct();
-        $this->_templateDir = "Admin";
+        $this->_templateDir = 'Admin';
     }
 
     /**
      * @param $adminModule
      * @param $file
-     * @throws \Cunity\Core\Exception
+     *
+     * @throws \Cunity\Core\Exceptions\Exception
      */
     public function registerCss($adminModule, $file)
     {
-        parent::registerCss("admin", "../" . $adminModule . "/css/" . $file);
+        parent::registerCss('admin', '../'.$adminModule.'/css/'.$file);
     }
 }

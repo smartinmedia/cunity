@@ -5,11 +5,11 @@
  * ########################################################################################
  * ## CUNITY(R) V2.0 - An open source social network / "your private social network"     ##
  * ########################################################################################
- * ##  Copyright (C) 2011 - 2014 Smart In Media GmbH & Co. KG                            ##
+ * ##  Copyright (C) 2011 - 2015 Smart In Media GmbH & Co. KG                            ##
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -38,25 +38,24 @@
 namespace Cunity\Admin\Models\Pages;
 
 use Cunity\Core\Models\Db\Table\Menu;
+use Cunity\Core\Request\Post;
 use Cunity\Core\View\Ajax\View;
 
 /**
- * Class Appearance
- * @package Cunity\Admin\Models\Pages
+ * Class Appearance.
  */
 class Appearance extends PageAbstract
 {
-
     /**
      *
      */
     public function __construct()
     {
-        if (isset($_POST) && !empty($_POST)) {
+        if (Post::get() !== null) {
             $this->handleRequest();
         } else {
             $this->loadData();
-            $this->render("appearance");
+            $this->render('appearance');
         }
     }
 
@@ -66,32 +65,32 @@ class Appearance extends PageAbstract
     private function handleRequest()
     {
         $view = new View(true);
-        switch ($_POST['action']) {
+        switch (Post::get('action')) {
             case 'loadMenu':
                 $menu = new Menu();
-                $view->addData(["main" => $menu->getMainMenu(), "footer" => $menu->getFooterMenu()]);
+                $view->addData(['main' => $menu->getMainMenu(), 'footer' => $menu->getFooterMenu()]);
                 $view->sendResponse();
                 break;
             case 'addMenuItem':
                 $menu = new Menu();
-                $res = $menu->addMenuItem($_POST);
-                $view->addData(["data" => $res]);
+                $res = $menu->addMenuItem(Post::get(null, []));
+                $view->addData(['data' => $res]);
                 $view->sendResponse();
                 break;
             case 'updateMenu':
-                $mainMenu = explode(',', $_POST['main-menu']);
-                $footerMenu = explode(',', $_POST['footer-menu']);
+                $mainMenu = explode(',', Post::get('main-menu'));
+                $footerMenu = explode(',', Post::get('footer-menu'));
                 $menu = new Menu();
                 $res = [];
                 if ($menu->deleteBut(array_merge($mainMenu, $footerMenu))) {
                     foreach ($mainMenu as $i => $m) {
-                        $res[] = (false !== $menu->update(["pos" => $i], $menu->getAdapter()->quoteInto("id=?", $m)));
+                        $res[] = (false !== $menu->update(['pos' => $i], $menu->getAdapter()->quoteInto('id=?', $m)));
                     }
                     foreach ($footerMenu as $i => $m) {
-                        $res[] = (false !== $menu->update(["pos" => $i], $menu->getAdapter()->quoteInto("id=?", $m)));
+                        $res[] = (false !== $menu->update(['pos' => $i], $menu->getAdapter()->quoteInto('id=?', $m)));
                     }
                 }
-                $view->addData(["panel" => "menu-panel"]);
+                $view->addData(['panel' => 'menu-panel']);
                 $view->setStatus(!in_array(false, $res));
                 $view->sendResponse();
                 break;
@@ -105,7 +104,7 @@ class Appearance extends PageAbstract
     {
         $modules = new \Cunity\Core\Models\Db\Table\Modules();
         $installedModules = $modules->getModules()->toArray();
-        $config = \Cunity\Core\Cunity::get("config");
+        $config = \Cunity\Core\Cunity::get('config');
         $this->assignments['smtp_check'] = $config->mail->smtp_check;
         $this->assignments['modules'] = $installedModules;
     }

@@ -4,11 +4,11 @@
  * ########################################################################################
  * ## CUNITY(R) V2.0 - An open source social network / "your private social network"     ##
  * ########################################################################################
- * ##  Copyright (C) 2011 - 2014 Smart In Media GmbH & Co. KG                            ##
+ * ##  Copyright (C) 2011 - 2015 Smart In Media GmbH & Co. KG                            ##
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -37,15 +37,15 @@
 namespace Cunity\Profile;
 
 use Cunity\Core\ModuleController;
+use Cunity\Core\Request\Get;
+use Cunity\Core\Request\Session;
 use Cunity\Register\Models\Login;
 
 /**
- * Class Controller
- * @package Profile
+ * Class Controller.
  */
 class Controller extends ModuleController
 {
-
     /**
      *
      */
@@ -60,10 +60,10 @@ class Controller extends ModuleController
      */
     private function handleRequest()
     {
-        if (isset($_GET['action']) && ($_GET['action'] == "edit" ||
-                $_GET['action'] == "cropImage")
+        if (Get::get('action') == 'edit' ||
+            Get::get('action') == 'cropImage'
         ) {
-            new Models\ProfileEdit();
+            new Models\ProfileEdit(Session::get('user'));
         } else {
             new Models\Profile();
         }

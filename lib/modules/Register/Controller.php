@@ -4,11 +4,11 @@
  * ########################################################################################
  * ## CUNITY(R) V2.0 - An open source social network / "your private social network"     ##
  * ########################################################################################
- * ##  Copyright (C) 2011 - 2014 Smart In Media GmbH & Co. KG                            ##
+ * ##  Copyright (C) 2011 - 2015 Smart In Media GmbH & Co. KG                            ##
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -36,27 +36,27 @@
 
 namespace Cunity\Register;
 
+use Cunity\Core\Models\Generator\Url;
 use Cunity\Core\ModuleController;
+use Cunity\Core\Request\Get;
 
 /**
- * Class Controller
- * @package Cunity\Register
+ * Class Controller.
  */
 class Controller extends ModuleController
 {
-
     /**
      * @var array
      */
     private $_allowedActions = [
-        "sendRegistration",
-        "forgetPw",
-        "login",
-        "logout",
-        "verify",
-        "delete",
-        "reset",
-        "validate"
+        'sendRegistration',
+        'forgetPw',
+        'login',
+        'logout',
+        'verify',
+        'delete',
+        'reset',
+        'validate',
     ];
 
     /**
@@ -72,22 +72,25 @@ class Controller extends ModuleController
      */
     private function handleRequest()
     {
-        if (!isset($_GET['action']) || empty($_GET['action'])) {
+        if (Models\Login::loggedIn() &&
+            Get::get('action') !== 'logout'
+        ) {
+            header('Location:'.Url::convertUrl('index.php?m=profile'));
+            exit();
+        }
+
+        if (!Get::hasAction()) {
             $view = new View\Registration();
             $view->assign('success', false);
             $view->render();
         } elseif (
-            isset(
-                $_GET['action']
-            ) && !empty(
-            $_GET['action']
-            ) &&
+            Get::hasAction() &&
             in_array(
-                $_GET['action'],
+                Get::get('action'),
                 $this->_allowedActions
             )
         ) {
-            new Models\Process($_GET['action']);
+            new Models\Process(Get::get('action'));
         }
     }
 }

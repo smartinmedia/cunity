@@ -4,11 +4,11 @@
  * ########################################################################################
  * ## CUNITY(R) V2.0 - An open source social network / "your private social network"     ##
  * ########################################################################################
- * ##  Copyright (C) 2011 - 2014 Smart In Media GmbH & Co. KG                            ##
+ * ##  Copyright (C) 2011 - 2015 Smart In Media GmbH & Co. KG                            ##
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -39,24 +39,22 @@ namespace Cunity\Admin\View;
 use Cunity\Core\View\View;
 
 /**
- * Class Admin
- * @package Cunity\Admin\View
+ * Class Admin.
  */
 class Admin extends View
 {
-
     /**
      * @var string
      */
-    protected $_templateDir = "";
+    protected $_templateDir = '';
     /**
      * @var string
      */
-    protected $_templateFile = "";
+    protected $_templateFile = '';
     /**
      * @var string
      */
-    protected $_wrapper = "Admin/styles/out_wrap.tpl";
+    protected $_wrapper = 'Admin/styles/out_wrap.tpl';
 
     /**
      * @throws \Exception

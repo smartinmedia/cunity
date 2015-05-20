@@ -4,11 +4,11 @@
  * ########################################################################################
  * ## CUNITY(R) V2.0 - An open source social network / "your private social network"     ##
  * ########################################################################################
- * ##  Copyright (C) 2011 - 2014 Smart In Media GmbH & Co. KG                            ##
+ * ##  Copyright (C) 2011 - 2015 Smart In Media GmbH & Co. KG                            ##
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################
+ * ########################################################################################.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -37,14 +37,13 @@
 namespace Cunity\Profile\Models\Db\Table;
 
 use Cunity\Core\Models\Db\Abstractables\Table;
+use Cunity\Core\Request\Session;
 
 /**
- * Class ProfileFields
- * @package Profile\Models\Db\Table
+ * Class ProfileFields.
  */
 class ProfileFields extends Table
 {
-
     /**
      * @var string
      */
@@ -66,8 +65,8 @@ class ProfileFields extends Table
     public function getAll()
     {
         $query = $this->getAdapter()->select()
-            ->from(["pf" => $this->getTableName()])
-            ->order("pf.sorting");
+            ->from(['pf' => $this->getTableName()])
+            ->order('pf.sorting');
 
         $result = $this->getAdapter()->fetchAll($query);
 
@@ -77,9 +76,9 @@ class ProfileFields extends Table
             switch (self::$types[$_result['type_id']]) {
                 case 'select':
                     $queryValues = $this->getAdapter()->select()
-                        ->from(["pfv" => $this->_dbprefix . "profilefields_values"])
-                        ->where('profilefield_id = ' . $_result['id'])
-                        ->order("pfv.sorting");
+                        ->from(['pfv' => $this->_dbprefix.'profilefields_values'])
+                        ->where('profilefield_id = '.$_result['id'])
+                        ->order('pfv.sorting');
 
                     $values = $queryValues->getAdapter()->fetchAll($queryValues);
                     break;
@@ -87,7 +86,7 @@ class ProfileFields extends Table
                     break;
             }
 
-            $value = new ProfileFieldsUsers([], $_SESSION['user']);
+            $value = new ProfileFieldsUsers([], Session::get('user'));
             $res = $value->getByProfileFieldIdAndUserId($_result['id']);
             $result[$_key]['label'] = $_result['value'];
             $result[$_key]['value'] = $res['value'];
@@ -104,9 +103,9 @@ class ProfileFields extends Table
     public function getRegistrationFields()
     {
         $query = $this->getAdapter()->select()
-            ->from(["pf" => $this->getTableName()])
+            ->from(['pf' => $this->getTableName()])
             ->where('registration = 1')
-            ->order("pf.sorting");
+            ->order('pf.sorting');
 
         $result = $this->getAdapter()->fetchAll($query);
 
@@ -116,9 +115,9 @@ class ProfileFields extends Table
             if (self::$types[$_result['type_id']] === 'select' ||
                 self::$types[$_result['type_id']] === 'radio') {
                 $queryValues = $this->getAdapter()->select()
-                    ->from(["pfv" => $this->_dbprefix . "profilefields_values"])
-                    ->where('profilefield_id = ' . $_result['id'])
-                    ->order("pfv.sorting");
+                    ->from(['pfv' => $this->_dbprefix.'profilefields_values'])
+                    ->where('profilefield_id = '.$_result['id'])
+                    ->order('pfv.sorting');
 
                 $values = $queryValues->getAdapter()->fetchAll($queryValues);
             }

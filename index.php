@@ -4,7 +4,7 @@
     ########################################################################################
     ## CUNITY(R) V2.0 - An open source social network / "your private social network"     ##
     ########################################################################################
-    ##  Copyright (C) 2011 - 2014 Smart In Media GmbH & Co. KG                            ##
+    ##  Copyright (C) 2011 - 2015 Smart In Media GmbH & Co. KG                            ##
     ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
     ##  http://www.cunity.net                                                             ##
     ##                                                                                    ##
