@@ -33,7 +33,10 @@
  *
  * #####################################################################################
  */
+
 use Cunity\Admin\Models\Process;
+use Cunity\Core\Exceptions\AlreadyInstalled;
+use Cunity\Core\Exceptions\MissingConfig;
 use Cunity\Core\Request\Get;
 use Cunity\Core\Request\Request;
 use Cunity\Core\Request\Session;
@@ -71,7 +74,7 @@ class Install
             Request::get('action') !== 'prepareDatabase'
         ) {
             \Cunity\Core\Cunity::init();
-        } elseif (Request::hasAction() &&
+        } elseif (!Request::hasAction() &&
             Request::get('type') !== 'ajax'
         ) {
             $this->init();
@@ -82,15 +85,16 @@ class Install
     }
 
     /**
-     * @throws Exception
+     * @throws AlreadyInstalled
+     * @throws MissingConfig
      */
     private function init()
     {
-        if (file_exists('data/config.xml')) {
-            throw new Exception('Cunity aready installed!');
+        if (file_exists(__DIR__.'/../data/config.xml')) {
+            throw new AlreadyInstalled;
         }
-        if (!file_exists('data/config-example.xml')) {
-            throw new Exception('config-example.xml missing!');
+        if (!file_exists(__DIR__.'/../data/config-example.xml')) {
+            throw new MissingConfig;
         }
     }
 
