@@ -109,7 +109,7 @@ class GalleryAlbums extends Table
      */
     public function search($field, $value)
     {
-        return $this->fetchRow($this->select()->where($this->getAdapter()->quoteIdentifier($field).' = ?', $value));
+        return $this->fetchRow($this->select()->where($this->getAdapter()->quoteIdentifier($field) . ' = ?', $value));
     }
 
     /**
@@ -120,9 +120,9 @@ class GalleryAlbums extends Table
     public function getAlbumData($albumid)
     {
         $result = $this->fetchRow($this->select()->setIntegrityCheck(false)->from(['a' => $this->getTableName()])
-            ->joinLeft(['u' => $this->_dbprefix.'users'], 'a.owner_type IS NULL AND a.owner_id=u.userid', ['name', 'username'])
-            ->joinLeft(['e' => $this->_dbprefix.'events'], "a.owner_type = 'event' AND a.owner_id=e.id", ['title AS eventTitle'])
-            ->joinLeft(['i' => $this->_dbprefix.'gallery_images'], 'i.id=u.profileImage AND a.owner_type IS NULL', 'filename')
+            ->joinLeft(['u' => $this->_dbprefix . 'users'], 'a.owner_type IS NULL AND a.owner_id=u.userid', ['name', 'username'])
+            ->joinLeft(['e' => $this->_dbprefix . 'events'], "a.owner_type = 'event' AND a.owner_id=e.id", ['title AS eventTitle'])
+            ->joinLeft(['i' => $this->_dbprefix . 'gallery_images'], 'i.id=u.profileImage AND a.owner_type IS NULL', 'filename')
             ->where('a.id=?', $albumid)
         );
 
@@ -150,28 +150,35 @@ class GalleryAlbums extends Table
     {
         $settings = Cunity::get('settings');
 
+        if ($userid == 0) {
+            $userid = Session::get('user')->userid;
+        }
+
+        $friends = [];
+
+        if (count(Session::get('user')->getFriendList()) > 0) {
+            $friends = Session::get('user')->getFriendList();
+        }
+
         if ($settings->getSetting('register.allfriends')) {
-            return $this->fetchAll()->toArray();
-        } else {
-            if ($userid == 0) {
-                $userid = Session::get('user')->userid;
-            }
-
-            $friends = [0];
-
-            if (count(Session::get('user')->getFriendList()) > 0) {
-                $friends = Session::get('user')->getFriendList();
-            }
-
             return $this->getAdapter()->fetchAll(
                 $this->getAdapter()->select()
                     ->from(['a' => $this->info('name')])
-                    ->joinLeft(['i' => $this->_dbprefix.'gallery_images'], 'a.cover=i.id', 'filename')
-                    ->joinLeft(['u' => $this->_dbprefix.'users'], 'a.owner_id=u.userid AND a.owner_type IS NULL', ['u.name', 'u.username'])
-                    ->joinLeft(['pi' => $this->_dbprefix.'gallery_images'], 'pi.id=u.profileImage', 'pi.filename as pimg')
-                    ->where('(a.privacy = 2 OR (a.privacy = 1 AND a.owner_type IS NULL AND a.owner_id IN ('.new \Zend_Db_Expr($this->getAdapter()->select()->from($this->_dbprefix.'relations', new \Zend_Db_Expr('(CASE WHEN sender = '.Session::get('user')->userid.' THEN receiver WHEN receiver = '.Session::get('user')->userid.' THEN sender END)'))->where('status > 0')->where('sender=?', Session::get('user')->userid)->orWhere('receiver=?', Session::get('user')->userid)).')) OR (a.owner_type IS NULL AND a.owner_id=?))', Session::get('user')->userid)
+                    ->joinLeft(['i' => $this->_dbprefix . 'gallery_images'], 'a.cover=i.id', 'filename')
                     ->where('a.owner_id=? AND a.owner_type IS NULL', $userid)
-                    ->orWhere('(a.privacy = 0 OR a.privacy = 1) AND a.owner_id IN ('.implode(',', $friends).')')
+                    ->orWhere('a.owner_id IN (' . implode(',', $friends) . ') AND type != "profile"')
+                    ->order('i.time DESC')
+            );
+        } else {
+            return $this->getAdapter()->fetchAll(
+                $this->getAdapter()->select()
+                    ->from(['a' => $this->info('name')])
+                    ->joinLeft(['i' => $this->_dbprefix . 'gallery_images'], 'a.cover=i.id', 'filename')
+                    ->joinLeft(['u' => $this->_dbprefix . 'users'], 'a.owner_id=u.userid AND a.owner_type IS NULL', ['u.name', 'u.username'])
+                    ->joinLeft(['pi' => $this->_dbprefix . 'gallery_images'], 'pi.id=u.profileImage', 'pi.filename as pimg')
+                    ->where('(a.privacy = 2 OR (a.privacy = 1 AND a.owner_type IS NULL AND a.owner_id IN (' . new \Zend_Db_Expr($this->getAdapter()->select()->from($this->_dbprefix . 'relations', new \Zend_Db_Expr('(CASE WHEN sender = ' . Session::get('user')->userid . ' THEN receiver WHEN receiver = ' . Session::get('user')->userid . ' THEN sender END)'))->where('status > 0')->where('sender=?', Session::get('user')->userid)->orWhere('receiver=?', Session::get('user')->userid)) . ')) OR (a.owner_type IS NULL AND a.owner_id=?))', Session::get('user')->userid)
+                    ->where('a.owner_id=? AND a.owner_type IS NULL', $userid)
+                    ->orWhere('(a.privacy = 0 OR a.privacy = 1) AND a.owner_id IN (' . implode(',', $friends) . ')')
                     ->order('i.time DESC')
             );
         }
