@@ -112,7 +112,7 @@
 </div>
 <ul class="nav nav-pills profile-menu" id="profile-menu">
     {-if ($profile.privacy.visit eq 1 && $profile.status > 2) || $profile.privacy.visit eq 3 || $profile.userid eq $user.userid}
-        {-*<li><a href="#Pins" id="profile-menu-pins" data-toggle="pill" ><i class="fa fa-thumb-tack"></i>&nbsp;{-"Pins"|translate}</a></li>*}
+        <li><a href="#Pins" id="profile-menu-pins" data-toggle="pill" ><i class="fa fa-thumb-tack"></i>&nbsp;{-"Pins"|translate}</a></li>
     {-/if}
     <li class=""><a href="#Wall" id="profile-menu-wall" data-toggle="pill"><i
                     class="fa fa-rss"></i>&nbsp;{-"Wall"|translate}</a></li>
@@ -132,7 +132,7 @@
     {-/if}
 </ul>
 <div class="tab-content" style="border-top:1px solid #ccc">
-    {-if ($profile.privacy.visit eq 1 && $profile.status > 2) || $profile.privacy.visit eq 3 || $profile.userid eq $user.userid}
+    {-if ($profile.privacy.visit eq 1 && $profile.status > 2) || $profile.privacy.visit eq 3 || $profile.userid eq $user.userid || "register.allfriends"|setting == 0}
         <div class="profile-pins tab-pane fade in clearfix" id="Pins">
             <div class="alert alert-block alert-danger hidden">
                 <p>{-"This user does not have any profile pins!"|translate}</p></div>

@@ -135,7 +135,7 @@ class ProfileEdit
         $pins = new Db\Table\ProfilePins();
         $data = $pins->find($pinid)->current()->toArray();
         $data['content'] = htmlspecialchars_decode($data['content']);
-        $view = new View($data !== null);
+        $view = new \Cunity\Core\View\Ajax\View($data !== null);
         $view->addData($data);
         $view->sendResponse();
     }
@@ -148,7 +148,7 @@ class ProfileEdit
         if (Post::get('id') !== null) {
             $pins = new Db\Table\ProfilePins();
             $result = $pins->delete($pins->getAdapter()->quoteInto('id=?', Post::get('id')));
-            $view = new View(($result > 0));
+            $view = new \Cunity\Core\View\Ajax\View($result > 0);
             $view->addData(['id' => Post::get('id')]);
             $view->sendResponse();
         }
@@ -167,7 +167,7 @@ class ProfileEdit
             } else {
                 $res = $pins->insert(['userid' => $this->user->userid, 'title' => Post::get('title'), 'content' => Post::get('content'), 'type' => Post::get('type'), 'iconclass' => Post::get('iconClass')]);
             }
-            $view = new View(true);
+            $view = new \Cunity\Core\View\Ajax\View(true);
             $view->addData(['title' => Post::get('title'), 'type' => Post::get('type'), 'content' => htmlspecialchars_decode(Post::get('content')), 'iconclass' => Post::get('iconClass'), 'id' => $res, 'updated' => (Post::get('editPin') !== null)]);
             $view->sendResponse();
         }
