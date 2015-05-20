@@ -105,7 +105,7 @@ class Process
                 break;
             case 'modules':
                 $modules = new Modules();
-                $modules->update(['status' => Post::get('status')], 'id = '.Post::get('id'));
+                $modules->update(['status' => Post::get('status')], 'id = ' . Post::get('id'));
                 break;
             case 'update':
                 UpdateHelper::update();
@@ -115,9 +115,9 @@ class Process
 
                 if (Request::get('userid') !== null) {
                     if (Request::get('groupid') !== null) {
-                        $users->update(['groupid' => Request::get('groupid')], 'userid = '.Request::get('userid'));
+                        $users->update(['groupid' => Request::get('groupid')], 'userid = ' . Request::get('userid'));
                     } else {
-                        $users->delete('userid = '.Request::get('userid'));
+                        $users->delete('userid = ' . Request::get('userid'));
                     }
                 } else {
                     $users->registerNewUser(Request::get(null, []));
@@ -177,7 +177,7 @@ class Process
 
         if ($object instanceof Table) {
             /* @var Table $object */
-            $object->delete($primary.' = '.Request::get('id'));
+            $object->delete($primary . ' = ' . Request::get('id'));
         }
 
         $this->sendResponse();
@@ -198,6 +198,8 @@ class Process
      */
     private function insert($form)
     {
+        $object = new \stdClass();
+
         switch ($form) {
             case 'profilefields':
                 $object = new ProfileFields();
@@ -219,10 +221,12 @@ class Process
                     $object = new Newsletter();
                 }
             default:
-                if (is_object($object)) {
-                    $object->insert(Request::get(null, []));
-                }
                 break;
+        }
+
+        if ($object instanceof Table) {
+            /* @var Table $object */
+            $object->insert(Request::get(null, []));
         }
 
         $this->sendResponse();
