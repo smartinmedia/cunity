@@ -39,8 +39,7 @@ namespace Cunity\Core\Exceptions;
 use Psr\Log\LogLevel;
 
 /**
- * Class AlreadyInstalled
- * @package Cunity\Core\Exceptions
+ * Class AlreadyInstalled.
  */
 class AlreadyInstalled extends Exception
 {

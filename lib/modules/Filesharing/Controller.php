@@ -41,8 +41,7 @@ use Cunity\Filesharing\View\Filesharing;
 use Cunity\Register\Models\Login;
 
 /**
- * Class Controller
- * @package Cunity\Filesharing
+ * Class Controller.
  */
 class Controller extends ModuleController
 {

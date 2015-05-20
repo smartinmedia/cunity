@@ -53,11 +53,6 @@ abstract class ModuleController
     /**
      * @var bool
      */
-    protected $isAjax = false;
-
-    /**
-     * @var bool
-     */
     protected $status = false;
 
     /**
@@ -88,6 +83,7 @@ abstract class ModuleController
     /**
      * @param $name
      * @param $arguments
+     *
      * @throws ActionNotFound
      */
     public function __call($name, $arguments)
@@ -119,7 +115,7 @@ abstract class ModuleController
     public function __destruct()
     {
         if (!$this->useOldStructure) {
-            if ($this->isAjax) {
+            if (\Cunity\Core\Models\Request::isAjaxRequest()) {
                 $view = new View($this->status);
                 $view->sendResponse();
             } else {

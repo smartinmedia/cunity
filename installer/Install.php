@@ -33,7 +33,6 @@
  *
  * #####################################################################################
  */
-
 use Cunity\Admin\Models\Process;
 use Cunity\Core\Exceptions\AlreadyInstalled;
 use Cunity\Core\Exceptions\MissingConfig;
@@ -42,7 +41,7 @@ use Cunity\Core\Request\Request;
 use Cunity\Core\Request\Session;
 use Cunity\Core\Request\Server;
 
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__.'/../vendor/autoload.php';
 
 ob_start('ob_gzhandler');
 date_default_timezone_set('UTC');
@@ -91,10 +90,10 @@ class Install
     private function init()
     {
         if (file_exists(__DIR__.'/../data/config.xml')) {
-            throw new AlreadyInstalled;
+            throw new AlreadyInstalled();
         }
         if (!file_exists(__DIR__.'/../data/config-example.xml')) {
-            throw new MissingConfig;
+            throw new MissingConfig();
         }
     }
 
@@ -103,16 +102,16 @@ class Install
      */
     private function initTranslator()
     {
-        if (Get::get('lang') !== null && (file_exists('installer/lang/' . Get::get('lang') . '.php') || Get::get('lang') == 'en')) {
+        if (Get::get('lang') !== null && (file_exists('installer/lang/'.Get::get('lang').'.php') || Get::get('lang') == 'en')) {
             self::$lang = Get::get('lang');
             Session::set('lang', self::$lang);
-        } elseif (Session::get('lang') !== null && (file_exists('installer/lang/' . Session::get('lang') . '.php') || Session::get('lang') == 'en')) {
+        } elseif (Session::get('lang') !== null && (file_exists('installer/lang/'.Session::get('lang').'.php') || Session::get('lang') == 'en')) {
             self::$lang = Session::get('lang');
         } else {
             self::$lang = 'en';
         }
         if (self::$lang !== 'en') {
-            self::$langTexts = include 'installer/lang/' . self::$lang . '.php';
+            self::$langTexts = include 'installer/lang/'.self::$lang.'.php';
         }
     }
 
@@ -195,7 +194,7 @@ class Install
             $dbPrefix .= '_';
         }
 
-        $sqlData = file_get_contents(__DIR__ . '/../resources/database/newcunity.sql');
+        $sqlData = file_get_contents(__DIR__.'/../resources/database/newcunity.sql');
         $sqlData = str_replace('TABLEPREFIX', $dbPrefix, $sqlData);
         mysqli_multi_query($connection, $sqlData);
     }
@@ -222,11 +221,11 @@ class Install
      */
     private function writeDatabaseConfig()
     {
-        if (!is_writable(__DIR__ . '/../data/')) {
+        if (!is_writable(__DIR__.'/../data/')) {
             $this->outputAjaxResponse('config', false);
         }
 
-        if (!is_writable(__DIR__ . '/../data/temp/')) {
+        if (!is_writable(__DIR__.'/../data/temp/')) {
             $this->outputAjaxResponse('temp', false);
         }
 
@@ -250,14 +249,14 @@ class Install
      */
     private function writeConfigToFile($newConfiguration, $update = true)
     {
-        $configFile = __DIR__ . '/../data/config-example.xml';
+        $configFile = __DIR__.'/../data/config-example.xml';
 
         if ($update) {
-            $configFile = __DIR__ . '/../data/config.xml';
+            $configFile = __DIR__.'/../data/config.xml';
         }
 
         $config = new Zend_Config_Xml($configFile);
-        $configWriter = new Zend_Config_Writer_Xml(['config' => new Zend_Config(Process::arrayMergeRecursiveDistinct($config->toArray(), $newConfiguration)), 'filename' => __DIR__ . '/../data/config.xml']);
+        $configWriter = new Zend_Config_Writer_Xml(['config' => new Zend_Config(Process::arrayMergeRecursiveDistinct($config->toArray(), $newConfiguration)), 'filename' => __DIR__.'/../data/config.xml']);
         $configWriter->write();
     }
 
@@ -387,7 +386,7 @@ $installer = new Install();
     </head>
     <body>
     <?php if (Get::get('lang') === null) {
-        ?>
+    ?>
         <div class="container" id="splashscreen">
             <img src="img/cunity-logo.gif" class="logo">
 
@@ -395,7 +394,7 @@ $installer = new Install();
                 <form>
                     <div class="form-group">
                         <label><?php echo Install::translate('Please select your language for the installation-process');
-                            ?></label>
+    ?></label>
 
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-globe"></i></span>
@@ -408,50 +407,50 @@ $installer = new Install();
                     <div class="form-group">
                         <button class="btn btn-primary btn-lg btn-block"
                                 type="submit"><?php echo Install::translate('Start Installation');
-                            ?></button>
+    ?></button>
                     </div>
                 </form>
             </div>
         </div>
         <?php
 
-    } else {
-        ?>
+} else {
+    ?>
         <div class="container" id="installation-container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2">
                     <div class="page-header">
                         <h1><?php echo Install::translate('Install Cunity');
-                            ?></h1>
+    ?></h1>
                     </div>
                     <div id="installCarousel" class="carousel slide">
                         <ol class="breadcrumb" id="steps" role="tablist">
                             <li><a href="Install.php"
                                    title="<?php echo Install::translate('Back to language selection');
-                                   ?>"><i
+    ?>"><i
                                         class="fa fa-globe"></i></a></li>
                             <li class="active"><?php echo Install::translate('Terms');
-                                ?></li>
+    ?></li>
                             <li><?php echo Install::translate('Database');
-                                ?></li>
+    ?></li>
                             <li><?php echo Install::translate('Settings');
-                                ?></li>
+    ?></li>
                             <li><?php echo Install::translate('Account');
-                                ?></li>
+    ?></li>
                             <li><?php echo Install::translate('Finish');
-                                ?></li>
+    ?></li>
                         </ol>
 
                         <div class="carousel-inner">
                             <div class="item active" id="terms">
                                 <span class="title"><?php echo Install::translate('Terms and Conditions');
-                                    ?></span>
+    ?></span>
 
                                 <div class="terms">
                                     <form>
                                         <div class="form-group">
                                             <label><?php echo Install::translate('Please agree to our Terms & Conditions first');
-                                                ?></label>
+    ?></label>
 
                                             <div class="form-control"><?php echo Install::translate('This program is distributed in the hope that it will be useful,<br />
     but WITHOUT ANY WARRANTY; without even the implied warranty of<br />
@@ -510,7 +509,7 @@ Refund Policy<br />
     * Our products are intangible and virtual, and all products have online demos<br />
 	  available so you can test each and every part of the products prior to your<br />
 	  download/purchase. Once the services are rendered we can\'t provide you the refund.');
-                                                ?>
+    ?>
                                             </div>
                                         </div>
                                         <div class="checkbox">
@@ -518,7 +517,7 @@ Refund Policy<br />
                                                 <input type="checkbox" value="1" name="accept-terms" id="accept-terms"
                                                        required="required">
                                                 <?php echo Install::translate('I accept the Terms and Conditions');
-                                                ?>
+    ?>
                                             </label>
                                         </div>
                                     </form>
@@ -526,7 +525,7 @@ Refund Policy<br />
                             </div>
                             <div class="item" id="database">
                                 <span class="title"><?php echo Install::translate('Setup Database');
-                                    ?></span>
+    ?></span>
                                 <h4 class="page-header">Database configuration</h4>
 
                                 <form id="databaseForm" class="form-horizontal">
@@ -536,7 +535,7 @@ Refund Policy<br />
                                     <div class="form-group has-feedback">
                                         <label class="col-lg-3 control-label"
                                                for="db-host"><?php echo Install::translate('Database Host');
-                                            ?></label>
+    ?></label>
 
                                         <div class="col-lg-7 ">
                                             <input type="text" id="db-host" class="form-control" value="localhost"
@@ -545,13 +544,13 @@ Refund Policy<br />
                                         </div>
                     <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
                           title="<?php echo Install::translate('Hostname where your MySQL database is located');
-                          ?>"
+    ?>"
                           data-placement="right"></span>
                                     </div>
                                     <div class="form-group has-feedback">
                                         <label class="col-lg-3 control-label"
                                                for="db-user"><?php echo Install::translate('Database User');
-                                            ?></label>
+    ?></label>
 
                                         <div class="col-lg-7">
                                             <input type="text" id="db-user" class="form-control" autocomplete="off"
@@ -559,13 +558,13 @@ Refund Policy<br />
                                         </div>
                     <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
                           title="<?php echo Install::translate('Database username to connect');
-                          ?>"
+    ?>"
                           data-placement="right"></span>
                                     </div>
                                     <div class="form-group has-feedback">
                                         <label class="col-lg-3 control-label"
                                                for="db-password"><?php echo Install::translate('Database Password');
-                                            ?></label>
+    ?></label>
 
                                         <div class="col-lg-7">
                                             <input type="password" id="db-password" class="form-control"
@@ -574,13 +573,13 @@ Refund Policy<br />
                                         </div>
                     <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
                           title="<?php echo Install::translate('Password for your database user');
-                          ?>"
+    ?>"
                           data-placement="right"></span>
                                     </div>
                                     <div class="form-group has-feedback">
                                         <label class="col-lg-3 control-label"
                                                for="db-name"><?php echo Install::translate('Database Name');
-                                            ?></label>
+    ?></label>
 
                                         <div class="col-lg-7">
                                             <input type="text" id="db-name" class="form-control" autocomplete="off"
@@ -588,13 +587,13 @@ Refund Policy<br />
                                         </div>
                     <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
                           title="<?php echo Install::translate('Name of your database to install Cunity');
-                          ?>"
+    ?>"
                           data-placement="right"></span>
                                     </div>
                                     <div class="form-group has-feedback">
                                         <label class="col-lg-3 control-label"
                                                for="db-prefix"><?php echo Install::translate('Database Prefix');
-                                            ?></label>
+    ?></label>
 
                                         <div class="col-lg-7">
                                             <input type="text" id="db-prefix" class="form-control" value="cunity"
@@ -603,42 +602,42 @@ Refund Policy<br />
                                         </div>
                     <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
                           title="<?php echo Install::translate('Prefix for your tables, leave default value if you have no idea');
-                          ?>"
+    ?>"
                           data-placement="right"></span>
                                     </div>
                                     <div class="form-group has-feedback hidden error-message-config error-message">
                                         <label
                                             class="col-lg-10 control-label"><?php echo Install::translate('please check your user rights so data/config.xml is writeable');
-                                            ?></label>
+    ?></label>
                                     </div>
                                     <div class="form-group has-feedback hidden error-message-temp error-message">
                                         <label
                                             class="col-lg-10 control-label"><?php echo Install::translate('please check your user rights so data/temp/ is writeable');
-                                            ?></label>
+    ?></label>
                                     </div>
                                     <div class="form-group has-feedback hidden error-message-gdlib error-message">
                                         <label
                                             class="col-lg-10 control-label"><?php echo Install::translate('PHP GD libray is required in order to run Cunity');
-                                            ?></label>
+    ?></label>
                                     </div>
                                     <div class="form-group has-feedback hidden has-success success-message">
                                         <label
                                             class="col-lg-10 control-label"><?php echo Install::translate('your configuration passed all tests, please proceed to the next step');
-                                            ?></label>
+    ?></label>
                                     </div>
                                     <div class="form-group has-feedback col-lg-7">
                                         <button class="btn btn-primary btn-block" id="checkDatabase"><i
                                                 class="fa-check fa"></i>&nbsp;<?php echo Install::translate('Check Connection & copy data to database');
-                                            ?>
+    ?>
                                         </button>
                                     </div>
                                 </form>
                             </div>
                             <div class="item" id="settings">
                                 <span class="title"><?php echo Install::translate('Enter Cunity-Settings');
-                                    ?></span>
+    ?></span>
                                 <h4 class="page-header"><?php echo Install::translate('General Settings');
-                                    ?></h4>
+    ?></h4>
 
                                 <form class="form-horizontal" id="configForm">
                                     <input type="hidden" name="action" value="prepareConfig"/>
@@ -647,7 +646,7 @@ Refund Policy<br />
                                     <div class="form-group">
                                         <label class="col-lg-3 control-label"
                                                for="sitename"><?php echo Install::translate('Name of your Cunity');
-                                            ?></label>
+    ?></label>
 
                                         <div class="col-lg-7">
                                             <input type="text" name="general[core.sitename]" id="sitename"
@@ -655,12 +654,12 @@ Refund Policy<br />
                                         </div>
                     <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
                           title="<?php echo Install::translate('Your slogan');
-                          ?>" data-placement="right"></span>
+    ?>" data-placement="right"></span>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-lg-3 control-label"
                                                for="siteurl"><?php echo Install::translate('URL of your Cunity');
-                                            ?></label>
+    ?></label>
 
                                         <div class="col-lg-7">
                                             <input type="text" name="general[core.siteurl]" id="siteurl"
@@ -668,13 +667,13 @@ Refund Policy<br />
                                         </div>
                     <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
                           title="<?php echo Install::translate('Where to find your installation');
-                          ?>"
+    ?>"
                           data-placement="right"></span>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-lg-3 control-label"
                                                for="description"><?php echo Install::translate('Description');
-                                            ?></label>
+    ?></label>
 
                                         <div class="col-lg-7">
                                             <textarea class="form-control" id="description"
@@ -682,13 +681,13 @@ Refund Policy<br />
                                         </div>
                     <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
                           title="<?php echo Install::translate('Give a brief description');
-                          ?>"
+    ?>"
                           data-placement="right"></span>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-lg-3 control-label"
                                                for="contactmail"><?php echo Install::translate('Contact Mail');
-                                            ?></label>
+    ?></label>
 
                                         <div class="col-lg-7">
                                             <input type="text" name="general[core.contact_mail]" id="contactmail"
@@ -696,16 +695,16 @@ Refund Policy<br />
                                         </div>
                     <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
                           title="<?php echo Install::translate('Mail adress to contact you');
-                          ?>"
+    ?>"
                           data-placement="right"></span>
                                     </div>
                                     <h4 class="page-header"><?php echo Install::translate('Mail Settings');
-                                        ?></h4>
+    ?></h4>
 
                                     <div class="form-group">
                                         <label for="use-smtp"
                                                class="col-lg-3 control-label"><?php echo Install::translate('Mailserver');
-                                            ?></label>
+    ?></label>
 
                                         <div class="col-lg-7">
                                             <div class="radio-inline">
@@ -714,7 +713,7 @@ Refund Policy<br />
                                                            name="config[mail][smtp]"
                                                            class="change-connection-type"
                                                            checked="checked">&nbsp;<?php echo Install::translate('Use SMTP');
-                                                    ?>
+    ?>
                                                 </label>
                                             </div>
                                             <div class="radio-inline">
@@ -722,20 +721,20 @@ Refund Policy<br />
                                                     <input type="radio" id="connection-type-sendmail" required
                                                            name="config[mail][smtp]"
                                                            class="change-connection-type">&nbsp;<?php echo Install::translate('Use PHP Sendmail');
-                                                    ?>
+    ?>
                                                 </label>
                                             </div>
                                         </div>
                     <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
                           title="<?php echo Install::translate('Use SMTP if your server does not support PHP Sendmail');
-                          ?>"
+    ?>"
                           data-placement="right"></span>
                                     </div>
                                     <div id="smtp-settings">
                                         <div class="form-group">
                                             <label for="smtp-host"
                                                    class="col-lg-3 control-label"><?php echo Install::translate('SMTP-Host');
-                                                ?></label>
+    ?></label>
 
                                             <div class="col-lg-7">
                                                 <input type="text" class="form-control"
@@ -743,13 +742,13 @@ Refund Policy<br />
                                             </div>
                         <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
                               title="<?php echo Install::translate('Hostname of SMTP Server');
-                              ?>"
+    ?>"
                               data-placement="right"></span>
                                         </div>
                                         <div class="form-group">
                                             <label for="smtp-port"
                                                    class="col-lg-3 control-label"><?php echo Install::translate('SMTP-Port');
-                                                ?></label>
+    ?></label>
 
                                             <div class="col-lg-7">
                                                 <input type="number" class="form-control"
@@ -759,34 +758,34 @@ Refund Policy<br />
                                             </div>
                         <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
                               title="<?php echo Install::translate('Port of SMTP Server, usually 25');
-                              ?>"
+    ?>"
                               data-placement="right"></span>
                                         </div>
                                         <div class="form-group">
                                             <label for="smtp-auth"
                                                    class="col-lg-3 control-label"><?php echo Install::translate('SMTP-Authentication');
-                                                ?></label>
+    ?></label>
 
                                             <div class="col-lg-7">
                                                 <select class="form-control" id="smtp-auth"
                                                         name="config[mail][params][auth]" required>
                                                     <option
                                                         value="login"><?php echo Install::translate('Yes');
-                                                        ?></option>
+    ?></option>
                                                     <option
                                                         value="plain"><?php echo Install::translate('No');
-                                                        ?></option>
+    ?></option>
                                                 </select>
                                             </div>
                         <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
                               title="<?php echo Install::translate('Is authentification required');
-                              ?>"
+    ?>"
                               data-placement="right"></span>
                                         </div>
                                         <div class="form-group">
                                             <label for="smtp-username"
                                                    class="col-lg-3 control-label"><?php echo Install::translate('SMTP-Username');
-                                                ?></label>
+    ?></label>
 
                                             <div class="col-lg-7">
                                                 <input type="text" required class="form-control"
@@ -795,12 +794,12 @@ Refund Policy<br />
                                             </div>
                         <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
                               title="<?php echo Install::translate('SMTP username');
-                              ?>" data-placement="right"></span>
+    ?>" data-placement="right"></span>
                                         </div>
                                         <div class="form-group">
                                             <label for="smtp-password"
                                                    class="col-lg-3 control-label"><?php echo Install::translate('SMTP-Password');
-                                                ?></label>
+    ?></label>
 
                                             <div class="col-lg-7">
                                                 <input type="password" required class="form-control"
@@ -809,25 +808,25 @@ Refund Policy<br />
                                             </div>
                         <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
                               title="<?php echo Install::translate('SMTP password');
-                              ?>" data-placement="right"></span>
+    ?>" data-placement="right"></span>
                                         </div>
                                         <div class="form-group">
                                             <label for="smtp-ssl"
                                                    class="col-lg-3 control-label"><?php echo Install::translate('SMTP-Security');
-                                                ?></label>
+    ?></label>
 
                                             <div class="col-lg-7">
                                                 <div class="checkbox">
                                                     <label>
                                                         <input type="checkbox" name="config[mail][params][ssl]"
                                                                value="ssl">&nbsp;<?php echo Install::translate('Use SSL');
-                                                        ?>
+    ?>
                                                     </label>
                                                 </div>
                                             </div>
                         <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
                               title="<?php echo Install::translate('Use secure connection');
-                              ?>"
+    ?>"
                               data-placement="right"></span>
                                         </div>
                                     </div>
@@ -835,7 +834,7 @@ Refund Policy<br />
                             </div>
                             <div class="item" id="account">
                                 <span class="title"><?php echo Install::translate('Create Admin-Account');
-                                    ?></span>
+    ?></span>
 
                                 <form class="form-horizontal" id="adminForm">
                                     <input type="hidden" name="type" value="ajax"/>
@@ -844,114 +843,114 @@ Refund Policy<br />
                                     <div class="form-group">
                                         <label class="control-label col-lg-3"
                                                for="input-username"><?php echo Install::translate('Username');
-                                            ?></label>
+    ?></label>
 
                                         <div class="col-lg-7">
                                             <input type="text" autocomplete="off" required class="form-control"
                                                    id="input-username"
                                                    placeholder="<?php echo Install::translate('Username');
-                                                   ?>"
+    ?>"
                                                    name="username">
                                         </div>
                     <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
                           title="<?php echo Install::translate('Your username in Cunity');
-                          ?>"
+    ?>"
                           data-placement="right"></span>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-lg-3"
                                                for="input-email"><?php echo Install::translate('E-Mail');
-                                            ?></label>
+    ?></label>
 
                                         <div class="col-lg-7">
                                             <input type="email" required class="form-control" id="input-email"
                                                    placeholder="<?php echo Install::translate('E-Mail');
-                                                   ?>"
+    ?>"
                                                    name="email">
                                         </div>
                     <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
                           title="<?php echo Install::translate('Your Mail adress');
-                          ?>" data-placement="right"></span>
+    ?>" data-placement="right"></span>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-lg-3"
                                                for="input-firstname"><?php echo Install::translate('Firstname');
-                                            ?></label>
+    ?></label>
 
                                         <div class="col-lg-7">
                                             <input type="text" autocomplete="off" required class="form-control"
                                                    id="input-firstname"
                                                    placeholder="<?php echo Install::translate('Firstname');
-                                                   ?>"
+    ?>"
                                                    name="firstname">
                                         </div>
                     <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
                           title="<?php echo Install::translate('Firstname if you wish to provide');
-                          ?>"
+    ?>"
                           data-placement="right"></span>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-lg-3"
                                                for="input-lastname"><?php echo Install::translate('Lastname');
-                                            ?></label>
+    ?></label>
 
                                         <div class="col-lg-7">
                                             <input type="text" autocomplete="off" required class="form-control"
                                                    id="input-lastname"
                                                    placeholder="<?php echo Install::translate('Lastname');
-                                                   ?>"
+    ?>"
                                                    name="lastname">
                                         </div>
                     <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
                           title="<?php echo Install::translate('Lastname if you wish to provide');
-                          ?>"
+    ?>"
                           data-placement="right"></span>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-lg-3"
                                                for="input-password"><?php echo Install::translate('Password');
-                                            ?></label>
+    ?></label>
 
                                         <div class="col-lg-7">
                                             <input type="password" autocomplete="off" required class="form-control"
                                                    id="input-password"
                                                    placeholder="<?php echo Install::translate('Password');
-                                                   ?>"
+    ?>"
                                                    name="password">
                                         </div>
                     <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
                           title="<?php echo Install::translate('Your password');
-                          ?>" data-placement="right"></span>
+    ?>" data-placement="right"></span>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-lg-3"
                                                for="input-password-repeat"><?php echo Install::translate('Repeat password');
-                                            ?></label>
+    ?></label>
 
                                         <div class="col-lg-7">
                                             <input type="password" autocomplete="off" required class="form-control"
                                                    id="input-password-repeat"
                                                    placeholder="<?php echo Install::translate('Repeat password');
-                                                   ?>"
+    ?>"
                                                    name="password_repeat">
                                         </div>
                     <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
                           title="<?php echo Install::translate('Repeat your password');
-                          ?>"
+    ?>"
                           data-placement="right"></span>
                                     </div>
                                 </form>
                             </div>
                             <div class="item" id="finish">
                                 <span class="title"><?php echo Install::translate('Finish Installation');
-                                    ?></span>
+    ?></span>
 
                                 <div class="terms">
                                     <form>
                                         <div class="form-group">
                                             <div
                                                 class="form-control"><?php echo Install::translate('Congratuliations, you successfully installed your own Version of Cunity. If you want to change your settings, please login with your newly created user account and follow the link to your administration area.');
-                                                ?>
+    ?>
                                             </div>
                                         </div>
                                     </form>
@@ -964,7 +963,7 @@ Refund Policy<br />
                                                               data-slide="prev"
                                                               class="btn btn-default pull-left hidden"><i
                                         class="fa fa-chevron-left"></i>&nbsp;<?php echo Install::translate('Prev');
-                                    ?>
+    ?>
                                 </a></div>
                             <div class="col-lg-8">
                                 <div class="progress">
@@ -979,12 +978,12 @@ Refund Policy<br />
                                                               id="installNextButton"
                                                               data-slide="next" disabled
                                                               class="btn btn-primary pull-right"><?php echo Install::translate('Next');
-                                    ?>
+    ?>
                                     &nbsp;<i class="fa fa-chevron-right"></i></a></div>
                             <div class="col-lg-2 clearfix"><a role="button" href=".." id="installFinishButton"
                                                               class="btn btn-success pull-right hidden"><i
                                         class="fa fa-check"></i>&nbsp;<?php echo Install::translate('Finish');
-                                    ?>
+    ?>
                                 </a></div>
                         </div>
                     </div>
@@ -993,7 +992,7 @@ Refund Policy<br />
         </div>
         <?php
 
-    } ?>
+} ?>
     <footer>
         <small class="copyright">Powered by <a href="http://cunity.net/" target="_blank">Cunity</a></small>
     </footer>

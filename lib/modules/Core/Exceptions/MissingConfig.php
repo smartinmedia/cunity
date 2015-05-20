@@ -39,8 +39,7 @@ namespace Cunity\Core\Exceptions;
 use Psr\Log\LogLevel;
 
 /**
- * Class MissingConfig
- * @package Cunity\Core\Exceptions
+ * Class MissingConfig.
  */
 class MissingConfig extends Exception
 {
