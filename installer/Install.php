@@ -105,7 +105,7 @@ class Install
         if (Get::get('lang') !== null && (file_exists('installer/lang/'.Get::get('lang').'.php') || Get::get('lang') == 'en')) {
             self::$lang = Get::get('lang');
             Session::set('lang', self::$lang);
-        } elseif (Session::get('lang') !== null && (file_exists('installer/lang/'.Session::get('lang').'.php') || Session::get('lang') == 'en')) {
+        } elseif (Session::get('lang') !== null && (file_exists('installer/lang/'.Session::get('lang').'.php') || Session::get('lang') === 'en')) {
             self::$lang = Session::get('lang');
         } else {
             self::$lang = 'en';
@@ -132,7 +132,7 @@ class Install
      */
     private function prepareDatabase()
     {
-        if (Request::get('db-name') == '') {
+        if (Request::get('db-name') === '') {
             $this->outputAjaxResponse('databasename cannot be empty', false);
         }
 
@@ -204,7 +204,7 @@ class Install
      */
     private function prepareConfig()
     {
-        foreach (Request::get('general') as $setting => $value) {
+        foreach (Request::get('general', []) as $setting => $value) {
             if ($setting == 'core.siteurl' &&
                 substr($value, -1) != '/'
             ) {
@@ -213,7 +213,7 @@ class Install
             $this->writeConfigToDatabase($setting, $value);
         }
 
-        $this->writeConfigToFile(Request::get('config'));
+        $this->writeConfigToFile(Request::get('config', []));
     }
 
     /**
@@ -276,7 +276,7 @@ class Install
     private function prepareAdmin()
     {
         $user = new \Cunity\Core\Models\Db\Table\Users();
-        $user->registerNewUser(Request::get(), 3, false);
+        $user->registerNewUser(Request::get(null, []), 3, false);
 
         $this->outputAjaxResponse();
     }
