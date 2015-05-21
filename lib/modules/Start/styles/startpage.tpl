@@ -14,6 +14,8 @@
     <link href="{-"core.siteurl"|setting}lib/plugins/fontawesome/css/font-awesome.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css"
           href="{-"core.siteurl"|setting}lib/modules/Core/styles/css/cunity.min.css.php?files={-$css_head}">
+    <link href="{-"core.siteurl"|setting}lib/plugins/select2/select2.css" rel="stylesheet">
+    <link href="{-"core.siteurl"|setting}lib/plugins/select2/select2-bootstrap.css" rel="stylesheet">
     <script src="{-"core.siteurl"|setting}lib/plugins/js/jquery.min.js" type="text/javascript"></script>
     <script src="{-"core.siteurl"|setting}lib/modules/Core/styles/javascript/cunity-core.js"
             type="text/javascript"></script>
@@ -24,6 +26,12 @@
     <script src="{-"core.siteurl"|setting}lib/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
     <script src="{-"core.siteurl"|setting}lib/plugins/js/html5shiv.min.js"></script>
     <script src="{-"core.siteurl"|setting}lib/plugins/js/respond.min.js"></script>
+    <script src="{-"core.siteurl"|setting}lib/plugins/select2/select2.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('select').select2();
+        });
+    </script>
     {-$script_head}
 </head>
 <body>

@@ -13,6 +13,8 @@
     <link href="{-"core.siteurl"|setting}lib/plugins/bootstrap-validator/css/bootstrapValidator.min.css"
           rel="stylesheet">
     <link href="{-"core.siteurl"|setting}style/CunityRefreshed/img/favicon-default.gif" rel="icon" type="image/x-icon">
+    <link href="{-"core.siteurl"|setting}lib/plugins/select2/select2.css" rel="stylesheet">
+    <link href="{-"core.siteurl"|setting}lib/plugins/select2/select2-bootstrap.css" rel="stylesheet">
     {-if !$css_head eq ""}
         <link rel="stylesheet" type="text/css"
               href="{-"core.siteurl"|setting}lib/modules/Core/styles/css/cunity.min.css.php?files={-$css_head}">
@@ -33,6 +35,7 @@
     <script src="{-"core.siteurl"|setting}lib/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
     <script src="{-"core.siteurl"|setting}lib/plugins/js/html5shiv.min.js"></script>
     <script src="{-"core.siteurl"|setting}lib/plugins/js/respond.min.js"></script>
+    <script src="{-"core.siteurl"|setting}lib/plugins/select2/select2.js" type="text/javascript"></script>
     <script type="text/javascript">
         scriptsToInclude = [];
         $(document).ajaxComplete(function () {
@@ -42,6 +45,8 @@
                 jsTag.src = value;
                 document.getElementsByTagName('head')[0].appendChild(jsTag);
             });
+
+            $('select').select2();
         });
     </script>
     <script type="text/javascript" src="https://smartinmedia.atlassian.net/s/42378e90dfaf39e171e8e7e09ac085a4-T/en_US-c7kv9d/64007/21/1.4.19/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js?locale=en-US&collectorId=dd7adc95"></script>
