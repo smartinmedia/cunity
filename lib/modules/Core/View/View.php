@@ -414,7 +414,7 @@ class View extends Smarty
                         'log' => new Zend_Log(
                             new Zend_Log_Writer_Stream($missingTranslationLog)
                         ),
-                        'logUntranslated' => true,
+                        'logUntranslated' => (self::$defaultLanguage !== 'en'),
                     ]
                 );
             }
