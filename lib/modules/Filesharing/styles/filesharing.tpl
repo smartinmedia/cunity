@@ -36,7 +36,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">{-"Create new fle"|translate}</h4>
+                <h4 class="modal-title">{-"Create new file"|translate}</h4>
             </div>
             <div class="modal-body">
                 <form class="form-horizontal ajaxform" action="{-"index.php?m=ilesharing&action=create"|URL}" role="form"
@@ -62,21 +62,15 @@
                         <div class="col-sm-10">
                             <div class="btn-group" data-toggle="buttons" style="width:100%">
                                 <label class="btn btn-default tooltip-trigger"
-                                       data-title="{-"You can choose friends who are allowed to see this files"|translate}"
-                                       data-container="#newfiles_modal" style="width:33.3333%">
-                                    <input type="radio" name="privacy" value="0" id="newfiles_shared"><i
-                                            class="fa fa-check-square-o"></i>&nbsp;{-"Shared"|translate}
-                                </label>
-                                <label class="btn btn-default tooltip-trigger"
                                        data-title="{-"Only your friends can see the images"|translate}"
                                        data-container="#newfiles_modal" style="width:33.3333%">
-                                    <input type="radio" name="privacy" value="1"><i
+                                    <input type="checkbox" name="privacy" value="1"><i
                                             class="fa fa-group"></i>&nbsp;{-"Friends"|translate}
-                                </label>
-                                <label class="btn btn-default tooltip-trigger active"
-                                       data-title="{-"Every user can see the images"|translate}"
+                                </label>&nbsp;or&nbsp;
+                                <label class="tooltip-trigger"
+                                       data-title="{-"Users"|translate}"
                                        data-container="#newfiles_modal" style="width:33.3333%">
-                                    <input type="radio" name="privacy" value="2" checked><i class="fa fa-globe"></i>&nbsp;{-"Public"|translate}
+                                    <select name="friends"></select>
                                 </label>
                             </div>
                         </div>
