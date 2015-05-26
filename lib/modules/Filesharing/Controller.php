@@ -38,6 +38,7 @@ namespace Cunity\Filesharing;
 
 use Cunity\Core\ModuleController;
 use Cunity\Filesharing\View\Filesharing;
+use Cunity\Friends\Models\Db\Table\Relationships;
 use Cunity\Register\Models\Login;
 
 /**
@@ -65,12 +66,22 @@ class Controller extends ModuleController
      */
     public function overview()
     {
+        $relations = new Relationships();
+        $friends = $relations->getFullFriendList();
+
+        $this->view->assign(['friends' => $friends]);
     }
 
+    /**
+     *
+     */
     public function create()
     {
     }
 
+    /**
+     *
+     */
     public function delete()
     {
     }

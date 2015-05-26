@@ -493,3 +493,7 @@
     height: 1px !important;
     position: absolute !important;
 }
+
+.select2-input {
+    width: 100% !important;
+}

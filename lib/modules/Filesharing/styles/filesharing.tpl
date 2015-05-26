@@ -60,21 +60,43 @@
                         <label class="col-sm-2 control-label">{-"Privacy"|translate}</label>
 
                         <div class="col-sm-10">
-                            <div class="btn-group" data-toggle="buttons" style="width:100%">
+                            <div data-toggle="buttons">
                                 <label class="btn btn-default tooltip-trigger"
                                        data-title="{-"Only your friends can see the images"|translate}"
-                                       data-container="#newfiles_modal" style="width:33.3333%">
+                                       data-container="#newfiles_modal">
                                     <input type="checkbox" name="privacy" value="1"><i
                                             class="fa fa-group"></i>&nbsp;{-"Friends"|translate}
                                 </label>&nbsp;or&nbsp;
-                                <label class="tooltip-trigger"
+                                <label class="tooltip-trigger" style="width: 240px"
                                        data-title="{-"Users"|translate}"
-                                       data-container="#newfiles_modal" style="width:33.3333%">
-                                    <select name="friends"></select>
+                                       data-container="#newfiles_modal">
+                                    <select name="friends" multiple="multiple">
+                                        {-foreach $friends as $friend }
+                                            <option value="{-$friend.userid}">{-$friend.username}</option>
+                                        {-/foreach}
+                                    </select>
                                 </label>
                             </div>
                         </div>
                     </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">{-"File"|translate}</label>
+
+                        <div class="col-md-10">
+                            <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-primary" id="file-upload" type="button"><i
+                                                    class="fa fa-search"></i>&nbsp;{-"Select file"|translate}</button>
+                                    </span>
+                                <input type="text" class="form-control" readonly id="selected-file-title">
+                                <input type="hidden" id="upload_limit" value="{-$upload_limit}">
+                            </div>
+                                <span class="help-block">{-"You can upload jpg, gif and png files with a maximum file-size of"|translate}
+                                    &nbsp;{-$upload_limit}</span>
+                        </div>
+                    </div>
+
                     <div class="form-group hidden" id="newfiles_shared_options">
                         <div class="col-sm-offset-2 col-sm-10">
                             <div class="checkbox">
