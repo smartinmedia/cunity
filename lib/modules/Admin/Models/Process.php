@@ -40,6 +40,7 @@ use Cunity\Admin\Helper\NewsletterHelper;
 use Cunity\Admin\Helper\UpdateHelper;
 use Cunity\Contact\Models\Db\Table\Contact;
 use Cunity\Core\Cunity;
+use Cunity\Core\Exceptions\ActionNotFound;
 use Cunity\Core\Models\Db\Abstractables\Table;
 use Cunity\Core\Models\Db\Table\Modules;
 use Cunity\Core\Models\Db\Table\Newsletter;
@@ -56,20 +57,18 @@ use Cunity\Profile\Models\Db\Table\ProfileFieldsValues;
 class Process
 {
     /**
-     * @var array
-     */
-    private $validForms = ['config', 'settings', 'mailtemplates', 'modules', 'users', 'profilefields', 'contact', 'headline', 'update', 'newsletter'];
-
-    /**
      * @param $form
      * @param string $action
+     *
+     * @throws ActionNotFound
      */
     public function __construct($form, $action = 'save')
     {
-        if (in_array($form, $this->validForms) &&
-            method_exists($this, $action)
+        if (method_exists($this, $action)
         ) {
             $this->$action($form);
+        } else {
+            throw new ActionNotFound();
         }
     }
 
@@ -85,6 +84,7 @@ class Process
         switch ($form) {
             case 'settings':
             case 'headline':
+            case 'filesharing':
                 foreach (Post::get(null, []) as $key => $value) {
                     if (strpos($key, 'settings-') !== false) {
                         $setting = explode('-', $key);

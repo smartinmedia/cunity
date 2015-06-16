@@ -60,4 +60,14 @@ abstract class Request
 
         return (array_key_exists('action', ${$array}) && ${$array}['action'] !== '');
     }
+
+    /**
+     * @return bool
+     */
+    public static function isAjaxRequest()
+    {
+        return (isset($_SERVER['HTTP_X_REQUESTED_WITH']) &&
+            !empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&
+            strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest');
+    }
 }

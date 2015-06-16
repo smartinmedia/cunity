@@ -145,6 +145,9 @@
                     <!-- /.nav-second-level -->
                 </li>
                 <li>
+                    <a data-cat="filesharing" data-page="filesharing"><i class="fa fa-file-o fa-fw"></i> {-"Filesharing"|translate}</a>
+                </li>
+                <li>
                     <a data-cat="update" data-page="update"><i
                                 class="fa fa-undo fa-fw"></i>&nbsp;{-"Update"|translate}</a>
                 </li>

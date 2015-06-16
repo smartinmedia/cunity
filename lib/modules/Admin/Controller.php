@@ -36,9 +36,9 @@
 
 namespace Cunity\Admin;
 
-use Cunity\Core\Models\Request;
 use Cunity\Core\ModuleController;
 use Cunity\Core\Request\Get;
+use Cunity\Core\Request\Request;
 use Cunity\Register\Models\Login;
 
 /**
@@ -52,7 +52,7 @@ class Controller extends ModuleController
     public function __construct()
     {
         $action = Get::get('action');
-        if ($action !== null && $action !== '') {
+        if (Get::hasAction()) {
             Login::loginRequired();
 
             switch ($action) {
@@ -62,7 +62,7 @@ class Controller extends ModuleController
                 case 'save':
                 case 'delete':
                 case 'insert':
-                    new Models\Process(\Cunity\Core\Request\Request::get('form'), $action);
+                    new Models\Process(Request::get('form'), $action);
                     break;
                 default:
                     $model = "\Cunity\Admin\Models\\Pages\\".ucfirst($action);

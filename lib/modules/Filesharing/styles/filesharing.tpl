@@ -39,7 +39,7 @@
                 <h4 class="modal-title">{-"Create new file"|translate}</h4>
             </div>
             <div class="modal-body">
-                <form class="form-horizontal ajaxform" action="{-"index.php?m=ilesharing&action=create"|URL}" role="form"
+                <form class="form-horizontal ajaxform" action="{-"index.php?m=filesharing&action=create"|URL}" role="form"
                       id="newfiles_form" method="POST">
                     <div class="form-group">
                         <label class="col-sm-2 control-label">{-"Title"|translate}</label>
@@ -61,16 +61,16 @@
 
                         <div class="col-sm-10">
                             <div data-toggle="buttons">
-                                <label class="btn btn-default tooltip-trigger"
+                                <label class="btn btn-default tooltip-trigger active"
                                        data-title="{-"Only your friends can see the images"|translate}"
-                                       data-container="#newfiles_modal">
-                                    <input type="checkbox" name="privacy" value="1"><i
-                                            class="fa fa-group"></i>&nbsp;{-"Friends"|translate}
+                                       data-container="#newfiles_modal" id="friendCheckboxLabel">
+                                    <input type="checkbox" checked="checked" id="friendCheckbox" disabled="disabled"><i
+                                            class="fa fa-group"></i>&nbsp;{-"All friends"|translate}
                                 </label>&nbsp;or&nbsp;
                                 <label class="tooltip-trigger" style="width: 240px"
                                        data-title="{-"Users"|translate}"
                                        data-container="#newfiles_modal">
-                                    <select name="friends" multiple="multiple">
+                                    <select name="friends" multiple="multiple" id="friendselector">
                                         {-foreach $friends as $friend }
                                             <option value="{-$friend.userid}">{-$friend.username}</option>
                                         {-/foreach}
@@ -92,8 +92,7 @@
                                 <input type="text" class="form-control" readonly id="selected-file-title">
                                 <input type="hidden" id="upload_limit" value="{-$upload_limit}">
                             </div>
-                                <span class="help-block">{-"You can upload jpg, gif and png files with a maximum file-size of"|translate}
-                                    &nbsp;{-$upload_limit}</span>
+                                <span class="help-block">{-"You can upload jpg, gif and png files with a maximum file size of"|translate}&nbsp;{-$upload_limit}</span>
                         </div>
                     </div>
 

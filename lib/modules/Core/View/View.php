@@ -59,7 +59,7 @@ use Zend_Translate;
 class View extends Smarty
 {
     /**
-     * @var Zend_Translate
+     * @var \Zend_Translate_Adapter
      */
     public static $zt = null;
 

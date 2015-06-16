@@ -34,93 +34,23 @@
  * #####################################################################################
  */
 
-namespace Cunity\Core;
+namespace Cunity\Admin\View;
 
-use Cunity\Core\Request\Request;
-use Cunity\Core\Exceptions\ActionNotFound;
-use Cunity\Core\View\Ajax\View;
+use Cunity\Admin\View\Abstractables\View;
+use Cunity\Core\Request\Get;
 
 /**
- * Interface ModuleController.
+ * Class Filesharing.
  */
-abstract class ModuleController
+class Filesharing extends View
 {
-    /**
-     * @var string
-     */
-    protected $action = 'overview';
-
-    /**
-     * @var bool
-     */
-    protected $status = false;
-
-    /**
-     * @var \Cunity\Core\View\View
-     */
-    protected $view;
-
-    /**
-     * @var bool
-     */
-    protected $useOldStructure = true;
-
     /**
      *
      */
     public function __construct()
     {
-        $this->useOldStructure = false;
-
-        if (Request::hasAction()) {
-            $this->action = Request::get('action');
-        }
-
-        $action = $this->action;
-        $this->$action();
-    }
-
-    /**
-     * @param $name
-     * @param $arguments
-     *
-     * @throws ActionNotFound
-     */
-    public function __call($name, $arguments)
-    {
-        throw new ActionNotFound();
-    }
-
-    /**
-     * @param $user
-     *
-     * @return mixed
-     */
-    public static function onRegister($user)
-    {
-    }
-
-    /**
-     * @param $user
-     *
-     * @return mixed
-     */
-    public static function onUnregister($user)
-    {
-    }
-
-    /**
-     *
-     */
-    public function __destruct()
-    {
-        if (!$this->useOldStructure) {
-            if (Request::isAjaxRequest()) {
-                $view = new View($this->status);
-                $view->sendResponse();
-            } else {
-                $this->view->show();
-            }
-        }
+        parent::__construct();
+        $this->_templateFile = 'filesharing/'.Get::get('x').'.tpl';
+        $this->registerCss('filesharing', Get::get('x'));
     }
 }

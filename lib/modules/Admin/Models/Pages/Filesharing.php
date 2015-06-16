@@ -34,20 +34,29 @@
  * #####################################################################################
  */
 
-namespace Cunity\Core\Models;
+namespace Cunity\Admin\Models\Pages;
+
+use Cunity\Core\Helper\FileSizeHelper;
 
 /**
- * Class Request.
+ * Class Filesharing.
  */
-class Request
+class Filesharing extends PageAbstract
 {
     /**
-     * @return bool
+     *
      */
-    public static function isAjaxRequest()
+    public function __construct()
     {
-        return (isset($_SERVER['HTTP_X_REQUESTED_WITH']) &&
-            !empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&
-            strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest');
+        $this->assignments['upload_limit'] = FileSizeHelper::reverseCompute(FileSizeHelper::getMaxUploadSize());
+        $this->assignments['files_size'] = FileSizeHelper::reverseCompute(0);
+        $this->render('filesharing');
+    }
+
+    /**
+     *
+     */
+    private function loadData()
+    {
     }
 }

@@ -40,9 +40,9 @@ use Cunity\Core\Access\UserAccess;
 use Cunity\Core\Exceptions\UnknownUser;
 use Cunity\Core\Models\Db\Row\User;
 use Cunity\Core\Models\Db\Table\Users;
-use Cunity\Core\Models\Request;
 use Cunity\Core\Request\Get;
 use Cunity\Core\Request\Post;
+use Cunity\Core\Request\Request as Request1;
 use Cunity\Core\Request\Session;
 use Cunity\Core\View\Ajax\View;
 
@@ -61,7 +61,7 @@ class Profile
      */
     public function __construct()
     {
-        if (Request::isAjaxRequest()) {
+        if (Request1::isAjaxRequest()) {
             $this->handleAjaxAction();
         }
         $this->checkUser();

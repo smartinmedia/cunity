@@ -36,7 +36,9 @@
 
 namespace Cunity\Filesharing;
 
+use Cunity\Core\Helper\FileSizeHelper;
 use Cunity\Core\ModuleController;
+use Cunity\Filesharing\Helper\UploadHelper;
 use Cunity\Filesharing\View\Filesharing;
 use Cunity\Friends\Models\Db\Table\Relationships;
 use Cunity\Register\Models\Login;
@@ -66,10 +68,19 @@ class Controller extends ModuleController
      */
     public function overview()
     {
+        $uploader = new UploadHelper();
+        $uploader->setTempFile('/var/www/cunity/cunity/data/uploads/9n5s66h14xo3/thumb_39d1d878aa50235f550fa0677a0281e95606e9ddea414529521.png');
+        $this->status = $uploader->upload();
+
         $relations = new Relationships();
         $friends = $relations->getFullFriendList();
 
         $this->view->assign(['friends' => $friends]);
+        $this->view->assign('max_filesize', ini_get('upload_max_filesize'));
+        $this->view->assign(
+            'upload_limit',
+            FileSizeHelper::reverseCompute(FileSizeHelper::getMaxUploadSize())
+        );
     }
 
     /**
@@ -77,6 +88,7 @@ class Controller extends ModuleController
      */
     public function create()
     {
+        $this->status = true;
     }
 
     /**
