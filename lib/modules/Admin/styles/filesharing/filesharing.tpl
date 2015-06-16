@@ -35,7 +35,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="allowed-extensions"
+                        <label for="max-filesize"
                                class="col-sm-3 control-label">{-"Max filesize in MB"|translate}</label>
 
                         <div class="col-sm-8">
@@ -45,11 +45,11 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="allowed-extensions"
+                        <label for="max-filesize"
                                class="col-sm-3 control-label">{-"Files per user"|translate}</label>
 
                         <div class="col-sm-8">
-                            <input type="number" class="form-control" value="{-"filesharing.files_user"|setting}" id="files-user"
+                            <input type="number" class="form-control" value="{-"filesharing.files_user"|setting}" id="max-filesize"
                                    name="settings-filesharing.files_user" placeholder="Files per user">
                             <label class="help-block">Leave blank to disable any limit</label>
                         </div>
