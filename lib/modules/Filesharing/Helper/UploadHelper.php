@@ -26,6 +26,11 @@ class UploadHelper
     /**
      * @var string
      */
+    protected $extension;
+
+    /**
+     * @var string
+     */
     protected $tempFile;
 
     /**
@@ -124,10 +129,12 @@ class UploadHelper
      */
     protected function createDestinationFilename()
     {
-        $pathinfo = pathinfo($this->tempFile);
-
         if (null === $this->destinationFilename) {
-            $this->destinationFilename = md5(microtime()).'.'.$pathinfo['extension'];
+            $this->destinationFilename = md5(microtime());
+
+            if ($this->extension !== '') {
+                $this->destinationFilename .= '.'.$this->extension;
+            }
         }
     }
 
@@ -150,5 +157,32 @@ class UploadHelper
         $this->createDestinationFilename();
         $this->createDestinationPath();
         $this->createPath();
+    }
+
+    /**
+     * @param string $extension
+     *
+     * @return $this
+     */
+    public function setExtension($extension)
+    {
+        $this->extension = $extension;
+
+        return $this;
+    }
+
+    /**
+     * @param $filename
+     *
+     * @return string
+     */
+    public static function generateExtension($filename) {
+        if (strpos($filename, '.') > 0) {
+            $parts = explode('.', $filename);
+
+            return $parts[count($parts)-1];
+        } else {
+            return '';
+        }
     }
 }

@@ -39,7 +39,7 @@ namespace Cunity\Core;
 use Cunity\Core\Exceptions\ModuleNotActive;
 use Cunity\Core\Exceptions\ModuleNotFound;
 use Cunity\Core\Request\Get;
-use Cunity\Core\Request\Request as Request1;
+use Cunity\Core\Request\Request;
 use Cunity\Core\View\Exception\View;
 use Cunity\Register\Models\Login;
 
@@ -65,7 +65,7 @@ class Controller
             .Cunity::get('settings')->getSetting('core.filesdir')
         );
         session_start();
-        if (Request1::isAjaxRequest()) {
+        if (Request::isAjaxRequest()) {
             set_exception_handler([$this, 'handleAjaxException']);
         } else {
             set_exception_handler([$this, 'handleException']);
@@ -93,7 +93,7 @@ class Controller
         }
 
         $moduleController = new Module(Get::get('m'));
-        if (!Request1::isAjaxRequest() && !$moduleController->isActive()) {
+        if (!Request::isAjaxRequest() && !$moduleController->isActive()) {
             throw new ModuleNotActive();
         } elseif ($moduleController->isValid()) {
             $classname = $moduleController->getClassName();

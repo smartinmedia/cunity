@@ -67,5 +67,7 @@ class Filesharing extends View
         parent::__construct();
         $this->registerCss('filesharing', 'filesharing');
         $this->registerScript('filesharing', 'filesharing');
+        $this->registerScript('filesharing', 'uploader');
+        $this->registerCunityPlugin('plupload', ['js/plupload.full.min.js']);
     }
 }

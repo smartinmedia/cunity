@@ -68,10 +68,6 @@ class Controller extends ModuleController
      */
     public function overview()
     {
-        $uploader = new UploadHelper();
-        $uploader->setTempFile('/var/www/cunity/cunity/data/uploads/9n5s66h14xo3/thumb_39d1d878aa50235f550fa0677a0281e95606e9ddea414529521.png');
-        $this->status = $uploader->upload();
-
         $relations = new Relationships();
         $friends = $relations->getFullFriendList();
 
@@ -88,7 +84,10 @@ class Controller extends ModuleController
      */
     public function create()
     {
-        $this->status = true;
+        $uploader = new UploadHelper();
+        $uploader->setExtension(UploadHelper::generateExtension($_FILES['file']['name']));
+        $uploader->setTempFile($_FILES['file']['tmp_name']);
+        $this->status = $uploader->upload();
     }
 
     /**

@@ -39,8 +39,8 @@
                 <h4 class="modal-title">{-"Create new file"|translate}</h4>
             </div>
             <div class="modal-body">
-                <form class="form-horizontal ajaxform" action="{-"index.php?m=filesharing&action=create"|URL}" role="form"
-                      id="newfiles_form" method="POST">
+                <form class="form-horizontal" action="{-"index.php?m=filesharing&action=create"|URL}" role="form"
+                      id="newfiles_form" enctype="multipart/form-data" method="post">
                     <div class="form-group">
                         <label class="col-sm-2 control-label">{-"Title"|translate}</label>
 
@@ -62,7 +62,7 @@
                         <div class="col-sm-10">
                             <div data-toggle="buttons">
                                 <label class="btn btn-default tooltip-trigger active"
-                                       data-title="{-"Only your friends can see the images"|translate}"
+                                       data-title="{-"Only your friends can see the files"|translate}"
                                        data-container="#newfiles_modal" id="friendCheckboxLabel">
                                     <input type="checkbox" checked="checked" id="friendCheckbox" disabled="disabled"><i
                                             class="fa fa-group"></i>&nbsp;{-"All friends"|translate}
@@ -79,41 +79,40 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-md-2">{-"File"|translate}</label>
-
-                        <div class="col-md-10">
-                            <div class="input-group">
+                        <input type="hidden" name="uploadtype" value="single" />
+                        <div id="singleuploader">
+                            <div class="row">
+                                <div class="col-lg-10">
+                                    <div class="input-group">
+                                        <input class="inputCover form-control" type="text" id="fileonecover"
+                                               readonly="readonly">
+                                        <input class="hidden filefakeinput" name="file" type="file" id="fileone"
+                                               data-rel="#fileonecover">
                                     <span class="input-group-btn">
-                                        <button class="btn btn-primary" id="file-upload" type="button"><i
-                                                    class="fa fa-search"></i>&nbsp;{-"Select file"|translate}</button>
+                                        <label class="btn btn-default" for="fileone"><i
+                                                    class="fa fa-search"></i>&nbsp;{-"Browse"|translate}</label>
+                                        <button class="btn btn-primary" type="submit" id="submitButtonFileOne"
+                                                disabled="disabled"><i class="fa fa-upload"></i>
+                                        </button>
                                     </span>
-                                <input type="text" class="form-control" readonly id="selected-file-title">
-                                <input type="hidden" id="upload_limit" value="{-$upload_limit}">
-                            </div>
-                                <span class="help-block">{-"You can upload jpg, gif and png files with a maximum file size of"|translate}&nbsp;{-$upload_limit}</span>
-                        </div>
-                    </div>
-
-                    <div class="form-group hidden" id="newfiles_shared_options">
-                        <div class="col-sm-offset-2 col-sm-10">
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" name="allow_upload"
-                                           value="1"> {-"Friends can also upload images"|translate}
-                                </label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <input type="hidden" class="ajaxform-callback" value="filescreated">
-                </form>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default"
+                                    data-dismiss="modal">{-"Cancel"|translate}</button>
+                            <button type="submit" id="startupload" class="btn btn-primary"
+                                    data-loading-text="{-"Please wait..."|translate}"><i
+                                        class="fa fa-upload"></i>&nbsp;{-"Upload"|translate}</button>
+                        </div>
+                    </form>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">{-"Cancel"|translate}</button>
-                <button type="button" id="createfiles" onclick="$('#newfiles_form').submit();" class="btn btn-primary"
-                        data-loading-text="{-"Please wait.."|translate}">{-"Create"|translate}</button>
-            </div>
+            {-*<div class="modal-footer">*}
+                {-*<button type="button" class="btn btn-default" data-dismiss="modal">{-"Cancel"|translate}</button>*}
+                {-*<button type="button" id="createfiles" onclick="$('#newfiles_form').submit();" class="btn btn-primary"*}
+                        {-*data-loading-text="{-"Please wait.."|translate}">{-"Create"|translate}</button>*}
+            {-*</div>*}
         </div>
     </div>
 </div>
