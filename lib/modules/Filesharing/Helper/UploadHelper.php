@@ -176,7 +176,8 @@ class UploadHelper
      *
      * @return string
      */
-    public static function generateExtension($filename) {
+    public static function generateExtension($filename)
+    {
         if (strpos($filename, '.') > 0) {
             $parts = explode('.', $filename);
 
