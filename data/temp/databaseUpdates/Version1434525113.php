@@ -47,7 +47,7 @@ class Version1434525113 extends DbUpdateVersion implements DbCommandInterface
      */
     public function execute()
     {
-        $this->_db->query('CREATE TABLE IF NOT EXISTS cunity_filesharing_files (
+        $this->_db->query('CREATE TABLE IF NOT EXISTS '.$this->_db->getDbprefix().'filesharing_files (
   id int(11) NOT NULL AUTO_INCREMENT,
   user_id int(11) NOT NULL,
   title varchar(255) NOT NULL,
@@ -57,7 +57,7 @@ class Version1434525113 extends DbUpdateVersion implements DbCommandInterface
   PRIMARY KEY (id)
 )');
 
-        $this->_db->query('CREATE TABLE IF NOT EXISTS cunity_filesharing_rights (
+        $this->_db->query('CREATE TABLE IF NOT EXISTS '.$this->_db->getDbprefix().'filesharing_rights (
   id int(11) NOT NULL AUTO_INCREMENT,
   file_id int(11) NOT NULL,
   user_id int(11) NOT NULL,
