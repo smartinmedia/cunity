@@ -71,4 +71,16 @@ abstract class DbUpdateVersion
     {
         $db->insert(['timestamp' => $this->_timestamp]);
     }
+
+    /**
+     * @param int $timestamp
+     *
+     * @return $this
+     */
+    public function setTimestamp($timestamp)
+    {
+        $this->_timestamp = $timestamp;
+
+        return $this;
+    }
 }

@@ -96,6 +96,7 @@ class DatabaseUpdater
                         $dbCmd = new $classname(Cunity::get('db'));
                         if ($dbCmd instanceof DbCommandInterface) {
                             $dbCmd->execute();
+                            $dbCmd->setTimestamp(str_replace('Version', '', get_class($dbCmd)));
                             $dbCmd->updateDatabaseTimestamp($this->versionDb);
                         }
                     }
