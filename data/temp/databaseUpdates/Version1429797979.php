@@ -47,7 +47,7 @@ class Version1429797979 extends DbUpdateVersion implements DbCommandInterface
      */
     public function execute()
     {
-        $this->_db->query("DROP TABLE `".$this->_db->getDbprefix()."newsletter_user`");
+        $this->_db->query("DROP TABLE IF EXISTS `".$this->_db->getDbprefix()."newsletter_user`");
         $this->_db->query("ALTER TABLE `".$this->_db->getDbprefix()."newsletter` DROP `userid`;");
     }
 }
