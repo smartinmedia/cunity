@@ -66,6 +66,11 @@ abstract class ModuleController
     protected $useOldStructure = true;
 
     /**
+     * @var array
+     */
+    protected $data = [];
+
+    /**
      *
      */
     public function __construct()
@@ -110,6 +115,19 @@ abstract class ModuleController
     }
 
     /**
+     * @param $key
+     * @param $value
+     *
+     * @return $this
+     */
+    public function addData($key, $value)
+    {
+        $this->data[$key] = $value;
+
+        return $this;
+    }
+
+    /**
      *
      */
     public function __destruct()
@@ -117,6 +135,7 @@ abstract class ModuleController
         if (!$this->useOldStructure) {
             if (Request::isAjaxRequest()) {
                 $view = new View($this->status);
+                $view->addData($this->data);
                 $view->sendResponse();
             } else {
                 $this->view->show();

@@ -186,4 +186,12 @@ class UploadHelper
             return '';
         }
     }
+
+    /**
+     * @return string
+     */
+    public function getDestinationFilename()
+    {
+        return $this->destinationFilename;
+    }
 }

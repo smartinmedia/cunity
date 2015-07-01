@@ -36,12 +36,22 @@
 
 namespace Cunity\Filesharing;
 
+use Cunity\Core\Exceptions\NotAllowed;
 use Cunity\Core\Helper\FileSizeHelper;
+use Cunity\Core\Models\Generator\Url;
 use Cunity\Core\ModuleController;
+use Cunity\Core\Request\Get;
+use Cunity\Core\Request\Post;
+use Cunity\Core\Request\Session;
+use Cunity\Core\View\Ajax\View;
+use Cunity\Filesharing\Helper\AccessHelper;
 use Cunity\Filesharing\Helper\UploadHelper;
+use Cunity\Filesharing\Models\Db\Table\FileRights;
+use Cunity\Filesharing\Models\Db\Table\Files;
 use Cunity\Filesharing\View\Filesharing;
 use Cunity\Friends\Models\Db\Table\Relationships;
 use Cunity\Register\Models\Login;
+use Symfony\Component\Filesystem\Exception\FileNotFoundException;
 
 /**
  * Class Controller.
@@ -70,7 +80,6 @@ class Controller extends ModuleController
     {
         $relations = new Relationships();
         $friends = $relations->getFullFriendList();
-
         $this->view->assign(['friends' => $friends]);
         $this->view->assign('max_filesize', ini_get('upload_max_filesize'));
         $this->view->assign(
@@ -82,12 +91,79 @@ class Controller extends ModuleController
     /**
      *
      */
+    public function listfiles()
+    {
+        $files = new Files();
+        $fileList = $files->listFiles()->toArray();
+
+        $this->status = is_array($fileList);
+        $this->addData('result', $fileList);
+    }
+
+    /**
+     *
+     */
     public function create()
     {
         $uploader = new UploadHelper();
         $uploader->setExtension(UploadHelper::generateExtension($_FILES['file']['name']));
         $uploader->setTempFile($_FILES['file']['tmp_name']);
         $this->status = $uploader->upload();
+        $files = new Files();
+        $data = [
+            'user_id' => Session::get('user')->userid,
+            'title' => Post::get('title'),
+            'description' => Post::get('description'),
+            'filename' => $_FILES['file']['name'],
+            'filenameondisc' => $uploader->getDestinationFilename(),
+        ];
+        $fileId = $files->insert($data);
+
+        $data = [
+            'file_id' => $fileId
+        ];
+
+
+        if (Post::get('allFriends', '') !== '') {
+            $fileRights = new FileRights();
+            $data['all_friends'] = 1;
+            $fileRights->insert($data);
+        } else {
+            foreach (Post::get('friends') as $friend) {
+                $fileRights = new FileRights();
+                $data['user_id'] = $friend;
+                $fileRights->insert($data);
+            }
+        }
+
+        Url::redirectToModule('filesharing');
+    }
+
+    /**
+     * @throws \Zend_Db_Table_Exception
+     */
+    public function download()
+    {
+        $fileId = Get::get('x');
+
+        if(AccessHelper::canRead($fileId))
+        {
+            $file = new Files();
+            $fileId = $file->find($fileId)[0];
+            $fileName = __DIR__.'/../../../data/uploads/files/'.$fileId->user_id.'/'.$fileId->filenameondisc;
+
+            header('Cache-Control: public');
+            header('Content-Description: File Transfer');
+            header('Content-Disposition: attachment; filename='.$fileId->filename);
+            header('Content-Transfer-Encoding: binary');
+
+            // read the file from disk
+            readfile($fileName);
+            exit;
+        } else {
+            throw new FileNotFoundException;
+        }
+
     }
 
     /**
@@ -95,5 +171,13 @@ class Controller extends ModuleController
      */
     public function delete()
     {
+        $fileId = Post::get('fileid');
+        if (AccessHelper::canDelete($fileId)) {
+            $file = new Files();
+            $file->delete('id = '. $fileId);
+            $this->status = true;
+        } else {
+            throw new NotAllowed;
+        }
     }
 }

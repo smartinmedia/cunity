@@ -2,28 +2,6 @@
     <h1 class="page-header pull-left">{-"Filesharing"|translate}</h1>
     <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#newfiles_modal" id="newfiles"><i
                 class="fa fa-plus"></i>&nbsp;{-"New file"|translate}</button>
-    <div class="btn-group pull-right">
-        <button type="button" class="btn btn-default dropdown-toggle tooltip-trigger" id="filter-dropdown"
-                data-toggle="dropdown" data-title="{-"Filter the files you want to see"|translate}"><i
-                    class="fa fa-filter"></i></button>
-        <ul class="dropdown-menu dropdown-checkbox-menu" role="menu" style="left:0;right:auto">
-            <li class="dropdown-header">{-"Filter the files you want to see"|translate}</li>
-            <li>
-                <label>
-                    <input type="checkbox" class="filess-filter" value="own">&nbsp;{-"My files"|translate}
-                </label>
-            </li>
-            <li>
-                <label>
-                    <input type="checkbox" class="filess-filter" value="foreign">&nbsp;{-"Friends files"|translate}
-                </label>
-            </li>
-            <li>
-                <button class="btn btn-primary btn-xs btn-block"
-                        onclick="applyFilter();">{-"Apply filter"|translate}</button>
-            </li>
-        </ul>
-    </div>
 </div>
 <div id="fileslist">
     <div class="filesharing-loader block-loader loader"></div>
@@ -64,13 +42,14 @@
                                 <label class="btn btn-default tooltip-trigger active"
                                        data-title="{-"Only your friends can see the files"|translate}"
                                        data-container="#newfiles_modal" id="friendCheckboxLabel">
-                                    <input type="checkbox" checked="checked" id="friendCheckbox" disabled="disabled"><i
+                                    <input type="hidden" name="allFriends" value="" />
+                                    <input type="checkbox" checked="checked" id="friendCheckbox" name="allFriends"><i
                                             class="fa fa-group"></i>&nbsp;{-"All friends"|translate}
                                 </label>&nbsp;or&nbsp;
                                 <label class="tooltip-trigger" style="width: 240px"
                                        data-title="{-"Users"|translate}"
                                        data-container="#newfiles_modal">
-                                    <select name="friends" multiple="multiple" id="friendselector">
+                                    <select name="friends[]" multiple="multiple" id="friendselector">
                                         {-foreach $friends as $friend }
                                             <option value="{-$friend.userid}">{-$friend.username}</option>
                                         {-/foreach}
@@ -83,6 +62,9 @@
                         <div id="singleuploader">
                             <div class="row">
                                 <div class="col-lg-10">
+                                    <div class="col-lg-2">
+                                        <label>File</label>
+                                    </div>
                                     <div class="input-group">
                                         <input class="inputCover form-control" type="text" id="fileonecover"
                                                readonly="readonly">
@@ -91,10 +73,7 @@
                                     <span class="input-group-btn">
                                         <label class="btn btn-default" for="fileone"><i
                                                     class="fa fa-search"></i>&nbsp;{-"Browse"|translate}</label>
-                                        <button class="btn btn-primary" type="submit" id="submitButtonFileOne"
-                                                disabled="disabled"><i class="fa fa-upload"></i>
-                                        </button>
-                                    </span>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -108,28 +87,22 @@
                         </div>
                     </form>
             </div>
-            {-*<div class="modal-footer">*}
-                {-*<button type="button" class="btn btn-default" data-dismiss="modal">{-"Cancel"|translate}</button>*}
-                {-*<button type="button" id="createfiles" onclick="$('#newfiles_form').submit();" class="btn btn-primary"*}
-                        {-*data-loading-text="{-"Please wait.."|translate}">{-"Create"|translate}</button>*}
-            {-*</div>*}
         </div>
     </div>
 </div>
-<script type="text/html" id="filess-template">
-    <div class="fileslist-item pull-left user-files-{%=o.owner_id%} {% if (o.owner_id == {-$user.userid}) { %}files-own{% } else { %}files-foreign{% } %}">
-        <a href="{%=convertUrl({'module':'filesharing','action': o.id,'x':o.title.replace(' ','_')})%}"
-           class="fileslist-item-image"
-           style="background-image:url('{%=checkImage(o.filename,'filesharing','thumb_')%}');"></a>
-        <a href="{%=convertUrl({'module':'filesharing','action': o.id,'x':o.title.replace(' ','_')})%}"
-           class="fileslist-item-name">{% if (o.type == 'profile') { %}{-"Profile Images"|translate}{% } else if (o.type == 'newsfeed'){ %}{-"Posted Images"|translate}{% } else { %}{%=o.title%}{% } %}</a>
-
-        <div class="fileslist-item-ownerbox clearfix">
-            <a href="{-"index.php?m=profile&action="|URL}{%=o.username%}"><img
-                        src="{%=checkImage(o.pimg,'user','cr_')%}"
-                        class="fileslist-item-owner tooltip-trigger pull-left" data-title="{%=o.name%}"
-                        data-placement="right"></a>
-            <i class="fileslist-item-time">{%#convertDate(o.time)%}</i>
+<script type="text/html" id="files-template">
+    <article class="searchresult-item clearfix" id="filesharing-item-{%=o.id%}">
+        <img src="{%=checkImage('','file','cr_')%}" class="img-rounded thumbnail pull-left">
+        <div class="searchresult-item-content pull-left">
+            <h2><a href="{-"index.php?m=filesharing&action=download&file="|URL}{%=o.id%}">{%=o.title%}</a></h2>
+            <h4>{%=o.description%}</h4>
         </div>
-    </div>
+        {% if(o.user_id == userid) { %}
+        <div class="pull-right btn-group btn-group-sm">
+            <button type="button" class="close tooltip-trigger deleteFile"
+                    data-fileid="{%=o.id%}" data-msg="{-"Are You sure You want to delete this file?"|translate}"
+                    data-title="{-"Delete file"|translate}">&times;</button>
+        </div>
+        {% } %}
+    </article>
 </script>

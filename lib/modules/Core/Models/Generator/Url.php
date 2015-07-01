@@ -62,4 +62,30 @@ class Url
             return Cunity::get('settings')->getSetting('core.siteurl').$urlString;
         }
     }
+
+    /**
+     * @param $module
+     */
+    public static function redirectToModule($module)
+    {
+        self::redirect(self::convertUrl('index.php?m='.$module));
+    }
+
+    /**
+     * @param $module
+     * @param $action
+     */
+    public static function redirectToAction($module, $action)
+    {
+        self::redirect(self::convertUrl('index.php?m='.$module.'&action='.$action));
+    }
+
+    /**
+     * @param $url
+     */
+    public static function redirect($url)
+    {
+        header('Location: ' . $url);
+        exit;
+    }
 }
