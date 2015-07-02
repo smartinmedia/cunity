@@ -79,4 +79,18 @@ class Files extends Table
 
         return $fileList;
     }
+
+    /**
+     * @param null $userid
+     *
+     * @return \Zend_Db_Table_Rowset_Abstract
+     */
+    public function listOwnFiles($userid = null)
+    {
+        if ($userid === null) {
+            $userid = Session::get('user')->userid;
+        }
+
+        return $this->fetchAll('user_id = '.$userid);
+    }
 }

@@ -23,7 +23,7 @@
             </div>
             <div class="panel-body">
                 <form class="form-horizontal ajaxform form-validate" id="general-form" method="post"
-                      action="{-"index.php?m=admin&action=save"|URL}">
+                      action="{-"index.php?m=admin&action=save"|URL}" onsubmit="return checkSize(2097152)">
                     <div class="form-group">
                         <label for="allowed-extensions"
                                class="col-sm-3 control-label">{-"Allowed extensions"|translate}</label>

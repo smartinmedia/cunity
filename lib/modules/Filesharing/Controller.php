@@ -84,8 +84,17 @@ class Controller extends ModuleController
         $this->view->assign('max_filesize', ini_get('upload_max_filesize'));
         $this->view->assign(
             'upload_limit',
+            FileSizeHelper::getMaxUploadSize()
+        );
+        $this->view->assign(
+            'upload_limit_human_readable',
             FileSizeHelper::reverseCompute(FileSizeHelper::getMaxUploadSize())
         );
+
+        $files = new Files();
+        $numberOfOwnFiles = $files->listOwnFiles()->count();
+
+        $this->view->assign('numberOfOwnFiles', $numberOfOwnFiles);
     }
 
     /**

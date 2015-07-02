@@ -1,8 +1,10 @@
 <div class="page-buttonbar clearfix">
     <h1 class="page-header pull-left">{-"Filesharing"|translate}</h1>
+    {-if ($numberOfOwnFiles < {-"filesharing.files_user"|setting}) }
     <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#newfiles_modal" id="newfiles"><i
                 class="fa fa-plus"></i>&nbsp;{-"New file"|translate}</button>
     <input type="text" class="form-control" placeholder="{-"Search"|translate}" id="fileSearch" />
+    {-/if}
 </div>
 <div id="fileslist">
     <div class="filesharing-loader block-loader loader"></div>
@@ -19,7 +21,8 @@
             </div>
             <div class="modal-body">
                 <form class="form-horizontal" action="{-"index.php?m=filesharing&action=create"|URL}" role="form"
-                      id="newfiles_form" enctype="multipart/form-data" method="post">
+                      id="newfiles_form" enctype="multipart/form-data" method="post" onsubmit="return checkSize({-$upload_limit})">
+                    <input type="hidden" value="{-$upload_limit}" id="upload_limit" />
                     <div class="form-group">
                         <label class="col-sm-2 control-label">{-"Title"|translate}</label>
 
@@ -76,6 +79,9 @@
                                                     class="fa fa-search"></i>&nbsp;{-"Browse"|translate}</label>
                                         </span>
                                     </div>
+                                    {-if ($upload_limit != "") }
+                                    <label class="help-block">{-"Maximum size of one file is "|translate}{-$upload_limit_human_readable}</label>
+                                    {-/if}
                                 </div>
                             </div>
                         </div>
