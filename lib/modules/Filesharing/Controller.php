@@ -129,9 +129,8 @@ class Controller extends ModuleController
         $fileId = $files->insert($data);
 
         $data = [
-            'file_id' => $fileId
+            'file_id' => $fileId,
         ];
-
 
         if (Post::get('allFriends', '') !== '') {
             $fileRights = new FileRights();
@@ -155,8 +154,7 @@ class Controller extends ModuleController
     {
         $fileId = Get::get('x');
 
-        if(AccessHelper::canRead($fileId))
-        {
+        if (AccessHelper::canRead($fileId)) {
             $file = new Files();
             $fileId = $file->find($fileId)[0];
             $fileName = __DIR__.'/../../../data/uploads/files/'.$fileId->user_id.'/'.$fileId->filenameondisc;
@@ -170,9 +168,8 @@ class Controller extends ModuleController
             readfile($fileName);
             exit;
         } else {
-            throw new FileNotFoundException;
+            throw new FileNotFoundException();
         }
-
     }
 
     /**
@@ -183,10 +180,10 @@ class Controller extends ModuleController
         $fileId = Post::get('fileid');
         if (AccessHelper::canDelete($fileId)) {
             $file = new Files();
-            $file->delete('id = '. $fileId);
+            $file->delete('id = '.$fileId);
             $this->status = true;
         } else {
-            throw new NotAllowed;
+            throw new NotAllowed();
         }
     }
 }

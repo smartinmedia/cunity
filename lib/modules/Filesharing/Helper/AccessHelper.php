@@ -7,8 +7,7 @@ use Cunity\Core\Request\Session;
 use Cunity\Filesharing\Models\Db\Table\Files;
 
 /**
- * Class AccessHelper
- * @package Cunity\Filesharing\Helper
+ * Class AccessHelper.
  */
 class AccessHelper
 {

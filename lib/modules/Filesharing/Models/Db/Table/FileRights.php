@@ -5,9 +5,7 @@ namespace Cunity\Filesharing\Models\Db\Table;
 use Cunity\Core\Models\Db\Abstractables\Table;
 
 /**
- * Class FileRights
- *
- * @package Cunity\Filesharing\Models\Db\Table
+ * Class FileRights.
  */
 class FileRights extends Table
 {

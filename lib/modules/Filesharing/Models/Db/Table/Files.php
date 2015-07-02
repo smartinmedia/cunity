@@ -8,9 +8,7 @@ use Cunity\Core\Request\Session;
 use Cunity\Friends\Models\Db\Table\Relationships;
 
 /**
- * Class Files
- *
- * @package Cunity\Filesharing\Models\Db\Table
+ * Class Files.
  */
 class Files extends Table
 {
@@ -26,6 +24,7 @@ class Files extends Table
 
     /**
      * @param array $data
+     *
      * @return mixed
      */
     public function addFile(array $data)
@@ -35,6 +34,7 @@ class Files extends Table
 
     /**
      * @param $fileId
+     *
      * @return bool
      */
     public function removeFile($fileId)
