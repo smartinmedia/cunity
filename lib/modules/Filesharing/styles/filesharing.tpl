@@ -2,6 +2,7 @@
     <h1 class="page-header pull-left">{-"Filesharing"|translate}</h1>
     <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#newfiles_modal" id="newfiles"><i
                 class="fa fa-plus"></i>&nbsp;{-"New file"|translate}</button>
+    <input type="text" class="form-control" placeholder="{-"Search"|translate}" id="fileSearch" />
 </div>
 <div id="fileslist">
     <div class="filesharing-loader block-loader loader"></div>
@@ -94,8 +95,8 @@
     <article class="searchresult-item clearfix" id="filesharing-item-{%=o.id%}">
         <img src="{%=checkImage('','file','cr_')%}" class="img-rounded thumbnail pull-left">
         <div class="searchresult-item-content pull-left">
-            <h2><a href="{-"index.php?m=filesharing&action=download&file="|URL}{%=o.id%}">{%=o.title%}</a></h2>
-            <h4>{%=o.description%}</h4>
+            <h2><a href="{-"index.php?m=filesharing&action=download&file="|URL}{%=o.id%}" class="fileTitle">{%=o.title%}</a></h2>
+            <h4 class="fileDescription">{%=o.description%}</h4>
         </div>
         {% if(o.user_id == userid) { %}
         <div class="pull-right btn-group btn-group-sm">
