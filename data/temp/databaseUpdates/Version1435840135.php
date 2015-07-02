@@ -38,16 +38,15 @@ use Cunity\Admin\Models\Updater\DbCommandInterface;
 use Cunity\Admin\Models\Updater\DbUpdateVersion;
 
 /**
- * Class Version1429797979
+ * Class Version1435840135
  */
-class Version1429797979 extends DbUpdateVersion implements DbCommandInterface
+class Version1435840135 extends DbUpdateVersion implements DbCommandInterface
 {
     /**
      *
      */
     public function execute()
     {
-        $this->_db->query("DROP TABLE IF EXISTS `".$this->_db->getDbprefix()."newsletter_user`");
-        $this->_db->query("ALTER TABLE `".$this->_db->getDbprefix()."newsletter` DROP `userid`;");
+        $this->_db->query("INSERT INTO `".$this->_db->getDbprefix()."modules` (`id`, `namespace`, `name`, `iconClass`, `status`) VALUES (NULL, 'filesharing', 'Filesharing', 'file-archive-o', 1)");
     }
 }
