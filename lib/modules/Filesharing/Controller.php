@@ -125,7 +125,7 @@ class Controller extends ModuleController
             'description' => Post::get('description'),
             'filename' => $_FILES['file']['name'],
             'filenameondisc' => $uploader->getDestinationFilename(),
-            'filesize' => $_FILES['file']['size']
+            'filesize' => $_FILES['file']['size'],
         ];
         $fileId = $files->insert($data);
 
