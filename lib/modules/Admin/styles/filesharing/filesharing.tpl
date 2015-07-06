@@ -81,7 +81,7 @@
                         {-"Total number of files"|translate}
                     </td>
                     <td>
-                        <span class="label label-success">{-$files|@count}</span>
+                        <span class="label label-success">{-$numberOfFiles}</span>
                     </td>
                 </tr>
                 <tr>
@@ -89,7 +89,7 @@
                         {-"Total size of files"|translate}
                     </td>
                     <td>
-                        <span class="label label-info">{-$files_size}</span>
+                        <span class="label label-info">{-$filesSize}</span>
                     </td>
                 </tr>
             </table>

@@ -39,7 +39,14 @@ class Files extends Table
      */
     public function removeFile($fileId)
     {
-        return (0 < $this->delete($this->getAdapter()->quoteInto('id=?', $fileId)));
+        $file = $this->fetchRow();
+        $fileName = __DIR__.'/../../../../../../data/uploads/files/'.$file->user_id.'/'.$file->filenameondisc;
+
+        $status = [];
+        $status[] = unlink($fileName);
+        $status[] = (0 < $this->delete($this->getAdapter()->quoteInto('id=?', $fileId)));
+
+        return !in_array(false, $status);
     }
 
     /**

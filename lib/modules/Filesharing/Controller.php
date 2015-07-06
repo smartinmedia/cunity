@@ -125,6 +125,7 @@ class Controller extends ModuleController
             'description' => Post::get('description'),
             'filename' => $_FILES['file']['name'],
             'filenameondisc' => $uploader->getDestinationFilename(),
+            'filesize' => $_FILES['file']['size']
         ];
         $fileId = $files->insert($data);
 
@@ -180,8 +181,7 @@ class Controller extends ModuleController
         $fileId = Post::get('fileid');
         if (AccessHelper::canDelete($fileId)) {
             $file = new Files();
-            $file->delete('id = '.$fileId);
-            $this->status = true;
+            $this->status = $file->removeFile($fileId);
         } else {
             throw new NotAllowed();
         }

@@ -8,7 +8,7 @@
  * ## CUNITY(R) is a registered trademark of Dr. Martin R. Weihrauch                     ##
  * ##  http://www.cunity.net                                                             ##
  * ##                                                                                    ##
- * ########################################################################################.
+ * ########################################################################################
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -34,32 +34,19 @@
  * #####################################################################################
  */
 
-namespace Cunity\Admin\Models\Pages;
-
-use Cunity\Core\Helper\FileSizeHelper;
-use Cunity\Filesharing\Models\Db\Table\Files;
+use Cunity\Admin\Models\Updater\DbCommandInterface;
+use Cunity\Admin\Models\Updater\DbUpdateVersion;
 
 /**
- * Class Filesharing.
+ * Class Version1436168938
  */
-class Filesharing extends PageAbstract
+class Version1436168938 extends DbUpdateVersion implements DbCommandInterface
 {
     /**
      *
      */
-    public function __construct()
+    public function execute()
     {
-        $this->assignments['upload_limit'] = FileSizeHelper::reverseCompute(FileSizeHelper::getMaxUploadSize());
-        $files = new Files();
-        $fileList = $files->listFiles();
-        $this->assignments['numberOfFiles'] = $files->listFiles()->count();
-        $fileSize = 0;
-
-        foreach ($fileList as $file) {
-            $fileSize += $file->filesize;
-        }
-
-        $this->assignments['filesSize'] = FileSizeHelper::reverseCompute($fileSize);
-        $this->render('filesharing');
+        $this->_db->query("ALTER TABLE ".$this->_db->getDbprefix()."_filesharing_files ADD  filesize INT NOT NULL AFTER  filenameondisc");
     }
 }
