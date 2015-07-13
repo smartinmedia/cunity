@@ -20,7 +20,7 @@ class NewsletterHelper
         } else {
             $userList = [$users->fetchRow('userid = '.Session::get('user')->userid)->toArray()];
         }
-fb($userList);
+
         $mailer = new Mail();
         $mailer->sendMail(
             $message,
