@@ -16,15 +16,15 @@ class NewsletterHelper
         $users = new Users();
 
         if (!$isTest) {
-            $users = $users->fetchAll('groupid != 0 AND groupid != 4')->toArray();
+            $userList = $users->fetchAll('groupid != 0 AND groupid != 4')->toArray();
         } else {
-            $users = [$users->fetchRow('userid = '.Session::get('user')->userid)->toArray()];
+            $userList = [$users->fetchRow('userid = '.Session::get('user')->userid)->toArray()];
         }
-
+fb($userList);
         $mailer = new Mail();
         $mailer->sendMail(
             $message,
             $subject,
-            $users);
+            $userList);
     }
 }

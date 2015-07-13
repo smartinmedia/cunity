@@ -60,17 +60,23 @@ class Mail extends \Zend_Mail
     /**
      * @param $body
      * @param $subject
-     * @param array $receiver
-     * @param array $cc
+     * @param array $receivers
+     * @param array $ccs
      *
      * @throws \Zend_Mail_Exception
      */
-    public function sendMail($body, $subject, array $receiver, array $cc = [])
+    public function sendMail($body, $subject, array $receivers, array $ccs = [])
     {
         $this->setBodyHtml($body);
-        $this->addTo($receiver['email'], $receiver['name']);
-        if (!empty($cc)) {
-            $this->addCc($cc['email'], $cc['name']);
+
+        foreach ($receivers as $receiver) {
+            $this->addTo($receiver['email'], $receiver['name']);
+        }
+
+        if (!empty($ccs)) {
+            foreach ($ccs as $cc) {
+                $this->addCc($cc['email'], $cc['name']);
+            }
         }
         $this->setSubject($subject);
         $this->send();
