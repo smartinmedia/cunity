@@ -83,13 +83,7 @@ class Controller extends ModuleController
             $view = new View\Registration();
             $view->assign('success', false);
             $view->render();
-        } elseif (
-            Get::hasAction() &&
-            in_array(
-                Get::get('action'),
-                $this->_allowedActions
-            )
-        ) {
+        } elseif (Get::hasAction()) {
             new Models\Process(Get::get('action'));
         }
     }

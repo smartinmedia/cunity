@@ -106,8 +106,7 @@ class Register
     public function renderErrors()
     {
         $view = new Registration();
-        $error_messages = [];
-        $this->assignErrors($view, $error_messages);
+        $this->assignErrors($view, $this->errors);
         $view->render();
     }
 
@@ -134,7 +133,7 @@ class Register
         if (!$validateMail->isValid($_POST['email'])) {
             $this->errors['email'] = implode(',', $validateMail->getMessages());
         }
-        if (!$validatePassword->passwordValid(Post::get('password'), Post::get('password-repeat'))) {
+        if (!$validatePassword->passwordValid(Post::get('password'), Post::get('password_repeat'))) {
             $this->errors['password'] = implode(',', $validatePassword->getMessages());
             $this->errors['password_repeat'] = '';
         }
