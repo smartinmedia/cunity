@@ -47,6 +47,6 @@ class Version1436168938 extends DbUpdateVersion implements DbCommandInterface
      */
     public function execute()
     {
-        $this->_db->query("ALTER TABLE ".$this->_db->getDbprefix()."_filesharing_files ADD  filesize INT NOT NULL AFTER  filenameondisc");
+        $this->_db->query("ALTER TABLE ".$this->_db->getDbprefix()."filesharing_files ADD  filesize INT NOT NULL AFTER  filenameondisc");
     }
 }
