@@ -215,6 +215,7 @@ class Process
 
                 break;
             case 'newsletter':
+                set_time_limit(0);
                 NewsletterHelper::sendMails(Request::get('subject'), Request::get('message'), (Request::get('type') === 'test'));
 
                 if (Request::get('type') !== 'test') {
