@@ -67,6 +67,11 @@ class Mail extends \Zend_Mail
      */
     public function sendMail($body, $subject, array $receivers, array $ccs = [])
     {
+        if (array_key_exists('email', $receivers))
+        {
+            $receivers = [$receivers];
+        }
+
         $this->setBodyHtml($body);
 
         foreach ($receivers as $receiver) {

@@ -11,6 +11,11 @@ use Cunity\Core\Request\Session;
  */
 class NewsletterHelper
 {
+    /**
+     * @param $subject
+     * @param $message
+     * @param bool|false $isTest
+     */
     public static function sendMails($subject, $message, $isTest = false)
     {
         $users = new Users();
