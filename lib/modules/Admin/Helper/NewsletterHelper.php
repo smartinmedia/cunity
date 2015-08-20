@@ -29,7 +29,7 @@ class NewsletterHelper
         $mailer = new Mail();
         $mailer->sendMail(
             nl2br(htmlentities($message)),
-            $subject,
+            htmlentities($subject),
             $userList);
     }
 }
