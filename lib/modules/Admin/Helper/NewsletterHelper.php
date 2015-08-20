@@ -28,7 +28,7 @@ class NewsletterHelper
 
         $mailer = new Mail();
         $mailer->sendMail(
-            $message,
+            utf8_encode(nl2br($message)),
             $subject,
             $userList);
     }
