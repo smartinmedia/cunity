@@ -26,12 +26,12 @@ class NewsletterHelper
             $userList = [$users->fetchRow('userid = '.Session::get('user')->userid)->toArray()];
         }
 
-        $mailer = new Mail();
 
         foreach ($userList as $user)
         {
             set_time_limit(30);
 
+            $mailer = new Mail();
             @$mailer->sendMail(
                 nl2br(htmlentities($message)),
                 utf8_decode($subject),
