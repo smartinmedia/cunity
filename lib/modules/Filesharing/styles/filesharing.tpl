@@ -1,6 +1,6 @@
 <div class="page-buttonbar clearfix">
     <h1 class="page-header pull-left">{-"Filesharing"|translate}</h1>
-    {-if ($numberOfOwnFiles < {-"filesharing.files_user"|setting}) }
+    {-if ($numberOfOwnFiles < {-"filesharing.files_user"|setting} or empty({-"filesharing.files_user"|setting})) }
     <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#newfiles_modal" id="newfiles"><i
                 class="fa fa-plus"></i>&nbsp;{-"New file"|translate}</button>
     <input type="text" class="form-control" placeholder="{-"Search"|translate}" id="fileSearch" />
