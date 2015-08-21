@@ -134,7 +134,7 @@ class Relationships extends Table
             /** @var Users $users */
             $users = Session::get('user')->getTable();
 
-            return $users->fetchAll('userid!='.Session::get('user')->userid)->toArray();
+            return $users->getSet([])->toArray();
         } elseif (!empty($friends)) {
             $friends = $this->getFriendList($status, $userid);
             $users = Session::get('user')->getTable();

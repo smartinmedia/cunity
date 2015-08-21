@@ -27,9 +27,15 @@ class NewsletterHelper
         }
 
         $mailer = new Mail();
-        $mailer->sendMail(
-            nl2br(htmlentities($message)),
-            utf8_decode($subject),
-            $userList);
+
+        foreach ($userList as $user)
+        {
+            set_time_limit(30);
+
+            @$mailer->sendMail(
+                nl2br(htmlentities($message)),
+                utf8_decode($subject),
+                $user);
+        }
     }
 }

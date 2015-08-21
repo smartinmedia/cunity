@@ -83,6 +83,7 @@ class Mail extends \Zend_Mail
                 $this->addCc($cc['email'], $cc['name']);
             }
         }
+
         $this->setSubject($subject);
         $this->send();
     }
