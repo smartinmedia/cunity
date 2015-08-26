@@ -71,11 +71,11 @@ class Register
             if ($user !== null) {
                 $tokendata = json_decode($user->password_token, true);
                 if (Post::get('token') == $tokendata['token']) {
-                    if (time() - $tokendata['time'] > 1800) {
-                        $this->errors['token'] = 'The given token has expired! Every token is only valid for 30 minutes';
+                    if (time() - $tokendata['time'] > 86400) {
+                        $this->errors['token'] = 'The given token has expired! Every token is only valid for 24 hours';
                     } else {
                         $validatePassword = new Password();
-                        if (!$validatePassword->passwordValid(Post::get('password'), Post::get('password-repeat'))) {
+                        if (!$validatePassword->passwordValid(Post::get('password'), Post::get('password_repeat'))) {
                             $this->errors['password'] = implode(',', $validatePassword->getMessages());
                             $this->errors['password_repeat'] = '';
                         } else {

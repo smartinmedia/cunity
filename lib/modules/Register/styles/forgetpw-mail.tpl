@@ -13,7 +13,7 @@
 
     <p><b>{-"Password-Token"|translate}: {-$password}</b></p>
 
-    <p><b>{-"Please note:"|translate}</b>&nbsp;{-"This token is expires in 30 minutes!"|translate}</p>
+    <p><b>{-"Please note:"|translate}</b>&nbsp;{-"This token is expires in 24 hours!"|translate}</p>
 
     <p><i>{-"Did not ordered a new password? Forget this mail!"|translate}</i></p>
 </td>
